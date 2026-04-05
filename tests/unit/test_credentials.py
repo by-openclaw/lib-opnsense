@@ -16,7 +16,7 @@ class TestEnvCredentialProvider:
     def test_reads_required_env_vars(self) -> None:
         """Provider reads OPN_HOST, OPN_KEY, OPN_SECRET from environment."""
         env = {
-            "OPN_HOST": "10.6.224.106",
+            "OPN_HOST": "opnsense.example.com",
             "OPN_KEY": "test-key",
             "OPN_SECRET": "test-secret",
         }
@@ -24,7 +24,7 @@ class TestEnvCredentialProvider:
             provider = EnvCredentialProvider(env_file=None)
             creds = provider.get()
 
-        assert creds.host == "10.6.224.106"
+        assert creds.host == "opnsense.example.com"
         assert creds.key == "test-key"
         assert creds.secret == "test-secret"
 

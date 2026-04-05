@@ -1,0 +1,119 @@
+@startuml lib-architecture
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Monospaced
+skinparam packageBorderColor #333333
+skinparam classBorderColor #333333
+skinparam arrowColor #333333
+title lib-opnsense — Architecture
+
+package "opnsense" {
+
+  class OpnsenseClient {
+    -_http: httpx.AsyncClient
+    -_base_url: str
+    -_timeout: float
+    -_async_timeout: float
+    -_max_retries: int
+    -_retry_backoff: float
+    --
+    +get(endpoint): dict
+    +post(endpoint, data): dict
+    +search(endpoint, phrase, count): list
+    +get_schema(endpoint): dict
+    +create(endpoint, key, params): str
+    +update(endpoint, uuid, key, params): dict
+    +delete(endpoint, uuid): dict
+    +reconfigure(endpoint): dict
+    +wait_for_ready(endpoint, timeout): dict
+    -_request(method, endpoint, data): dict
+  }
+
+  abstract class BaseManager {
+    #_client: OpnsenseClient
+    #_endpoint: str
+    #_payload_key: str
+    #_apply_endpoint: str | None
+    #_match_key: str
+    #REDACT_FIELDS: set[str]
+    --
+    +list(phrase): list
+    +get(uuid): dict
+    +get_schema(): dict
+    +ensure(state, params, check_mode): EnsureResult
+    -_find_existing(params): dict | None
+    -_compute_diff(current, desired): dict | None
+    -_redact(data): dict
+  }
+
+  class AuthUserManager {
+    _endpoint = "auth/user"
+    _payload_key = "user"
+    _match_key = "name"
+    REDACT_FIELDS = {password, otp_seed, ...}
+  }
+
+  class AuthGroupManager {
+    _endpoint = "auth/group"
+    _payload_key = "group"
+    _match_key = "name"
+  }
+
+  class AuthPrivManager {
+    -_client: OpnsenseClient
+    --
+    +list_privileges(): list
+    +get_assignment(priv_id): dict
+    +ensure(priv_id, target_type, target_name, state): EnsureResult
+  }
+
+  class EnsureResult <<frozen>> {
+    +changed: bool
+    +action: str
+    +uuid: str | None
+    +before: dict | None
+    +after: dict | None
+  }
+
+  package "Exceptions" {
+    class OpnsenseError
+    class OpnsenseAuthError
+    class OpnsensePermissionError
+    class OpnsenseEndpointMissingError
+    class OpnsenseValidationError
+    class OpnsenseServerError
+    class OpnsenseTimeoutError
+    class OpnsenseConnectionError
+  }
+
+  package "Credentials" {
+    class OpnsenseCredentials <<dataclass>>
+    class EnvCredentialProvider
+    class VaultCredentialProvider
+  }
+}
+
+package "OPNsense 25.x" <<Cloud>> {
+  [REST API] as API
+}
+
+OpnsenseClient --> API : HTTPS\n(httpx async)
+BaseManager --> OpnsenseClient : uses
+AuthUserManager --|> BaseManager
+AuthGroupManager --|> BaseManager
+AuthPrivManager --> OpnsenseClient : uses
+BaseManager ..> EnsureResult : returns
+AuthPrivManager ..> EnsureResult : returns
+OpnsenseClient ..> OpnsenseError : raises
+EnvCredentialProvider ..> OpnsenseCredentials : creates
+VaultCredentialProvider ..> OpnsenseCredentials : creates
+
+OpnsenseAuthError --|> OpnsenseError
+OpnsensePermissionError --|> OpnsenseError
+OpnsenseEndpointMissingError --|> OpnsenseError
+OpnsenseValidationError --|> OpnsenseError
+OpnsenseServerError --|> OpnsenseError
+OpnsenseTimeoutError --|> OpnsenseError
+OpnsenseConnectionError --|> OpnsenseError
+
+@enduml

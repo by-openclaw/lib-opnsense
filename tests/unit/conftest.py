@@ -11,5 +11,5 @@ from opnsense.client import OpnsenseClient
 def mock_client() -> AsyncMock:
     """Create a mocked OpnsenseClient for unit tests."""
     client = AsyncMock(spec=OpnsenseClient)
-    client._base_url = "https://10.6.224.106"
+    client._base_url = "https://opnsense.example.com"
     return client

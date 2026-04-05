@@ -1,0 +1,59 @@
+@startuml ensure-flow
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Monospaced
+title ensure() — Idempotent Lifecycle Flow
+
+start
+
+:caller invokes\nmanager.ensure(state, params, check_mode);
+
+:SEARCH existing\nby match_key (name, description, ...);
+
+if (state == "absent"?) then (yes)
+  if (existing found?) then (yes)
+    if (check_mode?) then (yes)
+      :return EnsureResult\n(changed=True, action="deleted")\n**no API call**;
+      stop
+    else (no)
+      :DELETE /api/.../del_{entity}/{uuid};
+      :APPLY /api/.../reconfigure\n(if _apply_endpoint set);
+      :return EnsureResult\n(changed=True, action="deleted");
+      stop
+    endif
+  else (no)
+    :return EnsureResult\n(changed=False, action="noop");
+    stop
+  endif
+else (state == "present")
+  if (existing found?) then (no)
+    if (check_mode?) then (yes)
+      :return EnsureResult\n(changed=True, action="created")\n**no API call**;
+      stop
+    else (no)
+      :CREATE /api/.../add_{entity}\nwith payload_key wrapping;
+      :APPLY /api/.../reconfigure;
+      :return EnsureResult\n(changed=True, action="created", uuid);
+      stop
+    endif
+  else (yes)
+    :GET current state\n/api/.../get_{entity}/{uuid};
+    :DIFF current vs desired;
+    if (diff found?) then (no)
+      :return EnsureResult\n(changed=False, action="noop");
+      stop
+    else (yes)
+      if (check_mode?) then (yes)
+        :return EnsureResult\n(changed=True, action="updated")\n**no API call**;
+        stop
+      else (no)
+        :UPDATE /api/.../set_{entity}/{uuid};
+        :APPLY /api/.../reconfigure;
+        :return EnsureResult\n(changed=True, action="updated");
+        stop
+      endif
+    endif
+  endif
+endif
+
+@enduml

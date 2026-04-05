@@ -66,7 +66,7 @@ Before writing, editing, or reviewing any file in this repo, read:
 
 ## Test Device
 
-**OPNsense 25.1.12** at `10.6.224.106` (port 443).
+**OPNsense 25.1.12** at `opnsense.example.com` (port 443).
 
 ### `svc-rune` -- API executor
 - API key stored in `.env` (gitignored)

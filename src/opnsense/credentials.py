@@ -1,4 +1,4 @@
-# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
 # SPDX-License-Identifier: MIT
 # Repo: https://github.com/by-openclaw/lib-opnsense
 # ADR: 0029 (Python Library Design Standard), 0011 (Secret Storage Convention)

@@ -21,5 +21,5 @@ None yet.
 
 | ID | Description | Owner | Status |
 |----|-------------|-------|--------|
-| D-001 | OPNsense 25.1.12 test device at 10.6.224.106 | infra | Active |
+| D-001 | OPNsense 25.1.12 test device at opnsense.example.com | infra | Active |
 | D-002 | ADR-0029 approval (doc-platform-core PR #5) | yboujraf | Pending |

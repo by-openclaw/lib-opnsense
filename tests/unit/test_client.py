@@ -69,8 +69,8 @@ class TestBaseUrl:
     """Tests for the base_url property."""
 
     def test_default_port(self) -> None:
-        client = OpnsenseClient(host="10.6.224.106", key="k", secret="s")
-        assert client.base_url == "https://10.6.224.106:443/api"
+        client = OpnsenseClient(host="opnsense.example.com", key="k", secret="s")
+        assert client.base_url == "https://opnsense.example.com:443/api"
 
     def test_custom_port(self) -> None:
         client = OpnsenseClient(host="fw.local", key="k", secret="s", port=8443)

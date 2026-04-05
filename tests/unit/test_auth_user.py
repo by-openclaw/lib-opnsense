@@ -22,7 +22,7 @@ class TestEnsurePresent:
         mgr = AuthUserManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"name": "svc-test", "email": "test@by-systems.be"},
+            params={"name": "svc-test", "email": "test@example.com"},
         )
 
         assert result.changed is True
@@ -33,13 +33,13 @@ class TestEnsurePresent:
     async def test_noop_when_already_exists_no_drift(self, mock_client: AsyncMock) -> None:
         """ensure present when user exists with matching params -> noop."""
         mock_client.search.return_value = [
-            {"uuid": "uuid-existing", "name": "svc-test", "email": "test@by-systems.be"},
+            {"uuid": "uuid-existing", "name": "svc-test", "email": "test@example.com"},
         ]
 
         mgr = AuthUserManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"name": "svc-test", "email": "test@by-systems.be"},
+            params={"name": "svc-test", "email": "test@example.com"},
         )
 
         assert result.changed is False
@@ -61,7 +61,7 @@ class TestEnsurePresent:
         mgr = AuthUserManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"name": "svc-test", "email": "new@by-systems.be"},
+            params={"name": "svc-test", "email": "new@example.com"},
         )
 
         assert result.changed is True

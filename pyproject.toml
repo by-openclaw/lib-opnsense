@@ -9,7 +9,7 @@ description = "Async Python library for OPNsense REST API"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
-authors = [{name = "BY-SYSTEMS", email = "engineering@by-systems.be"}]
+authors = [{name = "Boujraf Youssef", email = "yboujraf@example.com"}]
 dependencies = ["httpx>=0.27"]
 
 [project.optional-dependencies]
