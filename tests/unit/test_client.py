@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
 import pytest
@@ -10,10 +10,12 @@ import pytest
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import (
     OpnsenseAuthError,
+    OpnsenseConnectionError,
     OpnsenseEndpointMissingError,
     OpnsenseError,
     OpnsensePermissionError,
     OpnsenseServerError,
+    OpnsenseTimeoutError,
     OpnsenseValidationError,
 )
 
@@ -300,3 +302,252 @@ class TestValidationOnSuccess:
         with pytest.raises(OpnsenseValidationError) as exc_info:
             await client.post("auth/user/addUser", data={"user": {}})
         assert "user.name" in exc_info.value.validations
+
+
+@pytest.mark.asyncio
+class TestAsyncContextManager:
+    async def test_aenter_returns_client(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+        with patch.object(client, "_ensure_http", new_callable=AsyncMock):
+            result = await client.__aenter__()
+        assert result is client
+
+    async def test_aexit_closes_http(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        await client.__aexit__(None, None, None)
+        mock_http.aclose.assert_awaited_once()
+        assert client._http is None
+
+
+@pytest.mark.asyncio
+class TestGetMethod:
+    async def test_get_calls_request_with_get(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"user": {"name": "alice"}}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        result = await client.get("auth/user/getUser/uuid-1")
+        assert result == {"user": {"name": "alice"}}
+
+
+@pytest.mark.asyncio
+class TestPostMethod:
+    async def test_post_calls_request_with_post(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+
+        async def mock_post(url: str, json: dict | None = None, **kwargs) -> MagicMock:  # type: ignore[override]
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"result": "saved"}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.post = mock_post
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        result = await client.post("auth/user/addUser", data={"user": {"name": "test"}})
+        assert result == {"result": "saved"}
+
+
+@pytest.mark.asyncio
+class TestDeleteMethod:
+    async def test_delete_calls_correct_endpoint(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+        called_urls: list[str] = []
+
+        async def mock_post(url: str, json: dict | None = None, **kwargs) -> MagicMock:  # type: ignore[override]
+            called_urls.append(url)
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"result": "deleted"}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.post = mock_post
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        result = await client.delete("auth/user/delUser", "uuid-123")
+        assert result == {"result": "deleted"}
+        assert "/auth/user/delUser/uuid-123" in called_urls[0]
+
+
+@pytest.mark.asyncio
+class TestUpdateMethod:
+    async def test_update_wraps_payload_key(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+        posted_data: list[dict] = []
+
+        async def mock_post(url: str, json: dict | None = None, **kwargs) -> MagicMock:  # type: ignore[override]
+            posted_data.append(json or {})
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"result": "saved"}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.post = mock_post
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        await client.update("auth/user/setUser", "uuid-1", "user", {"name": "updated"})
+        assert posted_data[0] == {"user": {"name": "updated"}}
+
+
+@pytest.mark.asyncio
+class TestReconfigureMethod:
+    async def test_reconfigure_calls_post(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+
+        async def mock_post(url: str, json: dict | None = None, **kwargs) -> MagicMock:  # type: ignore[override]
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"status": "ok"}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.post = mock_post
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        result = await client.reconfigure("unbound/service/reconfigure")
+        assert result == {"status": "ok"}
+
+
+@pytest.mark.asyncio
+class TestWaitForReady:
+    async def test_returns_when_status_running(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"status": "running"}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        result = await client.wait_for_ready("core/firmware/status", timeout=10, interval=0.01)
+        assert result["status"] == "running"
+
+    async def test_raises_timeout_when_deadline_exceeded(self) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"status": "pending"}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        with pytest.raises(OpnsenseTimeoutError, match="not ready"):
+            await client.wait_for_ready("core/firmware/status", timeout=0.05, interval=0.01)
+
+
+@pytest.mark.asyncio
+class TestRequestRetryOnConnectionError:
+    async def test_retries_on_connect_error(self) -> None:
+        client = OpnsenseClient(
+            host="fw.example.com", key="k", secret="s", max_retries=3, retry_backoff=0.01
+        )
+        call_count = 0
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            nonlocal call_count
+            call_count += 1
+            if call_count < 3:
+                raise httpx.ConnectError("connection refused")
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"ok": True}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        result = await client.get("test/endpoint")
+        assert result == {"ok": True}
+        assert call_count == 3
+
+    async def test_raises_connection_error_after_retries(self) -> None:
+        client = OpnsenseClient(
+            host="fw.example.com", key="k", secret="s", max_retries=2, retry_backoff=0.01
+        )
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            raise httpx.ConnectError("connection refused")
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        with pytest.raises(OpnsenseConnectionError):
+            await client.get("test/endpoint")
+
+
+@pytest.mark.asyncio
+class TestRequestRetryOnTimeout:
+    async def test_retries_on_timeout(self) -> None:
+        client = OpnsenseClient(
+            host="fw.example.com", key="k", secret="s", max_retries=3, retry_backoff=0.01
+        )
+        call_count = 0
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            nonlocal call_count
+            call_count += 1
+            if call_count < 3:
+                raise httpx.ReadTimeout("read timed out")
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = {"ok": True}
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        result = await client.get("test/endpoint")
+        assert result == {"ok": True}
+        assert call_count == 3
+
+    async def test_raises_timeout_error_after_retries(self) -> None:
+        client = OpnsenseClient(
+            host="fw.example.com", key="k", secret="s", max_retries=2, retry_backoff=0.01
+        )
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            raise httpx.ReadTimeout("read timed out")
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        with pytest.raises(OpnsenseTimeoutError):
+            await client.get("test/endpoint")
