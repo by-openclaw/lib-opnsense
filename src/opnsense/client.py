@@ -1,3 +1,6 @@
+# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
 """OPNsense REST API client — async/await with httpx.
 
 Provides low-level CRUD operations against the OPNsense API with:

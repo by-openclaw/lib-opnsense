@@ -115,17 +115,22 @@ These are confirmed behaviours from OPNsense 25.1.12. Source: `platform-setup/to
 
 ## Cross-repo References
 
-- ADR-0029: Async library standard (httpx, ensure pattern) -- `doc-platform-core/docs/adr/`
-- ADR-0030: OPNsense API automation standard -- `doc-platform-core/docs/adr/`
-- ADR-0031: Firewall policy-as-code -- `doc-platform-core/docs/adr/`
-- OPNsense API guide: `platform-setup/tools/opnsense/docs/api-developer-guide.md`
-- OPNsense API reference: `platform-setup/tools/opnsense/docs/`
-- Naming convention: `doc-platform-core/docs/adr/0010-naming-and-identity-convention.md`
+All paths are relative from sibling repo clones (e.g. `../doc-platform-core/`).
+
+| ADR / Doc | Repo | Relative path |
+|-----------|------|---------------|
+| ADR-0029: Python Library Design Standard | doc-platform-core | `../doc-platform-core/docs/adr/0029-python-library-design-standard.md` |
+| ADR-0030: Automation Naming Convention | doc-platform-core | `../doc-platform-core/docs/adr/0030-automation-naming-convention.md` |
+| ADR-0031: CI Token & Identity Standard | doc-platform-core | `../doc-platform-core/docs/adr/0031-ci-token-identity-standard.md` |
+| ADR-0010: Naming & Identity Convention | doc-platform-core | `../doc-platform-core/docs/adr/0010-naming-and-identity-convention.md` |
+| OPNsense API Developer Guide | platform-setup | `../platform-setup/tools/opnsense/docs/api-developer-guide.md` |
+| OPNsense API Schema Audit | platform-setup | `../platform-setup/tools/opnsense/docs/api-schema-audit.md` |
+| OPNsense API Route Catalog | platform-setup | `../platform-setup/tools/opnsense/docs/api-route-catalog.md` |
 
 ---
 
 ## Related
 
-- Platform charter: `doc-platform-core/docs/adr/0006-platform-charter.md`
-- RAID: `RAID.md` (this repo)
+- Platform charter: `../doc-platform-core/docs/adr/0006-platform-charter.md`
+- RAID: [`RAID.md`](RAID.md) (this repo)
 - GitHub Issues: <https://github.com/by-openclaw/lib-opnsense/issues>

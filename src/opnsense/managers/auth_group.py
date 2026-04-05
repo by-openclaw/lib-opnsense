@@ -1,3 +1,6 @@
+# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
 """OPNsense auth group manager — CRUD + ensure() for local groups.
 
 API domain: /api/auth/group

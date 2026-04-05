@@ -1,3 +1,6 @@
+# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
 """Base models shared across all OPNsense managers."""
 
 from __future__ import annotations

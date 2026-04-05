@@ -15,13 +15,13 @@ Before touching anything in this repo:
 
 Before writing, editing, or reviewing any file in this repo, read:
 
-### doc-platform-core repo:
-1. `/home/by-systems/.openclaw/workspace/repos/doc-platform-core/docs/standards/` -- all standards files
-2. `/home/by-systems/.openclaw/workspace/repos/doc-platform-core/docs/adr/` -- all Accepted ADRs
-3. The ADR template for your scope: `doc-platform-core/docs/templates/adr-template-lib.md`
+### doc-platform-core repo (sibling clone):
+1. `../doc-platform-core/docs/standards/` -- all standards files
+2. `../doc-platform-core/docs/adr/` -- all Accepted ADRs
+3. ADR template: `../doc-platform-core/docs/templates/adr-template-lib.md`
 
-### lib repos (lib-opnsense):
-1. `/home/by-systems/.openclaw/workspace/repos/lib-opnsense/docs/adr/` -- lib-scoped ADRs (when created)
+### lib repos (lib-opnsense, this repo):
+1. `docs/adr/` -- lib-scoped ADRs (when created)
 2. Platform standards are NOT binding on lib repos -- but lib CISO sections must reference them
 
 ### Rules:

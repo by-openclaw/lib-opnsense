@@ -1,3 +1,6 @@
+# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
 """OPNsense REST API client library.
 
 Async/await Python client for OPNsense firewall management.

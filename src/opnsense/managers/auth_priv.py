@@ -1,3 +1,6 @@
+# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
 """OPNsense auth privilege manager — privilege assignment operations.
 
 Privileges are NOT CRUD entities — they are assignment relationships

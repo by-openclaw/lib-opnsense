@@ -1,3 +1,6 @@
+# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
 """OPNsense — typed exception hierarchy.
 
 All exceptions carry optional ``status_code`` and ``endpoint`` attributes

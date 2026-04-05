@@ -1,3 +1,6 @@
+# Copyright (c) 2026 BY-SYSTEMS. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
 """Base manager — abstract class for OPNsense API domain managers.
 
 Provides the full CRUD + ensure() lifecycle with:
