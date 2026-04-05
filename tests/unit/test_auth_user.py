@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import logging
 from unittest.mock import AsyncMock
 
 import pytest
 
+from opnsense.exceptions import OpnsenseError, OpnsenseValidationError
 from opnsense.managers.auth_user import AuthUserManager
 
 
@@ -198,3 +200,92 @@ class TestInvalidState:
         mgr = AuthUserManager(mock_client)
         with pytest.raises(ValueError, match="Invalid state"):
             await mgr.ensure(state="running", params={"name": "test"})
+
+
+@pytest.mark.asyncio
+class TestErrorHandling:
+    """Tests for try/except/finally — errors are logged then re-raised."""
+
+    async def test_create_failure_logs_error_and_reraises(
+        self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """When create() fails, manager logs ERROR and re-raises."""
+        mock_client.search.return_value = []
+        mock_client.create.side_effect = OpnsenseValidationError(
+            message="name already exists", endpoint="auth/user/add"
+        )
+
+        mgr = AuthUserManager(mock_client)
+        with (
+            caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
+            pytest.raises(OpnsenseValidationError),
+        ):
+            await mgr.ensure(state="present", params={"name": "svc-test"})
+
+        assert any("create failed" in r.message for r in caplog.records)
+        assert any(r.levelname == "ERROR" for r in caplog.records)
+
+    async def test_update_failure_logs_error_and_reraises(
+        self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """When update() fails, manager logs ERROR and re-raises."""
+        mock_client.search.return_value = [
+            {"uuid": "uuid-1", "name": "svc-test", "email": "old@example.com"},
+        ]
+        mock_client.get.return_value = {
+            "user": {"uuid": "uuid-1", "name": "svc-test", "email": "old@example.com"},
+        }
+        mock_client.update.side_effect = OpnsenseError(message="server error", status_code=500)
+
+        mgr = AuthUserManager(mock_client)
+        with (
+            caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
+            pytest.raises(OpnsenseError),
+        ):
+            await mgr.ensure(
+                state="present",
+                params={"name": "svc-test", "email": "new@example.com"},
+            )
+
+        assert any("update failed" in r.message for r in caplog.records)
+        assert any(r.levelname == "ERROR" for r in caplog.records)
+
+    async def test_delete_failure_logs_error_and_reraises(
+        self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """When delete() fails, manager logs ERROR and re-raises."""
+        mock_client.search.return_value = [
+            {"uuid": "uuid-1", "name": "svc-test"},
+        ]
+        mock_client.get.return_value = {
+            "user": {"uuid": "uuid-1", "name": "svc-test"},
+        }
+        mock_client.delete.side_effect = OpnsenseError(message="server error", status_code=500)
+
+        mgr = AuthUserManager(mock_client)
+        with (
+            caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
+            pytest.raises(OpnsenseError),
+        ):
+            await mgr.ensure(state="absent", params={"name": "svc-test"})
+
+        assert any("delete failed" in r.message for r in caplog.records)
+        assert any(r.levelname == "ERROR" for r in caplog.records)
+
+    async def test_error_preserves_exception_type(self, mock_client: AsyncMock) -> None:
+        """Re-raised exception keeps its original type (not wrapped)."""
+        mock_client.search.return_value = []
+        mock_client.create.side_effect = OpnsenseValidationError(
+            message="bad input",
+            endpoint="auth/user/add",
+            validations={"user.name": "too short"},
+        )
+
+        mgr = AuthUserManager(mock_client)
+        with pytest.raises(OpnsenseValidationError) as exc_info:
+            await mgr.ensure(state="present", params={"name": "x"})
+
+        # Verify the specific exception attributes are preserved
+        assert exc_info.value.status_code == 400
+        assert exc_info.value.validations == {"user.name": "too short"}
+        assert exc_info.value.endpoint == "auth/user/add"

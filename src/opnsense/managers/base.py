@@ -13,11 +13,14 @@ Provides the full CRUD + ensure() lifecycle with:
 from __future__ import annotations
 
 import copy
+import logging
 from abc import ABC
 from typing import Any
 
 from opnsense.client import OpnsenseClient
 from opnsense.models.base import EnsureResult
+
+logger = logging.getLogger(__name__)
 
 
 class BaseManager(ABC):
@@ -31,12 +34,17 @@ class BaseManager(ABC):
 
     Subclasses may override:
         REDACT_FIELDS:   Set of field names to redact in results/logs
+        _entity_suffix:  Suffix appended to CRUD action names in endpoint URLs.
+                         Default: capitalized _payload_key (e.g. 'Item', 'Rule').
+                         Set to '' for controllers that use bare names
+                         (e.g. auth/user uses 'search' not 'searchUser').
     """
 
     _endpoint: str
     _payload_key: str
     _apply_endpoint: str | None
     _match_key: str
+    _entity_suffix: str | None = None  # None = auto from _payload_key
 
     REDACT_FIELDS: set[str] = set()
 
@@ -47,6 +55,22 @@ class BaseManager(ABC):
             client: An :class:`OpnsenseClient` instance (may be used as context manager).
         """
         self._client = client
+
+    # ------------------------------------------------------------------
+    # Endpoint helpers
+    # ------------------------------------------------------------------
+
+    @property
+    def _suffix(self) -> str:
+        """Resolve entity suffix for endpoint URLs.
+
+        Returns the _entity_suffix if explicitly set, otherwise capitalizes
+        _payload_key. Set _entity_suffix = '' for controllers using bare
+        action names (e.g. auth/user/search instead of auth/user/searchUser).
+        """
+        if self._entity_suffix is not None:
+            return self._entity_suffix
+        return self._payload_key.capitalize()
 
     # ------------------------------------------------------------------
     # Public CRUD methods
@@ -61,7 +85,7 @@ class BaseManager(ABC):
         Returns:
             List of resource dicts.
         """
-        endpoint = f"{self._endpoint}/search{self._payload_key.capitalize()}"
+        endpoint = f"{self._endpoint}/search{self._suffix}"
         return await self._client.search(endpoint, search_phrase=search_phrase)
 
     async def get(self, uuid: str) -> dict[str, Any]:
@@ -73,7 +97,7 @@ class BaseManager(ABC):
         Returns:
             Resource dict (the inner payload, unwrapped from payload_key).
         """
-        endpoint = f"{self._endpoint}/get{self._payload_key.capitalize()}/{uuid}"
+        endpoint = f"{self._endpoint}/get{self._suffix}/{uuid}"
         body = await self._client.get(endpoint)
         return body.get(self._payload_key, body)
 
@@ -83,7 +107,7 @@ class BaseManager(ABC):
         Returns:
             Schema dict showing available fields and defaults.
         """
-        endpoint = f"{self._endpoint}/get{self._payload_key.capitalize()}"
+        endpoint = f"{self._endpoint}/get{self._suffix}"
         body = await self._client.get(endpoint)
         return body.get(self._payload_key, body)
 
@@ -101,17 +125,58 @@ class BaseManager(ABC):
         Returns:
             EnsureResult with action='created'.
         """
+        match_val = params.get(self._match_key, "")
         if check_mode:
+            logger.info(
+                "create check_mode=True",
+                extra={
+                    "action": "created",
+                    "check_mode": True,
+                    "match_field": self._match_key,
+                    "match_value": match_val,
+                    "endpoint": self._endpoint,
+                },
+            )
             return EnsureResult(
                 changed=True,
                 action="created",
                 after=self._redact(params),
             )
 
-        endpoint = f"{self._endpoint}/add{self._payload_key.capitalize()}"
-        uuid = await self._client.create(endpoint, self._payload_key, params)
-        await self._apply()
+        endpoint = f"{self._endpoint}/add{self._suffix}"
+        try:
+            uuid = await self._client.create(endpoint, self._payload_key, params)
+            await self._apply()
+        except Exception as exc:
+            logger.error(
+                "create failed %s=%s: %s",
+                self._match_key,
+                match_val,
+                exc,
+                extra={
+                    "action": "create_failed",
+                    "match_field": self._match_key,
+                    "match_value": match_val,
+                    "endpoint": self._endpoint,
+                    "error": str(exc),
+                },
+            )
+            raise
 
+        logger.info(
+            "created %s=%s uuid=%s",
+            self._match_key,
+            match_val,
+            uuid,
+            extra={
+                "action": "created",
+                "changed": True,
+                "uuid": uuid,
+                "match_field": self._match_key,
+                "match_value": match_val,
+                "endpoint": self._endpoint,
+            },
+        )
         return EnsureResult(
             changed=True,
             action="created",
@@ -146,10 +211,31 @@ class BaseManager(ABC):
                 after=self._redact(params),
             )
 
-        endpoint = f"{self._endpoint}/set{self._payload_key.capitalize()}"
-        await self._client.update(endpoint, uuid, self._payload_key, params)
-        await self._apply()
+        endpoint = f"{self._endpoint}/set{self._suffix}"
+        try:
+            await self._client.update(endpoint, uuid, self._payload_key, params)
+            await self._apply()
+        except Exception as exc:
+            logger.error(
+                "update failed %s uuid=%s: %s",
+                self._endpoint,
+                uuid,
+                exc,
+                extra={
+                    "action": "update_failed",
+                    "uuid": uuid,
+                    "endpoint": self._endpoint,
+                    "error": str(exc),
+                },
+            )
+            raise
 
+        logger.info(
+            "updated %s uuid=%s",
+            self._endpoint,
+            uuid,
+            extra={"action": "updated", "changed": True, "uuid": uuid, "endpoint": self._endpoint},
+        )
         return EnsureResult(
             changed=True,
             action="updated",
@@ -182,10 +268,31 @@ class BaseManager(ABC):
                 before=self._redact(before),
             )
 
-        endpoint = f"{self._endpoint}/del{self._payload_key.capitalize()}"
-        await self._client.delete(endpoint, uuid)
-        await self._apply()
+        endpoint = f"{self._endpoint}/del{self._suffix}"
+        try:
+            await self._client.delete(endpoint, uuid)
+            await self._apply()
+        except Exception as exc:
+            logger.error(
+                "delete failed %s uuid=%s: %s",
+                self._endpoint,
+                uuid,
+                exc,
+                extra={
+                    "action": "delete_failed",
+                    "uuid": uuid,
+                    "endpoint": self._endpoint,
+                    "error": str(exc),
+                },
+            )
+            raise
 
+        logger.warning(
+            "deleted %s uuid=%s",
+            self._endpoint,
+            uuid,
+            extra={"action": "deleted", "changed": True, "uuid": uuid, "endpoint": self._endpoint},
+        )
         return EnsureResult(
             changed=True,
             action="deleted",
@@ -230,6 +337,18 @@ class BaseManager(ABC):
             diff = self._compute_diff(existing, params)
 
             if diff is None:
+                logger.debug(
+                    "noop %s=%s — state matches",
+                    self._match_key,
+                    params.get(self._match_key),
+                    extra={
+                        "action": "noop",
+                        "changed": False,
+                        "match_field": self._match_key,
+                        "match_value": params.get(self._match_key),
+                        "endpoint": self._endpoint,
+                    },
+                )
                 return EnsureResult(changed=False, action="noop", uuid=existing_uuid)
 
             return await self.update(existing_uuid, params, check_mode=check_mode)

@@ -90,7 +90,13 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 
 ## API gotchas (read before touching any manager code)
 
-These are confirmed behaviours from OPNsense 25.1.12. Source: `platform-setup/tools/opnsense/docs/api-developer-guide.md`.
+These are confirmed behaviours from OPNsense 26.1.5. Source: `platform-setup/tools/opnsense/docs/api-developer-guide.md`.
+
+> **Minimum version: OPNsense >= 26.1.** Versions before 26.1 are missing MVC
+> controllers for D-NAT (Port Forward), interface settings, and other core
+> features. These were migrated from legacy PHP across the 25.x → 26.1 cycle.
+> See `platform-setup/tools/opnsense/log/api-schema-probe/README.md` for the
+> full version compatibility matrix.
 
 - **POST bodies wrap in a payload key** -- the key varies per controller (e.g. `{"user": {...}}`, `{"group": {...}}`). Every manager sets `_payload_key` for this.
 - **Booleans are strings "1"/"0"** -- OPNsense API does not use native JSON booleans. Always send `"1"` or `"0"`.
@@ -100,6 +106,43 @@ These are confirmed behaviours from OPNsense 25.1.12. Source: `platform-setup/to
 - **Search endpoints return paginated results** -- `{"rows": [...], "rowCount": N, "total": N, "current": 1}`. The client `search()` method extracts `rows`.
 - **Create returns UUID** -- successful `add*` endpoints return `{"uuid": "..."}`.
 - **Validation errors on HTTP 200** -- some endpoints return `{"result": "failed", "validations": {...}}` with a 200 status code. The client detects this and raises `OpnsenseValidationError`.
+
+---
+
+## Error handling pattern
+
+All manager mutations (create, update, delete, priv assign) use:
+```python
+try:
+    result = await client.create(...)
+    await self._apply()
+except Exception as exc:
+    logger.error("create failed ...", extra={...})  # always logged
+    raise                                           # always re-raised
+```
+
+Consumers MUST use try/except/finally:
+```python
+try:
+    result = await mgr.ensure("present", params)
+except OpnsenseValidationError as exc:
+    logger.error("Validation: %s", exc.validations)
+except OpnsenseAuthError:
+    logger.critical("Auth failed — check API key")
+except OpnsenseError as exc:
+    logger.error("API error: %s", exc)
+finally:
+    # cleanup, close connections, report status
+    pass
+```
+
+## Logging
+
+- Uses **structlog** with colorized console + Loki JSON file output
+- Redaction: `REDACT_RULES` in `src/opnsense/logging.py` (partial reveal per field)
+- Severity: DEBUG=noop, INFO=create/update, WARNING=delete, ERROR=failure, CRITICAL=auth
+- Configure: `from opnsense.logging import configure_logging`
+- Log file path set by consumer (tests: `tests/integration/logs/inttest.log`)
 
 ---
 

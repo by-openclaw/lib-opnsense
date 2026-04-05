@@ -5,10 +5,12 @@
 
 from __future__ import annotations
 
+import logging
 from unittest.mock import AsyncMock
 
 import pytest
 
+from opnsense.exceptions import OpnsenseError
 from opnsense.managers.auth_priv import AuthPrivManager
 
 
@@ -64,7 +66,14 @@ class TestGetAssignment:
 @pytest.mark.asyncio
 class TestEnsurePresent:
     async def test_assigns_privilege_to_user(self, mock_client: AsyncMock) -> None:
-        mock_client.get.return_value = {"users": "alice", "groups": ""}
+        mock_client.get.return_value = {
+            "priv": {
+                "users": {
+                    "uuid-alice": {"selected": "1", "value": "alice"},
+                },
+                "groups": {},
+            }
+        }
         mock_client.post.return_value = {"result": "saved"}
         mgr = AuthPrivManager(mock_client)
 
@@ -79,10 +88,20 @@ class TestEnsurePresent:
         assert result.action == "created"
         mock_client.post.assert_awaited_once()
         call_args = mock_client.post.call_args
-        assert "bob" in call_args.kwargs.get("data", call_args[1].get("data", {}))["users"]
+        data = call_args.kwargs.get("data", call_args[1].get("data", {}))
+        # bob has no UUID in the assignment, so it's passed as-is
+        assert "bob" in data["priv"]["users"]
 
     async def test_noop_when_already_assigned(self, mock_client: AsyncMock) -> None:
-        mock_client.get.return_value = {"users": "alice,bob", "groups": ""}
+        mock_client.get.return_value = {
+            "priv": {
+                "users": {
+                    "uuid-alice": {"selected": "1", "value": "alice"},
+                    "uuid-bob": {"selected": "1", "value": "bob"},
+                },
+                "groups": {},
+            }
+        }
         mgr = AuthPrivManager(mock_client)
 
         result = await mgr.ensure(
@@ -97,7 +116,7 @@ class TestEnsurePresent:
         mock_client.post.assert_not_awaited()
 
     async def test_assigns_privilege_to_group(self, mock_client: AsyncMock) -> None:
-        mock_client.get.return_value = {"users": "", "groups": ""}
+        mock_client.get.return_value = {"priv": {"users": {}, "groups": {}}}
         mock_client.post.return_value = {"result": "saved"}
         mgr = AuthPrivManager(mock_client)
 
@@ -112,13 +131,21 @@ class TestEnsurePresent:
         assert result.action == "created"
         call_args = mock_client.post.call_args
         data = call_args.kwargs.get("data", call_args[1].get("data", {}))
-        assert "admins" in data["groups"]
+        assert "admins" in data["priv"]["groups"]
 
 
 @pytest.mark.asyncio
 class TestEnsureAbsent:
     async def test_unassigns_privilege_from_user(self, mock_client: AsyncMock) -> None:
-        mock_client.get.return_value = {"users": "alice,bob", "groups": ""}
+        mock_client.get.return_value = {
+            "priv": {
+                "users": {
+                    "uuid-alice": {"selected": "1", "value": "alice"},
+                    "uuid-bob": {"selected": "1", "value": "bob"},
+                },
+                "groups": {},
+            }
+        }
         mock_client.post.return_value = {"result": "saved"}
         mgr = AuthPrivManager(mock_client)
 
@@ -133,11 +160,16 @@ class TestEnsureAbsent:
         assert result.action == "deleted"
         call_args = mock_client.post.call_args
         data = call_args.kwargs.get("data", call_args[1].get("data", {}))
-        assert "bob" not in data["users"]
-        assert "alice" in data["users"]
+        assert "uuid-bob" not in data["priv"]["users"]
+        assert "uuid-alice" in data["priv"]["users"]
 
     async def test_noop_when_not_assigned(self, mock_client: AsyncMock) -> None:
-        mock_client.get.return_value = {"users": "alice", "groups": ""}
+        mock_client.get.return_value = {
+            "priv": {
+                "users": {"uuid-alice": {"selected": "1", "value": "alice"}},
+                "groups": {},
+            }
+        }
         mgr = AuthPrivManager(mock_client)
 
         result = await mgr.ensure(
@@ -155,7 +187,7 @@ class TestEnsureAbsent:
 @pytest.mark.asyncio
 class TestCheckMode:
     async def test_check_mode_present_no_api_call(self, mock_client: AsyncMock) -> None:
-        mock_client.get.return_value = {"users": "", "groups": ""}
+        mock_client.get.return_value = {"priv": {"users": {}, "groups": {}}}
         mgr = AuthPrivManager(mock_client)
 
         result = await mgr.ensure(
@@ -173,7 +205,12 @@ class TestCheckMode:
         mock_client.post.assert_not_awaited()
 
     async def test_check_mode_absent_no_api_call(self, mock_client: AsyncMock) -> None:
-        mock_client.get.return_value = {"users": "alice", "groups": ""}
+        mock_client.get.return_value = {
+            "priv": {
+                "users": {"uuid-alice": {"selected": "1", "value": "alice"}},
+                "groups": {},
+            }
+        }
         mgr = AuthPrivManager(mock_client)
 
         result = await mgr.ensure(
@@ -193,38 +230,42 @@ class TestExtractTargets:
     def test_dict_enum_format(self) -> None:
         mgr = AuthPrivManager(AsyncMock())
         assignment = {
-            "users": {
-                "uuid1": {"selected": "1", "value": "alice"},
-                "uuid2": {"selected": "0", "value": "bob"},
-                "uuid3": {"selected": 1, "value": "carol"},
+            "priv": {
+                "users": {
+                    "uuid1": {"selected": "1", "value": "alice"},
+                    "uuid2": {"selected": "0", "value": "bob"},
+                    "uuid3": {"selected": 1, "value": "carol"},
+                }
             }
         }
-        result = mgr._extract_targets(assignment, "user")
-        assert result == {"alice", "carol"}
+        name_to_uuid, assigned = mgr._extract_targets(assignment, "user")
+        assert assigned == {"alice", "carol"}
+        assert name_to_uuid["alice"] == "uuid1"
+        assert name_to_uuid["carol"] == "uuid3"
 
     def test_list_format(self) -> None:
         mgr = AuthPrivManager(AsyncMock())
-        assignment = {"users": ["alice", "bob"]}
-        result = mgr._extract_targets(assignment, "user")
-        assert result == {"alice", "bob"}
+        assignment = {"priv": {"users": ["alice", "bob"]}}
+        _, assigned = mgr._extract_targets(assignment, "user")
+        assert assigned == {"alice", "bob"}
 
     def test_empty_string(self) -> None:
         mgr = AuthPrivManager(AsyncMock())
-        assignment = {"users": ""}
-        result = mgr._extract_targets(assignment, "user")
-        assert result == set()
+        assignment = {"priv": {"users": ""}}
+        _, assigned = mgr._extract_targets(assignment, "user")
+        assert assigned == set()
 
     def test_csv_string(self) -> None:
         mgr = AuthPrivManager(AsyncMock())
-        assignment = {"users": "alice,bob"}
-        result = mgr._extract_targets(assignment, "user")
-        assert result == {"alice", "bob"}
+        assignment = {"priv": {"users": "alice,bob"}}
+        _, assigned = mgr._extract_targets(assignment, "user")
+        assert assigned == {"alice", "bob"}
 
     def test_missing_key(self) -> None:
         mgr = AuthPrivManager(AsyncMock())
-        assignment = {}
-        result = mgr._extract_targets(assignment, "user")
-        assert result == set()
+        assignment = {"priv": {}}
+        _, assigned = mgr._extract_targets(assignment, "user")
+        assert assigned == set()
 
 
 @pytest.mark.asyncio
@@ -247,3 +288,50 @@ class TestEnsureValidation:
                 target_name="alice",
                 state="invalid",
             )
+
+
+@pytest.mark.asyncio
+class TestPrivErrorHandling:
+    """Tests for try/except — privilege errors are logged then re-raised."""
+
+    async def test_assign_failure_logs_error_and_reraises(
+        self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """When set_item fails, manager logs ERROR and re-raises."""
+        mock_client.get.return_value = {
+            "priv": {
+                "users": {},
+                "groups": {"uuid-g1": {"selected": "0", "value": "admins"}},
+            }
+        }
+        mock_client.post.side_effect = OpnsenseError(message="server error", status_code=500)
+
+        mgr = AuthPrivManager(mock_client)
+        with (
+            caplog.at_level(logging.ERROR, logger="opnsense.managers.auth_priv"),
+            pytest.raises(OpnsenseError),
+        ):
+            await mgr.ensure(
+                priv_id="page-all",
+                target_type="group",
+                target_name="admins",
+                state="present",
+            )
+
+        assert any("privilege" in r.message and "failed" in r.message for r in caplog.records)
+        assert any(r.levelname == "ERROR" for r in caplog.records)
+
+    async def test_error_preserves_exception_type(self, mock_client: AsyncMock) -> None:
+        """Re-raised exception keeps its original type."""
+        mock_client.get.return_value = {"priv": {"users": {}, "groups": {}}}
+        mock_client.post.side_effect = OpnsenseError(message="timeout", status_code=None)
+
+        mgr = AuthPrivManager(mock_client)
+        with pytest.raises(OpnsenseError) as exc_info:
+            await mgr.ensure(
+                priv_id="page-all",
+                target_type="group",
+                target_name="admins",
+            )
+
+        assert exc_info.value.message == "timeout"
