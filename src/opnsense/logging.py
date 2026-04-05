@@ -121,24 +121,29 @@ def configure_logging(
     stdlib_root.setLevel(log_level)
     stdlib_root.handlers.clear()
 
-    # Console handler
+    # Console handler — always JSON (Loki-compatible on stderr too)
+    # colorize param adds a second human-readable handler when True
     console = logging.StreamHandler(sys.stderr)
     console.setLevel(log_level)
+    console.setFormatter(
+        structlog.stdlib.ProcessorFormatter(
+            processor=structlog.processors.JSONRenderer(),
+            foreign_pre_chain=shared_processors,
+        )
+    )
+    stdlib_root.addHandler(console)
+
+    # Optional colorized handler for local dev (stdout, not stderr)
     if colorize:
-        console.setFormatter(
+        color_console = logging.StreamHandler(sys.stdout)
+        color_console.setLevel(log_level)
+        color_console.setFormatter(
             structlog.stdlib.ProcessorFormatter(
                 processor=structlog.dev.ConsoleRenderer(colors=True),
                 foreign_pre_chain=shared_processors,
             )
         )
-    else:
-        console.setFormatter(
-            structlog.stdlib.ProcessorFormatter(
-                processor=structlog.processors.JSONRenderer(),
-                foreign_pre_chain=shared_processors,
-            )
-        )
-    stdlib_root.addHandler(console)
+        stdlib_root.addHandler(color_console)
 
     # File handler — always JSON for Loki
     if log_file:
