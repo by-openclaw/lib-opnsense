@@ -37,28 +37,28 @@
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list filter rules | `FwFilterManager` | `POST /api/firewall/filter/search_rule` | 25.1 | [ ] |
-| get filter rule | `FwFilterManager` | `GET /api/firewall/filter/get_rule/{uuid}` | 25.1 | [ ] |
-| ensure filter rule | `FwFilterManager` | (composite) | 25.1 | [ ] |
-| apply filter | `FwFilterManager` | `POST /api/firewall/filter/apply` | 25.1 | [ ] |
+| list filter rules | `FwFilterManager` | `POST /api/firewall/filter/search_rule` | 25.1 | [x] |
+| get filter rule | `FwFilterManager` | `GET /api/firewall/filter/get_rule/{uuid}` | 25.1 | [x] |
+| ensure filter rule | `FwFilterManager` | (composite) | 25.1 | [x] |
+| apply filter | `FwFilterManager` | `POST /api/firewall/filter/apply` | 25.1 | [x] |
 
 ### Firewall — NAT D-NAT / Port Forward (requires apply)
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list DNAT rules | `FwDnatManager` | `POST /api/firewall/d_nat/search_rule` | **26.1** | [ ] |
-| get DNAT rule | `FwDnatManager` | `GET /api/firewall/d_nat/get_rule/{uuid}` | **26.1** | [ ] |
-| ensure DNAT rule | `FwDnatManager` | (composite) | **26.1** | [ ] |
-| apply DNAT | `FwDnatManager` | `POST /api/firewall/d_nat/apply` | **26.1** | [ ] |
+| list DNAT rules | `FwDnatManager` | `POST /api/firewall/d_nat/search_rule` | **26.1** | [x] |
+| get DNAT rule | `FwDnatManager` | `GET /api/firewall/d_nat/get_rule/{uuid}` | **26.1** | [x] |
+| ensure DNAT rule | `FwDnatManager` | (composite) | **26.1** | [x] |
+| apply DNAT | `FwDnatManager` | `POST /api/firewall/d_nat/apply` | **26.1** | [x] |
 
 ### Firewall — NAT Source NAT (requires apply)
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list SNAT rules | `FwSnatManager` | `POST /api/firewall/source_nat/search_rule` | 25.1 | [ ] |
-| get SNAT rule | `FwSnatManager` | `GET /api/firewall/source_nat/get_rule/{uuid}` | 25.1 | [ ] |
-| ensure SNAT rule | `FwSnatManager` | (composite) | 25.1 | [ ] |
-| apply SNAT | `FwSnatManager` | `POST /api/firewall/source_nat/apply` | 25.1 | [ ] |
+| list SNAT rules | `FwSourceNatManager` | `POST /api/firewall/source_nat/search_rule` | 25.1 | [x] |
+| get SNAT rule | `FwSourceNatManager` | `GET /api/firewall/source_nat/get_rule/{uuid}` | 25.1 | [x] |
+| ensure SNAT rule | `FwSourceNatManager` | (composite) | 25.1 | [x] |
+| apply SNAT | `FwSourceNatManager` | `POST /api/firewall/source_nat/apply` | 25.1 | [x] |
 
 ### Firewall — NAT One-to-One (requires apply)
 
@@ -78,8 +78,8 @@
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list aliases | `FwAliasManager` | `POST /api/firewall/alias/search_item` | 25.1 | [ ] |
-| ensure alias | `FwAliasManager` | (composite) | 25.1 | [ ] |
+| list aliases | `FwAliasManager` | `POST /api/firewall/alias/search_item` | 25.1 | [x] |
+| ensure alias | `FwAliasManager` | (composite) | 25.1 | [x] |
 
 ### Firewall — Categories & Groups
 
