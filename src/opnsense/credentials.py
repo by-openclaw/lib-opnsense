@@ -107,6 +107,12 @@ class EnvCredentialProvider:
         assert key is not None  # noqa: S101
         assert secret is not None  # noqa: S101
 
+        # Strip scheme prefix — client.base_url adds https:// itself
+        if host.startswith("https://"):
+            host = host[len("https://") :]
+        elif host.startswith("http://"):
+            host = host[len("http://") :]
+
         return OpnsenseCredentials(
             host=host,
             key=key,

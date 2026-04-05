@@ -31,6 +31,7 @@ class AuthUserManager(BaseManager):
 
     _endpoint = "auth/user"
     _payload_key = "user"
+    _entity_suffix = ""  # auth/user uses bare names: search, get, add, set, del
     _apply_endpoint = None  # Auth changes apply immediately
     _match_key = "name"
 

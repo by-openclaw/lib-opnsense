@@ -12,10 +12,13 @@ API domain: /api/auth/priv
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 from opnsense.client import OpnsenseClient
 from opnsense.models.base import EnsureResult
+
+logger = logging.getLogger(__name__)
 
 
 class AuthPrivManager:
@@ -108,8 +111,8 @@ class AuthPrivManager:
 
         # Fetch current assignment to check idempotency
         assignment = await self.get_assignment(priv_id)
-        assigned_targets = self._extract_targets(assignment, target_type)
-        is_assigned = target_name in assigned_targets
+        name_to_uuid, assigned_names = self._extract_targets(assignment, target_type)
+        is_assigned = target_name in assigned_names
 
         if state == "present" and is_assigned:
             return EnsureResult(changed=False, action="noop")
@@ -130,20 +133,64 @@ class AuthPrivManager:
                 },
             )
 
-        # Apply the change
-        if state == "present":
-            assigned_targets.add(target_name)
-        else:
-            assigned_targets.discard(target_name)
+        # Build the selected UUID set from currently assigned targets
+        selected_uuids: set[str] = set()
+        for name in assigned_names:
+            uuid = name_to_uuid.get(name)
+            if uuid:
+                selected_uuids.add(uuid)
 
-        # POST the updated assignment
+        # Apply the change — resolve target_name to UUID
+        target_uuid = name_to_uuid.get(target_name, target_name)
+        if state == "present":
+            selected_uuids.add(target_uuid)
+        else:
+            selected_uuids.discard(target_uuid)
+
+        # POST the updated assignment — OPNsense expects UUIDs
         payload = {
-            "priv": priv_id,
-            f"{target_type}s": ",".join(sorted(assigned_targets)),
+            "priv": {
+                f"{target_type}s": ",".join(sorted(selected_uuids)),
+            },
         }
-        await self._client.post(f"auth/priv/set_item/{priv_id}", data=payload)
+        try:
+            await self._client.post(f"auth/priv/set_item/{priv_id}", data=payload)
+        except Exception as exc:
+            logger.error(
+                "privilege %s failed: %s %s=%s: %s",
+                "assign" if state == "present" else "unassign",
+                priv_id,
+                target_type,
+                target_name,
+                exc,
+                extra={
+                    "action": "priv_failed",
+                    "priv_id": priv_id,
+                    "target_type": target_type,
+                    "target_name": target_name,
+                    "error": str(exc),
+                },
+            )
+            raise
 
         action = "created" if state == "present" else "deleted"
+        log_level = logging.INFO if state == "present" else logging.WARNING
+        logger.log(
+            log_level,
+            "privilege %s: %s %s=%s",
+            action,
+            priv_id,
+            target_type,
+            target_name,
+            extra={
+                "action": action,
+                "changed": True,
+                "priv_id": priv_id,
+                "target_type": target_type,
+                "target_name": target_name,
+                "state": state,
+            },
+        )
         return EnsureResult(
             changed=True,
             action=action,
@@ -159,28 +206,39 @@ class AuthPrivManager:
         self,
         assignment: dict[str, Any],
         target_type: str,
-    ) -> set[str]:
+    ) -> tuple[dict[str, str], set[str]]:
         """Extract currently assigned user or group names from a privilege.
+
+        OPNsense 26.1 returns ``{uuid: {selected: "1", value: "name"}}`` for
+        both users and groups. The set_item endpoint expects UUIDs, so we
+        return both a name→uuid mapping and the set of assigned names.
 
         Args:
             assignment:  Privilege assignment dict from the API.
             target_type: 'user' or 'group'.
 
         Returns:
-            Set of target names currently assigned to this privilege.
+            Tuple of (name_to_uuid mapping, set of assigned names).
         """
+        # Navigate into the 'priv' wrapper if present (26.1 format)
+        data = assignment.get("priv", assignment)
         key = f"{target_type}s"
-        raw = assignment.get(key, "")
+        raw = data.get(key, "")
 
-        if isinstance(raw, list):
-            return set(raw)
+        name_to_uuid: dict[str, str] = {}
+        assigned: set[str] = set()
+
         if isinstance(raw, dict):
-            # OPNsense sometimes returns {uuid: {selected: "1", value: "name"}}
-            return {
-                str(v.get("value", v.get("name", k)))
-                for k, v in raw.items()
-                if isinstance(v, dict) and v.get("selected") in ("1", 1, True)
-            }
-        if isinstance(raw, str) and raw:
-            return set(raw.split(","))
-        return set()
+            # OPNsense 26.1: {uuid: {selected: 0/1, value: "name"}}
+            for uuid_key, v in raw.items():
+                if isinstance(v, dict):
+                    name = str(v.get("value", v.get("name", uuid_key)))
+                    name_to_uuid[name] = uuid_key
+                    if v.get("selected") in ("1", 1, True):
+                        assigned.add(name)
+        elif isinstance(raw, list):
+            assigned = set(raw)
+        elif isinstance(raw, str) and raw:
+            assigned = set(raw.split(","))
+
+        return name_to_uuid, assigned

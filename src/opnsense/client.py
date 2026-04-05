@@ -104,7 +104,6 @@ class OpnsenseClient:
                 auth=(self._key, self._secret),
                 verify=self._verify_ssl,
                 timeout=httpx.Timeout(self._timeout),
-                headers={"Content-Type": "application/json"},
             )
         return self._http
 
@@ -164,7 +163,11 @@ class OpnsenseClient:
                 if method.upper() == "GET":
                     response = await http.get(f"/{endpoint}")
                 else:
-                    response = await http.post(f"/{endpoint}", json=data or {})
+                    response = await http.post(
+                        f"/{endpoint}",
+                        json=data or {},
+                        headers={"Content-Type": "application/json"},
+                    )
 
                 # Non-retryable HTTP errors — raise immediately
                 if response.status_code in (400, 401, 403, 404):

@@ -31,6 +31,7 @@ class AuthGroupManager(BaseManager):
 
     _endpoint = "auth/group"
     _payload_key = "group"
+    _entity_suffix = ""  # auth/group uses bare names: search, get, add, set, del
     _apply_endpoint = None  # Auth changes apply immediately
     _match_key = "name"
 
