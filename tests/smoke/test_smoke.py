@@ -21,9 +21,9 @@ def test_client_can_be_instantiated() -> None:
 
 def test_manager_classes_importable() -> None:
     """All manager classes can be imported."""
-    from opnsense.managers.auth_user import AuthUserManager
     from opnsense.managers.auth_group import AuthGroupManager
     from opnsense.managers.auth_priv import AuthPrivManager
+    from opnsense.managers.auth_user import AuthUserManager
 
     assert AuthUserManager is not None
     assert AuthGroupManager is not None

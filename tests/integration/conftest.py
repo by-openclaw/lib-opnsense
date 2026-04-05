@@ -1,7 +1,5 @@
 """Integration test fixtures -- requires live OPNsense device."""
 
-import os
-
 import pytest
 
 from opnsense.client import OpnsenseClient

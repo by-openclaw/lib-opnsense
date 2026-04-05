@@ -13,6 +13,7 @@ Provides low-level CRUD operations against the OPNsense API with:
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import logging
 from typing import Any
 
@@ -172,12 +173,15 @@ class OpnsenseClient:
                 # Retryable server error
                 if response.status_code >= 500:
                     if attempt < self._max_retries:
-                        delay = self._retry_backoff ** attempt
+                        delay = self._retry_backoff**attempt
                         logger.warning(
-                            "OPNsense %s %s returned %d, retrying in %.1fs "
-                            "(attempt %d/%d)",
-                            method, endpoint, response.status_code,
-                            delay, attempt, self._max_retries,
+                            "OPNsense %s %s returned %d, retrying in %.1fs (attempt %d/%d)",
+                            method,
+                            endpoint,
+                            response.status_code,
+                            delay,
+                            attempt,
+                            self._max_retries,
                         )
                         await asyncio.sleep(delay)
                         continue
@@ -197,25 +201,31 @@ class OpnsenseClient:
 
                 return body
 
-            except (OpnsenseAuthError, OpnsensePermissionError,
-                    OpnsenseEndpointMissingError, OpnsenseValidationError):
+            except (
+                OpnsenseAuthError,
+                OpnsensePermissionError,
+                OpnsenseEndpointMissingError,
+                OpnsenseValidationError,
+            ):
                 raise  # Non-retryable — propagate immediately
 
             except httpx.TimeoutException as exc:
                 last_exc = exc
                 if attempt < self._max_retries:
-                    delay = self._retry_backoff ** attempt
+                    delay = self._retry_backoff**attempt
                     logger.warning(
-                        "OPNsense %s %s timed out, retrying in %.1fs "
-                        "(attempt %d/%d)",
-                        method, endpoint, delay, attempt, self._max_retries,
+                        "OPNsense %s %s timed out, retrying in %.1fs (attempt %d/%d)",
+                        method,
+                        endpoint,
+                        delay,
+                        attempt,
+                        self._max_retries,
                     )
                     await asyncio.sleep(delay)
                     continue
                 raise OpnsenseTimeoutError(
                     message=self._redact_secret(
-                        f"Request timed out after {self._timeout}s: "
-                        f"{method} {endpoint}"
+                        f"Request timed out after {self._timeout}s: {method} {endpoint}"
                     ),
                     endpoint=endpoint,
                 ) from exc
@@ -223,25 +233,25 @@ class OpnsenseClient:
             except httpx.ConnectError as exc:
                 last_exc = exc
                 if attempt < self._max_retries:
-                    delay = self._retry_backoff ** attempt
+                    delay = self._retry_backoff**attempt
                     logger.warning(
-                        "OPNsense %s %s connection error, retrying in %.1fs "
-                        "(attempt %d/%d)",
-                        method, endpoint, delay, attempt, self._max_retries,
+                        "OPNsense %s %s connection error, retrying in %.1fs (attempt %d/%d)",
+                        method,
+                        endpoint,
+                        delay,
+                        attempt,
+                        self._max_retries,
                     )
                     await asyncio.sleep(delay)
                     continue
                 raise OpnsenseConnectionError(
-                    message=self._redact_secret(
-                        f"Connection failed: {method} {endpoint}: {exc}"
-                    ),
+                    message=self._redact_secret(f"Connection failed: {method} {endpoint}: {exc}"),
                     endpoint=endpoint,
                 ) from exc
 
         # Should not reach here, but guard against it
         raise OpnsenseError(
-            message=f"Request failed after {self._max_retries} attempts: "
-                    f"{method} {endpoint}",
+            message=f"Request failed after {self._max_retries} attempts: {method} {endpoint}",
             endpoint=endpoint,
         ) from last_exc
 
@@ -270,24 +280,25 @@ class OpnsenseClient:
             detail = response.text[:200] if response.text else ""
 
         message = self._redact_secret(
-            f"HTTP {status} on {endpoint}"
-            + (f": {detail}" if detail else "")
+            f"HTTP {status} on {endpoint}" + (f": {detail}" if detail else "")
         )
 
         if exc_class is OpnsenseValidationError:
             validations: dict[str, str] = {}
-            try:
+            with contextlib.suppress(Exception):
                 validations = response.json().get("validations", {})
-            except Exception:
-                pass
             raise OpnsenseValidationError(
                 message=message,
                 endpoint=endpoint,
                 validations=validations,
             )
 
-        if exc_class in (OpnsenseAuthError, OpnsensePermissionError,
-                         OpnsenseEndpointMissingError, OpnsenseServerError):
+        if exc_class in (
+            OpnsenseAuthError,
+            OpnsensePermissionError,
+            OpnsenseEndpointMissingError,
+            OpnsenseServerError,
+        ):
             raise exc_class(message=message, endpoint=endpoint)
 
         raise OpnsenseError(
@@ -346,11 +357,14 @@ class OpnsenseClient:
         Returns:
             List of result dicts from the ``rows`` key.
         """
-        body = await self.post(endpoint, data={
-            "searchPhrase": search_phrase,
-            "rowCount": row_count,
-            "current": 1,
-        })
+        body = await self.post(
+            endpoint,
+            data={
+                "searchPhrase": search_phrase,
+                "rowCount": row_count,
+                "current": 1,
+            },
+        )
         return body.get("rows", [])
 
     async def get_schema(self, endpoint: str) -> dict[str, Any]:
@@ -479,17 +493,13 @@ class OpnsenseClient:
                 status = result.get("status", "")
                 if status in ("running", "done", "ok"):
                     return result
-            except (OpnsenseConnectionError, OpnsenseTimeoutError,
-                    OpnsenseServerError):
+            except (OpnsenseConnectionError, OpnsenseTimeoutError, OpnsenseServerError):
                 pass  # Transient — keep polling
 
             await asyncio.sleep(interval)
             elapsed += interval
 
         raise OpnsenseTimeoutError(
-            message=(
-                f"Service not ready after {effective_timeout}s "
-                f"polling {check_endpoint}"
-            ),
+            message=(f"Service not ready after {effective_timeout}s polling {check_endpoint}"),
             endpoint=check_endpoint,
         )

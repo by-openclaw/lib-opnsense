@@ -102,6 +102,11 @@ class EnvCredentialProvider:
         verify_raw = os.environ.get("OPN_VERIFY_SSL", "false").lower()
         verify_ssl = verify_raw in ("true", "1", "yes")
 
+        # After validation, these are guaranteed non-None
+        assert host is not None  # noqa: S101
+        assert key is not None  # noqa: S101
+        assert secret is not None  # noqa: S101
+
         return OpnsenseCredentials(
             host=host,
             key=key,
@@ -187,15 +192,11 @@ class VaultCredentialProvider:
                 mount_point=self._mount_point,
             )
         except Exception as exc:
-            raise RuntimeError(
-                f"Failed to read Vault path '{self._vault_path}': {exc}"
-            ) from exc
+            raise RuntimeError(f"Failed to read Vault path '{self._vault_path}': {exc}") from exc
 
         data = response.get("data", {}).get("data", {})
         if not data:
-            raise RuntimeError(
-                f"Vault path '{self._vault_path}' returned empty data."
-            )
+            raise RuntimeError(f"Vault path '{self._vault_path}' returned empty data.")
 
         host = data.get("host")
         key = data.get("key")

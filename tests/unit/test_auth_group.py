@@ -7,7 +7,6 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.managers.auth_group import AuthGroupManager
-from opnsense.models.base import EnsureResult
 
 
 @pytest.mark.asyncio
@@ -143,4 +142,4 @@ class TestRedactFields:
 
     async def test_no_redact_fields(self) -> None:
         """AuthGroupManager has no sensitive fields to redact."""
-        assert AuthGroupManager.REDACT_FIELDS == set()
+        assert set() == AuthGroupManager.REDACT_FIELDS

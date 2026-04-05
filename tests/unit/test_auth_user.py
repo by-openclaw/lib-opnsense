@@ -7,7 +7,6 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.managers.auth_user import AuthUserManager
-from opnsense.models.base import EnsureResult
 
 
 @pytest.mark.asyncio

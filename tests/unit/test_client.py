@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock
 
 import httpx
 import pytest
@@ -10,12 +10,10 @@ import pytest
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import (
     OpnsenseAuthError,
-    OpnsenseConnectionError,
     OpnsenseEndpointMissingError,
     OpnsenseError,
     OpnsensePermissionError,
     OpnsenseServerError,
-    OpnsenseTimeoutError,
     OpnsenseValidationError,
 )
 

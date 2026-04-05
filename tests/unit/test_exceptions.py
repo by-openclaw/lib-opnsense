@@ -126,9 +126,7 @@ class TestOpnsenseConnectionError:
         assert exc.status_code is None
 
     def test_message_and_endpoint(self) -> None:
-        exc = OpnsenseConnectionError(
-            message="Connection refused", endpoint="auth/user/search"
-        )
+        exc = OpnsenseConnectionError(message="Connection refused", endpoint="auth/user/search")
         assert exc.endpoint == "auth/user/search"
         assert "Connection refused" in str(exc)
 

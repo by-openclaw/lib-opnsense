@@ -217,9 +217,7 @@ class BaseManager(ABC):
             ValueError: If state is not 'present' or 'absent'.
         """
         if state not in ("present", "absent"):
-            raise ValueError(
-                f"Invalid state '{state}'. Use 'present' or 'absent'."
-            )
+            raise ValueError(f"Invalid state '{state}'. Use 'present' or 'absent'.")
 
         existing = await self._find_existing(params)
 

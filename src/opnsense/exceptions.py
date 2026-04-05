@@ -50,11 +50,7 @@ class OpnsenseError(Exception):
         """Format as 'message [status_code endpoint]' when context is available."""
         parts = [self.message]
         if self.status_code is not None or self.endpoint is not None:
-            ctx = " ".join(
-                str(v)
-                for v in [self.status_code, self.endpoint]
-                if v is not None
-            )
+            ctx = " ".join(str(v) for v in [self.status_code, self.endpoint] if v is not None)
             parts.append(f"[{ctx}]")
         return " ".join(parts)
 
@@ -137,9 +133,7 @@ class OpnsenseValidationError(OpnsenseError):
         """Include validation details when present."""
         base = super().__str__()
         if self.validations:
-            fields = "; ".join(
-                f"{k}: {v}" for k, v in self.validations.items()
-            )
+            fields = "; ".join(f"{k}: {v}" for k, v in self.validations.items())
             return f"{base} — {fields}"
         return base
 

@@ -102,13 +102,9 @@ class AuthPrivManager:
             ValueError: If state is not 'present' or 'absent'.
         """
         if target_type not in ("user", "group"):
-            raise ValueError(
-                f"Invalid target_type '{target_type}'. Use 'user' or 'group'."
-            )
+            raise ValueError(f"Invalid target_type '{target_type}'. Use 'user' or 'group'.")
         if state not in ("present", "absent"):
-            raise ValueError(
-                f"Invalid state '{state}'. Use 'present' or 'absent'."
-            )
+            raise ValueError(f"Invalid state '{state}'. Use 'present' or 'absent'.")
 
         # Fetch current assignment to check idempotency
         assignment = await self.get_assignment(priv_id)
@@ -181,7 +177,7 @@ class AuthPrivManager:
         if isinstance(raw, dict):
             # OPNsense sometimes returns {uuid: {selected: "1", value: "name"}}
             return {
-                v.get("value", v.get("name", k))
+                str(v.get("value", v.get("name", k)))
                 for k, v in raw.items()
                 if isinstance(v, dict) and v.get("selected") in ("1", 1, True)
             }

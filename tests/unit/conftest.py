@@ -1,6 +1,6 @@
 """Shared fixtures for unit tests."""
 
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 import pytest
 
