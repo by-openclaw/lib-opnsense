@@ -85,10 +85,10 @@
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list categories | `FwCategoryManager` | `POST /api/firewall/category/search_item` | 25.1 | [ ] |
-| ensure category | `FwCategoryManager` | (composite) | 25.1 | [ ] |
-| list groups | `FwGroupManager` | `POST /api/firewall/group/search_item` | 25.1 | [ ] |
-| ensure group | `FwGroupManager` | (composite) | 25.1 | [ ] |
+| list categories | `FwCategoryManager` | `POST /api/firewall/category/search_item` | 25.1 | [x] |
+| ensure category | `FwCategoryManager` | (composite) | 25.1 | [x] |
+| list groups | `FwGroupManager` | `POST /api/firewall/group/search_item` | 25.1 | [x] |
+| ensure group | `FwGroupManager` | (composite) | 25.1 | [x] |
 
 ### Unbound DNS (requires reconfigure)
 
@@ -156,8 +156,8 @@
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list pipes | `TsPipeManager` | `POST /api/trafficshaper/settings/search_pipes` | 25.1 | [ ] |
-| ensure pipe | `TsPipeManager` | (composite) | 25.1 | [ ] |
+| list pipes | `TsPipeManager` | `POST /api/trafficshaper/settings/search_pipes` | 25.1 | [x] |
+| ensure pipe | `TsPipeManager` | (composite) | 25.1 | [x] |
 
 ### Chrony NTP (requires os-chrony plugin)
 
