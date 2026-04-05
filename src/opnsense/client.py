@@ -177,7 +177,7 @@ class OpnsenseClient:
                 if response.status_code >= 500:
                     if attempt < self._max_retries:
                         delay = self._retry_backoff**attempt
-                        logger.warning(
+                        logger.error(
                             "OPNsense %s %s returned %d, retrying in %.1fs (attempt %d/%d)",
                             method,
                             endpoint,
@@ -216,7 +216,7 @@ class OpnsenseClient:
                 last_exc = exc
                 if attempt < self._max_retries:
                     delay = self._retry_backoff**attempt
-                    logger.warning(
+                    logger.error(
                         "OPNsense %s %s timed out, retrying in %.1fs (attempt %d/%d)",
                         method,
                         endpoint,
@@ -237,7 +237,7 @@ class OpnsenseClient:
                 last_exc = exc
                 if attempt < self._max_retries:
                     delay = self._retry_backoff**attempt
-                    logger.warning(
+                    logger.error(
                         "OPNsense %s %s connection error, retrying in %.1fs (attempt %d/%d)",
                         method,
                         endpoint,
