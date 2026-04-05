@@ -94,63 +94,65 @@
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list forwarders | `UbForwardManager` | `POST /api/unbound/settings/search_forward` | 25.1 | [ ] |
-| ensure forwarder | `UbForwardManager` | (composite) | 25.1 | [ ] |
-| list host overrides | `UbHostOverrideManager` | `POST /api/unbound/settings/search_host_override` | 25.1 | [ ] |
-| ensure host override | `UbHostOverrideManager` | (composite) | 25.1 | [ ] |
-| list ACLs | `UbAclManager` | `POST /api/unbound/settings/search_acl` | 25.1 | [ ] |
-| ensure ACL | `UbAclManager` | (composite) | 25.1 | [ ] |
+| list forwarders | `UbForwardManager` | `POST /api/unbound/settings/search_forward` | 25.1 | [x] |
+| ensure forwarder | `UbForwardManager` | (composite) | 25.1 | [x] |
+| list host overrides | `UbHostOverrideManager` | `POST /api/unbound/settings/search_host_override` | 25.1 | [x] |
+| ensure host override | `UbHostOverrideManager` | (composite) | 25.1 | [x] |
+| list ACLs | `UbAclManager` | `POST /api/unbound/settings/search_acl` | 25.1 | [x] |
+| ensure ACL | `UbAclManager` | (composite) | 25.1 | [x] |
 
 ### Kea DHCPv4 (requires reconfigure)
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list subnets | `KeaSubnetManager` | `POST /api/kea/dhcpv4/search_subnet` | 25.1 | [ ] |
-| ensure subnet | `KeaSubnetManager` | (composite) | 25.1 | [ ] |
-| list reservations | `KeaReservationManager` | `POST /api/kea/dhcpv4/search_reservation` | 25.1 | [ ] |
-| ensure reservation | `KeaReservationManager` | (composite) | 25.1 | [ ] |
+| list subnets | `KeaSubnetManager` | `POST /api/kea/dhcpv4/search_subnet` | 25.1 | [x] |
+| ensure subnet | `KeaSubnetManager` | (composite) | 25.1 | [x] |
+| list reservations | `KeaReservationManager` | `POST /api/kea/dhcpv4/search_reservation` | 25.1 | [x] |
+| ensure reservation | `KeaReservationManager` | (composite) | 25.1 | [x] |
 
 ### WireGuard (requires reconfigure)
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list servers | `WgServerManager` | `POST /api/wireguard/server/search_server` | 25.1 | [ ] |
-| ensure server | `WgServerManager` | (composite) | 25.1 | [ ] |
-| list clients | `WgClientManager` | `POST /api/wireguard/client/search_client` | 25.1 | [ ] |
-| ensure client | `WgClientManager` | (composite) | 25.1 | [ ] |
+| list servers | `WgServerManager` | `POST /api/wireguard/server/search_server` | 25.1 | [x] |
+| ensure server | `WgServerManager` | (composite) | 25.1 | [x] |
+| list clients | `WgClientManager` | `POST /api/wireguard/client/search_client` | 25.1 | [x] |
+| ensure client | `WgClientManager` | (composite) | 25.1 | [x] |
 
 ### IPsec (requires reconfigure)
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list connections | `IpsecConnManager` | `POST /api/ipsec/connections/search_connection` | 25.1 | [ ] |
-| ensure connection | `IpsecConnManager` | (composite) | 25.1 | [ ] |
-| list PSKs | `IpsecPskManager` | `POST /api/ipsec/pre_shared_keys/search_item` | 25.1 | [ ] |
-| ensure PSK | `IpsecPskManager` | (composite) | 25.1 | [ ] |
+| list connections | `IpsecConnManager` | `POST /api/ipsec/connections/search_connection` | 25.1 | [x] |
+| ensure connection | `IpsecConnManager` | (composite) | 25.1 | [x] |
+| list PSKs | `IpsecPskManager` | `POST /api/ipsec/pre_shared_keys/search_item` | 25.1 | [x] |
+| ensure PSK | `IpsecPskManager` | (composite) | 25.1 | [x] |
 
 ### Interfaces (requires reconfigure)
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list VLANs | `IfVlanManager` | `POST /api/interfaces/vlan_settings/search_item` | 25.1 | [ ] |
-| ensure VLAN | `IfVlanManager` | (composite) | 25.1 | [ ] |
+| list VLANs | `IfVlanManager` | `POST /api/interfaces/vlan_settings/search_item` | 25.1 | [x] |
+| ensure VLAN | `IfVlanManager` | (composite) | 25.1 | [x] |
+| list VIPs | `IfVipManager` | `POST /api/interfaces/vip_settings/search_item` | 25.1 | [x] |
+| ensure VIP | `IfVipManager` | (composite) | 25.1 | [x] |
 | get settings | — | `GET /api/interfaces/settings/get` | **26.1** | [ ] |
 
 ### Routes / Gateways (requires reconfigure)
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list routes | `RtRouteManager` | `POST /api/routes/routes/searchroute` | 25.1 | [ ] |
-| ensure route | `RtRouteManager` | (composite) | 25.1 | [ ] |
-| list gateways | `RtGatewayManager` | `POST /api/routing/settings/search_gateway` | 25.1 | [ ] |
-| ensure gateway | `RtGatewayManager` | (composite) | 25.1 | [ ] |
+| list routes | `RtRouteManager` | `POST /api/routes/routes/searchroute` | 25.1 | [x] |
+| ensure route | `RtRouteManager` | (composite) | 25.1 | [x] |
+| list gateways | `GwConfigManager` | `POST /api/routing/settings/search_gateway` | 25.1 | [x] |
+| ensure gateway | `GwConfigManager` | (composite) | 25.1 | [x] |
 
 ### IDS / Suricata
 
 | Method | Manager | Endpoint | Since | Status |
 |--------|---------|----------|-------|:------:|
-| list policies | `IdsPolicyManager` | `POST /api/ids/settings/search_policy` | 25.1 | [ ] |
-| ensure policy | `IdsPolicyManager` | (composite) | 25.1 | [ ] |
+| list policies | `IdsPolicyManager` | `POST /api/ids/settings/search_policy` | 25.1 | [x] |
+| ensure policy | `IdsPolicyManager` | (composite) | 25.1 | [x] |
 
 ### Traffic Shaper
 
