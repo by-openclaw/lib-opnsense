@@ -1,0 +1,30 @@
+{
+  "name": "lib-opnsense",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "remoteUser": "vscode",
+  "postCreateCommand": "python -m venv /home/vscode/.venv && /home/vscode/.venv/bin/pip install -e '.[container]'",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "ms-python.mypy-type-checker",
+        "eamodio.gitlens",
+        "Arjun.swagger-viewer"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
+        "python.testing.pytestArgs": ["tests/unit"],
+        "python.testing.pytestEnabled": true,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+          }
+        }
+      }
+    }
+  }
+}

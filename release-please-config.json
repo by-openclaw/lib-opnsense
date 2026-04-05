@@ -1,0 +1,11 @@
+{
+  "release-type": "python",
+  "packages": {
+    ".": {
+      "release-type": "python",
+      "extra-files": [
+        "src/opnsense/__init__.py"
+      ]
+    }
+  }
+}
