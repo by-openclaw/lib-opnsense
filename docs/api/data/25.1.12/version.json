@@ -1,0 +1,1 @@
+{"opnsense_version":"25.1.12","product":"OPNsense","arch":"amd64","host":"https://opnsense.example.com","probe_timestamp":"2026-04-04T22:52:27Z","probe_script":"probe-api-schemas.sh","note":"Retroactively created — original probe had no version tracking"}

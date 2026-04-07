@@ -1,0 +1,1 @@
+{"devices":[{"device":"\/dev\/gpt\/rootfs","type":"ufs","blocks":"19G","used":"2.6G","available":"15G","used_pct":15,"mountpoint":"\/"},{"device":"\/dev\/gpt\/efifs","type":"msdosfs","blocks":"260M","used":"1.3M","available":"259M","used_pct":1,"mountpoint":"\/boot\/efi"}]}

@@ -1,0 +1,1 @@
+{"rows":[{"uuid":"913998c4-db18-4aa3-ac10-60475368f64c","enabled":"1","type":"Forward","domain":"","server":"10.6.224.1","port":"","verify":"","forward_tcp_upstream":"0","forward_first":"0","description":"pfSense upstream DNS"}],"rowCount":1,"total":1,"current":1}
