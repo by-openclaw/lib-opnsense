@@ -1,0 +1,1 @@
+{"hostdiscovery":{"general":{"enabled":"1","promisc":"0","verbose":"0","skip_nets":{"":{"value":"","selected":1}},"interface":{"lan":{"value":"LAN","selected":0},"wan":{"value":"WAN","selected":0}}}}}

@@ -1,0 +1,1 @@
+{"dhcpv4":{"general":{"enabled":"0","manual_config":"0","interfaces":{"lan":{"value":"LAN","selected":0},"wan":{"value":"WAN","selected":0}},"valid_lifetime":"4000","fwrules":"1","dhcp_socket_type":{"udp":{"value":"udp","selected":0},"raw":{"value":"raw","selected":1}}},"ha":{"enabled":"0","this_server_name":"","max_unacked_clients":"2"},"this_hostname":"OPNsense"}}

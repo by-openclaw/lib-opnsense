@@ -1,0 +1,1 @@
+{"rows":[{"uuid":"enc0","ifname":"enc0","descr":"IPsec","members":"","sequence":"10"},{"uuid":"openvpn","ifname":"openvpn","descr":"All OpenVPN interfaces","members":"","sequence":"10"},{"uuid":"wireguard","ifname":"wireguard","descr":"WireGuard","members":"","sequence":"10"}],"rowCount":3,"total":3,"current":1}

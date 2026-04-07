@@ -1,0 +1,5 @@
+=== OPNsense API Schema Probe — 2026-04-04T20:49:43Z ===
+Host: https://10.6.224.106
+Output: /home/by-systems/.openclaw/workspace/repos/platform-setup/tools/opnsense/log/api-schema-probe
+
+GET  OK           /api/firewall/alias/get_item                            fw-alias

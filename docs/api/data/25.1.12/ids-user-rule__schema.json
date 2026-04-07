@@ -1,0 +1,1 @@
+{"rule":{"enabled":"1","source":"","destination":"","fingerprint":"","description":"","action":{"alert":{"value":"Alert","selected":1},"drop":{"value":"Drop","selected":0},"pass":{"value":"Pass","selected":0}},"bypass":"0"}}

@@ -1,0 +1,1 @@
+{"general":{"enabled":"0","port":"323","ntsclient":"0","ntsnocert":"0","peers":{"0.opnsense.pool.ntp.org":{"value":"0.opnsense.pool.ntp.org","selected":1}},"fallbackpeers":"","allowednetworks":{"":{"value":"","selected":1}}}}

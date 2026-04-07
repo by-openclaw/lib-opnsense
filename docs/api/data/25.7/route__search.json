@@ -1,0 +1,1 @@
+{"rows":[{"uuid":"b442ee8e-7cf7-4491-84d7-0e0c2efc25a9","network":"10.100.0.0\/24","gateway":"GW_vmbrWAN3","%gateway":"GW_vmbrWAN3 - 10.6.224.1","descr":"Rune VM subnet via Proxmox","disabled":"0"}],"rowCount":1,"total":1,"current":1}

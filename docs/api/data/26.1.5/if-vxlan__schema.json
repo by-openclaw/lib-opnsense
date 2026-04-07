@@ -1,0 +1,1 @@
+{"vxlan":{"deviceId":"1","vxlanid":"","vxlanlocal":"","vxlanlocalport":"","vxlanremote":"","vxlanremoteport":"","vxlangroup":"","vxlandev":{"":{"value":"None","selected":1},"lan":{"value":"LAN","selected":0},"wan":{"value":"WAN","selected":0}}}}
