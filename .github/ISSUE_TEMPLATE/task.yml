@@ -1,5 +1,5 @@
 name: Task
-description: Approved work item from NEEDS.md or sprint plan
+description: Approved work item from sprint plan
 labels: ["task"]
 body:
   - type: dropdown
@@ -12,26 +12,38 @@ body:
         - docs — documentation
         - chore — maintenance / refactor
         - security — hardening
-    validations:
-      required: true
-
-  - type: input
-    id: needs-ref
-    attributes:
-      label: NEEDS.md / sprint reference
-      description: Which item does this implement?
-      placeholder: "H11, M5, sprint-2026-04-02, etc."
+        - test — test only
     validations:
       required: true
 
   - type: dropdown
-    id: assigned
+    id: domain
     attributes:
-      label: Assigned to
+      label: Domain
+      description: Which OPNsense domain does this task belong to?
       options:
-        - "@by-rune"
-        - "@by-opus"
-        - "@yboujraf"
+        - auth — users, groups, privileges, API keys
+        - firewall — aliases, filter, NAT, categories, groups
+        - interfaces — VLANs, VIPs, assignments
+        - wireguard — WG instances and peers
+        - dns — Unbound forwarders, host overrides, ACLs
+        - dhcp — Kea subnets and reservations
+        - routing — gateways, static routes
+        - ipsec — IPsec connections, PSKs
+        - monitoring — Monit alerts, IDS policies
+        - shaper — traffic shaper pipes
+        - xml — config.xml transport (lib-opnsense-xml)
+        - infra — CI, devcontainer, registry, packaging
+        - cross-cutting — BaseManager, client, logging, credentials
+    validations:
+      required: true
+
+  - type: input
+    id: sprint-ref
+    attributes:
+      label: Sprint reference
+      description: Which sprint does this belong to?
+      placeholder: "sprint-0, sprint-1, etc."
     validations:
       required: true
 
@@ -51,7 +63,33 @@ body:
     id: scope
     attributes:
       label: Scope of work
-      description: What exactly needs to be done? Be specific.
+      description: |
+        What exactly needs to be done? Include:
+        - Manager name and endpoints
+        - Expected files (full paths)
+        - What's IN scope and what's OUT
+      placeholder: |
+        Manager: IfVlanManager
+        Endpoints: search_item, get_item, add_item, set_item, del_item, reconfigure
+        Files:
+          - src/opnsense/managers/if_vlan.py
+          - tests/unit/test_if_vlan.py
+          - tests/integration/test_interfaces_lifecycle.py
+        IN: VLAN CRUD + ensure + unit tests + integration tests
+        OUT: Ansible module (separate issue)
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety boundaries
+      description: |
+        What is safe to test on the live device?
+      placeholder: |
+        READ-ONLY: existing VLANs 310/320/330 (critical for network)
+        CRUD safe: VIPs with inttest- prefix
+        DISABLED only: NAT rules (apply crashes FW)
     validations:
       required: true
 
@@ -59,17 +97,27 @@ body:
     id: done
     attributes:
       label: Definition of Done
-      description: How do we know this is complete? Testable criteria.
+      description: |
+        How do we know this is complete? Testable criteria.
+      placeholder: |
+        - [ ] Manager code with all endpoints
+        - [ ] Unit tests: create, noop, update, delete, check_mode, get, schema, error handling (>=15 tests)
+        - [ ] Integration tests: list, schema, CRUD with safe values, cleanup
+        - [ ] Lint clean (ruff)
+        - [ ] Full unit test suite passes (no regression)
+        - [ ] api-coverage.md updated with staged status
     validations:
       required: true
 
   - type: textarea
     id: files
     attributes:
-      label: Files / repos affected
-      description: List the files or repos this task touches.
+      label: Files affected (full paths)
+      description: List every file this task will create or modify.
       placeholder: |
-        - platform-setup/tools/vault/docs/setup.md
-        - infra-terraform-proxmox/environments/poc/main.tf
+        - src/opnsense/managers/if_vlan.py (new)
+        - tests/unit/test_if_vlan.py (new)
+        - tests/integration/test_interfaces_lifecycle.py (new)
+        - docs/api-coverage.md (update)
     validations:
-      required: false
+      required: true
