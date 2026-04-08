@@ -25,7 +25,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 33 |
+| Managers done (integration tested) | 35 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -129,8 +129,8 @@
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
 | ts-pipe | `TsPipeManager` | `description, bandwidth, bandwidthMetric` | `trafficshaper/settings` Pipe | `INTEGRATION_TEST_PASSED` | Bandwidth pipes |
-| ts-queue | `TsQueueManager` | — | `trafficshaper/settings` Queue | `ABSENT` | |
-| ts-rule | `TsRuleManager` | — | `trafficshaper/settings` Rule | `ABSENT` | |
+| ts-queue | `TsQueueManager` | `description` | `trafficshaper/settings` Queue | `INTEGRATION_TEST_PASSED` | Requires parent pipe UUID in 'pipe' field. Plural search (searchQueues) |
+| ts-rule | `TsRuleManager` | `description, interface, proto` | `trafficshaper/settings` Rule | `INTEGRATION_TEST_PASSED` | Requires target pipe/queue UUID in 'target' field. Plural search (searchRules) |
 
 ## Syslog (requires reconfigure)
 
