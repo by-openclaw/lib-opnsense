@@ -23,6 +23,13 @@ class FwOneToOneRule:
         source_net:   Internal source network (required).
         external:     External (public) address.
         disabled:     Whether the rule is disabled ('0' or '1').
+        source_not:   Invert source match ('0' or '1').
+        destination_not: Invert destination match ('0' or '1').
+        destination_net: Destination network.
+        log:          Whether to log matches ('0' or '1').
+        type:         NAT type ('binat' or 'nat').
+        natreflection: NAT reflection ('', 'enable', 'disable').
+        categories:   Comma-separated category UUIDs.
         uuid:         Resource UUID assigned by OPNsense.
     """
 
@@ -32,4 +39,11 @@ class FwOneToOneRule:
     external: str = ""
     disabled: str = "0"
     sequence: str = ""
+    source_not: str = "0"
+    destination_not: str = "0"
+    destination_net: str = ""
+    log: str = "0"
+    type: str = "binat"
+    natreflection: str = ""
+    categories: str = ""
     uuid: str = ""

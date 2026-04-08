@@ -52,6 +52,13 @@ class FwOneToOneManager(BaseManager):
         external:     External IP address (optional)
         disabled:     Disable rule (optional, default='0')
         sequence:     Rule order priority, min 1 (optional)
+        source_not:   Invert source match (optional, default='0')
+        destination_not: Invert destination match (optional, default='0')
+        destination_net: Destination network (optional)
+        log:          Log matching packets (optional, default='0')
+        type:         NAT type — binat, nat (optional)
+        natreflection: NAT reflection — '', enable, disable (optional)
+        categories:   Comma-separated category UUIDs (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -76,6 +83,13 @@ class FwOneToOneManager(BaseManager):
         "external": {"type": "str"},
         "disabled": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
+        "source_not": {"type": "bool_str"},
+        "destination_not": {"type": "bool_str"},
+        "destination_net": {"type": "str"},
+        "log": {"type": "bool_str"},
+        "type": {"type": "enum", "values": ["binat", "nat"]},
+        "natreflection": {"type": "enum", "values": ["", "enable", "disable"]},
+        "categories": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:
