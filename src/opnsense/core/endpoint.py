@@ -25,7 +25,10 @@ Usage::
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -71,26 +74,74 @@ class EndpointResolver:
 
     def search(self) -> str:
         """Search endpoint: ``{base}/search{Suffix}``."""
-        return f"{self._config.base}/search{self._config.suffix}"
+        try:
+            return f"{self._config.base}/search{self._config.suffix}"
+        except Exception as exc:
+            logger.error(
+                "search endpoint resolution failed: %s",
+                exc,
+                extra={"action": "endpoint_failed", "error": str(exc)},
+            )
+            raise
 
     def get(self, uuid: str = "") -> str:
         """Get endpoint: ``{base}/get{Suffix}/{uuid}`` or schema if no uuid."""
-        if uuid:
-            return f"{self._config.base}/get{self._config.suffix}/{uuid}"
-        return f"{self._config.base}/get{self._config.suffix}"
+        try:
+            if uuid:
+                return f"{self._config.base}/get{self._config.suffix}/{uuid}"
+            return f"{self._config.base}/get{self._config.suffix}"
+        except Exception as exc:
+            logger.error(
+                "get endpoint resolution failed: %s",
+                exc,
+                extra={"action": "endpoint_failed", "error": str(exc)},
+            )
+            raise
 
     def add(self) -> str:
         """Add endpoint: ``{base}/add{Suffix}``."""
-        return f"{self._config.base}/add{self._config.suffix}"
+        try:
+            return f"{self._config.base}/add{self._config.suffix}"
+        except Exception as exc:
+            logger.error(
+                "add endpoint resolution failed: %s",
+                exc,
+                extra={"action": "endpoint_failed", "error": str(exc)},
+            )
+            raise
 
     def set(self) -> str:
         """Set endpoint: ``{base}/set{Suffix}``."""
-        return f"{self._config.base}/set{self._config.suffix}"
+        try:
+            return f"{self._config.base}/set{self._config.suffix}"
+        except Exception as exc:
+            logger.error(
+                "set endpoint resolution failed: %s",
+                exc,
+                extra={"action": "endpoint_failed", "error": str(exc)},
+            )
+            raise
 
     def delete(self) -> str:
         """Delete endpoint: ``{base}/del{Suffix}``."""
-        return f"{self._config.base}/del{self._config.suffix}"
+        try:
+            return f"{self._config.base}/del{self._config.suffix}"
+        except Exception as exc:
+            logger.error(
+                "delete endpoint resolution failed: %s",
+                exc,
+                extra={"action": "endpoint_failed", "error": str(exc)},
+            )
+            raise
 
     def apply(self) -> str | None:
         """Apply/reconfigure endpoint, or None if changes are immediate."""
-        return self._config.apply_endpoint
+        try:
+            return self._config.apply_endpoint
+        except Exception as exc:
+            logger.error(
+                "apply endpoint resolution failed: %s",
+                exc,
+                extra={"action": "endpoint_failed", "error": str(exc)},
+            )
+            raise

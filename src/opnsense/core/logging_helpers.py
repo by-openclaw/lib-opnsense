@@ -32,8 +32,11 @@ Usage::
 
 from __future__ import annotations
 
+import logging
 import time
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 # Severity mapping per action
 ACTION_SEVERITY: dict[str, str] = {
@@ -70,7 +73,15 @@ class ManagerLogBuilder:
 
     def duration_ms(self) -> float:
         """Calculate elapsed time in milliseconds since construction."""
-        return round((time.monotonic() - self._t0) * 1000, 1)
+        try:
+            return round((time.monotonic() - self._t0) * 1000, 1)
+        except Exception as exc:
+            logger.error(
+                "duration_ms failed: %s",
+                exc,
+                extra={"action": "duration_ms_failed", "error": str(exc)},
+            )
+            raise
 
     @staticmethod
     def severity(action: str) -> str:
@@ -82,7 +93,16 @@ class ManagerLogBuilder:
         Returns:
             Log level string: 'debug', 'info', 'warning', or 'error'.
         """
-        return ACTION_SEVERITY.get(action, "info")
+        try:
+            return ACTION_SEVERITY.get(action, "info")
+        except Exception as exc:
+            logger.error(
+                "severity mapping failed for action=%s: %s",
+                action,
+                exc,
+                extra={"action": "severity_failed", "error": str(exc)},
+            )
+            raise
 
     def build_extra(
         self,
@@ -113,22 +133,31 @@ class ManagerLogBuilder:
         Returns:
             Dict suitable for passing as ``extra=`` to stdlib logger.
         """
-        extra: dict[str, Any] = {"action": action}
+        try:
+            extra: dict[str, Any] = {"action": action}
 
-        if check_mode is not None:
-            extra["check_mode"] = check_mode
-        if changed is not None:
-            extra["changed"] = changed
-        if uuid is not None:
-            extra["uuid"] = uuid
-        if match_fields is not None:
-            extra.update(match_fields)
-        if before is not None:
-            extra["before"] = before
-        if after is not None:
-            extra["after"] = after
-        if error is not None:
-            extra["error"] = error
+            if check_mode is not None:
+                extra["check_mode"] = check_mode
+            if changed is not None:
+                extra["changed"] = changed
+            if uuid is not None:
+                extra["uuid"] = uuid
+            if match_fields is not None:
+                extra.update(match_fields)
+            if before is not None:
+                extra["before"] = before
+            if after is not None:
+                extra["after"] = after
+            if error is not None:
+                extra["error"] = error
 
-        extra["duration_ms"] = self.duration_ms()
-        return extra
+            extra["duration_ms"] = self.duration_ms()
+            return extra
+        except Exception as exc:
+            logger.error(
+                "build_extra failed for action=%s: %s",
+                action,
+                exc,
+                extra={"action": "build_extra_failed", "error": str(exc)},
+            )
+            raise

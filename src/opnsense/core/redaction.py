@@ -25,7 +25,10 @@ Usage::
 from __future__ import annotations
 
 import copy
+import logging
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 # Default redaction rules matching OPNsense field sensitivity
 DEFAULT_RULES: dict[str, tuple[int, int, str]] = {
@@ -70,33 +73,42 @@ class Redactor:
         Returns:
             The original value if no rule matches, otherwise redacted string.
         """
-        key_lower = key.lower()
-        matched_rule: tuple[int, int, str] | None = None
-        matched_len = 0
-        for pattern, rule in self._rules.items():
-            if pattern in key_lower and len(pattern) > matched_len:
-                matched_rule = rule
-                matched_len = len(pattern)
+        try:
+            key_lower = key.lower()
+            matched_rule: tuple[int, int, str] | None = None
+            matched_len = 0
+            for pattern, rule in self._rules.items():
+                if pattern in key_lower and len(pattern) > matched_len:
+                    matched_rule = rule
+                    matched_len = len(pattern)
 
-        if matched_rule is None:
-            return value
+            if matched_rule is None:
+                return value
 
-        if not isinstance(value, str) or not value:
-            return f"<REDACTED:{key}>"
+            if not isinstance(value, str) or not value:
+                return f"<REDACTED:{key}>"
 
-        reveal_start, reveal_end, mask_char = matched_rule
+            reveal_start, reveal_end, mask_char = matched_rule
 
-        if reveal_start == 0 and reveal_end == 0:
-            return f"<REDACTED:{key}>"
+            if reveal_start == 0 and reveal_end == 0:
+                return f"<REDACTED:{key}>"
 
-        val_len = len(value)
-        if val_len <= reveal_start + reveal_end:
-            return f"<REDACTED:{key}>"
+            val_len = len(value)
+            if val_len <= reveal_start + reveal_end:
+                return f"<REDACTED:{key}>"
 
-        prefix = value[:reveal_start] if reveal_start > 0 else ""
-        suffix = value[-reveal_end:] if reveal_end > 0 else ""
-        masked_len = val_len - reveal_start - reveal_end
-        return f"{prefix}{mask_char * masked_len}{suffix}"
+            prefix = value[:reveal_start] if reveal_start > 0 else ""
+            suffix = value[-reveal_end:] if reveal_end > 0 else ""
+            masked_len = val_len - reveal_start - reveal_end
+            return f"{prefix}{mask_char * masked_len}{suffix}"
+        except Exception as exc:
+            logger.error(
+                "redact_value failed for key=%s: %s",
+                key,
+                exc,
+                extra={"action": "redact_value_failed", "error": str(exc)},
+            )
+            raise
 
     def redact_dict(
         self,
@@ -116,19 +128,27 @@ class Redactor:
         Returns:
             A deep copy of the dict with sensitive fields redacted.
         """
-        redacted = copy.deepcopy(data)
+        try:
+            redacted = copy.deepcopy(data)
 
-        if redact_fields is not None:
-            for key in redact_fields:
-                if key in redacted:
-                    redacted[key] = f"<REDACTED:{key}>"
-            return redacted
+            if redact_fields is not None:
+                for key in redact_fields:
+                    if key in redacted:
+                        redacted[key] = f"<REDACTED:{key}>"
+                return redacted
 
-        return {k: self.redact_value(k, v) for k, v in redacted.items()}
+            return {k: self.redact_value(k, v) for k, v in redacted.items()}
+        except Exception as exc:
+            logger.error(
+                "redact_dict failed: %s",
+                exc,
+                extra={"action": "redact_dict_failed", "error": str(exc)},
+            )
+            raise
 
     def structlog_processor(
         self,
-        logger: Any,  # noqa: ANN401
+        _logger: Any,  # noqa: ANN401
         method_name: str,
         event_dict: dict[str, Any],
     ) -> dict[str, Any]:
@@ -137,11 +157,19 @@ class Redactor:
         Drop-in replacement for the processor in logging.py.
 
         Args:
-            logger:      The logger instance (unused, required by structlog).
+            _logger:     The logger instance (unused, required by structlog).
             method_name: The log method name (unused, required by structlog).
             event_dict:  The structlog event dictionary.
 
         Returns:
             Event dict with sensitive field values redacted.
         """
-        return {k: self.redact_value(k, v) for k, v in event_dict.items()}
+        try:
+            return {k: self.redact_value(k, v) for k, v in event_dict.items()}
+        except Exception as exc:
+            logger.error(
+                "structlog_processor failed: %s",
+                exc,
+                extra={"action": "structlog_processor_failed", "error": str(exc)},
+            )
+            raise

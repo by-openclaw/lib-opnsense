@@ -18,7 +18,10 @@ Usage::
 
 from __future__ import annotations
 
+import logging
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 
 class DiffEngine:
@@ -41,13 +44,21 @@ class DiffEngine:
         Returns:
             Normalized string value suitable for comparison.
         """
-        if isinstance(value, dict):
-            if "selected" in value:
-                return str(value.get("selected", ""))
-            for _opt_key, opt_val in value.items():
-                if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
-                    return str(_opt_key)
-        return str(value)
+        try:
+            if isinstance(value, dict):
+                if "selected" in value:
+                    return str(value.get("selected", ""))
+                for _opt_key, opt_val in value.items():
+                    if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
+                        return str(_opt_key)
+            return str(value)
+        except Exception as exc:
+            logger.error(
+                "normalize_value failed: %s",
+                exc,
+                extra={"action": "normalize_value_failed", "error": str(exc)},
+            )
+            raise
 
     def compute_diff(
         self,
@@ -67,12 +78,20 @@ class DiffEngine:
             Dict of field: desired_value for fields that differ, or None
             if no changes are needed.
         """
-        diff: dict[str, str] = {}
-        for key, desired_value in desired.items():
-            current_value = current.get(key)
-            if current_value is None and key not in current:
-                continue
-            normalized = self.normalize_value(current_value)
-            if normalized != str(desired_value):
-                diff[key] = str(desired_value)
-        return diff if diff else None
+        try:
+            diff: dict[str, str] = {}
+            for key, desired_value in desired.items():
+                current_value = current.get(key)
+                if current_value is None and key not in current:
+                    continue
+                normalized = self.normalize_value(current_value)
+                if normalized != str(desired_value):
+                    diff[key] = str(desired_value)
+            return diff if diff else None
+        except Exception as exc:
+            logger.error(
+                "compute_diff failed: %s",
+                exc,
+                extra={"action": "compute_diff_failed", "error": str(exc)},
+            )
+            raise

@@ -23,10 +23,13 @@ Usage::
 from __future__ import annotations
 
 import ipaddress
+import logging
 import re
 from typing import Any, Protocol, runtime_checkable
 
 from opnsense.exceptions import FieldValidationError
+
+logger = logging.getLogger(__name__)
 
 # -- Compiled regex patterns ---------------------------------------------------
 
@@ -198,7 +201,16 @@ class ValidatorRegistry:
             type_name: Type identifier (used in validator specs).
             validator: Callable implementing the FieldValidator protocol.
         """
-        self._validators[type_name] = validator
+        try:
+            self._validators[type_name] = validator
+        except Exception as exc:
+            logger.error(
+                "register failed for type=%s: %s",
+                type_name,
+                exc,
+                extra={"action": "register_failed", "error": str(exc)},
+            )
+            raise
 
     def get(self, type_name: str) -> FieldValidator | None:
         """Get a validator by type name.
@@ -209,7 +221,16 @@ class ValidatorRegistry:
         Returns:
             The validator callable, or None if not registered.
         """
-        return self._validators.get(type_name)
+        try:
+            return self._validators.get(type_name)
+        except Exception as exc:
+            logger.error(
+                "get failed for type=%s: %s",
+                type_name,
+                exc,
+                extra={"action": "get_validator_failed", "error": str(exc)},
+            )
+            raise
 
     def validate_params(
         self,
@@ -225,24 +246,36 @@ class ValidatorRegistry:
         Raises:
             FieldValidationError: If any field fails validation.
         """
-        for field, spec in validators.items():
-            required = spec.get("required", False)
-            value = params.get(field)
+        try:
+            for field, spec in validators.items():
+                required = spec.get("required", False)
+                value = params.get(field)
 
-            if value is None or (isinstance(value, str) and value == ""):
-                if required:
-                    raise FieldValidationError(field, value, "required field is missing or empty")
-                continue
+                if value is None or (isinstance(value, str) and value == ""):
+                    if required:
+                        raise FieldValidationError(
+                            field, value, "required field is missing or empty"
+                        )
+                    continue
 
-            value_str = str(value)
-            field_type = spec.get("type", "str")
-            validator_fn = self._validators.get(field_type)
-            if validator_fn is not None:
-                try:
-                    validator_fn(field, value_str, spec)
-                except FieldValidationError:
-                    raise
-                except Exception as exc:
-                    raise FieldValidationError(
-                        field, value_str, f"validation error: {exc}"
-                    ) from exc
+                value_str = str(value)
+                field_type = spec.get("type", "str")
+                validator_fn = self._validators.get(field_type)
+                if validator_fn is not None:
+                    try:
+                        validator_fn(field, value_str, spec)
+                    except FieldValidationError:
+                        raise
+                    except Exception as exc:
+                        raise FieldValidationError(
+                            field, value_str, f"validation error: {exc}"
+                        ) from exc
+        except FieldValidationError:
+            raise
+        except Exception as exc:
+            logger.error(
+                "validate_params failed: %s",
+                exc,
+                extra={"action": "validate_params_failed", "error": str(exc)},
+            )
+            raise

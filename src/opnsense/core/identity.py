@@ -63,7 +63,15 @@ class IdentityResolver:
         Returns:
             Space-separated key=value pairs for all match keys.
         """
-        return " ".join(f"{k}={params.get(k, '')}" for k in self._match_keys)
+        try:
+            return " ".join(f"{k}={params.get(k, '')}" for k in self._match_keys)
+        except Exception as exc:
+            logger.error(
+                "match_label failed: %s",
+                exc,
+                extra={"action": "match_label_failed", "error": str(exc)},
+            )
+            raise
 
     def match_log_fields(self, params: dict[str, Any]) -> dict[str, Any]:
         """Build log extra fields for match keys.
@@ -74,10 +82,18 @@ class IdentityResolver:
         Returns:
             Dict with 'match_keys' and 'endpoint' for structured logging.
         """
-        return {
-            "match_keys": {k: str(params.get(k, "")) for k in self._match_keys},
-            "endpoint": self._endpoint,
-        }
+        try:
+            return {
+                "match_keys": {k: str(params.get(k, "")) for k in self._match_keys},
+                "endpoint": self._endpoint,
+            }
+        except Exception as exc:
+            logger.error(
+                "match_log_fields failed: %s",
+                exc,
+                extra={"action": "match_log_fields_failed", "error": str(exc)},
+            )
+            raise
 
     async def find_existing(
         self,
@@ -100,25 +116,41 @@ class IdentityResolver:
         Raises:
             AmbiguousMatchError: If more than one resource matches all keys.
         """
-        primary_value = str(params.get(self._match_keys[0], ""))
-        if not primary_value:
-            return None
+        try:
+            primary_value = str(params.get(self._match_keys[0], ""))
+            if not primary_value:
+                return None
 
-        rows = await list_fn(primary_value)
+            rows = await list_fn(primary_value)
 
-        matches = [
-            row
-            for row in rows
-            if all(str(row.get(k, "")) == str(params.get(k, "")) for k in self._match_keys)
-        ]
+            matches = [
+                row
+                for row in rows
+                if all(str(row.get(k, "")) == str(params.get(k, "")) for k in self._match_keys)
+            ]
 
-        if len(matches) == 0:
-            return None
-        if len(matches) == 1:
-            return matches[0]
+            if len(matches) == 0:
+                return None
+            if len(matches) == 1:
+                return matches[0]
 
-        match_vals = {k: str(params.get(k, "")) for k in self._match_keys}
-        uuids = [m["uuid"] for m in matches]
+            match_vals = {k: str(params.get(k, "")) for k in self._match_keys}
+            uuids = [m["uuid"] for m in matches]
+        except AmbiguousMatchError:
+            raise
+        except Exception as exc:
+            logger.error(
+                "find_existing failed %s: %s",
+                self._manager_name,
+                exc,
+                extra={
+                    "action": "find_existing_failed",
+                    "endpoint": self._endpoint,
+                    "error": str(exc),
+                },
+            )
+            raise
+
         logger.error(
             "ambiguous match %s: %d resources match %s — UUIDs: %s",
             self._manager_name,
