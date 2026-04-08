@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.4.0...v0.5.0) (2026-04-08)
+
+
+### Features
+
+* add DdnsAccountManager — DynDNS A/AAAA updates (Cloudflare, AWS, etc.) ([3b0eb42](https://github.com/by-openclaw/lib-opnsense/commit/3b0eb42de1e81e9c45b920e8f3f78808e6882fb6))
+
 ## [0.4.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.3.1...v0.4.0) (2026-04-08)
 
 
