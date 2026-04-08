@@ -53,6 +53,7 @@ class Kea6SubnetManager(BaseManager):
 
     _validators = {
         "subnet": {"type": "str", "required": True, "max_length": 255},
+        "interface": {"type": "str", "required": True},
         "description": {"type": "str", "max_length": 255},
     }
 

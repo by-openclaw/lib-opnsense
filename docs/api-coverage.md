@@ -101,8 +101,8 @@
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
-| kea6-subnet | `Kea6SubnetManager` | `subnet` | `kea/dhcpv6` Subnet | `INTEGRATION_TEST_PASSED` | API works but requires interface in Kea general settings. Unit tested only until DHCPv6 enabled |
-| kea6-reservation | `Kea6ReservationManager` | `ip_address, duid` | `kea/dhcpv6` Reservation | `INTEGRATION_TEST_PASSED` | Requires parent subnet UUID. Unit tested only until DHCPv6 enabled |
+| kea6-subnet | `Kea6SubnetManager` | `subnet` | `kea/dhcpv6` Subnet | `INTEGRATION_TEST_PASSED` | Requires `interface` field (mandatory). Kea DHCPv6 enabled on LAN |
+| kea6-reservation | `Kea6ReservationManager` | `ip_address, duid` | `kea/dhcpv6` Reservation | `INTEGRATION_TEST_PASSED` | Requires parent subnet UUID in 'subnet' field |
 
 ## WireGuard (requires reconfigure)
 

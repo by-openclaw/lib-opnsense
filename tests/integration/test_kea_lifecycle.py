@@ -20,6 +20,7 @@ from opnsense.client import OpnsenseClient
 from opnsense.managers.kea4_peer import Kea4PeerManager
 from opnsense.managers.kea4_reservation import Kea4ReservationManager
 from opnsense.managers.kea4_subnet import Kea4SubnetManager
+from opnsense.managers.kea6_subnet import Kea6SubnetManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 
@@ -155,31 +156,79 @@ class TestKea4PeerCRUD:
 
 
 # =============================================================================
-# 4. Cleanup
+# 4. Kea DHCPv6 Subnet CRUD
+# =============================================================================
+
+
+class TestKea6SubnetCRUD:
+    """DHCPv6 subnet CRUD — requires interface field (lan)."""
+
+    async def test_01_create(self, opn_client: OpnsenseClient) -> None:
+        mgr = Kea6SubnetManager(opn_client)
+        r = await mgr.ensure(
+            "present",
+            {
+                "subnet": "fd00:99::/64",
+                "interface": "lan",
+                "description": "inttest-kea6-subnet",
+            },
+        )
+        assert r.changed is True
+        assert r.action == "created"
+
+    async def test_02_idempotent(self, opn_client: OpnsenseClient) -> None:
+        mgr = Kea6SubnetManager(opn_client)
+        r = await mgr.ensure(
+            "present",
+            {
+                "subnet": "fd00:99::/64",
+                "interface": "lan",
+                "description": "inttest-kea6-subnet",
+            },
+        )
+        assert r.changed is False
+        assert r.action == "noop"
+
+    async def test_03_delete(self, opn_client: OpnsenseClient) -> None:
+        mgr = Kea6SubnetManager(opn_client)
+        r = await mgr.ensure("absent", {"subnet": "fd00:99::/64"})
+        assert r.changed is True
+        assert r.action == "deleted"
+
+
+# =============================================================================
+# 5. Cleanup
 # =============================================================================
 
 
 class TestCleanup:
     """Remove all inttest- Kea objects (reservations first, then subnets)."""
 
-    async def test_cleanup_reservations(self, opn_client: OpnsenseClient) -> None:
+    async def test_cleanup_v4_reservations(self, opn_client: OpnsenseClient) -> None:
         mgr = Kea4ReservationManager(opn_client)
         rows = await mgr.list(search_phrase="inttest")
         for row in rows:
             if "inttest" in str(row.get("description", "") or row.get("hostname", "")):
                 await opn_client.delete("kea/dhcpv4/delReservation", row["uuid"])
 
-    async def test_cleanup_subnets(self, opn_client: OpnsenseClient) -> None:
+    async def test_cleanup_v4_subnets(self, opn_client: OpnsenseClient) -> None:
         mgr = Kea4SubnetManager(opn_client)
         rows = await mgr.list(search_phrase="10.99")
         for row in rows:
             if "10.99" in str(row.get("subnet", "")):
                 await opn_client.delete("kea/dhcpv4/delSubnet", row["uuid"])
 
-    async def test_cleanup_peers(self, opn_client: OpnsenseClient) -> None:
+    async def test_cleanup_v4_peers(self, opn_client: OpnsenseClient) -> None:
         mgr = Kea4PeerManager(opn_client)
         rows = await mgr.list(search_phrase="inttest")
         for row in rows:
             if "inttest" in str(row.get("name", "")):
                 await opn_client.delete("kea/dhcpv4/delPeer", row["uuid"])
+
+    async def test_cleanup_v6_subnets(self, opn_client: OpnsenseClient) -> None:
+        mgr = Kea6SubnetManager(opn_client)
+        rows = await mgr.list(search_phrase="fd00:99")
+        for row in rows:
+            if "fd00:99" in str(row.get("subnet", "")):
+                await opn_client.delete("kea/dhcpv6/delSubnet", row["uuid"])
         await opn_client.reconfigure("kea/service/reconfigure", timeout=60)
