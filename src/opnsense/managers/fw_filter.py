@@ -56,6 +56,22 @@ class FwFilterManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "description": {"type": "str", "required": True, "max_length": 255},
+        "action": {"type": "enum", "required": True, "values": ["pass", "block", "reject"]},
+        "interface": {"type": "str", "required": True},
+        "direction": {"type": "enum", "values": ["in", "out", "any"]},
+        "protocol": {"type": "str"},
+        "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
+        "source_net": {"type": "str", "max_length": 255},
+        "destination_net": {"type": "str", "max_length": 255},
+        "source_port": {"type": "str", "max_length": 255},
+        "destination_port": {"type": "str", "max_length": 255},
+        "enabled": {"type": "bool_str"},
+        "log": {"type": "bool_str"},
+        "quick": {"type": "bool_str"},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the firewall filter rule manager.
 

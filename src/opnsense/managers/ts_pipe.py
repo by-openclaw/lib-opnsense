@@ -58,6 +58,16 @@ class TsPipeManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "description": {"type": "str", "required": True, "max_length": 255},
+        "bandwidth": {"type": "int", "required": True, "min": 1},
+        "bandwidthMetric": {
+            "type": "enum",
+            "values": ["bit", "Kbit", "Mbit", "Gbit"],
+        },
+        "enabled": {"type": "bool_str"},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the traffic shaper pipe manager.
 

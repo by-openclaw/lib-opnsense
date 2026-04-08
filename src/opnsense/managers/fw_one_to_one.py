@@ -54,6 +54,14 @@ class FwOneToOneManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "description": {"type": "str", "required": True, "max_length": 255},
+        "interface": {"type": "str", "required": True},
+        "source_net": {"type": "str", "required": True},
+        "external": {"type": "str"},
+        "disabled": {"type": "bool_str"},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the firewall 1:1 NAT manager.
 

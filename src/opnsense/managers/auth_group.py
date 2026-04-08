@@ -48,6 +48,11 @@ class AuthGroupManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "name": {"type": "str", "required": True, "max_length": 32, "regex": r"^[a-zA-Z0-9_\-]+$"},
+        "description": {"type": "str", "max_length": 255},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the auth group manager.
 

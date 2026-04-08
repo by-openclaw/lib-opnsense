@@ -216,7 +216,7 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="present", params={"descr": "bad"})
+            await mgr.ensure(state="present", params={"descr": "bad", "tag": "330", "if": "vtnet1"})
 
         assert any("create failed" in r.message for r in caplog.records)
         assert any(r.levelname == "ERROR" for r in caplog.records)
@@ -259,7 +259,7 @@ class TestErrorHandling:
 
         mgr = IfVlanManager(mock_client)
         with pytest.raises(OpnsenseValidationError) as exc_info:
-            await mgr.ensure(state="present", params={"descr": "bad"})
+            await mgr.ensure(state="present", params={"descr": "bad", "tag": "330", "if": "vtnet1"})
 
         assert exc_info.value.status_code == 400
         assert exc_info.value.validations == {"vlan.tag": "required"}

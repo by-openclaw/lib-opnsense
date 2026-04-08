@@ -46,6 +46,7 @@ class TestEnsurePresent:
                 "uuid": "uuid-existing",
                 "description": "Allow HTTPS from DMZ",
                 "action": "pass",
+                "interface": "lan",
                 "protocol": "TCP",
             },
         ]
@@ -53,7 +54,12 @@ class TestEnsurePresent:
         mgr = FwFilterManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"description": "Allow HTTPS from DMZ", "action": "pass", "protocol": "TCP"},
+            params={
+                "description": "Allow HTTPS from DMZ",
+                "action": "pass",
+                "interface": "lan",
+                "protocol": "TCP",
+            },
         )
 
         assert result.changed is False
@@ -63,10 +69,20 @@ class TestEnsurePresent:
     async def test_update_when_drift_detected(self, mock_client: AsyncMock) -> None:
         """ensure present when action differs -> update + apply."""
         mock_client.search.return_value = [
-            {"uuid": "uuid-existing", "description": "Block SSH", "action": "pass"},
+            {
+                "uuid": "uuid-existing",
+                "description": "Block SSH",
+                "action": "pass",
+                "interface": "lan",
+            },
         ]
         mock_client.get.return_value = {
-            "rule": {"uuid": "uuid-existing", "description": "Block SSH", "action": "pass"},
+            "rule": {
+                "uuid": "uuid-existing",
+                "description": "Block SSH",
+                "action": "pass",
+                "interface": "lan",
+            },
         }
         mock_client.update.return_value = {"result": "saved"}
         mock_client.reconfigure.return_value = {"status": "ok"}
@@ -74,7 +90,7 @@ class TestEnsurePresent:
         mgr = FwFilterManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"description": "Block SSH", "action": "block"},
+            params={"description": "Block SSH", "action": "block", "interface": "lan"},
         )
 
         assert result.changed is True
@@ -125,7 +141,7 @@ class TestCheckMode:
         mgr = FwFilterManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"description": "Test rule"},
+            params={"description": "Test rule", "action": "pass", "interface": "lan"},
             check_mode=True,
         )
 
@@ -184,7 +200,9 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="present", params={"description": "bad"})
+            await mgr.ensure(
+                state="present", params={"description": "bad", "action": "pass", "interface": "lan"}
+            )
 
         assert any("create failed" in r.message for r in caplog.records)
 
@@ -198,7 +216,9 @@ class TestErrorHandling:
 
         mgr = FwFilterManager(mock_client)
         with pytest.raises(OpnsenseValidationError) as exc_info:
-            await mgr.ensure(state="present", params={"description": "bad"})
+            await mgr.ensure(
+                state="present", params={"description": "bad", "action": "pass", "interface": "lan"}
+            )
 
         assert exc_info.value.validations == {"rule.action": "required"}
 

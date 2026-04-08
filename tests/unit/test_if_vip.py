@@ -222,7 +222,15 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="present", params={"descr": "bad"})
+            await mgr.ensure(
+                state="present",
+                params={
+                    "descr": "bad",
+                    "address": "10.1.3.200",
+                    "interface": "lan",
+                    "mode": "ipalias",
+                },
+            )
 
         assert any("create failed" in r.message for r in caplog.records)
 
@@ -269,7 +277,15 @@ class TestErrorHandling:
 
         mgr = IfVipManager(mock_client)
         with pytest.raises(OpnsenseValidationError) as exc_info:
-            await mgr.ensure(state="present", params={"descr": "bad"})
+            await mgr.ensure(
+                state="present",
+                params={
+                    "descr": "bad",
+                    "address": "10.1.3.200",
+                    "interface": "lan",
+                    "mode": "ipalias",
+                },
+            )
 
         assert exc_info.value.status_code == 400
         assert exc_info.value.validations == {"vip.address": "required"}

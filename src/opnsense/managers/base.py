@@ -41,6 +41,7 @@ from typing import Any
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import AmbiguousMatchError
 from opnsense.models.base import EnsureResult
+from opnsense.validators import validate_params
 
 logger = logging.getLogger(__name__)
 
@@ -72,6 +73,7 @@ class BaseManager(ABC):
     _match_key: str | None = None  # Legacy single key
     _match_keys: list[str] | None = None  # Composite identity (preferred)
     _entity_suffix: str | None = None  # None = auto from _payload_key
+    _validators: dict[str, dict[str, Any]] = {}  # Field validators per manager
 
     REDACT_FIELDS: set[str] = set()
 
@@ -140,7 +142,16 @@ class BaseManager(ABC):
             List of resource dicts.
         """
         endpoint = f"{self._endpoint}/search{self._suffix}"
-        return await self._client.search(endpoint, search_phrase=search_phrase)
+        try:
+            return await self._client.search(endpoint, search_phrase=search_phrase)
+        except Exception as exc:
+            logger.error(
+                "list failed %s: %s",
+                self._endpoint,
+                exc,
+                extra={"action": "list_failed", "endpoint": self._endpoint, "error": str(exc)},
+            )
+            raise
 
     async def get(self, uuid: str) -> dict[str, Any]:
         """Get a single resource by UUID.
@@ -152,7 +163,22 @@ class BaseManager(ABC):
             Resource dict (the inner payload, unwrapped from payload_key).
         """
         endpoint = f"{self._endpoint}/get{self._suffix}/{uuid}"
-        body = await self._client.get(endpoint)
+        try:
+            body = await self._client.get(endpoint)
+        except Exception as exc:
+            logger.error(
+                "get failed %s uuid=%s: %s",
+                self._endpoint,
+                uuid,
+                exc,
+                extra={
+                    "action": "get_failed",
+                    "endpoint": self._endpoint,
+                    "uuid": uuid,
+                    "error": str(exc),
+                },
+            )
+            raise
         return body.get(self._payload_key, body)
 
     async def get_schema(self) -> dict[str, Any]:
@@ -162,7 +188,20 @@ class BaseManager(ABC):
             Schema dict showing available fields and defaults.
         """
         endpoint = f"{self._endpoint}/get{self._suffix}"
-        body = await self._client.get(endpoint)
+        try:
+            body = await self._client.get(endpoint)
+        except Exception as exc:
+            logger.error(
+                "get_schema failed %s: %s",
+                self._endpoint,
+                exc,
+                extra={
+                    "action": "get_schema_failed",
+                    "endpoint": self._endpoint,
+                    "error": str(exc),
+                },
+            )
+            raise
         return body.get(self._payload_key, body)
 
     async def create(
@@ -438,10 +477,28 @@ class BaseManager(ABC):
 
         Raises:
             ValueError: If state is not 'present' or 'absent'.
+            FieldValidationError: If any field fails client-side validation.
             AmbiguousMatchError: If multiple resources match the composite keys.
         """
         if state not in ("present", "absent"):
             raise ValueError(f"Invalid state '{state}'. Use 'present' or 'absent'.")
+
+        # Client-side validation — reject bad params before any API call
+        if self._validators and state == "present":
+            try:
+                validate_params(params, self._validators)
+            except Exception as exc:
+                logger.error(
+                    "validation failed %s: %s",
+                    self.__class__.__name__,
+                    exc,
+                    extra={
+                        "action": "validation_failed",
+                        "endpoint": self._endpoint,
+                        "error": str(exc),
+                    },
+                )
+                raise
 
         t0 = time.monotonic()
         label = self._match_label(params)
@@ -536,15 +593,30 @@ class BaseManager(ABC):
             return matches[0]
 
         match_vals = {k: str(params.get(k, "")) for k in keys}
+        uuids = [m["uuid"] for m in matches]
+        logger.error(
+            "ambiguous match %s: %d resources match %s — UUIDs: %s",
+            self.__class__.__name__,
+            len(matches),
+            match_vals,
+            uuids,
+            extra={
+                "action": "ambiguous_match",
+                "match_keys": match_vals,
+                "uuids": uuids,
+                "count": len(matches),
+                "endpoint": self._endpoint,
+            },
+        )
         raise AmbiguousMatchError(
             message=(
                 f"{self.__class__.__name__}: {len(matches)} resources match "
                 f"{match_vals}. "
-                f"UUIDs: {[m['uuid'] for m in matches]}. "
+                f"UUIDs: {uuids}. "
                 f"Deduplicate manually or pass uuid= to ensure()."
             ),
             match_keys=match_vals,
-            uuids=[m["uuid"] for m in matches],
+            uuids=uuids,
             endpoint=self._endpoint,
         )
 
@@ -619,4 +691,17 @@ class BaseManager(ABC):
         apply immediately and set _apply_endpoint = None.
         """
         if self._apply_endpoint is not None:
-            await self._client.reconfigure(self._apply_endpoint)
+            try:
+                await self._client.reconfigure(self._apply_endpoint)
+            except Exception as exc:
+                logger.error(
+                    "apply failed %s: %s",
+                    self._apply_endpoint,
+                    exc,
+                    extra={
+                        "action": "apply_failed",
+                        "endpoint": self._apply_endpoint,
+                        "error": str(exc),
+                    },
+                )
+                raise

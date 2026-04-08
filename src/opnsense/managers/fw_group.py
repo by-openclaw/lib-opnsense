@@ -52,6 +52,12 @@ class FwGroupManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "ifname": {"type": "str", "required": True, "max_length": 32, "regex": r"^[a-zA-Z0-9_]+$"},
+        "members": {"type": "str", "required": True},
+        "descr": {"type": "str", "max_length": 255},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the firewall interface group manager.
 

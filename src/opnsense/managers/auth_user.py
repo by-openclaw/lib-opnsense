@@ -48,6 +48,15 @@ class AuthUserManager(BaseManager):
 
     REDACT_FIELDS = {"password", "otp_seed", "scrambled_password", "authorizedkeys"}
 
+    _validators = {
+        "name": {"type": "str", "required": True, "max_length": 32, "regex": r"^[a-zA-Z0-9_\-]+$"},
+        "email": {"type": "email"},
+        "password": {"type": "str", "max_length": 255},
+        "disabled": {"type": "bool_str"},
+        "shell": {"type": "enum", "values": ["", "/bin/csh", "/bin/sh", "/bin/tcsh"]},
+        "expires": {"type": "str", "max_length": 10},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the auth user manager.
 
