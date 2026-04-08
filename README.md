@@ -95,7 +95,7 @@ src/opnsense/
 
 ---
 
-## Managers (41 total)
+## Managers (42 total)
 
 | Scope | Managers | Status |
 |-------|:-------:|--------|
@@ -108,6 +108,7 @@ src/opnsense/
 | Kea DHCP (v4 subnets, reservations, peers + v6 subnets, reservations) | 5 | all integration tested |
 | WireGuard (server + client/peer + key pair generation) | 2 | all integration tested |
 | Trust/PKI (CA + certificates, import or generate) | 2 | all integration tested |
+| OpenVPN (server/client instances, needs CA + cert) | 1 | integration tested |
 | Captive Portal (guest network zones) | 1 | all integration tested |
 | Syslog (remote destinations) | 1 | all integration tested |
 

@@ -29,6 +29,7 @@ from opnsense.models.kea4_reservation import Kea4Reservation
 from opnsense.models.kea4_subnet import Kea4Subnet
 from opnsense.models.kea6_reservation import Kea6Reservation
 from opnsense.models.kea6_subnet import Kea6Subnet
+from opnsense.models.ovpn_instance import OvpnInstance
 from opnsense.models.rt_gateway import RtGateway
 from opnsense.models.rt_route import RtRoute
 from opnsense.models.syslog_dest import SyslogDest
@@ -63,6 +64,7 @@ __all__ = [
     "Kea4Subnet",
     "Kea6Reservation",
     "Kea6Subnet",
+    "OvpnInstance",
     "IfBridge",
     "IfGif",
     "IfGre",
