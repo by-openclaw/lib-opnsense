@@ -22,15 +22,27 @@ import pytest
 
 from opnsense.client import OpnsenseClient
 from opnsense.managers.fw_alias import FwAliasManager
+from opnsense.managers.fw_category import FwCategoryManager
 from opnsense.managers.fw_dnat import FwDnatManager
 from opnsense.managers.fw_filter import FwFilterManager
+from opnsense.managers.fw_group import FwGroupManager
+from opnsense.managers.fw_one_to_one import FwOneToOneManager
 from opnsense.managers.fw_source_nat import FwSourceNatManager
+from opnsense.managers.ts_pipe import TsPipeManager
 
 # Test object names — all prefixed with inttest-
 ALIAS_NAME = "inttest_alias_host"
 ALIAS_NAME_NET = "inttest_alias_net"
+ALIAS_NAME_PORT = "inttest_alias_port"
+ALIAS_NAME_URL = "inttest_alias_url"
+ALIAS_NAME_URLTABLE = "inttest_alias_urltbl"
+ALIAS_NAME_MAC = "inttest_alias_mac"
 FILTER_DESC = "inttest-filter-allow-https"
 DNAT_DESC = "inttest-dnat-forward-http"
+ONETOONE_DESC = "inttest-1to1-binat"
+CATEGORY_NAME = "inttest-category"
+GROUP_IFNAME = "inttest_grp"
+PIPE_DESC = "inttest-pipe"
 SNAT_DESC = "inttest-snat-masquerade"
 
 
@@ -47,7 +59,7 @@ class TestAliasCRUD:
             params={
                 "name": ALIAS_NAME,
                 "type": "host",
-                "content": "10.6.225.99",
+                "content": "10.11.1.99",
                 "description": "Integration test host alias",
             },
         )
@@ -62,7 +74,7 @@ class TestAliasCRUD:
             params={
                 "name": ALIAS_NAME,
                 "type": "host",
-                "content": "10.6.225.99",
+                "content": "10.11.1.99",
                 "description": "Integration test host alias",
             },
         )
@@ -77,7 +89,7 @@ class TestAliasCRUD:
             params={
                 "name": ALIAS_NAME,
                 "type": "host",
-                "content": "10.6.225.100",
+                "content": "10.11.1.100",
                 "description": "Integration test host alias",
             },
         )
@@ -92,7 +104,7 @@ class TestAliasCRUD:
             params={
                 "name": ALIAS_NAME_NET,
                 "type": "network",
-                "content": "10.6.225.0/24",
+                "content": "10.11.1.0/24",
                 "description": "Integration test network alias",
             },
         )
@@ -132,6 +144,173 @@ class TestAliasCRUD:
         assert result.changed is True
         assert result.action == "deleted"
 
+    # -- Port alias --
+
+    async def test_09_create_port_alias(self, opn_client: OpnsenseClient) -> None:
+        """Create a port alias with a range."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_PORT,
+                "type": "port",
+                "content": "8080:8090",
+                "description": "Integration test port alias",
+            },
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_10_port_alias_idempotent(self, opn_client: OpnsenseClient) -> None:
+        """Port alias noop."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_PORT,
+                "type": "port",
+                "content": "8080:8090",
+                "description": "Integration test port alias",
+            },
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_11_delete_port_alias(self, opn_client: OpnsenseClient) -> None:
+        """Delete port alias."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"name": ALIAS_NAME_PORT})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    # -- URL alias --
+
+    async def test_12_create_url_alias(self, opn_client: OpnsenseClient) -> None:
+        """Create a URL alias (static URL content, not auto-refreshed)."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_URL,
+                "type": "url",
+                "content": "https://example.com/blocklist.txt",
+                "description": "Integration test URL alias",
+            },
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_13_url_alias_idempotent(self, opn_client: OpnsenseClient) -> None:
+        """URL alias noop."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_URL,
+                "type": "url",
+                "content": "https://example.com/blocklist.txt",
+                "description": "Integration test URL alias",
+            },
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_14_delete_url_alias(self, opn_client: OpnsenseClient) -> None:
+        """Delete URL alias."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"name": ALIAS_NAME_URL})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    # -- URL table alias (auto-refresh) --
+
+    async def test_15_create_urltable_alias(self, opn_client: OpnsenseClient) -> None:
+        """Create a URL table alias with refresh interval."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_URLTABLE,
+                "type": "urltable",
+                "content": "https://example.com/iplist.txt",
+                "updatefreq": "1",
+                "description": "Integration test URL table alias",
+            },
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_16_urltable_alias_idempotent(self, opn_client: OpnsenseClient) -> None:
+        """URL table alias noop."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_URLTABLE,
+                "type": "urltable",
+                "content": "https://example.com/iplist.txt",
+                "updatefreq": "1",
+                "description": "Integration test URL table alias",
+            },
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_17_delete_urltable_alias(self, opn_client: OpnsenseClient) -> None:
+        """Delete URL table alias."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"name": ALIAS_NAME_URLTABLE})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    # -- MAC alias --
+
+    async def test_18_create_mac_alias(self, opn_client: OpnsenseClient) -> None:
+        """Create a MAC address alias."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_MAC,
+                "type": "mac",
+                "content": "00:11:22:33:44:55",
+                "description": "Integration test MAC alias",
+            },
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_19_mac_alias_idempotent(self, opn_client: OpnsenseClient) -> None:
+        """MAC alias noop."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "name": ALIAS_NAME_MAC,
+                "type": "mac",
+                "content": "00:11:22:33:44:55",
+                "description": "Integration test MAC alias",
+            },
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_20_delete_mac_alias(self, opn_client: OpnsenseClient) -> None:
+        """Delete MAC alias."""
+        mgr = FwAliasManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"name": ALIAS_NAME_MAC})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    # -- List all test aliases cleaned --
+
+    async def test_21_verify_all_cleaned(self, opn_client: OpnsenseClient) -> None:
+        """Verify no inttest_alias_ aliases remain (excludes infra aliases)."""
+        mgr = FwAliasManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest_alias")
+        test_aliases = [r for r in rows if r.get("name", "").startswith("inttest_alias")]
+        assert test_aliases == [], f"Leftover aliases: {[a['name'] for a in test_aliases]}"
+
 
 @pytest.mark.integration
 @pytest.mark.asyncio
@@ -151,7 +330,7 @@ class TestFilterCRUD:
                 "ipprotocol": "inet",
                 "protocol": "TCP",
                 "destination_port": "443",
-                "enabled": "1",
+                "enabled": "0",
             },
         )
         assert result.changed is True
@@ -170,7 +349,7 @@ class TestFilterCRUD:
                 "ipprotocol": "inet",
                 "protocol": "TCP",
                 "destination_port": "443",
-                "enabled": "1",
+                "enabled": "0",
             },
         )
         assert result.changed is False
@@ -189,7 +368,7 @@ class TestFilterCRUD:
                 "ipprotocol": "inet",
                 "protocol": "TCP",
                 "destination_port": "443",
-                "enabled": "1",
+                "enabled": "0",
             },
         )
         assert result.changed is True
@@ -220,10 +399,15 @@ class TestFilterCRUD:
 @pytest.mark.integration
 @pytest.mark.asyncio
 class TestDnatCRUD:
-    """CRUD lifecycle for D-NAT (port forward) rules. Requires OPNsense >= 26.1."""
+    """CRUD lifecycle for D-NAT (port forward) rules. Requires OPNsense >= 26.1.
+
+    SAFETY: ALL rules created with disabled=1. D-NAT apply on WAN crashed
+    the FW on 2026-04-05 and 2026-04-07. Disabled rules are safe — apply
+    runs but pf does not load the rule into the ruleset.
+    """
 
     async def test_01_create_dnat_rule(self, opn_client: OpnsenseClient) -> None:
-        """Create a D-NAT port forward rule."""
+        """Create a D-NAT port forward rule (disabled)."""
         mgr = FwDnatManager(opn_client)
         result = await mgr.ensure(
             state="present",
@@ -232,9 +416,9 @@ class TestDnatCRUD:
                 "interface": "wan",
                 "ipprotocol": "inet",
                 "protocol": "tcp",
-                "target": "10.6.225.99",
+                "target": "10.11.2.10",
                 "local-port": "80",
-                "disabled": "0",
+                "disabled": "1",
             },
         )
         assert result.changed is True
@@ -250,16 +434,16 @@ class TestDnatCRUD:
                 "interface": "wan",
                 "ipprotocol": "inet",
                 "protocol": "tcp",
-                "target": "10.6.225.99",
+                "target": "10.11.2.10",
                 "local-port": "80",
-                "disabled": "0",
+                "disabled": "1",
             },
         )
         assert result.changed is False
         assert result.action == "noop"
 
     async def test_03_update_target(self, opn_client: OpnsenseClient) -> None:
-        """Update D-NAT target -> changed."""
+        """Update D-NAT target -> changed (still disabled)."""
         mgr = FwDnatManager(opn_client)
         result = await mgr.ensure(
             state="present",
@@ -268,9 +452,9 @@ class TestDnatCRUD:
                 "interface": "wan",
                 "ipprotocol": "inet",
                 "protocol": "tcp",
-                "target": "10.6.225.100",
+                "target": "10.11.2.11",
                 "local-port": "80",
-                "disabled": "0",
+                "disabled": "1",
             },
         )
         assert result.changed is True
@@ -287,10 +471,14 @@ class TestDnatCRUD:
 @pytest.mark.integration
 @pytest.mark.asyncio
 class TestSourceNatCRUD:
-    """CRUD lifecycle for source NAT rules."""
+    """CRUD lifecycle for source NAT rules.
+
+    SAFETY: ALL rules created with enabled=0. SNAT apply on WAN can
+    disrupt routing — same risk as D-NAT. Disabled rules are safe.
+    """
 
     async def test_01_create_snat_rule(self, opn_client: OpnsenseClient) -> None:
-        """Create a source NAT masquerade rule."""
+        """Create a source NAT masquerade rule (disabled)."""
         mgr = FwSourceNatManager(opn_client)
         result = await mgr.ensure(
             state="present",
@@ -298,9 +486,9 @@ class TestSourceNatCRUD:
                 "description": SNAT_DESC,
                 "interface": "wan",
                 "ipprotocol": "inet",
-                "source_net": "10.6.225.0/24",
+                "source_net": "10.11.3.0/24",
                 "target": "wanip",
-                "enabled": "1",
+                "enabled": "0",
             },
         )
         assert result.changed is True
@@ -315,9 +503,9 @@ class TestSourceNatCRUD:
                 "description": SNAT_DESC,
                 "interface": "wan",
                 "ipprotocol": "inet",
-                "source_net": "10.6.225.0/24",
+                "source_net": "10.11.3.0/24",
                 "target": "wanip",
-                "enabled": "1",
+                "enabled": "0",
             },
         )
         assert result.changed is False
@@ -329,6 +517,225 @@ class TestSourceNatCRUD:
         result = await mgr.ensure(state="absent", params={"description": SNAT_DESC})
         assert result.changed is True
         assert result.action == "deleted"
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+class TestOneToOneCRUD:
+    """CRUD lifecycle for 1:1 NAT (BINAT) rules.
+
+    SAFETY: ALL rules created with disabled=1.
+    """
+
+    async def test_01_create_rule(self, opn_client: OpnsenseClient) -> None:
+        """Create a 1:1 NAT rule (disabled)."""
+        mgr = FwOneToOneManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "description": ONETOONE_DESC,
+                "interface": "wan",
+                "type": "binat",
+                "external": "10.11.1.200",
+                "source_net": "10.11.2.10/32",
+                "disabled": "1",
+            },
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_02_idempotent_noop(self, opn_client: OpnsenseClient) -> None:
+        """Same params -> noop."""
+        mgr = FwOneToOneManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "description": ONETOONE_DESC,
+                "interface": "wan",
+                "type": "binat",
+                "external": "10.11.1.200",
+                "source_net": "10.11.2.10/32",
+                "disabled": "1",
+            },
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_03_delete_rule(self, opn_client: OpnsenseClient) -> None:
+        """Delete the 1:1 NAT rule."""
+        mgr = FwOneToOneManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"description": ONETOONE_DESC})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    async def test_04_delete_noop(self, opn_client: OpnsenseClient) -> None:
+        """Delete again -> noop."""
+        mgr = FwOneToOneManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"description": ONETOONE_DESC})
+        assert result.changed is False
+        assert result.action == "noop"
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+class TestCategoryCRUD:
+    """CRUD lifecycle for firewall categories. No apply needed."""
+
+    async def test_01_create_category(self, opn_client: OpnsenseClient) -> None:
+        """Create a category."""
+        mgr = FwCategoryManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"name": CATEGORY_NAME, "color": "ff0000"},
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_02_idempotent_noop(self, opn_client: OpnsenseClient) -> None:
+        """Same params -> noop."""
+        mgr = FwCategoryManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"name": CATEGORY_NAME, "color": "ff0000"},
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_03_update_color(self, opn_client: OpnsenseClient) -> None:
+        """Update color -> changed."""
+        mgr = FwCategoryManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"name": CATEGORY_NAME, "color": "00ff00"},
+        )
+        assert result.changed is True
+        assert result.action == "updated"
+
+    async def test_04_delete_category(self, opn_client: OpnsenseClient) -> None:
+        """Delete category."""
+        mgr = FwCategoryManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"name": CATEGORY_NAME})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    async def test_05_delete_noop(self, opn_client: OpnsenseClient) -> None:
+        """Delete again -> noop."""
+        mgr = FwCategoryManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"name": CATEGORY_NAME})
+        assert result.changed is False
+        assert result.action == "noop"
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+class TestGroupCRUD:
+    """CRUD lifecycle for firewall interface groups. No apply needed."""
+
+    async def test_01_create_group(self, opn_client: OpnsenseClient) -> None:
+        """Create an interface group."""
+        mgr = FwGroupManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"ifname": GROUP_IFNAME, "members": "lan", "descr": "Integration test group"},
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_02_idempotent_noop(self, opn_client: OpnsenseClient) -> None:
+        """Same params -> noop."""
+        mgr = FwGroupManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"ifname": GROUP_IFNAME, "members": "lan", "descr": "Integration test group"},
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_03_update_description(self, opn_client: OpnsenseClient) -> None:
+        """Update description -> changed."""
+        mgr = FwGroupManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"ifname": GROUP_IFNAME, "members": "lan", "descr": "Updated test group"},
+        )
+        assert result.changed is True
+        assert result.action == "updated"
+
+    async def test_04_delete_group(self, opn_client: OpnsenseClient) -> None:
+        """Delete interface group."""
+        mgr = FwGroupManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"ifname": GROUP_IFNAME})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    async def test_05_delete_noop(self, opn_client: OpnsenseClient) -> None:
+        """Delete again -> noop."""
+        mgr = FwGroupManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"ifname": GROUP_IFNAME})
+        assert result.changed is False
+        assert result.action == "noop"
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+class TestPipeCRUD:
+    """CRUD lifecycle for traffic shaper pipes."""
+
+    async def test_01_create_pipe(self, opn_client: OpnsenseClient) -> None:
+        """Create a pipe."""
+        mgr = TsPipeManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "description": PIPE_DESC,
+                "bandwidth": "10",
+                "bandwidthMetric": "Mbit",
+            },
+        )
+        assert result.changed is True
+        assert result.action in ("created", "updated")
+
+    async def test_02_idempotent_noop(self, opn_client: OpnsenseClient) -> None:
+        """Same params -> noop."""
+        mgr = TsPipeManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "description": PIPE_DESC,
+                "bandwidth": "10",
+                "bandwidthMetric": "Mbit",
+            },
+        )
+        assert result.changed is False
+        assert result.action == "noop"
+
+    async def test_03_update_bandwidth(self, opn_client: OpnsenseClient) -> None:
+        """Update bandwidth -> changed."""
+        mgr = TsPipeManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "description": PIPE_DESC,
+                "bandwidth": "20",
+                "bandwidthMetric": "Mbit",
+            },
+        )
+        assert result.changed is True
+        assert result.action == "updated"
+
+    async def test_04_delete_pipe(self, opn_client: OpnsenseClient) -> None:
+        """Delete pipe."""
+        mgr = TsPipeManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"description": PIPE_DESC})
+        assert result.changed is True
+        assert result.action == "deleted"
+
+    async def test_05_delete_noop(self, opn_client: OpnsenseClient) -> None:
+        """Delete again -> noop."""
+        mgr = TsPipeManager(opn_client)
+        result = await mgr.ensure(state="absent", params={"description": PIPE_DESC})
+        assert result.changed is False
+        assert result.action == "noop"
 
 
 @pytest.mark.integration
@@ -364,11 +771,11 @@ class TestCleanup:
     """Final cleanup — remove any leftover test objects."""
 
     async def test_99_cleanup_aliases(self, opn_client: OpnsenseClient) -> None:
-        """Remove all inttest_ aliases."""
+        """Remove all inttest_alias_ aliases (excludes infra inttest_admin_*)."""
         mgr = FwAliasManager(opn_client)
-        rows = await mgr.list(search_phrase="inttest")
+        rows = await mgr.list(search_phrase="inttest_alias")
         for row in rows:
-            if row.get("name", "").startswith("inttest"):
+            if row.get("name", "").startswith("inttest_alias"):
                 await mgr.delete(row["uuid"])
 
     async def test_99_cleanup_filter_rules(self, opn_client: OpnsenseClient) -> None:
@@ -390,6 +797,38 @@ class TestCleanup:
     async def test_99_cleanup_snat_rules(self, opn_client: OpnsenseClient) -> None:
         """Remove all inttest- source NAT rules."""
         mgr = FwSourceNatManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest")
+        for row in rows:
+            if row.get("description", "").startswith("inttest"):
+                await mgr.delete(row["uuid"])
+
+    async def test_99_cleanup_one_to_one_rules(self, opn_client: OpnsenseClient) -> None:
+        """Remove all inttest- 1:1 NAT rules."""
+        mgr = FwOneToOneManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest")
+        for row in rows:
+            if row.get("description", "").startswith("inttest"):
+                await mgr.delete(row["uuid"])
+
+    async def test_99_cleanup_categories(self, opn_client: OpnsenseClient) -> None:
+        """Remove all inttest- categories."""
+        mgr = FwCategoryManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest")
+        for row in rows:
+            if row.get("name", "").startswith("inttest"):
+                await mgr.delete(row["uuid"])
+
+    async def test_99_cleanup_groups(self, opn_client: OpnsenseClient) -> None:
+        """Remove all inttest_ interface groups."""
+        mgr = FwGroupManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest")
+        for row in rows:
+            if row.get("ifname", "").startswith("inttest"):
+                await mgr.delete(row["uuid"])
+
+    async def test_99_cleanup_pipes(self, opn_client: OpnsenseClient) -> None:
+        """Remove all inttest- pipes."""
+        mgr = TsPipeManager(opn_client)
         rows = await mgr.list(search_phrase="inttest")
         for row in rows:
             if row.get("description", "").startswith("inttest"):
