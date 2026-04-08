@@ -31,4 +31,5 @@ class FwOneToOneRule:
     source_net: str = ""
     external: str = ""
     disabled: str = "0"
+    sequence: str = ""
     uuid: str = ""

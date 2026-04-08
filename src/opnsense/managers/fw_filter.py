@@ -70,6 +70,7 @@ class FwFilterManager(BaseManager):
         "enabled": {"type": "bool_str"},
         "log": {"type": "bool_str"},
         "quick": {"type": "bool_str"},
+        "sequence": {"type": "int", "min": 1},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

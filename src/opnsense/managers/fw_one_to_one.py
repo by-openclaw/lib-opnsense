@@ -60,6 +60,7 @@ class FwOneToOneManager(BaseManager):
         "source_net": {"type": "str", "required": True},
         "external": {"type": "str"},
         "disabled": {"type": "bool_str"},
+        "sequence": {"type": "int", "min": 1},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

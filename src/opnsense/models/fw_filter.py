@@ -47,4 +47,5 @@ class FwFilterRule:
     enabled: str = "1"
     log: str = "0"
     quick: str = "1"
+    sequence: str = ""
     uuid: str = ""

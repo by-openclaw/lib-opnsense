@@ -61,6 +61,7 @@ class FwSourceNatManager(BaseManager):
         "target": {"type": "str"},
         "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
         "enabled": {"type": "bool_str"},
+        "sequence": {"type": "int", "min": 1},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:
