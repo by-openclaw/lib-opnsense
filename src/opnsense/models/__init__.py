@@ -24,6 +24,14 @@ from opnsense.models.if_neighbor import IfNeighbor
 from opnsense.models.if_vip import IfVip
 from opnsense.models.if_vlan import IfVlan
 from opnsense.models.if_vxlan import IfVxlan
+from opnsense.models.ipsec_child import IpsecChild
+from opnsense.models.ipsec_conn import IpsecConn
+from opnsense.models.ipsec_keypair import IpsecKeypair
+from opnsense.models.ipsec_local import IpsecLocal
+from opnsense.models.ipsec_pool import IpsecPool
+from opnsense.models.ipsec_psk import IpsecPsk
+from opnsense.models.ipsec_remote import IpsecRemote
+from opnsense.models.ipsec_vti import IpsecVti
 from opnsense.models.kea4_peer import Kea4Peer
 from opnsense.models.kea4_reservation import Kea4Reservation
 from opnsense.models.kea4_subnet import Kea4Subnet
@@ -66,6 +74,14 @@ __all__ = [
     "Kea6Subnet",
     "OvpnInstance",
     "IfBridge",
+    "IpsecChild",
+    "IpsecConn",
+    "IpsecKeypair",
+    "IpsecLocal",
+    "IpsecPool",
+    "IpsecPsk",
+    "IpsecRemote",
+    "IpsecVti",
     "IfGif",
     "IfGre",
     "IfLagg",

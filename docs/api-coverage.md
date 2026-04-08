@@ -27,7 +27,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 42 |
+| Managers done (integration tested) | 50 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -116,16 +116,16 @@
 
 ## IPsec (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| ipsec-conn | `IpsecConnManager` | `GET /api/ipsec/connections/get_connection`, `POST /api/ipsec/connections/search_connection` | `ABSENT` |
-| ipsec-psk | `IpsecPskManager` | `GET /api/ipsec/pre_shared_keys/get_item`, `POST /api/ipsec/pre_shared_keys/search_item` | `ABSENT` |
-| ipsec-child | `IpsecChildManager` | `GET /api/ipsec/connections/get_child`, `POST /api/ipsec/connections/search_child` | `ABSENT` |
-| ipsec-local | `IpsecLocalManager` | `GET /api/ipsec/connections/get_local`, `POST /api/ipsec/connections/search_local` | `ABSENT` |
-| ipsec-remote | `IpsecRemoteManager` | `GET /api/ipsec/connections/get_remote`, `POST /api/ipsec/connections/search_remote` | `ABSENT` |
-| ipsec-pool | `IpsecPoolManager` | `GET /api/ipsec/pools/get_item`, `POST /api/ipsec/pools/search_item` | `ABSENT` |
-| ipsec-keypair | `IpsecKeypairManager` | `GET /api/ipsec/key_pairs/get_item`, `POST /api/ipsec/key_pairs/search_item` | `ABSENT` |
-| ipsec-vti | `IpsecVtiManager` | `GET /api/ipsec/vti/get_item`, `POST /api/ipsec/vti/search_item` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| ipsec-conn | `IpsecConnManager` | `description` | `ipsec/connections` Connection | `INTEGRATION_TEST_PASSED` | IKE connection. Child/Local/Remote reference by UUID |
+| ipsec-child | `IpsecChildManager` | `description` | `ipsec/connections` Child | `INTEGRATION_TEST_PASSED` | SA child. Needs parent connection UUID |
+| ipsec-local | `IpsecLocalManager` | `description` | `ipsec/connections` Local | `INTEGRATION_TEST_PASSED` | Local auth. Needs parent connection UUID |
+| ipsec-remote | `IpsecRemoteManager` | `description` | `ipsec/connections` Remote | `INTEGRATION_TEST_PASSED` | Remote auth. Needs parent connection UUID |
+| ipsec-psk | `IpsecPskManager` | `description` | `ipsec/pre_shared_keys` Item | `INTEGRATION_TEST_PASSED` | Pre-shared keys. Redacts Key |
+| ipsec-keypair | `IpsecKeypairManager` | `name` | `ipsec/key_pairs` Item | `INTEGRATION_TEST_PASSED` | Key pairs. Redacts privateKey |
+| ipsec-pool | `IpsecPoolManager` | `name` | `ipsec/pools` (bare) | `INTEGRATION_TEST_PASSED` | IP address pools for clients |
+| ipsec-vti | `IpsecVtiManager` | `description` | `ipsec/vti` (bare) | `INTEGRATION_TEST_PASSED` | Virtual tunnel interfaces. reqid + tunnel IPs required (plain, no CIDR) |
 
 ## Traffic Shaper (1 manager — requires reconfigure)
 
