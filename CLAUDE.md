@@ -49,21 +49,30 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 
 ---
 
-## Current State (v0.1.0 -- scaffold)
+## Current State (v0.2.0)
 
 | Component | Status |
 |---|---|
-| OpnsenseClient (httpx async, retry, exception mapping) | Scaffold |
-| AuthUserManager (CRUD + ensure) | Scaffold |
-| AuthGroupManager (CRUD + ensure) | Scaffold |
-| AuthPrivManager (privilege assignment + ensure) | Scaffold |
-| Exception hierarchy (OpnsenseError -> 7 typed exceptions) | Scaffold |
-| Credential provider (env vars + .env) | Scaffold |
-| EnsureResult frozen dataclass | Scaffold |
-| Unit tests | Pending |
-| CI: ruff + mypy + pytest | Pending |
-| Pre-commit hooks | Pending |
-| Dev container (.devcontainer/) | Pending |
+| OpnsenseClient (httpx async, retry, exception mapping) | Done |
+| core/identity.py -- IdentityResolver (composite match keys) | Done |
+| core/diff.py -- DiffEngine (state comparison + enum normalization) | Done |
+| core/redaction.py -- Redactor (unified field redaction) | Done |
+| core/validation.py -- FieldValidator protocol + ValidatorRegistry | Done |
+| core/endpoint.py -- EndpointConfig + EndpointResolver | Done |
+| core/logging_helpers.py -- ManagerLogBuilder (structured logs) | Done |
+| managers/base.py -- BaseManager (thin orchestrator, composes core/) | Done |
+| managers/protocols.py -- ManagerProtocol (typing.Protocol for DI) | Done |
+| Auth managers (user, group, priv, api_key) | Done |
+| Firewall managers (alias, filter, dnat, snat, onetoone, category, group) | Done |
+| Interface managers (vlan, vip) | Done |
+| Traffic shaper (pipe) | Done |
+| Exception hierarchy (OpnsenseError -> 8 typed exceptions + FieldValidationError) | Done |
+| Credential provider (env vars + .env) | Done |
+| EnsureResult frozen dataclass | Done |
+| Unit tests (377 tests) | Done |
+| Integration tests (133 tests on live OPNsense 26.1.5) | Done |
+| CI: ruff + mypy + bandit + pytest (Python 3.10-3.13) | Done |
+| Dev container (.devcontainer/) | Done |
 | Ansible collection | Phase 2 |
 | Vault AppRole auth | Phase 2 -- blocked until Vault deployed |
 
@@ -75,15 +84,28 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 |---|---|
 | `README.md` | Install, quickstart, API reference |
 | `src/opnsense/client.py` | Async REST client -- httpx, retry, exception mapping |
-| `src/opnsense/managers/base.py` | BaseManager -- abstract CRUD + ensure() lifecycle |
-| `src/opnsense/managers/auth_user.py` | AuthUserManager -- local user CRUD |
-| `src/opnsense/managers/auth_group.py` | AuthGroupManager -- local group CRUD |
-| `src/opnsense/managers/auth_priv.py` | AuthPrivManager -- privilege assignment |
-| `src/opnsense/exceptions.py` | Typed exception hierarchy |
+| `src/opnsense/exceptions.py` | ALL exceptions (OpnsenseError hierarchy + FieldValidationError) |
 | `src/opnsense/credentials.py` | Credential providers (env, future Vault) |
-| `src/opnsense/models/base.py` | EnsureResult dataclass |
-| `tests/unit/` | Unit tests |
-| `tests/integration/` | Integration tests (live OPNsense device) |
+| `src/opnsense/logging.py` | Structlog config (delegates to core/redaction) |
+| `src/opnsense/validators.py` | Backward-compat shim (delegates to core/validation) |
+| `src/opnsense/core/` | Cross-cutting concerns -- independently reusable, zero manager coupling |
+| `src/opnsense/core/identity.py` | IdentityResolver -- composite match key lookup |
+| `src/opnsense/core/diff.py` | DiffEngine -- state comparison + OPNsense enum normalization |
+| `src/opnsense/core/redaction.py` | Redactor -- unified field redaction with partial reveal |
+| `src/opnsense/core/validation.py` | FieldValidator protocol + ValidatorRegistry + 11 built-in types |
+| `src/opnsense/core/endpoint.py` | EndpointConfig + EndpointResolver -- URL construction |
+| `src/opnsense/core/logging_helpers.py` | ManagerLogBuilder -- structured log dict construction |
+| `src/opnsense/managers/base.py` | BaseManager -- thin orchestrator composing core/ components |
+| `src/opnsense/managers/protocols.py` | ManagerProtocol -- typing.Protocol for consumer DI |
+| `src/opnsense/managers/auth_user.py` | AuthUserManager -- local user CRUD (~30 lines, config only) |
+| `src/opnsense/managers/auth_group.py` | AuthGroupManager -- local group CRUD |
+| `src/opnsense/managers/auth_priv.py` | AuthPrivManager -- privilege assignment (standalone) |
+| `src/opnsense/managers/auth_api_key.py` | AuthApiKeyManager -- API key CRUD (standalone) |
+| `src/opnsense/managers/fw_filter.py` | FwFilterManager -- firewall filter rules |
+| `src/opnsense/models/base.py` | EnsureResult frozen dataclass |
+| `tests/unit/` | Unit tests (377 tests) |
+| `tests/unit/core/` | Core module tests (110 tests) |
+| `tests/integration/` | Integration tests (133 tests, live OPNsense device) |
 | `CHANGELOG.md` | Semantic versioning history |
 
 ---
@@ -139,7 +161,7 @@ finally:
 ## Logging
 
 - Uses **structlog** with colorized console + Loki JSON file output
-- Redaction: `REDACT_RULES` in `src/opnsense/logging.py` (partial reveal per field)
+- Redaction: unified in `src/opnsense/core/redaction.py` (logging.py delegates to it)
 - Severity: DEBUG=noop, INFO=create/update, WARNING=delete, ERROR=failure, CRITICAL=auth
 - Configure: `from opnsense.logging import configure_logging`
 - Log file path set by consumer (tests: `tests/integration/logs/inttest.log`)

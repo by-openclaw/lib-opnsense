@@ -6,8 +6,8 @@
 
 # lib-opnsense — OOP Refactor Scope of Work
 
-> **Status:** Draft for review
-> **Date:** 2026-04-08
+> **Status:** Complete (PRs #29, #30, #31 merged)
+> **Date:** 2026-04-08 (completed 2026-04-08)
 > **Driver:** ADR-0029 compliance — separation of concerns, reusable components
 
 ---
@@ -230,12 +230,13 @@ Per domain, on live OPNsense device:
 
 ## 8. Implementation Sequence
 
-| Phase | What | Breaking? |
-|---|---|---|
-| 1 | Extract core/ pure utilities (diff, redaction, validation, endpoint, identity) | No — internal refactor |
-| 2 | Wire core/ into BaseManager, add protocols, extract logging | No — same public API |
-| 3 | Update concrete managers to use EndpointConfig | No — same public API |
-| 4 | Unit tests per core/ module + update existing tests | No |
-| 5 | Integration tests verify no regression | No |
+| Phase | What | Breaking? | Status |
+|---|---|---|---|
+| 1 | Extract core/ pure utilities (diff, redaction, validation, endpoint, identity, logging_helpers) | No — internal refactor | Done (PR #29) |
+| 2 | Wire core/ into BaseManager, add protocols, extract logging | No — same public API | Done (PR #30) |
+| 3 | Clean up validators.py shim, export ManagerProtocol | No — same public API | Done (PR #31) |
+| 4 | Unit tests per core/ module + update existing tests | No | Done (110 new tests, 377 total) |
+| 5 | Integration tests verify no regression + docs update | No | Done (133 integration tests unchanged) |
 
 Public API surface (ensure, list, get, create, update, delete) stays identical.
+All 377 unit tests + 133 integration tests pass with zero regressions.
