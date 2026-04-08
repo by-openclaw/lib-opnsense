@@ -175,6 +175,9 @@ finally:
 - Breaking changes = MAJOR version bump + migration note in CHANGELOG
 - `ruff` linting must be clean before commit
 - `mypy` must be clean before commit
+- **Every manager PR must update `docs/api-coverage.md`** — status, match keys, notes
+- **Every manager PR must include integration tests** — never merge with smoke-only
+- **Never output secrets in terminal** — read silently, write to `.env` only
 
 ---
 
