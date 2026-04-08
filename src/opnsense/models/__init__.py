@@ -38,6 +38,8 @@ from opnsense.models.ub_dot import UbDot
 from opnsense.models.ub_forward import UbForward
 from opnsense.models.ub_host_alias import UbHostAlias
 from opnsense.models.ub_host_override import UbHostOverride
+from opnsense.models.wg_client import WgClient
+from opnsense.models.wg_server import WgServer
 
 __all__ = [
     "AuthGroup",
@@ -75,4 +77,6 @@ __all__ = [
     "UbForward",
     "UbHostAlias",
     "UbHostOverride",
+    "WgClient",
+    "WgServer",
 ]
