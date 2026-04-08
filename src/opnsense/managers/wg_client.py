@@ -53,6 +53,7 @@ class WgClientManager(BaseManager):
         serveraddress:  Remote endpoint IP or hostname (optional)
         serverport:     Remote endpoint port 1–65535 (optional)
         keepalive:      Persistent keepalive interval, 0+ seconds (optional)
+        endpoint:       Computed endpoint display (optional)
 
     REDACT_FIELDS: psk, pubkey — never exposed in before/after dicts.
 
@@ -82,6 +83,7 @@ class WgClientManager(BaseManager):
         "serveraddress": {"type": "str"},
         "serverport": {"type": "port"},
         "keepalive": {"type": "int", "min": 0},
+        "endpoint": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

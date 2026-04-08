@@ -54,6 +54,18 @@ class TsPipeManager(BaseManager):
         bandwidth:        Bandwidth limit, min 1 (required)
         bandwidthMetric:  Bandwidth unit — bit, Kbit, Mbit, Gbit (optional)
         enabled:          Enable pipe (optional, default='1')
+        delay:            Pipe delay in ms (optional)
+        mask:             Mask type — none, src-ip, dst-ip, src-ip6, dst-ip6 (optional)
+        buckets:          Hash buckets (optional)
+        scheduler:        Scheduler — '', fifo, wf2q+, rr, qfq, fq_codel, fq_pie (optional)
+        codel_enable:     Enable CoDel AQM (optional, default='0')
+        codel_target:     CoDel target delay (optional)
+        codel_interval:   CoDel interval (optional)
+        codel_ecn_enable: Enable CoDel ECN (optional, default='0')
+        pie_enable:       Enable PIE AQM (optional, default='0')
+        fqcodel_flows:    FQ-CoDel flows (optional)
+        fqcodel_limit:    FQ-CoDel limit (optional)
+        fqcodel_quantum:  FQ-CoDel quantum (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -79,6 +91,24 @@ class TsPipeManager(BaseManager):
             "values": ["bit", "Kbit", "Mbit", "Gbit"],
         },
         "enabled": {"type": "bool_str"},
+        "delay": {"type": "str"},
+        "mask": {
+            "type": "enum",
+            "values": ["none", "src-ip", "dst-ip", "src-ip6", "dst-ip6"],
+        },
+        "buckets": {"type": "str"},
+        "scheduler": {
+            "type": "enum",
+            "values": ["", "fifo", "wf2q+", "rr", "qfq", "fq_codel", "fq_pie"],
+        },
+        "codel_enable": {"type": "bool_str"},
+        "codel_target": {"type": "str"},
+        "codel_interval": {"type": "str"},
+        "codel_ecn_enable": {"type": "bool_str"},
+        "pie_enable": {"type": "bool_str"},
+        "fqcodel_flows": {"type": "str"},
+        "fqcodel_limit": {"type": "str"},
+        "fqcodel_quantum": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

@@ -53,6 +53,7 @@ class IfVlanManager(BaseManager):
         tag:    VLAN ID, 1-4094 (required)
         if:     Parent interface name, e.g. 'vtnet1' (required)
         pcp:    802.1p priority code point, 0-7 (optional)
+        proto:  VLAN protocol type — ethertype8021q, ethertype8021ad (optional)
         descr:  VLAN description, max 255 (optional)
 
     Output (EnsureResult):
@@ -75,6 +76,10 @@ class IfVlanManager(BaseManager):
         "tag": {"type": "int", "required": True, "min": 1, "max": 4094},
         "if": {"type": "str", "required": True},
         "pcp": {"type": "int", "min": 0, "max": 7},
+        "proto": {
+            "type": "enum",
+            "values": ["ethertype8021q", "ethertype8021ad"],
+        },
         "descr": {"type": "str", "max_length": 255},
     }
 

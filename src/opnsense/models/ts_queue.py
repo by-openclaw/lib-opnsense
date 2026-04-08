@@ -22,8 +22,12 @@ class TsQueue:
         weight:        Queue weight (1-100, default '100').
         enabled:       Whether the queue is enabled ('0' or '1').
         mask:          Mask type (none, src-ip, dst-ip, src-ip6, dst-ip6).
-        codel_enable:  Whether CoDel AQM is enabled ('0' or '1').
-        uuid:          Resource UUID assigned by OPNsense.
+        codel_enable:     Whether CoDel AQM is enabled ('0' or '1').
+        codel_target:     CoDel target delay.
+        codel_interval:   CoDel interval.
+        codel_ecn_enable: Whether CoDel ECN is enabled ('0' or '1').
+        pie_enable:       Whether PIE AQM is enabled ('0' or '1').
+        uuid:             Resource UUID assigned by OPNsense.
     """
 
     description: str
@@ -31,4 +35,8 @@ class TsQueue:
     enabled: str = "1"
     mask: str = "none"
     codel_enable: str = "0"
+    codel_target: str = ""
+    codel_interval: str = ""
+    codel_ecn_enable: str = "0"
+    pie_enable: str = "0"
     uuid: str = ""

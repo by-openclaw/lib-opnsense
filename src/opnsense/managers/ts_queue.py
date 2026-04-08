@@ -47,6 +47,24 @@ class TsQueueManager(BaseManager):
                 "weight": "90",
                 "enabled": "1",
             })
+
+    Input (ensure present):
+        description:    Queue description, max 255 (required)
+        weight:         Queue weight, 1-100 (optional)
+        enabled:        Enable queue (optional, default='1')
+        mask:           Mask type — none, src-ip, dst-ip, src-ip6, dst-ip6 (optional)
+        codel_enable:   Enable CoDel AQM (optional, default='0')
+        codel_target:   CoDel target delay (optional)
+        codel_interval: CoDel interval (optional)
+        codel_ecn_enable: Enable CoDel ECN (optional, default='0')
+        pie_enable:     Enable PIE AQM (optional, default='0')
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "trafficshaper/settings"
@@ -66,6 +84,10 @@ class TsQueueManager(BaseManager):
             "values": ["none", "src-ip", "dst-ip", "src-ip6", "dst-ip6"],
         },
         "codel_enable": {"type": "bool_str"},
+        "codel_target": {"type": "str"},
+        "codel_interval": {"type": "str"},
+        "codel_ecn_enable": {"type": "bool_str"},
+        "pie_enable": {"type": "bool_str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

@@ -43,10 +43,13 @@ class Kea4SubnetManager(BaseManager):
             })
 
     Input (ensure present):
-        subnet:       Subnet CIDR, max 255 (required)
-        pools:        Address pool ranges (optional)
-        next_server:  TFTP/PXE next-server address (optional)
-        description:  Description, max 255 (optional)
+        subnet:           Subnet CIDR, max 255 (required)
+        pools:            Address pool ranges (optional)
+        next_server:      TFTP/PXE next-server address (optional)
+        description:      Description, max 255 (optional)
+        match-client-id:  Match client ID (optional, default='1')
+        ddns_forward_zone: DDNS forward zone (optional)
+        ddns_dns_server:  DDNS DNS server address (optional)
         option_data:  DHCP options (optional, dict):
             domain_name_servers:    DNS servers (optional)
             domain_search:          Search domains (optional)
@@ -81,6 +84,9 @@ class Kea4SubnetManager(BaseManager):
         "pools": {"type": "str"},
         "next_server": {"type": "str"},
         "description": {"type": "str", "max_length": 255},
+        "match-client-id": {"type": "bool_str"},
+        "ddns_forward_zone": {"type": "str"},
+        "ddns_dns_server": {"type": "str"},
         "option_data": {
             "type": "dict",
             "fields": {
