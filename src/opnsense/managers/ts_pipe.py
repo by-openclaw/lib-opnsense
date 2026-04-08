@@ -48,6 +48,19 @@ class TsPipeManager(BaseManager):
                 "bandwidthMetric": "Mbit",
                 "enabled": "1",
             })
+
+    Input (ensure present):
+        description:      Pipe description, max 255 (required)
+        bandwidth:        Bandwidth limit, min 1 (required)
+        bandwidthMetric:  Bandwidth unit — bit, Kbit, Mbit, Gbit (optional)
+        enabled:          Enable pipe (optional, default='1')
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "trafficshaper/settings"

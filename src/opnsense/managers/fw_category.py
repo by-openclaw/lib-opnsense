@@ -41,6 +41,17 @@ class FwCategoryManager(BaseManager):
                 "name": "infrastructure",
                 "color": "#0000ff",
             })
+
+    Input (ensure present):
+        name:   Category name, max 255 (required)
+        color:  Color hex code (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/category"

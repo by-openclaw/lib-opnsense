@@ -40,6 +40,24 @@ class UbForwardManager(BaseManager):
                 "domain": "example.com",
                 "server": "10.0.0.53",
             })
+
+    Input (ensure present):
+        domain:                Forwarding domain name, max 255 (required)
+        server:                Upstream DNS server address, max 255 (optional)
+        type:                  Forward type — forward, stub (optional)
+        port:                  Server port (optional)
+        verify:                TLS verification hostname (optional)
+        forward_tcp_upstream:  Use TCP for upstream (optional, default='0')
+        forward_first:         Forward first before resolving (optional, default='0')
+        enabled:               Enable forward (optional, default='1')
+        description:           Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "unbound/settings"

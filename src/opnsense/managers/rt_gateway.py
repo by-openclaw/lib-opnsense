@@ -51,6 +51,23 @@ class RtGatewayManager(BaseManager):
                 "interface": "wan",
                 "gateway": "10.0.0.1",
             })
+
+    Input (ensure present):
+        name:        Gateway name, max 255 (required)
+        interface:   Interface name, e.g. 'wan' (required)
+        gateway:     Gateway IP address (required)
+        ipprotocol:  IP protocol — inet, inet6 (optional)
+        disabled:    Disable gateway (optional, default='0')
+        defaultgw:   Default gateway flag (optional, default='0')
+        priority:    Priority, 0-255 (optional)
+        weight:      Weight, 1-5 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "routing/settings"

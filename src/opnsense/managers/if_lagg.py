@@ -47,6 +47,17 @@ class IfLaggManager(BaseManager):
                 "members": "vtnet1,vtnet2",
                 "proto": "lacp",
             })
+
+    Input (ensure present):
+        descr:  LAGG description, max 255 (required)
+        proto:  Aggregation protocol — none, lacp, failover, fec, loadbalance (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/lagg_settings"

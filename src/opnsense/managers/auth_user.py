@@ -38,6 +38,21 @@ class AuthUserManager(BaseManager):
         async with OpnsenseClient(...) as client:
             mgr = AuthUserManager(client)
             result = await mgr.ensure("present", {"name": "rune", "email": "..."})
+
+    Input (ensure present):
+        name:      Username, alphanumeric/underscore/hyphen, max 32 (required)
+        email:     Email address (optional)
+        password:  User password (optional)
+        disabled:  Disable user account (optional, default='0')
+        shell:     Login shell — '', '/bin/csh', '/bin/sh', '/bin/tcsh' (optional)
+        expires:   Expiration date string, max 10 chars (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "auth/user"

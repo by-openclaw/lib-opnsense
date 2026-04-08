@@ -46,6 +46,29 @@ class FwFilterManager(BaseManager):
                 "protocol": "TCP",
                 "destination_port": "443",
             })
+
+    Input (ensure present):
+        description:      Rule description, max 255 (required)
+        action:           Rule action — pass, block, reject (required)
+        interface:        Interface name (required)
+        direction:        Traffic direction — in, out, any (optional)
+        protocol:         Protocol name (optional)
+        ipprotocol:       IP protocol — inet, inet6, inet46 (optional)
+        source_net:       Source network, max 255 (optional)
+        destination_net:  Destination network, max 255 (optional)
+        source_port:      Source port, max 255 (optional)
+        destination_port: Destination port, max 255 (optional)
+        enabled:          Enable rule (optional, default='1')
+        log:              Log matching packets (optional, default='0')
+        quick:            Quick match (optional, default='1')
+        sequence:         Rule order priority, min 1 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/filter"

@@ -47,6 +47,19 @@ class RtRouteManager(BaseManager):
                 "descr": "Test route",
                 "disabled": "1",
             })
+
+    Input (ensure present):
+        network:   Destination network CIDR, e.g. '10.99.0.0/24' (required)
+        gateway:   Gateway UUID or name (required)
+        descr:     Description, max 255 (optional)
+        disabled:  Disable route (optional, default='0')
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "routes/routes"

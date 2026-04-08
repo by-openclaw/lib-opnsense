@@ -50,6 +50,20 @@ class UbHostAliasManager(BaseManager):
                 "domain": "lab.test",
                 "description": "inttest-alias",
             })
+
+    Input (ensure present):
+        hostname:     Alias hostname, max 255 (required)
+        domain:       Domain name, max 255 (optional)
+        host:         Parent HostOverride UUID (optional, parent UUID)
+        enabled:      Enable alias (optional, default='1')
+        description:  Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "unbound/settings"

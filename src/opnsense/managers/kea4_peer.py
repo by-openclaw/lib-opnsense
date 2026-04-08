@@ -41,6 +41,18 @@ class Kea4PeerManager(BaseManager):
                 "role": "primary",
                 "url": "https://peer.example.com:8000/",
             })
+
+    Input (ensure present):
+        name:  Peer name, max 255 (required)
+        role:  HA role — primary, standby (optional)
+        url:   Peer URL (required)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "kea/dhcpv4"

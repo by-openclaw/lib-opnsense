@@ -37,6 +37,17 @@ class UbDiagnosticsManager:
             stats = await diag.get_stats()
             dnsbl = await diag.get_dnsbl()
             blocklists = await diag.list_dnsbl()
+
+    Input: None — read-only, no parameters required.
+
+    Output (get_stats):
+        dict — Thread stats, cache info, query counts.
+
+    Output (get_dnsbl):
+        dict — Blocklist configuration (enabled, type, lists).
+
+    Output (list_dnsbl):
+        list[dict] — Blocklist entry dicts.
     """
 
     def __init__(self, client: OpnsenseClient) -> None:
