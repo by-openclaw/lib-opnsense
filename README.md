@@ -95,7 +95,7 @@ src/opnsense/
 
 ---
 
-## Managers (50 total)
+## Managers (53 total)
 
 | Scope | Managers | Status |
 |-------|:-------:|--------|
@@ -112,6 +112,8 @@ src/opnsense/
 | IPsec (connections, children, local/remote, PSK, keypairs, pools, VTI) | 8 | all integration tested |
 | Captive Portal (guest network zones) | 1 | all integration tested |
 | Syslog (remote destinations) | 1 | all integration tested |
+| Cron (scheduled jobs) | 1 | all integration tested |
+| Plugin management (list, install, remove) | 1 | integration tested |
 
 Full per-manager table with match keys, endpoints, and test status: [docs/api-coverage.md](docs/api-coverage.md)
 
