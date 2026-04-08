@@ -213,4 +213,9 @@ def validate_params(
         field_type = spec.get("type", "str")
         validator_fn = _TYPE_VALIDATORS.get(field_type)
         if validator_fn is not None:
-            validator_fn(field, value_str, spec)
+            try:
+                validator_fn(field, value_str, spec)
+            except FieldValidationError:
+                raise  # expected — propagate as-is
+            except Exception as exc:
+                raise FieldValidationError(field, value_str, f"validation error: {exc}") from exc
