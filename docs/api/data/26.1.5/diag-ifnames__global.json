@@ -1,1 +1,1 @@
-{"vtnet0":"WAN","vtnet1":"LAN","lo0":"Loopback","wireguard":"WireGuard (Group)"}
+{"vtnet1":"WAN","vtnet0":"LAN","lo0":"Loopback"}
