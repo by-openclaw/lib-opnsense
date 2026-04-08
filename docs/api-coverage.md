@@ -27,7 +27,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 41 |
+| Managers done (integration tested) | 42 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -170,10 +170,10 @@
 
 ## OpenVPN
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| ovpn-instance | `OvpnInstanceManager` | `GET /api/openvpn/instances/get_instance`, `POST /api/openvpn/instances/search_instance` | `ABSENT` |
-| ovpn-cso | `OvpnCsoManager` | `GET /api/openvpn/instances/get_cso`, `POST /api/openvpn/instances/search_cso` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| ovpn-instance | `OvpnInstanceManager` | `description` | `openvpn/instances` (bare) | `INTEGRATION_TEST_PASSED` | Server or client mode. Needs CA + cert refids. vpnid required. Redacts password |
+| ovpn-cso | — | — | — | `NOT_AVAILABLE` | CSO endpoints 404 on 26.1.5 — not a separate entity |
 
 ## DHCP Relay
 
