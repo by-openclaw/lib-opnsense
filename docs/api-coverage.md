@@ -27,7 +27,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 50 |
+| Managers done (integration tested) | 53 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -143,9 +143,9 @@
 
 ## Cron (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| cron-job | `CronJobManager` | `GET /api/cron/settings/get_job`, `POST /api/cron/settings/search_jobs` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| cron-job | `CronJobManager` | `description` | `cron/settings` Job | `INTEGRATION_TEST_PASSED` | Plural search (searchJobs). Scheduled tasks |
 
 ## Trust / PKI
 
@@ -182,13 +182,17 @@
 | dhcrelay-dest | — | `dhcrelay/settings` | `SKIPPED` | Not needed — Kea serves directly on all VLANs, no relay required |
 | dhcrelay-relay | — | `dhcrelay/settings` | `SKIPPED` | Only needed when DHCP server is on a different machine |
 
+## Plugin Management
+
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| plugins | `PluginManager` | — | `core/firmware` | `INTEGRATION_TEST_PASSED` | List/install/remove plugins. Not BaseManager — custom methods |
+
 ## Monit
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| monit-alert | `MonitAlertManager` | `GET /api/monit/settings/get_alert`, `POST /api/monit/settings/search_alert` | `ABSENT` |
-| monit-service | `MonitServiceManager` | `GET /api/monit/settings/get_service`, `POST /api/monit/settings/search_service` | `ABSENT` |
-| monit-test | `MonitTestManager` | `GET /api/monit/settings/get_test`, `POST /api/monit/settings/search_test` | `ABSENT` |
+| Domain | Manager | Endpoints | Status | Notes |
+|---|---|---|---|---|
+| monit-* (3 domains) | — | `monit/settings` | `SKIPPED` | Use Prometheus + node_exporter instead for monitoring |
 
 ## Dnsmasq
 
