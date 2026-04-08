@@ -26,6 +26,7 @@ class TestEnsurePresent:
             state="present",
             params={
                 "subnet": "2001:db8::/64",
+                "interface": "lan",
                 "description": "IPv6 LAN pool",
             },
         )
@@ -42,6 +43,7 @@ class TestEnsurePresent:
             {
                 "uuid": "uuid-existing",
                 "subnet": "2001:db8::/64",
+                "interface": "lan",
                 "description": "IPv6 LAN pool",
             },
         ]
@@ -51,6 +53,7 @@ class TestEnsurePresent:
             state="present",
             params={
                 "subnet": "2001:db8::/64",
+                "interface": "lan",
                 "description": "IPv6 LAN pool",
             },
         )
@@ -65,6 +68,7 @@ class TestEnsurePresent:
             {
                 "uuid": "uuid-existing",
                 "subnet": "2001:db8::/64",
+                "interface": "lan",
                 "description": "old description",
             },
         ]
@@ -72,6 +76,7 @@ class TestEnsurePresent:
             "subnet6": {
                 "uuid": "uuid-existing",
                 "subnet": "2001:db8::/64",
+                "interface": "lan",
                 "description": "old description",
             },
         }
@@ -83,6 +88,7 @@ class TestEnsurePresent:
             state="present",
             params={
                 "subnet": "2001:db8::/64",
+                "interface": "lan",
                 "description": "new description",
             },
         )
@@ -99,16 +105,18 @@ class TestEnsureAbsent:
     async def test_delete_existing_subnet(self, mock_client: AsyncMock) -> None:
         """ensure absent when subnet exists -> delete + apply."""
         mock_client.search.return_value = [
-            {"uuid": "uuid-existing", "subnet": "2001:db8::/64"},
+            {"uuid": "uuid-existing", "subnet": "2001:db8::/64", "interface": "lan"},
         ]
         mock_client.get.return_value = {
-            "subnet6": {"uuid": "uuid-existing", "subnet": "2001:db8::/64"},
+            "subnet6": {"uuid": "uuid-existing", "subnet": "2001:db8::/64", "interface": "lan"},
         }
         mock_client.delete.return_value = {"result": "deleted"}
         mock_client.reconfigure.return_value = {"status": "ok"}
 
         mgr = Kea6SubnetManager(mock_client)
-        result = await mgr.ensure(state="absent", params={"subnet": "2001:db8::/64"})
+        result = await mgr.ensure(
+            state="absent", params={"subnet": "2001:db8::/64", "interface": "lan"}
+        )
 
         assert result.changed is True
         assert result.action == "deleted"
@@ -119,7 +127,9 @@ class TestEnsureAbsent:
         mock_client.search.return_value = []
 
         mgr = Kea6SubnetManager(mock_client)
-        result = await mgr.ensure(state="absent", params={"subnet": "2001:db8::/64"})
+        result = await mgr.ensure(
+            state="absent", params={"subnet": "2001:db8::/64", "interface": "lan"}
+        )
 
         assert result.changed is False
         assert result.action == "noop"
@@ -135,7 +145,7 @@ class TestCheckMode:
         mgr = Kea6SubnetManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"subnet": "2001:db8::/64"},
+            params={"subnet": "2001:db8::/64", "interface": "lan"},
             check_mode=True,
         )
 
@@ -146,16 +156,16 @@ class TestCheckMode:
 
     async def test_check_mode_delete_no_api_call(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [
-            {"uuid": "uuid-1", "subnet": "2001:db8::/64"},
+            {"uuid": "uuid-1", "subnet": "2001:db8::/64", "interface": "lan"},
         ]
         mock_client.get.return_value = {
-            "subnet6": {"uuid": "uuid-1", "subnet": "2001:db8::/64"},
+            "subnet6": {"uuid": "uuid-1", "subnet": "2001:db8::/64", "interface": "lan"},
         }
 
         mgr = Kea6SubnetManager(mock_client)
         result = await mgr.ensure(
             state="absent",
-            params={"subnet": "2001:db8::/64"},
+            params={"subnet": "2001:db8::/64", "interface": "lan"},
             check_mode=True,
         )
 
@@ -182,7 +192,9 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="present", params={"subnet": "bad"})
+            await mgr.ensure(
+                state="present", params={"subnet": "bad", "interface": "lan"}
+            )
 
         assert any("create failed" in r.message for r in caplog.records)
 
@@ -190,10 +202,10 @@ class TestErrorHandling:
         self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
     ) -> None:
         mock_client.search.return_value = [
-            {"uuid": "uuid-1", "subnet": "2001:db8::/64"},
+            {"uuid": "uuid-1", "subnet": "2001:db8::/64", "interface": "lan"},
         ]
         mock_client.get.return_value = {
-            "subnet6": {"uuid": "uuid-1", "subnet": "2001:db8::/64"},
+            "subnet6": {"uuid": "uuid-1", "subnet": "2001:db8::/64", "interface": "lan"},
         }
         mock_client.delete.side_effect = OpnsenseValidationError(
             message="delete failed", endpoint="kea/dhcpv6/delSubnet"
@@ -204,7 +216,7 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="absent", params={"subnet": "2001:db8::/64"})
+            await mgr.ensure(state="absent", params={"subnet": "2001:db8::/64", "interface": "lan"})
 
         assert any("delete failed" in r.message for r in caplog.records)
 
