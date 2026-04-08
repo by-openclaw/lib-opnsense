@@ -6,7 +6,8 @@
 SAFETY:
     - Gateways: READ-ONLY — never create/modify/delete gateways
       (WAN_DHCP is the default gateway, touching it kills connectivity)
-    - Routes: CRUD with disabled=1, inttest- prefix, using existing WAN_DHCP gateway
+    - Routes: CRUD with disabled=1, inttest- prefix, using Null4 blackhole gateway
+      (Null4 = 127.0.0.1, safe — no traffic impact)
     - Full cleanup after each test class
 """
 
@@ -37,8 +38,8 @@ class TestGatewayReadOnly:
         names = [r.get("name", "") for r in rows]
         assert "WAN_DHCP" in names, f"WAN_DHCP not found in {names}"
 
-    async def test_02_noop_existing_gateway(self, opn_client: OpnsenseClient) -> None:
-        """ensure present on existing gateway → noop (no mutation)."""
+    async def test_02_list_contains_default(self, opn_client: OpnsenseClient) -> None:
+        """Verify WAN_DHCP is the default gateway."""
         mgr = RtGatewayManager(opn_client)
         rows = await mgr.list(search_phrase="WAN_DHCP")
         wan = [r for r in rows if r.get("name") == "WAN_DHCP"]
@@ -52,7 +53,7 @@ class TestGatewayReadOnly:
 
 
 class TestRouteCRUD:
-    """Static route CRUD — disabled routes, inttest- prefix, WAN_DHCP gateway."""
+    """Static route CRUD — disabled routes, inttest- prefix, Null4 gateway."""
 
     async def test_01_create_disabled_route(self, opn_client: OpnsenseClient) -> None:
         """Create a disabled static route to a test network."""
@@ -61,7 +62,7 @@ class TestRouteCRUD:
             "present",
             {
                 "network": "10.99.0.0/24",
-                "gateway": "WAN_DHCP",
+                "gateway": "Null4",
                 "descr": "inttest-route-disabled",
                 "disabled": "1",
             },
@@ -75,7 +76,7 @@ class TestRouteCRUD:
             "present",
             {
                 "network": "10.99.0.0/24",
-                "gateway": "WAN_DHCP",
+                "gateway": "Null4",
                 "descr": "inttest-route-disabled",
                 "disabled": "1",
             },
@@ -89,7 +90,7 @@ class TestRouteCRUD:
             "present",
             {
                 "network": "10.99.0.0/24",
-                "gateway": "WAN_DHCP",
+                "gateway": "Null4",
                 "descr": "inttest-route-updated",
                 "disabled": "1",
             },
@@ -101,7 +102,7 @@ class TestRouteCRUD:
         mgr = RtRouteManager(opn_client)
         r = await mgr.ensure(
             "absent",
-            {"network": "10.99.0.0/24", "gateway": "WAN_DHCP"},
+            {"network": "10.99.0.0/24", "gateway": "Null4"},
             check_mode=True,
         )
         assert r.changed is True
@@ -109,13 +110,13 @@ class TestRouteCRUD:
 
     async def test_05_delete(self, opn_client: OpnsenseClient) -> None:
         mgr = RtRouteManager(opn_client)
-        r = await mgr.ensure("absent", {"network": "10.99.0.0/24", "gateway": "WAN_DHCP"})
+        r = await mgr.ensure("absent", {"network": "10.99.0.0/24", "gateway": "Null4"})
         assert r.changed is True
         assert r.action == "deleted"
 
     async def test_06_delete_idempotent(self, opn_client: OpnsenseClient) -> None:
         mgr = RtRouteManager(opn_client)
-        r = await mgr.ensure("absent", {"network": "10.99.0.0/24", "gateway": "WAN_DHCP"})
+        r = await mgr.ensure("absent", {"network": "10.99.0.0/24", "gateway": "Null4"})
         assert r.changed is False
         assert r.action == "noop"
 
