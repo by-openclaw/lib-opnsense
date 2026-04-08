@@ -23,59 +23,22 @@ from typing import Any
 
 import structlog
 
-# ---------------------------------------------------------------------------
-# Redaction rules: pattern -> (reveal_start, reveal_end, mask_char)
-#
-#   password:       full redaction        -> <REDACTED:password>
-#   secret:         last 4 visible        -> ***...ExQi
-#   api_key / key:  first 4 + last 4      -> gTCJ***...igCn
-#   authorizedkeys: first 8 visible       -> ssh-ed25***...
-#   otp_seed:       full redaction        -> <REDACTED:otp_seed>
-# ---------------------------------------------------------------------------
-REDACT_RULES: dict[str, tuple[int, int, str]] = {
-    "password": (0, 0, "*"),
-    "otp_seed": (0, 0, "*"),
-    "scrambled_password": (0, 0, "*"),
-    "authorizedkeys": (8, 0, "*"),
-    "secret": (0, 4, "*"),
-    "api_key": (4, 4, "*"),
-    "key": (4, 4, "*"),
-}
+from opnsense.core.redaction import DEFAULT_RULES, Redactor
+
+# Backward compatibility — re-export for consumers that import REDACT_RULES from here
+REDACT_RULES = DEFAULT_RULES
+
+# Shared redactor instance for the structlog processor
+_redactor = Redactor()
 
 
 def _redact_value(key: str, value: Any) -> Any:
     """Redact a single value based on its field name.
 
-    Matches the longest REDACT_RULES pattern found in the key name.
-    Values shorter than the reveal window are fully redacted.
+    Delegates to :class:`~opnsense.core.redaction.Redactor`.
+    Kept for backward compatibility.
     """
-    key_lower = key.lower()
-    matched_rule: tuple[int, int, str] | None = None
-    matched_len = 0
-    for pattern, rule in REDACT_RULES.items():
-        if pattern in key_lower and len(pattern) > matched_len:
-            matched_rule = rule
-            matched_len = len(pattern)
-
-    if matched_rule is None:
-        return value
-
-    if not isinstance(value, str) or not value:
-        return f"<REDACTED:{key}>"
-
-    reveal_start, reveal_end, mask_char = matched_rule
-
-    if reveal_start == 0 and reveal_end == 0:
-        return f"<REDACTED:{key}>"
-
-    val_len = len(value)
-    if val_len <= reveal_start + reveal_end:
-        return f"<REDACTED:{key}>"
-
-    prefix = value[:reveal_start] if reveal_start > 0 else ""
-    suffix = value[-reveal_end:] if reveal_end > 0 else ""
-    masked_len = val_len - reveal_start - reveal_end
-    return f"{prefix}{mask_char * masked_len}{suffix}"
+    return _redactor.redact_value(key, value)
 
 
 def _redact_processor(
@@ -84,7 +47,7 @@ def _redact_processor(
     event_dict: structlog.types.EventDict,
 ) -> structlog.types.EventDict:
     """Structlog processor that redacts sensitive fields in every log event."""
-    return {k: _redact_value(k, v) for k, v in event_dict.items()}
+    return _redactor.structlog_processor(logger, method_name, event_dict)
 
 
 def configure_logging(
