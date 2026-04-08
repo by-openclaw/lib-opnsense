@@ -95,7 +95,7 @@ src/opnsense/
 
 ---
 
-## Managers (37 total)
+## Managers (41 total)
 
 | Scope | Managers | Status |
 |-------|:-------:|--------|
@@ -107,6 +107,9 @@ src/opnsense/
 | Unbound DNS (host overrides, aliases, forwarding, ACLs, DoT, diagnostics) | 6 | all integration tested |
 | Kea DHCP (v4 subnets, reservations, peers + v6 subnets, reservations) | 5 | all integration tested |
 | WireGuard (server + client/peer + key pair generation) | 2 | all integration tested |
+| Trust/PKI (CA + certificates, import or generate) | 2 | all integration tested |
+| Captive Portal (guest network zones) | 1 | all integration tested |
+| Syslog (remote destinations) | 1 | all integration tested |
 
 Full per-manager table with match keys, endpoints, and test status: [docs/api-coverage.md](docs/api-coverage.md)
 

@@ -27,7 +27,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 38 |
+| Managers done (integration tested) | 41 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -149,10 +149,10 @@
 
 ## Trust / PKI
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| trust-ca | `TrustCaManager` | `GET /api/trust/ca/get`, `POST /api/trust/ca/search` | `ABSENT` |
-| trust-cert | `TrustCertManager` | `GET /api/trust/cert/get`, `POST /api/trust/cert/search` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| trust-ca | `TrustCaManager` | `descr` | `trust/ca` (bare) | `INTEGRATION_TEST_PASSED` | Internal generate or import PEM. Redacts prv/prv_payload. Cert caref uses refid not UUID |
+| trust-cert | `TrustCertManager` | `descr` | `trust/cert` (bare) | `INTEGRATION_TEST_PASSED` | Needs CA refid in caref. Import or generate. Redacts prv/prv_payload/csr_payload |
 
 ## IDS / Suricata
 
@@ -164,9 +164,9 @@
 
 ## Captive Portal
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| cp-zone | `CpZoneManager` | `GET /api/captiveportal/settings/get_zone`, `POST /api/captiveportal/settings/search_zones` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| cp-zone | `CpZoneManager` | `description` | `captiveportal/settings` Zone | `INTEGRATION_TEST_PASSED` | Guest portal zones. Plural search (searchZones). Created disabled for testing |
 
 ## OpenVPN
 

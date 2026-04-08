@@ -6,6 +6,7 @@
 from opnsense.models.auth_group import AuthGroup
 from opnsense.models.auth_user import AuthUser
 from opnsense.models.base import EnsureResult
+from opnsense.models.cp_zone import CpZone
 from opnsense.models.fw_alias import FwAlias
 from opnsense.models.fw_category import FwCategory
 from opnsense.models.fw_dnat import FwDnatRule
@@ -31,6 +32,8 @@ from opnsense.models.kea6_subnet import Kea6Subnet
 from opnsense.models.rt_gateway import RtGateway
 from opnsense.models.rt_route import RtRoute
 from opnsense.models.syslog_dest import SyslogDest
+from opnsense.models.trust_ca import TrustCa
+from opnsense.models.trust_cert import TrustCert
 from opnsense.models.ts_pipe import TsPipe
 from opnsense.models.ts_queue import TsQueue
 from opnsense.models.ts_rule import TsRule
@@ -45,6 +48,7 @@ from opnsense.models.wg_server import WgServer
 __all__ = [
     "AuthGroup",
     "AuthUser",
+    "CpZone",
     "EnsureResult",
     "FwAlias",
     "FwCategory",
@@ -71,6 +75,8 @@ __all__ = [
     "RtGateway",
     "RtRoute",
     "SyslogDest",
+    "TrustCa",
+    "TrustCert",
     "TsPipe",
     "TsQueue",
     "TsRule",
