@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.3.1...v0.4.0) (2026-04-08)
+
+
+### Features
+
+* 8 IPsec managers — full VPN tunnel management ([82ad6f2](https://github.com/by-openclaw/lib-opnsense/commit/82ad6f2bfdc951dfd49b9e847ddf5444c7befd99))
+* add 8 IPsec managers — full VPN tunnel management ([5f9a859](https://github.com/by-openclaw/lib-opnsense/commit/5f9a8595c268fe1ee02b81f6c80b41d211919e83))
+* add OvpnInstanceManager — OpenVPN server/client instances ([8c3624e](https://github.com/by-openclaw/lib-opnsense/commit/8c3624e97665765aafb58c24683dee73722bf201))
+* add PluginManager + CronJobManager + mark Monit SKIPPED ([242307e](https://github.com/by-openclaw/lib-opnsense/commit/242307e81b4e2d030f63a5e0539b2f05746fe05c))
+* add Trust/PKI (CA + Cert) + Captive Portal managers ([20a8bcd](https://github.com/by-openclaw/lib-opnsense/commit/20a8bcdc21e90def891f8acaea41a4d415214e24))
+* OvpnInstanceManager — OpenVPN server/client (needs CA + cert) ([736a859](https://github.com/by-openclaw/lib-opnsense/commit/736a8592d616188170338dc0a30484bf13c8e22e))
+* PluginManager + CronJobManager + Monit SKIPPED ([fded61d](https://github.com/by-openclaw/lib-opnsense/commit/fded61d14115a84c013cfb2914e2f2991271cc48))
+* Trust/PKI (CA + Cert) + Captive Portal — 3 managers ([7424544](https://github.com/by-openclaw/lib-opnsense/commit/7424544fe2d0335f50c27fff30e27d6eaa767b5c))
+
 ## [0.3.1](https://github.com/by-openclaw/lib-opnsense/compare/v0.3.0...v0.3.1) (2026-04-08)
 
 
