@@ -1,0 +1,97 @@
+# Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+# SPDX-License-Identifier: MIT
+# Repo: https://github.com/by-openclaw/lib-opnsense
+"""Diff engine — state comparison with OPNsense enum normalization.
+
+Compares current API state against desired state and returns changed fields.
+Handles OPNsense-specific enum dict formats transparently.
+
+Zero imports from managers/ or client.py — independently reusable.
+
+Usage::
+
+    from opnsense.core.diff import DiffEngine
+
+    engine = DiffEngine()
+    changes = engine.compute_diff(current_state, desired_state)
+"""
+
+from __future__ import annotations
+
+import logging
+from typing import Any
+
+logger = logging.getLogger(__name__)
+
+
+class DiffEngine:
+    """Stateless diff engine for OPNsense resource comparison.
+
+    Handles two OPNsense enum dict formats:
+        Format 1: ``{"selected": "1"}`` — simple selected value
+        Format 2: ``{"lan": {"value": "LAN", "selected": 1}, ...}`` — enum dict
+    """
+
+    @staticmethod
+    def normalize_value(value: Any) -> str:
+        """Normalize an OPNsense API value for comparison.
+
+        Handles enum dict formats and converts everything to string.
+
+        Args:
+            value: Raw value from the OPNsense API.
+
+        Returns:
+            Normalized string value suitable for comparison.
+        """
+        try:
+            if isinstance(value, dict):
+                if "selected" in value:
+                    return str(value.get("selected", ""))
+                for _opt_key, opt_val in value.items():
+                    if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
+                        return str(_opt_key)
+            return str(value)
+        except Exception as exc:
+            logger.error(
+                "normalize_value failed: %s",
+                exc,
+                extra={"action": "normalize_value_failed", "error": str(exc)},
+            )
+            raise
+
+    def compute_diff(
+        self,
+        current: dict[str, Any],
+        desired: dict[str, Any],
+    ) -> dict[str, str] | None:
+        """Compare current state against desired and return changed fields.
+
+        Only compares fields present in ``desired`` — extra fields in
+        ``current`` are ignored (OPNsense returns many computed fields).
+
+        Args:
+            current: Current resource state from the API.
+            desired: Desired resource parameters.
+
+        Returns:
+            Dict of field: desired_value for fields that differ, or None
+            if no changes are needed.
+        """
+        try:
+            diff: dict[str, str] = {}
+            for key, desired_value in desired.items():
+                current_value = current.get(key)
+                if current_value is None and key not in current:
+                    continue
+                normalized = self.normalize_value(current_value)
+                if normalized != str(desired_value):
+                    diff[key] = str(desired_value)
+            return diff if diff else None
+        except Exception as exc:
+            logger.error(
+                "compute_diff failed: %s",
+                exc,
+                extra={"action": "compute_diff_failed", "error": str(exc)},
+            )
+            raise

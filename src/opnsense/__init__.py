@@ -11,6 +11,8 @@ __version__ = "0.1.0"
 
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import (
+    AmbiguousMatchError,
+    FieldValidationError,
     OpnsenseAuthError,
     OpnsenseConnectionError,
     OpnsenseEndpointMissingError,
@@ -20,6 +22,8 @@ from opnsense.exceptions import (
 )
 
 __all__ = [
+    "AmbiguousMatchError",
+    "FieldValidationError",
     "OpnsenseClient",
     "OpnsenseError",
     "OpnsenseAuthError",

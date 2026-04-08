@@ -29,28 +29,11 @@ import ipaddress
 import re
 from typing import Any
 
+# FieldValidationError canonical home is exceptions.py (ADR-0029).
+# Re-exported here for backward compatibility.
+from opnsense.exceptions import FieldValidationError
 
-class FieldValidationError(ValueError):
-    """A field failed client-side validation.
-
-    Attributes:
-        field:    Field name that failed.
-        value:    The invalid value.
-        rule:     Description of the violated constraint.
-    """
-
-    def __init__(self, field: str, value: Any, rule: str) -> None:
-        """Initialise with field context.
-
-        Args:
-            field: Field name.
-            value: The invalid value provided.
-            rule:  Human-readable constraint description.
-        """
-        self.field = field
-        self.value = value
-        self.rule = rule
-        super().__init__(f"Invalid field '{field}': {rule} (got: {value!r})")
+__all__ = ["FieldValidationError", "validate_params"]
 
 
 # -- Built-in type validators ------------------------------------------------
