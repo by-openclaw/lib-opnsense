@@ -4,7 +4,8 @@
     ".": {
       "release-type": "python",
       "extra-files": [
-        "src/opnsense/__init__.py"
+        "src/opnsense/__init__.py",
+        "README.md"
       ]
     }
   }
