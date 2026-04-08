@@ -135,18 +135,20 @@ def _validate_port(field: str, value: str, spec: dict[str, Any]) -> None:
     for part in value.split(","):
         part = part.strip()
         if ":" in part:
-            low, high = part.split(":", 1)
+            low_s, high_s = part.split(":", 1)
             try:
-                if not (1 <= int(low) <= 65535 and 1 <= int(high) <= 65535):
-                    raise FieldValidationError(field, value, "port range must be 1-65535")
+                low_i, high_i = int(low_s), int(high_s)
             except ValueError:
                 raise FieldValidationError(field, value, "port range must be numeric") from None
+            if not (1 <= low_i <= 65535 and 1 <= high_i <= 65535):
+                raise FieldValidationError(field, value, "port range must be 1-65535")
         else:
             try:
-                if not 1 <= int(part) <= 65535:
-                    raise FieldValidationError(field, value, "port must be 1-65535")
+                port_i = int(part)
             except ValueError:
                 raise FieldValidationError(field, value, "port must be numeric") from None
+            if not 1 <= port_i <= 65535:
+                raise FieldValidationError(field, value, "port must be 1-65535")
 
 
 def _validate_color(field: str, value: str, spec: dict[str, Any]) -> None:

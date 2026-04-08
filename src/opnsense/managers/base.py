@@ -543,15 +543,30 @@ class BaseManager(ABC):
             return matches[0]
 
         match_vals = {k: str(params.get(k, "")) for k in keys}
+        uuids = [m["uuid"] for m in matches]
+        logger.error(
+            "ambiguous match %s: %d resources match %s — UUIDs: %s",
+            self.__class__.__name__,
+            len(matches),
+            match_vals,
+            uuids,
+            extra={
+                "action": "ambiguous_match",
+                "match_keys": match_vals,
+                "uuids": uuids,
+                "count": len(matches),
+                "endpoint": self._endpoint,
+            },
+        )
         raise AmbiguousMatchError(
             message=(
                 f"{self.__class__.__name__}: {len(matches)} resources match "
                 f"{match_vals}. "
-                f"UUIDs: {[m['uuid'] for m in matches]}. "
+                f"UUIDs: {uuids}. "
                 f"Deduplicate manually or pass uuid= to ensure()."
             ),
             match_keys=match_vals,
-            uuids=[m["uuid"] for m in matches],
+            uuids=uuids,
             endpoint=self._endpoint,
         )
 
