@@ -16,6 +16,8 @@
 | `UNIT_TEST_PASSED` | Manager + unit tests, no integration test yet |
 | `PARTIAL` | Manager code exists, tests incomplete |
 | `ABSENT` | No manager code yet |
+| `SKIPPED` | Intentionally not implemented — replaced by other service or not needed on firewall |
+| `NOT_AVAILABLE` | API broken or missing on this firmware version |
 
 ## Summary
 
@@ -174,10 +176,10 @@
 
 ## DHCP Relay
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| dhcrelay-dest | `DhcrelayDestManager` | `GET /api/dhcrelay/settings/get_dest`, `POST /api/dhcrelay/settings/search_dest` | `ABSENT` |
-| dhcrelay-relay | `DhcrelayRelayManager` | `GET /api/dhcrelay/settings/get_relay`, `POST /api/dhcrelay/settings/search_relay` | `ABSENT` |
+| Domain | Manager | Endpoints | Status | Notes |
+|---|---|---|---|---|
+| dhcrelay-dest | — | `dhcrelay/settings` | `SKIPPED` | Not needed — Kea serves directly on all VLANs, no relay required |
+| dhcrelay-relay | — | `dhcrelay/settings` | `SKIPPED` | Only needed when DHCP server is on a different machine |
 
 ## Monit
 
@@ -189,14 +191,9 @@
 
 ## Dnsmasq
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| dnsmasq-host | `DnsmasqHostManager` | `GET /api/dnsmasq/settings/get_host`, `POST /api/dnsmasq/settings/search_host` | `ABSENT` |
-| dnsmasq-domain | `DnsmasqDomainManager` | `GET /api/dnsmasq/settings/get_domain`, `POST /api/dnsmasq/settings/search_domain` | `ABSENT` |
-| dnsmasq-boot | `DnsmasqBootManager` | `GET /api/dnsmasq/settings/get_boot`, `POST /api/dnsmasq/settings/search_boot` | `ABSENT` |
-| dnsmasq-option | `DnsmasqOptionManager` | `GET /api/dnsmasq/settings/get_option`, `POST /api/dnsmasq/settings/search_option` | `ABSENT` |
-| dnsmasq-range | `DnsmasqRangeManager` | `GET /api/dnsmasq/settings/get_range`, `POST /api/dnsmasq/settings/search_range` | `ABSENT` |
-| dnsmasq-tag | `DnsmasqTagManager` | `GET /api/dnsmasq/settings/get_tag`, `POST /api/dnsmasq/settings/search_tag` | `ABSENT` |
+| Domain | Manager | Endpoints | Status | Notes |
+|---|---|---|---|---|
+| dnsmasq-* (6 domains) | — | `dnsmasq/settings` | `SKIPPED` | Replaced by Kea (DHCP) + Unbound (DNS). TFTP/PXE belongs on dedicated LXC, not firewall |
 
 ## Core / System
 
