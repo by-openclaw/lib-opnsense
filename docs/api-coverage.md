@@ -6,7 +6,7 @@
 
 > Probed against OPNsense **26.1.5** — 200/200 endpoints OK.
 > Probe data: `docs/api/data/26.1.5/`
-> Last updated: 2026-04-07
+> Last updated: 2026-04-08
 
 ## Status Legend
 
@@ -25,47 +25,42 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 6 |
-| Managers done (unit tested) | 5 |
-| Managers partial | 2 |
-| Managers absent (CRUD) | 53 |
+| Managers done (integration tested) | 18 |
+| Managers done (unit tested) | 0 |
+| Managers partial | 0 |
+| Managers absent (CRUD) | 48 |
 | Managers absent (read-only) | 68 |
 
 ---
 
-## Auth (immediate, no reconfigure)
+## Auth (4 managers — changes apply immediately)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| auth-user | `AuthUserManager` | `GET /api/auth/user/get`, `POST /api/auth/user/search` | `INTEGRATION_TEST_PASSED` |
-| auth-group | `AuthGroupManager` | `GET /api/auth/group/get`, `POST /api/auth/group/search` | `INTEGRATION_TEST_PASSED` |
-| auth-priv | `AuthPrivManager` | `GET /api/auth/priv/get` | `INTEGRATION_TEST_PASSED` |
-| auth-user (API keys) | `AuthApiKeyManager` | `POST /api/auth/user/search_api_key/{uid}` | `INTEGRATION_TEST_PASSED` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| auth-user | `AuthUserManager` | `name` | `auth/user` | `INTEGRATION_TEST_PASSED` | Redacts password, otp, SSH keys |
+| auth-group | `AuthGroupManager` | `name` | `auth/group` | `INTEGRATION_TEST_PASSED` | Server rejects duplicate names |
+| auth-priv | `AuthPrivManager` | — | `auth/priv` | `INTEGRATION_TEST_PASSED` | Standalone, privilege assignment |
+| auth-apikey | `AuthApiKeyManager` | — | `auth/user/search_api_key` | `INTEGRATION_TEST_PASSED` | Standalone, API key lifecycle |
 
-## Firewall — Filter (requires apply)
+## Firewall (7 managers — requires apply/reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| fw-filter-rule | `FwFilterManager` | `GET /api/firewall/filter/get_rule`, `POST /api/firewall/filter/search_rule` | `INTEGRATION_TEST_PASSED` |
-| fw-alias | `FwAliasManager` | `GET /api/firewall/alias/get_item`, `POST /api/firewall/alias/search_item` | `INTEGRATION_TEST_PASSED` |
-| fw-category | `FwCategoryManager` | `GET /api/firewall/category/get_item`, `POST /api/firewall/category/search_item` | `UNIT_TEST_PASSED` |
-| fw-group | `FwGroupManager` | `GET /api/firewall/group/get_item`, `POST /api/firewall/group/search_item` | `UNIT_TEST_PASSED` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| fw-alias | `FwAliasManager` | `name` | `firewall/alias` | `INTEGRATION_TEST_PASSED` | Host, network, port, URL aliases |
+| fw-filter | `FwFilterManager` | `description, interface, direction, protocol` | `firewall/filter` | `INTEGRATION_TEST_PASSED` | Pass/block/reject rules, duplicates allowed |
+| fw-dnat | `FwDnatManager` | `descr, interface, target` | `firewall/d_nat` | `INTEGRATION_TEST_PASSED` | Port forwarding, duplicates allowed |
+| fw-snat | `FwSourceNatManager` | `description, interface, source_net` | `firewall/source_nat` | `INTEGRATION_TEST_PASSED` | Outbound NAT / masquerade |
+| fw-1to1 | `FwOneToOneManager` | `description, interface, source_net` | `firewall/one_to_one` | `INTEGRATION_TEST_PASSED` | Bidirectional 1:1 NAT |
+| fw-category | `FwCategoryManager` | `name` | `firewall/category` | `INTEGRATION_TEST_PASSED` | Rule categories (immediate) |
+| fw-group | `FwGroupManager` | `ifname` | `firewall/group` | `INTEGRATION_TEST_PASSED` | Interface groups (immediate) |
+| fw-npt | `FwNptManager` | — | `firewall/npt` | `ABSENT` | IPv6 NPTv6 |
 
-## Firewall — NAT (requires apply)
+## Interfaces (2 managers — requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| fw-dnat-rule | `FwDnatManager` | `GET /api/firewall/d_nat/get_rule`, `POST /api/firewall/d_nat/search_rule` | `INTEGRATION_TEST_PASSED` |
-| fw-snat-rule | `FwSourceNatManager` | `GET /api/firewall/source_nat/get_rule`, `POST /api/firewall/source_nat/search_rule` | `UNIT_TEST_PASSED` |
-| fw-1to1-rule | `FwOneToOneManager` | `GET /api/firewall/one_to_one/get_rule`, `POST /api/firewall/one_to_one/search_rule` | `UNIT_TEST_PASSED` |
-| fw-npt-rule | `FwNptManager` | `GET /api/firewall/npt/get_rule`, `POST /api/firewall/npt/search_rule` | `ABSENT` |
-
-## Interfaces (requires reconfigure)
-
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| if-vlan | `IfVlanManager` | `GET /api/interfaces/vlan_settings/get_item`, `POST /api/interfaces/vlan_settings/search_item` | `PARTIAL` |
-| if-vip | `IfVipManager` | `GET /api/interfaces/vip_settings/get_item`, `POST /api/interfaces/vip_settings/search_item` | `PARTIAL` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| if-vlan | `IfVlanManager` | `tag, if` | `interfaces/vlan_settings` | `INTEGRATION_TEST_PASSED` | 802.1Q VLAN sub-interfaces |
+| if-vip | `IfVipManager` | `address, interface, mode` | `interfaces/vip_settings` | `INTEGRATION_TEST_PASSED` | IP alias, CARP, proxy ARP |
 | if-bridge | `IfBridgeManager` | `GET /api/interfaces/bridge_settings/get_item`, `POST /api/interfaces/bridge_settings/search_item` | `ABSENT` |
 | if-gif | `IfGifManager` | `GET /api/interfaces/gif_settings/get_item`, `POST /api/interfaces/gif_settings/search_item` | `ABSENT` |
 | if-gre | `IfGreManager` | `GET /api/interfaces/gre_settings/get_item`, `POST /api/interfaces/gre_settings/search_item` | `ABSENT` |
@@ -81,15 +76,18 @@
 | route | `RtRouteManager` | `GET /api/routes/routes/get_route`, `POST /api/routes/routes/search_route` | `ABSENT` |
 | routing-gw | `RtGatewayManager` | `GET /api/routing/settings/get_gateway`, `POST /api/routing/settings/search_gateway` | `ABSENT` |
 
-## Unbound DNS (requires reconfigure)
+## Unbound DNS (6 managers — requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| ub-forward | `UbForwardManager` | `GET /api/unbound/settings/get_forward`, `POST /api/unbound/settings/search_forward` | `ABSENT` |
-| ub-host-override | `UbHostOverrideManager` | `GET /api/unbound/settings/get_host_override`, `POST /api/unbound/settings/search_host_override` | `ABSENT` |
-| ub-host-alias | `UbHostAliasManager` | `GET /api/unbound/settings/get_host_alias`, `POST /api/unbound/settings/search_host_alias` | `ABSENT` |
-| ub-acl | `UbAclManager` | `GET /api/unbound/settings/get_acl`, `POST /api/unbound/settings/search_acl` | `ABSENT` |
-| ub-dnsbl | `UbDnsblManager` | `GET /api/unbound/settings/get_dnsbl`, `POST /api/unbound/settings/search_dnsbl` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| ub-host-override | `UbHostOverrideManager` | `hostname, domain, server` | `unbound/settings` HostOverride | `INTEGRATION_TEST_PASSED` | Local A/AAAA/MX records |
+| ub-host-alias | `UbHostAliasManager` | `hostname, domain` | `unbound/settings` HostAlias | `INTEGRATION_TEST_PASSED` | Create+read only (set/del=404 on 26.1.5) |
+| ub-forward | `UbForwardManager` | `domain, server` | `unbound/settings` Forward | `INTEGRATION_TEST_PASSED` | Domain-specific DNS forwarding |
+| ub-acl | `UbAclManager` | `name` | `unbound/settings` Acl | `INTEGRATION_TEST_PASSED` | Resolver access control lists |
+| ub-dot | `UbDotManager` | `server, port` | `unbound/settings` Dot | `INTEGRATION_TEST_PASSED` | DNS-over-TLS upstream servers |
+| ub-dnsbl | `UbDiagnosticsManager` | — | `unbound/settings` getDnsbl | `INTEGRATION_TEST_PASSED` | Read-only (add/set/del=404 on 26.1.5) |
+| ub-diag-stats | `UbDiagnosticsManager` | — | `unbound/diagnostics/stats` | `INTEGRATION_TEST_PASSED` | Read-only resolver statistics |
+| ub-domain-override | — | — | API broken on 26.1.5 | `NOT_AVAILABLE` | Empty response from server |
 
 ## Kea DHCPv4 (requires reconfigure)
 
@@ -126,13 +124,13 @@
 | ipsec-keypair | `IpsecKeypairManager` | `GET /api/ipsec/key_pairs/get_item`, `POST /api/ipsec/key_pairs/search_item` | `ABSENT` |
 | ipsec-vti | `IpsecVtiManager` | `GET /api/ipsec/vti/get_item`, `POST /api/ipsec/vti/search_item` | `ABSENT` |
 
-## Traffic Shaper (requires reconfigure)
+## Traffic Shaper (1 manager — requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| ts-pipe | `TsPipeManager` | `GET /api/trafficshaper/settings/get_pipe`, `POST /api/trafficshaper/settings/search_pipe` | `UNIT_TEST_PASSED` |
-| ts-queue | `TsQueueManager` | `GET /api/trafficshaper/settings/get_queue`, `POST /api/trafficshaper/settings/search_queue` | `ABSENT` |
-| ts-rule | `TsRuleManager` | `GET /api/trafficshaper/settings/get_rule`, `POST /api/trafficshaper/settings/search_rule` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| ts-pipe | `TsPipeManager` | `description, bandwidth, bandwidthMetric` | `trafficshaper/settings` Pipe | `INTEGRATION_TEST_PASSED` | Bandwidth pipes |
+| ts-queue | `TsQueueManager` | — | `trafficshaper/settings` Queue | `ABSENT` | |
+| ts-rule | `TsRuleManager` | — | `trafficshaper/settings` Rule | `ABSENT` | |
 
 ## Syslog (requires reconfigure)
 
@@ -307,5 +305,5 @@
 | ovpn-sessions | `OvpnSessionManager` | `GET /api/openvpn/sessions/search` | `ABSENT` |
 | trust-crl | `TrustCrlManager` | `GET /api/trust/crl/search` | `ABSENT` |
 | ts-stats | `TsStatsManager` | `GET /api/trafficshaper/service/statistics` | `ABSENT` |
-| ub-diag-stats | `UbDiagStatsManager` | `GET /api/unbound/diagnostics/stats` | `ABSENT` |
+| ub-diag-stats | `UbDiagnosticsManager` | `GET /api/unbound/diagnostics/stats` | `INTEGRATION_TEST_PASSED` |
 | wg-show | `WgShowManager` | `GET /api/wireguard/service/show` | `ABSENT` ||

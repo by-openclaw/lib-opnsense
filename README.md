@@ -1,6 +1,6 @@
 # lib-opnsense
 
-Async Python library for [OPNsense](https://opnsense.org/) REST API — CRUD + idempotent ensure() for auth, firewall, interfaces, and traffic shaping.
+Async Python library for [OPNsense](https://opnsense.org/) REST API — CRUD + idempotent ensure() for auth, firewall, DNS, interfaces, and traffic shaping.
 
 [![Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/by-openclaw/lib-opnsense/releases)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://github.com/by-openclaw/lib-opnsense/actions/workflows/ci.yml)
@@ -80,11 +80,11 @@ src/opnsense/
 ├── managers/
 │   ├── base.py                    # BaseManager — thin orchestrator (composes core/)
 │   ├── protocols.py               # ManagerProtocol (typing.Protocol for DI)
-│   └── 14 concrete managers       # Config only (~30 lines each)
+│   └── 20 concrete managers       # Config only (~30 lines each)
 │
 ├── models/                        # Frozen dataclasses — one per entity
 │   ├── base.py                    # EnsureResult
-│   └── 12 entity models           # AuthUser, FwFilterRule, IfVlan, TsPipe, ...
+│   └── 16 entity models           # AuthUser, FwFilterRule, UbHostOverride, ...
 │
 ├── client.py                      # httpx async transport (retry, exception mapping)
 ├── exceptions.py                  # Typed exception hierarchy (8 types)
@@ -94,24 +94,17 @@ src/opnsense/
 
 ---
 
-## Managers (14 total)
+## Managers (20 total)
 
-| Domain | Manager | Match keys | Apply |
-|--------|---------|------------|-------|
-| Auth | AuthUserManager | `name` | immediate |
-| Auth | AuthGroupManager | `name` | immediate |
-| Auth | AuthPrivManager (standalone) | — | immediate |
-| Auth | AuthApiKeyManager (standalone) | — | immediate |
-| FW | FwAliasManager | `name` | reconfigure |
-| FW | FwFilterManager | `description, interface, direction, protocol` | apply |
-| FW | FwDnatManager | `descr, interface, target` | apply |
-| FW | FwSourceNatManager | `description, interface, source_net` | apply |
-| FW | FwOneToOneManager | `description, interface, source_net` | apply |
-| FW | FwCategoryManager | `name` | immediate |
-| FW | FwGroupManager | `ifname` | immediate |
-| IF | IfVlanManager | `tag, if` | reconfigure |
-| IF | IfVipManager | `address, interface, mode` | reconfigure |
-| TS | TsPipeManager | `description, bandwidth, bandwidthMetric` | reconfigure |
+| Scope | Managers | Status |
+|-------|:-------:|--------|
+| Auth (users, groups, privileges, API keys) | 4 | all integration tested |
+| Firewall (aliases, filter, D-NAT, S-NAT, 1:1, categories, groups) | 7 | all integration tested |
+| Interfaces (VLANs, VIPs) | 2 | all integration tested |
+| Traffic Shaper (pipes) | 1 | integration tested |
+| Unbound DNS (host overrides, aliases, forwarding, ACLs, DoT, diagnostics) | 6 | all integration tested |
+
+Full per-manager table with match keys, endpoints, and test status: [docs/api-coverage.md](docs/api-coverage.md)
 
 ### Duplicate detection
 
@@ -172,17 +165,16 @@ except OpnsenseError as exc:
 
 ## Testing
 
-### Unit tests (476 tests, offline)
+### Unit tests (558 tests, offline)
 
 ```bash
 pytest tests/unit/ -q
 ```
 
-### Integration tests (146 tests, live OPNsense device)
+### Integration tests (173 tests, live OPNsense device)
 
 ```bash
 # Set credentials in .env or environment
-OPN_HOST=10.6.239.114 OPN_KEY=... OPN_SECRET=... \
 pytest tests/integration/ -q
 ```
 

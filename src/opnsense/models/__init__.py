@@ -16,6 +16,11 @@ from opnsense.models.fw_source_nat import FwSourceNatRule
 from opnsense.models.if_vip import IfVip
 from opnsense.models.if_vlan import IfVlan
 from opnsense.models.ts_pipe import TsPipe
+from opnsense.models.ub_acl import UbAcl
+from opnsense.models.ub_dot import UbDot
+from opnsense.models.ub_forward import UbForward
+from opnsense.models.ub_host_alias import UbHostAlias
+from opnsense.models.ub_host_override import UbHostOverride
 
 __all__ = [
     "AuthGroup",
@@ -31,4 +36,9 @@ __all__ = [
     "IfVip",
     "IfVlan",
     "TsPipe",
+    "UbAcl",
+    "UbDot",
+    "UbForward",
+    "UbHostAlias",
+    "UbHostOverride",
 ]

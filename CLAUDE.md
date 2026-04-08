@@ -175,6 +175,16 @@ finally:
 - Breaking changes = MAJOR version bump + migration note in CHANGELOG
 - `ruff` linting must be clean before commit
 - `mypy` must be clean before commit
+- **Every manager PR must update `docs/api-coverage.md`** — status, match keys, notes
+- **Every manager PR must include integration tests** — never merge with smoke-only
+- **Never output secrets in terminal** — read silently, write to `.env` only
+
+---
+
+## API Coverage
+
+See [`docs/api-coverage.md`](docs/api-coverage.md) for the full per-endpoint status table.
+134 API domains probed, 18 integration tested, remaining tracked as `ABSENT`.
 
 ---
 
