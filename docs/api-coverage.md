@@ -110,8 +110,9 @@
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
-| wg-server | `WgServerManager` | `name` | `wireguard/server` Server | `INTEGRATION_TEST_PASSED` | Requires privkey (use generate_keypair()). Redacts privkey/pubkey |
-| wg-client | `WgClientManager` | `name` | `wireguard/client` Client | `INTEGRATION_TEST_PASSED` | Peer entry — needs client's pubkey. Redacts psk/pubkey |
+| wg-server | `WgServerManager` | `name` | `wireguard/server` Server | `INTEGRATION_TEST_PASSED` | Tunnel interface. generate_keypair() creates key pair. privkey required. Redacts privkey/pubkey. Store privkey in Vault KV |
+| wg-client | `WgClientManager` | `name` | `wireguard/client` Client | `INTEGRATION_TEST_PASSED` | Peer entry. Needs remote device's pubkey (client generates own keys). Redacts psk/pubkey |
+| wg-keypair | `WgServerManager.generate_keypair()` | — | `wireguard/server/keyPair` | `INTEGRATION_TEST_PASSED` | Returns {privkey, pubkey}. Server-side only. Client generates keys on their device |
 
 ## IPsec (requires reconfigure)
 

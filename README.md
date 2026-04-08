@@ -161,17 +161,53 @@ except OpnsenseError as exc:
     print(f"API error: {exc}")
 ```
 
+### WireGuard key pair flow
+
+```python
+from opnsense.managers.wg_server import WgServerManager
+from opnsense.managers.wg_client import WgClientManager
+
+async with OpnsenseClient(...) as client:
+    server_mgr = WgServerManager(client)
+    client_mgr = WgClientManager(client)
+
+    # 1. Generate server key pair (store privkey in Vault)
+    keys = await server_mgr.generate_keypair()
+    # keys = {"privkey": "base64...", "pubkey": "base64..."}
+
+    # 2. Create server tunnel
+    await server_mgr.ensure("present", {
+        "name": "wg0",
+        "privkey": keys["privkey"],   # server keeps this
+        "port": "51820",
+        "tunneladdress": "10.10.0.1/24",
+    })
+    # Share keys["pubkey"] with all clients
+
+    # 3. Add peer (client provides their pubkey)
+    await client_mgr.ensure("present", {
+        "name": "win11-rune",
+        "pubkey": "<client-public-key>",  # from client device
+        "tunneladdress": "10.10.0.2/32",
+        "serveraddress": "fw.example.com",
+        "serverport": "51820",
+    })
+```
+
+Key exchange: each side generates its own key pair. Only public keys are shared.
+Private keys never leave the device. Store server privkey in Vault KV.
+
 ---
 
 ## Testing
 
-### Unit tests (558 tests, offline)
+### Unit tests (905 tests, offline)
 
 ```bash
 pytest tests/unit/ -q
 ```
 
-### Integration tests (173 tests, live OPNsense device)
+### Integration tests (236 tests, live OPNsense device)
 
 ```bash
 # Set credentials in .env or environment
