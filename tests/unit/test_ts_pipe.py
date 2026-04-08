@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseValidationError
+from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
 from opnsense.managers.ts_pipe import TsPipeManager
 
 
@@ -166,3 +166,89 @@ class TestErrorHandling:
         mgr = TsPipeManager(mock_client)
         with pytest.raises(ValueError, match="Invalid state"):
             await mgr.ensure(state="running", params={"description": "x"})
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_empty_description_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """Empty required 'description' raises FieldValidationError."""
+        mgr = TsPipeManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"description": "", "bandwidth": "100"})
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_description_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'description' raises FieldValidationError."""
+        mgr = TsPipeManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"bandwidth": "100"})
+        mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestCheckMode:
+    """Tests for check_mode (dry run)."""
+
+    async def test_check_mode_create(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        mgr = TsPipeManager(mock_client)
+        result = await mgr.ensure(
+            "present",
+            params={"description": "Upload limit", "bandwidth": "100"},
+            check_mode=True,
+        )
+        assert result.changed is True
+        assert result.action == "created"
+        mock_client.create.assert_not_awaited()
+
+    async def test_check_mode_delete(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [
+            {
+                "uuid": "uuid-1",
+                "description": "Upload limit",
+                "bandwidth": "100",
+                "bandwidthMetric": "Mbit",
+            },
+        ]
+        mock_client.get.return_value = {
+            "pipe": {
+                "uuid": "uuid-1",
+                "description": "Upload limit",
+                "bandwidth": "100",
+                "bandwidthMetric": "Mbit",
+            },
+        }
+        mgr = TsPipeManager(mock_client)
+        result = await mgr.ensure(
+            "absent",
+            params={"description": "Upload limit", "bandwidth": "100", "bandwidthMetric": "Mbit"},
+            check_mode=True,
+        )
+        assert result.changed is True
+        assert result.action == "deleted"
+        mock_client.delete.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """AmbiguousMatchError when multiple resources match composite keys."""
+
+    async def test_ambiguous_match_raises(self, mock_client: AsyncMock) -> None:
+        pipe_data = {
+            "description": "Upload limit",
+            "bandwidth": "100",
+            "bandwidthMetric": "Mbit",
+        }
+        mock_client.search.return_value = [
+            {"uuid": "aaa", **pipe_data},
+            {"uuid": "bbb", **pipe_data},
+        ]
+        mgr = TsPipeManager(mock_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure("present", params=pipe_data)
+        assert exc_info.value.uuids == ["aaa", "bbb"]
+        mock_client.create.assert_not_awaited()

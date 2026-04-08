@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseValidationError
+from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
 from opnsense.managers.fw_dnat import FwDnatManager
 
 
@@ -205,3 +205,90 @@ class TestErrorHandling:
             )
 
         assert any("create failed" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_empty_descr_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """Empty required 'descr' raises FieldValidationError before API call."""
+        mgr = FwDnatManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure(
+                "present",
+                params={"descr": "", "interface": "wan", "target": "10.6.225.10"},
+            )
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_descr_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'descr' raises FieldValidationError."""
+        mgr = FwDnatManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"interface": "wan", "target": "10.6.225.10"})
+        mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestCheckMode:
+    """Tests for check_mode (dry run)."""
+
+    async def test_check_mode_create(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        mgr = FwDnatManager(mock_client)
+        result = await mgr.ensure(
+            "present",
+            params={"descr": "Forward HTTPS", "interface": "wan", "target": "10.6.225.10"},
+            check_mode=True,
+        )
+        assert result.changed is True
+        assert result.action == "created"
+        mock_client.create.assert_not_awaited()
+
+    async def test_check_mode_delete(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [
+            {
+                "uuid": "uuid-1",
+                "descr": "Forward HTTPS",
+                "interface": "wan",
+                "target": "10.6.225.10",
+            },
+        ]
+        mock_client.get.return_value = {
+            "rule": {
+                "uuid": "uuid-1",
+                "descr": "Forward HTTPS",
+                "interface": "wan",
+                "target": "10.6.225.10",
+            },
+        }
+        mgr = FwDnatManager(mock_client)
+        result = await mgr.ensure(
+            "absent",
+            params={"descr": "Forward HTTPS", "interface": "wan", "target": "10.6.225.10"},
+            check_mode=True,
+        )
+        assert result.changed is True
+        assert result.action == "deleted"
+        mock_client.delete.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """AmbiguousMatchError when multiple resources match composite keys."""
+
+    async def test_ambiguous_match_raises(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [
+            {"uuid": "aaa", "descr": "Forward HTTPS", "interface": "wan", "target": "10.6.225.10"},
+            {"uuid": "bbb", "descr": "Forward HTTPS", "interface": "wan", "target": "10.6.225.10"},
+        ]
+        mgr = FwDnatManager(mock_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure(
+                "present",
+                params={"descr": "Forward HTTPS", "interface": "wan", "target": "10.6.225.10"},
+            )
+        assert exc_info.value.uuids == ["aaa", "bbb"]
+        mock_client.create.assert_not_awaited()

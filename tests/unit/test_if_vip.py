@@ -17,7 +17,12 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseError, OpnsenseValidationError
+from opnsense.exceptions import (
+    AmbiguousMatchError,
+    FieldValidationError,
+    OpnsenseError,
+    OpnsenseValidationError,
+)
 from opnsense.managers.if_vip import IfVipManager
 
 # Standard test params — IP alias on LAN (SVC VLAN)
@@ -291,3 +296,68 @@ class TestErrorHandling:
 
         assert exc_info.value.status_code == 400
         assert exc_info.value.validations == {"vip.address": "required"}
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_invalid_mode_enum_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """mode='invalid' fails enum validation before API call."""
+        mgr = IfVipManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure(
+                "present",
+                params={
+                    "address": "10.1.3.200",
+                    "interface": "lan",
+                    "mode": "invalid",
+                },
+            )
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_address_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'address' raises FieldValidationError."""
+        mgr = IfVipManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure(
+                "present",
+                params={"interface": "lan", "mode": "ipalias"},
+            )
+        mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """AmbiguousMatchError when multiple resources match composite keys."""
+
+    async def test_ambiguous_match_raises(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [
+            {
+                "uuid": "aaa",
+                "address": "10.1.3.200",
+                "interface": "lan",
+                "mode": "ipalias",
+            },
+            {
+                "uuid": "bbb",
+                "address": "10.1.3.200",
+                "interface": "lan",
+                "mode": "ipalias",
+            },
+        ]
+        mgr = IfVipManager(mock_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure(
+                "present",
+                params={
+                    "address": "10.1.3.200",
+                    "interface": "lan",
+                    "mode": "ipalias",
+                    "network": "32",
+                },
+            )
+        assert exc_info.value.uuids == ["aaa", "bbb"]
+        mock_client.create.assert_not_awaited()

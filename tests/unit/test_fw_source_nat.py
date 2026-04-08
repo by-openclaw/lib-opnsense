@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseValidationError
+from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
 from opnsense.managers.fw_source_nat import FwSourceNatManager
 
 
@@ -187,3 +187,112 @@ class TestErrorHandling:
             )
 
         assert exc_info.value.validations == {"rule.interface": "required"}
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_empty_description_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """Empty required 'description' raises FieldValidationError."""
+        mgr = FwSourceNatManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure(
+                "present",
+                params={"description": "", "interface": "wan", "source_net": "10.6.225.0/24"},
+            )
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_description_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'description' raises FieldValidationError."""
+        mgr = FwSourceNatManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"interface": "wan", "source_net": "10.6.225.0/24"})
+        mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestCheckMode:
+    """Tests for check_mode (dry run)."""
+
+    async def test_check_mode_create(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        mgr = FwSourceNatManager(mock_client)
+        result = await mgr.ensure(
+            "present",
+            params={
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+            },
+            check_mode=True,
+        )
+        assert result.changed is True
+        assert result.action == "created"
+        mock_client.create.assert_not_awaited()
+
+    async def test_check_mode_delete(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [
+            {
+                "uuid": "uuid-1",
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+            },
+        ]
+        mock_client.get.return_value = {
+            "rule": {
+                "uuid": "uuid-1",
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+            },
+        }
+        mgr = FwSourceNatManager(mock_client)
+        result = await mgr.ensure(
+            "absent",
+            params={
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+            },
+            check_mode=True,
+        )
+        assert result.changed is True
+        assert result.action == "deleted"
+        mock_client.delete.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """AmbiguousMatchError when multiple resources match composite keys."""
+
+    async def test_ambiguous_match_raises(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [
+            {
+                "uuid": "aaa",
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+            },
+            {
+                "uuid": "bbb",
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+            },
+        ]
+        mgr = FwSourceNatManager(mock_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure(
+                "present",
+                params={
+                    "description": "SNAT rule",
+                    "interface": "wan",
+                    "source_net": "10.6.225.0/24",
+                },
+            )
+        assert exc_info.value.uuids == ["aaa", "bbb"]
+        mock_client.create.assert_not_awaited()
