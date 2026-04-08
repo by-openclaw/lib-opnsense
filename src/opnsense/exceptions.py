@@ -18,6 +18,8 @@ HTTP status code mapping:
 
 from __future__ import annotations
 
+from typing import Any
+
 
 class OpnsenseError(Exception):
     """Base exception for all OPNsense API errors.
@@ -200,6 +202,29 @@ class AmbiguousMatchError(OpnsenseError):
         super().__init__(message, endpoint=endpoint)
         self.match_keys = match_keys or {}
         self.uuids = uuids or []
+
+
+class FieldValidationError(ValueError):
+    """A field failed client-side validation.
+
+    Attributes:
+        field:    Field name that failed.
+        value:    The invalid value.
+        rule:     Description of the violated constraint.
+    """
+
+    def __init__(self, field: str, value: Any, rule: str) -> None:
+        """Initialise with field context.
+
+        Args:
+            field: Field name.
+            value: The invalid value provided.
+            rule:  Human-readable constraint description.
+        """
+        self.field = field
+        self.value = value
+        self.rule = rule
+        super().__init__(f"Invalid field '{field}': {rule} (got: {value!r})")
 
 
 class OpnsenseServerError(OpnsenseError):
