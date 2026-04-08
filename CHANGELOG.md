@@ -1,5 +1,71 @@
 # Changelog
 
+## [0.3.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.2.0...v0.3.0) (2026-04-08)
+
+
+### Features
+
+* 4 Unbound DNS managers — host override, forward, ACL, DoT ([b883409](https://github.com/by-openclaw/lib-opnsense/commit/b883409860e455083192ab81c1ea598c7b623783))
+* 5 Kea DHCP managers — dual-stack DHCPv4 + DHCPv6 ([9687db6](https://github.com/by-openclaw/lib-opnsense/commit/9687db68eb94f2b90836dd1bb65bd759282ac8d8))
+* 7 extra interface managers — bridge, GIF, GRE, LAGG, loopback, neighbor, VXLAN ([1eb2add](https://github.com/by-openclaw/lib-opnsense/commit/1eb2addd0ead602e12880005ba8e7e4f9518ac0a))
+* add 4 Unbound DNS managers — host override, forward, ACL, DoT ([8580ec9](https://github.com/by-openclaw/lib-opnsense/commit/8580ec93430ad5765f68847a954e0a515212d327))
+* add 5 Kea DHCP managers — dual-stack DHCPv4 + DHCPv6 ([957bb26](https://github.com/by-openclaw/lib-opnsense/commit/957bb26b82d1c7e95a898400d67429ee986c6a1e))
+* add 7 extra interface managers — bridge, GIF, GRE, LAGG, loopback, neighbor, VXLAN ([abaac95](https://github.com/by-openclaw/lib-opnsense/commit/abaac959e50eb555c6f5f924c1c8fba8af4f9e27))
+* add FwNptManager — IPv6 Network Prefix Translation (NPTv6/NAT66) ([ef67053](https://github.com/by-openclaw/lib-opnsense/commit/ef670531eb5d6ace038e1c2976d9c59f6ad01def))
+* add missing fields to FW managers — invert, gateway, categories, statetype ([231ac8c](https://github.com/by-openclaw/lib-opnsense/commit/231ac8cd23967157619b164fa6b98af7aebed8bb))
+* add routing managers — RtGatewayManager + RtRouteManager ([ba075b6](https://github.com/by-openclaw/lib-opnsense/commit/ba075b609da379ff9a3c1da8b69c626913ed66ba))
+* add sequence field to all FW rule managers and models ([d306847](https://github.com/by-openclaw/lib-opnsense/commit/d3068479cd014a97bd70c019c84010b73b49e720))
+* add SyslogDestManager — remote syslog destinations ([1346a18](https://github.com/by-openclaw/lib-opnsense/commit/1346a184de8ca4481537f0a0a32a7a45e574e7d2))
+* add TsQueueManager + TsRuleManager — complete traffic shaper domain ([f330faa](https://github.com/by-openclaw/lib-opnsense/commit/f330faa6e40340a1ae0c60f110e8f002e780d026))
+* add typed frozen dataclass models for all 12 BaseManager entities ([56d8f30](https://github.com/by-openclaw/lib-opnsense/commit/56d8f303af792bb1e4da397f3843e00c1798e13c))
+* add UbHostAliasManager (create+read) + UbDiagnosticsManager (read-only) ([e9d1b6e](https://github.com/by-openclaw/lib-opnsense/commit/e9d1b6e37296dfae52f04c2542c198cab0a6e742))
+* add WireGuard managers — WgServerManager + WgClientManager ([2f2626b](https://github.com/by-openclaw/lib-opnsense/commit/2f2626bbb406cb372c71d5db3a9b076f37f2c318))
+* FW field completeness — invert, gateway, categories, statetype (+36 fields) ([020c97e](https://github.com/by-openclaw/lib-opnsense/commit/020c97e460c10ad394b1bd20e14ac82f4a199931))
+* FwNptManager — IPv6 NPTv6 (NAT66) prefix translation ([8b832e6](https://github.com/by-openclaw/lib-opnsense/commit/8b832e6b5d138df007e3c81c04a420eb2b7e1c18))
+* nested dict support — Kea option_data + D-NAT source/destination ([9768125](https://github.com/by-openclaw/lib-opnsense/commit/976812582db2627180f7049b260d1fa9e28cebc3))
+* nested dict support — validators, diff, Kea option_data, D-NAT source/destination ([0296319](https://github.com/by-openclaw/lib-opnsense/commit/029631995092c202b25092ec6980f16ffdc31ade))
+* per-call timeout and max_retries override on all client methods ([873eb58](https://github.com/by-openclaw/lib-opnsense/commit/873eb5851b3dd92b42074c93998250e296f99307))
+* per-call timeout and max_retries override on all client methods ([55e4af7](https://github.com/by-openclaw/lib-opnsense/commit/55e4af76cea4777a906cc25c65cca721d8090b7e))
+* routing managers — RtGatewayManager (read-only) + RtRouteManager (CRUD disabled) ([3de092a](https://github.com/by-openclaw/lib-opnsense/commit/3de092acce78c28bbaf56fbdce560085aac263e1))
+* SyslogDestManager + version badge fix + Release Please config ([896fad0](https://github.com/by-openclaw/lib-opnsense/commit/896fad06b475e6cacf568a51f9f260616200715b))
+* TsQueueManager + TsRuleManager — complete traffic shaper domain ([cf43f37](https://github.com/by-openclaw/lib-opnsense/commit/cf43f378f845e812df8339fa2de4a05679c19838))
+* typed frozen dataclass models for all 12 BaseManager entities ([a80e76e](https://github.com/by-openclaw/lib-opnsense/commit/a80e76e363625d3b25a169a8d50bf12d5b65706b))
+* WireGuard managers — WgServer + WgClient + generate_keypair() ([7530577](https://github.com/by-openclaw/lib-opnsense/commit/75305775893cfafe09422f6d3e06a67e6ab71fd9))
+
+
+### Bug Fixes
+
+* add interface field to kea6_subnet unit test params ([515e1fd](https://github.com/by-openclaw/lib-opnsense/commit/515e1fd05f04e4ff8e7621f60776a8ce071b7306))
+* add interface field to Kea6SubnetManager + DHCPv6 integration tests ([b14179f](https://github.com/by-openclaw/lib-opnsense/commit/b14179f4e434b2e89570012896be6d3216f1f144))
+* add TXT record type to UbHostOverrideManager validator + model ([c0bfc4f](https://github.com/by-openclaw/lib-opnsense/commit/c0bfc4fc0d385c6575b84f0bf52e37d321ec8eff))
+* remove duplicate txtdata key in ub_host_override validators ([b9caa8b](https://github.com/by-openclaw/lib-opnsense/commit/b9caa8b02b10b97cf8e00a5c3ed592cbce0e83ea))
+* remove version badge (private repo, shields.io can't access) ([80f1e7d](https://github.com/by-openclaw/lib-opnsense/commit/80f1e7d3b4f61a2b8471af3c5ee52a9fd1c0c1e3))
+* restore version badge + configure Release Please to update it ([4de23b8](https://github.com/by-openclaw/lib-opnsense/commit/4de23b8fe15dd698bd230acde49ef76156295c98))
+* use generate_keypair() in WG integration tests + dynamic version badge ([d17a755](https://github.com/by-openclaw/lib-opnsense/commit/d17a75512fc78cd7bd21cbb05053cac0f46dfb2f))
+* use Null4 blackhole gateway for route tests, not WAN_DHCP ([3a47d07](https://github.com/by-openclaw/lib-opnsense/commit/3a47d07edff61526258e4ee8c277943ea1748b0c))
+
+
+### Documentation
+
+* add api-coverage.md link to README.md and CLAUDE.md ([f99ed8c](https://github.com/by-openclaw/lib-opnsense/commit/f99ed8c9bbd2a156dfb7b24b203f1ac022cc720c))
+* add INPUT/OUTPUT docstrings to all 35 managers (ADR-0029 §3.2) ([5bf4a75](https://github.com/by-openclaw/lib-opnsense/commit/5bf4a75af30b961891f1831ac817e33e94d36cca))
+* add mandatory constraints to CLAUDE.md — api-coverage, integration tests, secrets ([fd33ba1](https://github.com/by-openclaw/lib-opnsense/commit/fd33ba107dddc654b80c71697b05a987b1f91b1f))
+* add WireGuard key pair flow to README + api-coverage ([5b5a236](https://github.com/by-openclaw/lib-opnsense/commit/5b5a23655da5c0458f0cfcb0926c083ba1d78999))
+* clarify routing test strategy in api-coverage.md ([bbe1aae](https://github.com/by-openclaw/lib-opnsense/commit/bbe1aaea4fd65741d79d9c97331a261ec92da96c))
+* fix ub-host-override notes — add TXT to supported record types ([da9a072](https://github.com/by-openclaw/lib-opnsense/commit/da9a072dd332da6dac5cd1adfdab5a2ef311f2bc))
+* group README managers by scope (auth, fw, if, ts, dns) ([ae9c497](https://github.com/by-openclaw/lib-opnsense/commit/ae9c4975341b377a47ea2d6f058023addb046219))
+* INPUT/OUTPUT docstrings on all 35 managers (ADR-0029 §3.2) ([3127652](https://github.com/by-openclaw/lib-opnsense/commit/3127652167b30c5b3ce26613c75569bfc146efe1))
+* mark Dnsmasq + DHCP Relay as SKIPPED in api-coverage.md ([2d26bf2](https://github.com/by-openclaw/lib-opnsense/commit/2d26bf293a8da6ba79cf39e9d81c0032c2454241))
+* mark Dnsmasq + DHCP Relay as SKIPPED in api-coverage.md ([85831c4](https://github.com/by-openclaw/lib-opnsense/commit/85831c43d4e9efb5eee3c559d5f5041fe19fcab8))
+* single source of truth — match keys + notes in api-coverage.md, summary in README ([edafac6](https://github.com/by-openclaw/lib-opnsense/commit/edafac6968b5358828036b5bb5b8e57462f6ca22))
+* update api-coverage.md — 18 managers integration tested ([1b3de2a](https://github.com/by-openclaw/lib-opnsense/commit/1b3de2ae3b7572cd64f08271c1cc0dfb109b215e))
+* update INPUT docstrings for nested dict fields (dnat, kea4) ([a59de84](https://github.com/by-openclaw/lib-opnsense/commit/a59de8466a8a55bdff37d7fe795643a8eb8d171d))
+* update INPUT docstrings for nested dict fields (dnat, kea4) ([66445e8](https://github.com/by-openclaw/lib-opnsense/commit/66445e8e64a3de1b06b68c1212934fe870215acd))
+* update README — 37 managers, all scopes listed ([603dc59](https://github.com/by-openclaw/lib-opnsense/commit/603dc596e0e96399d47610aa71885d8c2d3144e1))
+* update README manager count 20 → 37 + add missing scopes ([a501e01](https://github.com/by-openclaw/lib-opnsense/commit/a501e019d93b1765ebd9fa90d8c27c869969ec29))
+* update README.md and test-zone-plan for v0.2.0 + duplicate detection ([430d7d6](https://github.com/by-openclaw/lib-opnsense/commit/430d7d6b9acf052efe6bb7d6820e864802ca0e2e))
+* update README.md for 20 managers + Unbound DNS + test counts ([ca73391](https://github.com/by-openclaw/lib-opnsense/commit/ca73391a7f4393b7b82ed91b2f278273a46dac6a))
+
 ## [0.2.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.1.0...v0.2.0) (2026-04-08)
 
 
