@@ -31,7 +31,9 @@ class TestEnsurePresent:
 
         assert result.changed is True
         assert result.action == "created"
-        mock_client.reconfigure.assert_awaited_once_with("trafficshaper/service/reconfigure")
+        mock_client.reconfigure.assert_awaited_once_with(
+            "trafficshaper/service/reconfigure", timeout=None
+        )
 
     async def test_noop(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [

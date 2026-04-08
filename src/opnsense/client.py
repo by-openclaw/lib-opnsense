@@ -153,13 +153,17 @@ class OpnsenseClient:
         method: str,
         endpoint: str,
         data: dict[str, Any] | None = None,
+        timeout: int | None = None,
+        max_retries: int | None = None,
     ) -> dict[str, Any]:
         """Execute an HTTP request with retry logic and exception mapping.
 
         Args:
-            method:   HTTP method ('GET' or 'POST').
-            endpoint: API path relative to /api/ (e.g. 'auth/user/searchUser').
-            data:     JSON body for POST requests.
+            method:      HTTP method ('GET' or 'POST').
+            endpoint:    API path relative to /api/ (e.g. 'auth/user/searchUser').
+            data:        JSON body for POST requests.
+            timeout:     Per-call timeout override in seconds. None = use global default.
+            max_retries: Per-call retry override. None = use global default.
 
         Returns:
             Parsed JSON response as a dict.
@@ -177,17 +181,21 @@ class OpnsenseClient:
         http = await self._ensure_http()
         last_exc: Exception | None = None
         status_code: int | None = None
+        effective_timeout = timeout if timeout is not None else self._timeout
+        effective_retries = max_retries if max_retries is not None else self._max_retries
+        req_timeout = httpx.Timeout(effective_timeout)
 
         try:
-            for attempt in range(1, self._max_retries + 1):
+            for attempt in range(1, effective_retries + 1):
                 try:
                     if method.upper() == "GET":
-                        response = await http.get(f"/{endpoint}")
+                        response = await http.get(f"/{endpoint}", timeout=req_timeout)
                     else:
                         response = await http.post(
                             f"/{endpoint}",
                             json=data or {},
                             headers={"Content-Type": "application/json"},
+                            timeout=req_timeout,
                         )
 
                     status_code = response.status_code
@@ -198,7 +206,7 @@ class OpnsenseClient:
 
                     # Retryable server error
                     if response.status_code >= 500:
-                        if attempt < self._max_retries:
+                        if attempt < effective_retries:
                             delay = self._retry_backoff**attempt
                             logger.warning(
                                 "OPNsense %s %s returned %d, retrying in %.1fs (attempt %d/%d)",
@@ -207,13 +215,13 @@ class OpnsenseClient:
                                 response.status_code,
                                 delay,
                                 attempt,
-                                self._max_retries,
+                                effective_retries,
                                 extra={
                                     "method": method,
                                     "endpoint": endpoint,
                                     "status_code": response.status_code,
                                     "attempt": attempt,
-                                    "max_retries": self._max_retries,
+                                    "max_retries": effective_retries,
                                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                                 },
                             )
@@ -257,7 +265,7 @@ class OpnsenseClient:
 
                 except httpx.TimeoutException as exc:
                     last_exc = exc
-                    if attempt < self._max_retries:
+                    if attempt < effective_retries:
                         delay = self._retry_backoff**attempt
                         logger.warning(
                             "OPNsense %s %s timed out, retrying in %.1fs (attempt %d/%d)",
@@ -265,12 +273,12 @@ class OpnsenseClient:
                             endpoint,
                             delay,
                             attempt,
-                            self._max_retries,
+                            effective_retries,
                             extra={
                                 "method": method,
                                 "endpoint": endpoint,
                                 "attempt": attempt,
-                                "max_retries": self._max_retries,
+                                "max_retries": effective_retries,
                                 "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                             },
                         )
@@ -278,14 +286,14 @@ class OpnsenseClient:
                         continue
                     raise OpnsenseTimeoutError(
                         message=self._redact_secret(
-                            f"Request timed out after {self._timeout}s: {method} {endpoint}"
+                            f"Request timed out after {effective_timeout}s: {method} {endpoint}"
                         ),
                         endpoint=endpoint,
                     ) from exc
 
                 except httpx.ConnectError as exc:
                     last_exc = exc
-                    if attempt < self._max_retries:
+                    if attempt < effective_retries:
                         delay = self._retry_backoff**attempt
                         logger.warning(
                             "OPNsense %s %s connection error, retrying in %.1fs (attempt %d/%d)",
@@ -293,12 +301,12 @@ class OpnsenseClient:
                             endpoint,
                             delay,
                             attempt,
-                            self._max_retries,
+                            effective_retries,
                             extra={
                                 "method": method,
                                 "endpoint": endpoint,
                                 "attempt": attempt,
-                                "max_retries": self._max_retries,
+                                "max_retries": effective_retries,
                                 "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                             },
                         )
@@ -313,7 +321,7 @@ class OpnsenseClient:
 
             # Should not reach here, but guard against it
             raise OpnsenseError(
-                message=f"Request failed after {self._max_retries} attempts: {method} {endpoint}",
+                message=f"Request failed after {effective_retries} attempts: {method} {endpoint}",
                 endpoint=endpoint,
             ) from last_exc
 
@@ -388,38 +396,53 @@ class OpnsenseClient:
     # Public API methods
     # ------------------------------------------------------------------
 
-    async def get(self, endpoint: str) -> dict[str, Any]:
+    async def get(
+        self,
+        endpoint: str,
+        timeout: int | None = None,
+        max_retries: int | None = None,
+    ) -> dict[str, Any]:
         """GET an API endpoint.
 
         Args:
-            endpoint: API path relative to /api/ (e.g. 'auth/user/getUser/uuid').
+            endpoint:    API path relative to /api/ (e.g. 'auth/user/getUser/uuid').
+            timeout:     Per-call timeout override in seconds.
+            max_retries: Per-call retry override.
 
         Returns:
             Parsed JSON response dict.
         """
-        return await self._request("GET", endpoint)
+        return await self._request("GET", endpoint, timeout=timeout, max_retries=max_retries)
 
     async def post(
         self,
         endpoint: str,
         data: dict[str, Any] | None = None,
+        timeout: int | None = None,
+        max_retries: int | None = None,
     ) -> dict[str, Any]:
         """POST to an API endpoint.
 
         Args:
-            endpoint: API path relative to /api/.
-            data:     JSON body payload.
+            endpoint:    API path relative to /api/.
+            data:        JSON body payload.
+            timeout:     Per-call timeout override in seconds.
+            max_retries: Per-call retry override.
 
         Returns:
             Parsed JSON response dict.
         """
-        return await self._request("POST", endpoint, data=data)
+        return await self._request(
+            "POST", endpoint, data=data, timeout=timeout, max_retries=max_retries
+        )
 
     async def search(
         self,
         endpoint: str,
         search_phrase: str = "",
         row_count: int = 50,
+        timeout: int | None = None,
+        max_retries: int | None = None,
     ) -> list[dict[str, Any]]:
         """Search an API endpoint with pagination.
 
@@ -430,6 +453,8 @@ class OpnsenseClient:
             endpoint:      Search endpoint (e.g. 'auth/user/searchUser').
             search_phrase: Optional filter string.
             row_count:     Maximum rows to return (default 50).
+            timeout:       Per-call timeout override in seconds.
+            max_retries:   Per-call retry override.
 
         Returns:
             List of result dicts from the ``rows`` key.
@@ -441,27 +466,38 @@ class OpnsenseClient:
                 "rowCount": row_count,
                 "current": 1,
             },
+            timeout=timeout,
+            max_retries=max_retries,
         )
         return body.get("rows", [])
 
-    async def get_schema(self, endpoint: str) -> dict[str, Any]:
+    async def get_schema(
+        self,
+        endpoint: str,
+        timeout: int | None = None,
+        max_retries: int | None = None,
+    ) -> dict[str, Any]:
         """GET an empty schema for a resource type.
 
         Used to discover available fields and defaults before creating.
 
         Args:
-            endpoint: Schema endpoint (e.g. 'auth/user/getUser').
+            endpoint:    Schema endpoint (e.g. 'auth/user/getUser').
+            timeout:     Per-call timeout override in seconds.
+            max_retries: Per-call retry override.
 
         Returns:
             Parsed JSON schema dict.
         """
-        return await self.get(endpoint)
+        return await self.get(endpoint, timeout=timeout, max_retries=max_retries)
 
     async def create(
         self,
         endpoint: str,
         payload_key: str,
         params: dict[str, Any],
+        timeout: int | None = None,
+        max_retries: int | None = None,
     ) -> str:
         """Create a resource and return its UUID.
 
@@ -469,6 +505,8 @@ class OpnsenseClient:
             endpoint:    Create endpoint (e.g. 'auth/user/addUser').
             payload_key: Top-level key wrapping the params (e.g. 'user').
             params:      Resource field values.
+            timeout:     Per-call timeout override in seconds.
+            max_retries: Per-call retry override.
 
         Returns:
             UUID of the created resource.
@@ -477,7 +515,12 @@ class OpnsenseClient:
             OpnsenseValidationError: If validation fails.
             OpnsenseError:           If the response lacks a uuid field.
         """
-        body = await self.post(endpoint, data={payload_key: params})
+        body = await self.post(
+            endpoint,
+            data={payload_key: params},
+            timeout=timeout,
+            max_retries=max_retries,
+        )
         uuid = body.get("uuid")
         if not uuid:
             raise OpnsenseError(
@@ -492,6 +535,8 @@ class OpnsenseClient:
         uuid: str,
         payload_key: str,
         params: dict[str, Any],
+        timeout: int | None = None,
+        max_retries: int | None = None,
     ) -> dict[str, Any]:
         """Update a resource by UUID.
 
@@ -500,6 +545,8 @@ class OpnsenseClient:
             uuid:        Resource UUID.
             payload_key: Top-level key wrapping the params (e.g. 'user').
             params:      Fields to update.
+            timeout:     Per-call timeout override in seconds.
+            max_retries: Per-call retry override.
 
         Returns:
             Parsed JSON response dict.
@@ -507,37 +554,51 @@ class OpnsenseClient:
         return await self.post(
             f"{endpoint}/{uuid}",
             data={payload_key: params},
+            timeout=timeout,
+            max_retries=max_retries,
         )
 
     async def delete(
         self,
         endpoint: str,
         uuid: str,
+        timeout: int | None = None,
+        max_retries: int | None = None,
     ) -> dict[str, Any]:
         """Delete a resource by UUID.
 
         Args:
-            endpoint: Delete endpoint base (e.g. 'auth/user/delUser').
-            uuid:     Resource UUID.
+            endpoint:    Delete endpoint base (e.g. 'auth/user/delUser').
+            uuid:        Resource UUID.
+            timeout:     Per-call timeout override in seconds.
+            max_retries: Per-call retry override.
 
         Returns:
             Parsed JSON response dict.
         """
-        return await self.post(f"{endpoint}/{uuid}")
+        return await self.post(f"{endpoint}/{uuid}", timeout=timeout, max_retries=max_retries)
 
-    async def reconfigure(self, endpoint: str) -> dict[str, Any]:
+    async def reconfigure(
+        self,
+        endpoint: str,
+        timeout: int | None = None,
+        max_retries: int | None = None,
+    ) -> dict[str, Any]:
         """Trigger a service reconfigure/apply.
 
         Many OPNsense modules require an explicit reconfigure call after
         CRUD operations to apply changes to the running configuration.
 
         Args:
-            endpoint: Reconfigure endpoint (e.g. 'unbound/service/reconfigure').
+            endpoint:    Reconfigure endpoint (e.g. 'unbound/service/reconfigure').
+            timeout:     Per-call timeout override in seconds. Reconfigure endpoints
+                         are often slow — consider 60-120s for firewall/DNS apply.
+            max_retries: Per-call retry override.
 
         Returns:
             Parsed JSON response dict.
         """
-        return await self.post(endpoint)
+        return await self.post(endpoint, timeout=timeout, max_retries=max_retries)
 
     async def wait_for_ready(
         self,

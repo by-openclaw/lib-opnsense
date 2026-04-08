@@ -44,7 +44,9 @@ class TestEnsurePresent:
         mock_client.create.assert_awaited_once_with(
             "interfaces/vlan_settings/addItem", "vlan", VLAN_PARAMS
         )
-        mock_client.reconfigure.assert_awaited_once_with("interfaces/vlan_settings/reconfigure")
+        mock_client.reconfigure.assert_awaited_once_with(
+            "interfaces/vlan_settings/reconfigure", timeout=None
+        )
 
     async def test_noop_when_no_drift(self, mock_client: AsyncMock) -> None:
         """ensure present when VLAN exists with matching params -> noop."""
@@ -83,7 +85,9 @@ class TestEnsurePresent:
         assert result.action == "updated"
         assert result.uuid == "uuid-1"
         mock_client.update.assert_awaited_once()
-        mock_client.reconfigure.assert_awaited_once_with("interfaces/vlan_settings/reconfigure")
+        mock_client.reconfigure.assert_awaited_once_with(
+            "interfaces/vlan_settings/reconfigure", timeout=None
+        )
 
 
 @pytest.mark.asyncio

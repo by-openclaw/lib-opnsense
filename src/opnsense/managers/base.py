@@ -82,6 +82,7 @@ class BaseManager(ABC):
     _match_keys: list[str] | None = None  # Composite identity (preferred)
     _entity_suffix: str | None = None  # None = auto from _payload_key
     _validators: dict[str, dict[str, Any]] = {}  # Field validators per manager
+    _apply_timeout: int | None = None  # Per-manager apply timeout override (seconds)
 
     REDACT_FIELDS: set[str] = set()
 
@@ -527,11 +528,15 @@ class BaseManager(ABC):
         Some OPNsense modules require an explicit reconfigure call to
         apply CRUD changes to the running configuration. Auth endpoints
         apply immediately and set _apply_endpoint = None.
+
+        Uses ``_apply_timeout`` if set on the concrete manager — slow endpoints
+        like ``firewall/filter/apply`` or ``unbound/service/reconfigure`` may
+        need 60-120s instead of the global default.
         """
         apply_ep = self._endpoints.apply()
         if apply_ep is not None:
             try:
-                await self._client.reconfigure(apply_ep)
+                await self._client.reconfigure(apply_ep, timeout=self._apply_timeout)
             except Exception as exc:
                 logger.error(
                     "apply failed %s: %s",
