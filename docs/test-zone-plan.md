@@ -201,6 +201,7 @@ VLAN sub-interfaces created by OPNsense on vtnet0:
 - **Disabled:** all NAT/filter rules created with `enabled=0` or `disabled=1` — validates CRUD without affecting traffic
 - **Cleanup:** every test class has a final cleanup that deletes all `inttest-` objects
 - **Error tests:** each manager includes deliberate bad-value tests to capture real API error responses
+- **Duplicate detection:** proven on live device that auth rejects duplicates (server-enforced) but FW/IF/TS allow them — AmbiguousMatchError is the only guard (see `test_duplicate_detection.py`)
 - **Log link:** integration test runner prints log file path at start — user monitors with `tail -f`
 
 ---

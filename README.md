@@ -1,18 +1,23 @@
 # lib-opnsense
 
-Async Python library for [OPNsense](https://opnsense.org/) REST API -- user, group, privilege, and firewall management.
+Async Python library for [OPNsense](https://opnsense.org/) REST API — CRUD + idempotent ensure() for auth, firewall, interfaces, and traffic shaping.
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/by-openclaw/lib-opnsense/releases)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/by-openclaw/lib-opnsense/releases)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://github.com/by-openclaw/lib-opnsense/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Coverage](https://img.shields.io/badge/coverage-pending-lightgrey)](https://github.com/by-openclaw/lib-opnsense/actions/workflows/ci.yml)
 
-> **Internal use -- BY-SYSTEMS DevOps platform.**
+> **Internal use — BY-SYSTEMS DevOps platform.**
 > See [LICENSE](LICENSE) for terms and disclaimer of liability.
 
 ---
 
 ## Install
+
+```bash
+pip install git+https://github.com/by-openclaw/lib-opnsense.git@v0.2.0
+```
+
+Development:
 
 ```bash
 git clone https://github.com/by-openclaw/lib-opnsense.git
@@ -28,7 +33,7 @@ pip install -e ".[dev]"
 ```python
 import asyncio
 from opnsense import OpnsenseClient
-from opnsense.managers.auth_user import AuthUserManager
+from opnsense.managers.fw_filter import FwFilterManager
 from opnsense.credentials import get_credentials
 
 async def main():
@@ -40,10 +45,18 @@ async def main():
         port=creds.port,
         verify_ssl=creds.verify_ssl,
     ) as client:
-        users = AuthUserManager(client)
-        result = await users.ensure(
+        fw = FwFilterManager(client)
+        result = await fw.ensure(
             state="present",
-            params={"name": "svc-deploy", "email": "deploy@example.com"},
+            params={
+                "description": "Allow HTTPS from DMZ",
+                "action": "pass",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+                "destination_port": "443",
+                "enabled": "0",
+            },
         )
         print(result)  # EnsureResult(changed=True, action='created', uuid='...')
 
@@ -54,56 +67,55 @@ asyncio.run(main())
 
 ## Architecture
 
-> PlantUML source: `assets/diagrams/lib-architecture.puml`
-> Flow diagram: `assets/diagrams/ensure-flow.puml`
-> Render: open in VS Code with PlantUML extension, or `java -jar plantuml.jar assets/diagrams/*.puml`
-
 ```
-OpnsenseClient (httpx async, retry, exception mapping)
-    |
-    +-- BaseManager (abstract CRUD + ensure lifecycle)
-    |       |
-    |       +-- AuthUserManager    /api/auth/user
-    |       +-- AuthGroupManager   /api/auth/group
-    |       +-- (future managers follow same pattern)
-    |
-    +-- AuthPrivManager (privilege assignment, non-CRUD)
-    |
-    +-- Credentials
-    |       +-- EnvCredentialProvider   (env vars / .env)
-    |       +-- VaultCredentialProvider (HashiCorp Vault KV v2)
-    |
-    +-- Models
-    |       +-- EnsureResult (frozen dataclass)
-    |
-    +-- Exceptions
-            +-- OpnsenseError (base)
-            +-- OpnsenseAuthError (401)
-            +-- OpnsensePermissionError (403)
-            +-- OpnsenseEndpointMissingError (404)
-            +-- OpnsenseValidationError (400 / result=failed)
-            +-- OpnsenseServerError (500)
-            +-- OpnsenseTimeoutError
-            +-- OpnsenseConnectionError
+src/opnsense/
+├── core/                          # Cross-cutting concerns (zero coupling)
+│   ├── identity.py                # IdentityResolver — composite match keys
+│   ├── diff.py                    # DiffEngine — state comparison + enum normalization
+│   ├── redaction.py               # Redactor — field redaction with partial reveal
+│   ├── validation.py              # FieldValidator protocol + ValidatorRegistry
+│   ├── endpoint.py                # EndpointConfig + EndpointResolver
+│   └── logging_helpers.py         # ManagerLogBuilder — structured log construction
+│
+├── managers/
+│   ├── base.py                    # BaseManager — thin orchestrator (composes core/)
+│   ├── protocols.py               # ManagerProtocol (typing.Protocol for DI)
+│   └── 14 concrete managers       # Config only (~30 lines each)
+│
+├── models/                        # Frozen dataclasses — one per entity
+│   ├── base.py                    # EnsureResult
+│   └── 12 entity models           # AuthUser, FwFilterRule, IfVlan, TsPipe, ...
+│
+├── client.py                      # httpx async transport (retry, exception mapping)
+├── exceptions.py                  # Typed exception hierarchy (8 types)
+├── credentials.py                 # EnvCredentialProvider + VaultCredentialProvider
+└── logging.py                     # Structlog config (delegates to core/redaction)
 ```
 
 ---
 
-## API coverage
+## Managers (14 total)
 
-See [docs/api-coverage.md](docs/api-coverage.md) for the full per-method checklist.
+| Domain | Manager | Match keys | Apply |
+|--------|---------|------------|-------|
+| Auth | AuthUserManager | `name` | immediate |
+| Auth | AuthGroupManager | `name` | immediate |
+| Auth | AuthPrivManager (standalone) | — | immediate |
+| Auth | AuthApiKeyManager (standalone) | — | immediate |
+| FW | FwAliasManager | `name` | reconfigure |
+| FW | FwFilterManager | `description, interface, direction, protocol` | apply |
+| FW | FwDnatManager | `descr, interface, target` | apply |
+| FW | FwSourceNatManager | `description, interface, source_net` | apply |
+| FW | FwOneToOneManager | `description, interface, source_net` | apply |
+| FW | FwCategoryManager | `name` | immediate |
+| FW | FwGroupManager | `ifname` | immediate |
+| IF | IfVlanManager | `tag, if` | reconfigure |
+| IF | IfVipManager | `address, interface, mode` | reconfigure |
+| TS | TsPipeManager | `description, bandwidth, bandwidthMetric` | reconfigure |
 
-| Domain | Manager count | Status |
-|--------|:------------:|--------|
-| Auth (users, groups, privileges) | 3 | Implemented |
-| Firewall (aliases, rules, NAT) | 0 | Planned |
-| Unbound DNS (forwarders, overrides) | 0 | Planned |
-| Kea DHCPv4 (subnets, reservations) | 0 | Planned |
-| WireGuard (servers, clients) | 0 | Planned |
-| Interfaces (VLANs) | 0 | Planned |
-| Routes / Gateways | 0 | Planned |
-| System (syslog, cron) | 0 | Planned |
-| Diagnostics (read-only) | n/a | Available via `client.get()` |
+### Duplicate detection
+
+OPNsense API does **not** enforce uniqueness on FW rules, NAT rules, interfaces, or traffic shaper pipes. The lib uses composite match keys + `AmbiguousMatchError` to detect and prevent silent duplication. Auth users/groups are server-enforced unique.
 
 ---
 
@@ -115,87 +127,73 @@ See [docs/api-coverage.md](docs/api-coverage.md) for the full per-method checkli
 class OpnsenseClient:
     def __init__(self, host, key, secret, port=443, verify_ssl=False,
                  timeout=30, async_timeout=300, max_retries=3, retry_backoff=2.0)
-    async def get(endpoint: str) -> dict
-    async def post(endpoint: str, data: dict | None = None) -> dict
-    async def search(endpoint: str, search_phrase: str = "", row_count: int = 50) -> list[dict]
-    async def create(endpoint: str, payload_key: str, params: dict) -> str  # returns UUID
-    async def update(endpoint: str, uuid: str, payload_key: str, params: dict) -> dict
-    async def delete(endpoint: str, uuid: str) -> dict
-    async def reconfigure(endpoint: str) -> dict
-    async def wait_for_ready(check_endpoint: str, timeout: float | None, interval: float = 3.0) -> dict
+
+    # All methods accept optional timeout= and max_retries= per-call overrides
+    async def get(endpoint, timeout=None, max_retries=None) -> dict
+    async def post(endpoint, data=None, timeout=None, max_retries=None) -> dict
+    async def search(endpoint, search_phrase="", timeout=None, max_retries=None) -> list[dict]
+    async def create(endpoint, payload_key, params, timeout=None, max_retries=None) -> str
+    async def update(endpoint, uuid, payload_key, params, timeout=None, max_retries=None) -> dict
+    async def delete(endpoint, uuid, timeout=None, max_retries=None) -> dict
+    async def reconfigure(endpoint, timeout=None, max_retries=None) -> dict
 ```
 
 ### BaseManager
 
 ```python
 class BaseManager(ABC):
-    async def list(search_phrase: str = "") -> list[dict]
-    async def get(uuid: str) -> dict
+    async def list(search_phrase="") -> list[dict]
+    async def get(uuid) -> dict
     async def get_schema() -> dict
-    async def create(params: dict, check_mode: bool = False) -> EnsureResult
-    async def update(uuid: str, params: dict, check_mode: bool = False) -> EnsureResult
-    async def delete(uuid: str, check_mode: bool = False) -> EnsureResult
-    async def ensure(state: str, params: dict, check_mode: bool = False) -> EnsureResult
+    async def create(params, check_mode=False) -> EnsureResult
+    async def update(uuid, params, check_mode=False) -> EnsureResult
+    async def delete(uuid, check_mode=False) -> EnsureResult
+    async def ensure(state, params, check_mode=False, uuid=None) -> EnsureResult
 ```
 
-### AuthUserManager
-
-Extends BaseManager. Endpoint: `/api/auth/user`. Redacts: `password`, `otp_seed`, `scrambled_password`, `authorizedkeys`.
-
-### AuthGroupManager
-
-Extends BaseManager. Endpoint: `/api/auth/group`. No redacted fields.
-
-### AuthPrivManager
-
-Standalone manager (not BaseManager). Manages privilege assignments between users/groups and privilege IDs.
+### Error handling
 
 ```python
-class AuthPrivManager:
-    async def list_privileges() -> list[dict]
-    async def get_assignment(priv_id: str) -> dict
-    async def ensure(priv_id: str, target_type: str, target_name: str,
-                     state: str = "present", check_mode: bool = False) -> EnsureResult
+try:
+    result = await mgr.ensure("present", params)
+except FieldValidationError as exc:
+    print(f"Bad input: {exc.field} — {exc.rule}")
+except AmbiguousMatchError as exc:
+    print(f"Duplicates: {exc.uuids}")
+except OpnsenseValidationError as exc:
+    print(f"API validation: {exc.validations}")
+except OpnsenseAuthError:
+    print("401 — check API key")
+except OpnsenseError as exc:
+    print(f"API error: {exc}")
 ```
 
 ---
 
 ## Testing
 
-### Unit tests (offline -- no firewall required)
+### Unit tests (476 tests, offline)
 
 ```bash
-pytest tests/unit/ -v
+pytest tests/unit/ -q
 ```
 
-### Smoke tests
+### Integration tests (146 tests, live OPNsense device)
 
 ```bash
-pytest tests/smoke/ -v
+# Set credentials in .env or environment
+OPN_HOST=10.6.239.114 OPN_KEY=... OPN_SECRET=... \
+pytest tests/integration/ -q
 ```
 
-### Integration tests (live OPNsense device)
-
-Requires a reachable OPNsense device and environment variables set:
+### Quality gates
 
 ```bash
-OPN_HOST=opnsense.example.com OPN_KEY=your-key OPN_SECRET=your-secret \
-pytest tests/integration/ -v
+ruff check src/ tests/           # lint
+ruff format --check src/ tests/  # format
+mypy src/ --ignore-missing-imports  # types
+bandit -r src/ -q -ll            # security
 ```
-
-### Linting and type checking
-
-```bash
-ruff check src/ tests/
-ruff format --check src/ tests/
-mypy src/
-```
-
----
-
-## Dev container
-
-A `.devcontainer/` configuration will be provided in a future release. Until then, use the venv setup above.
 
 ---
 
