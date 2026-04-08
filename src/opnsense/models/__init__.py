@@ -11,6 +11,7 @@ from opnsense.models.fw_category import FwCategory
 from opnsense.models.fw_dnat import FwDnatRule
 from opnsense.models.fw_filter import FwFilterRule
 from opnsense.models.fw_group import FwGroup
+from opnsense.models.fw_npt import FwNptRule
 from opnsense.models.fw_one_to_one import FwOneToOneRule
 from opnsense.models.fw_source_nat import FwSourceNatRule
 from opnsense.models.if_bridge import IfBridge
@@ -40,6 +41,7 @@ __all__ = [
     "FwDnatRule",
     "FwFilterRule",
     "FwGroup",
+    "FwNptRule",
     "FwOneToOneRule",
     "FwSourceNatRule",
     "IfBridge",

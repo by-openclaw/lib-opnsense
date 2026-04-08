@@ -25,7 +25,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 25 |
+| Managers done (integration tested) | 28 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -53,7 +53,7 @@
 | fw-1to1 | `FwOneToOneManager` | `description, interface, source_net` | `firewall/one_to_one` | `INTEGRATION_TEST_PASSED` | Bidirectional 1:1 NAT |
 | fw-category | `FwCategoryManager` | `name` | `firewall/category` | `INTEGRATION_TEST_PASSED` | Rule categories (immediate) |
 | fw-group | `FwGroupManager` | `ifname` | `firewall/group` | `INTEGRATION_TEST_PASSED` | Interface groups (immediate) |
-| fw-npt | `FwNptManager` | — | `firewall/npt` | `ABSENT` | IPv6 NPTv6 |
+| fw-npt | `FwNptManager` | `source_net, destination_net` | `firewall/npt` Rule | `INTEGRATION_TEST_PASSED` | IPv6 NPTv6 (NAT66), disabled ULA prefixes for testing |
 
 ## Interfaces (2 managers — requires reconfigure)
 
