@@ -42,6 +42,26 @@ class UbHostOverrideManager(BaseManager):
                 "server": "10.0.0.1",
                 "rr": "A",
             })
+
+    Input (ensure present):
+        hostname:     Hostname, max 255 (required)
+        domain:       Domain name, max 255 (optional)
+        server:       IP address, max 255 (optional)
+        rr:           Record type — A, AAAA, MX, TXT (optional)
+        mxprio:       MX priority (optional)
+        mx:           MX server hostname (optional)
+        ttl:          Time to live (optional)
+        txtdata:      TXT record data (optional)
+        addptr:       Create PTR record (optional, default='0')
+        enabled:      Enable override (optional, default='1')
+        description:  Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "unbound/settings"

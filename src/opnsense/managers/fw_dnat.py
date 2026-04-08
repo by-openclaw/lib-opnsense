@@ -51,6 +51,23 @@ class FwDnatManager(BaseManager):
                 "target": "10.6.225.10",
                 "local-port": "443",
             })
+
+    Input (ensure present):
+        descr:       Rule description, max 255 (required)
+        interface:   Interface name (required)
+        target:      Destination IP address for forwarding (required)
+        local-port:  Local port to forward to (optional)
+        protocol:    Protocol name (optional)
+        ipprotocol:  IP protocol — inet, inet6, inet46 (optional)
+        disabled:    Disable rule (optional, default='0')
+        sequence:    Rule order priority, min 1 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/d_nat"

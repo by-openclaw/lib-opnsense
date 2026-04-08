@@ -44,6 +44,21 @@ class FwOneToOneManager(BaseManager):
                 "external": "10.6.224.106",
                 "source_net": "10.1.2.10/32",
             })
+
+    Input (ensure present):
+        description:  Rule description, max 255 (required)
+        interface:    Interface name (required)
+        source_net:   Source network (required)
+        external:     External IP address (optional)
+        disabled:     Disable rule (optional, default='0')
+        sequence:     Rule order priority, min 1 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/one_to_one"

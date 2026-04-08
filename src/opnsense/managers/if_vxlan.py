@@ -46,6 +46,18 @@ class IfVxlanManager(BaseManager):
                 "vxlanid": "100",
                 "vxlanlocal": "10.0.0.1",
             })
+
+    Input (ensure present):
+        vxlanid:     VXLAN Network Identifier, 1-16777215 (required)
+        vxlanlocal:  Local VTEP address (required)
+        vxlanremote: Remote VTEP address (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/vxlan_settings"

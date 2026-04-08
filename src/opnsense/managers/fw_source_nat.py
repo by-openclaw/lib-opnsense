@@ -44,6 +44,22 @@ class FwSourceNatManager(BaseManager):
                 "source_net": "10.6.225.0/24",
                 "target": "wanip",
             })
+
+    Input (ensure present):
+        description:  Rule description, max 255 (required)
+        interface:    Interface name (required)
+        source_net:   Source network (required)
+        target:       NAT target address (optional)
+        ipprotocol:   IP protocol — inet, inet6, inet46 (optional)
+        enabled:      Enable rule (optional, default='1')
+        sequence:     Rule order priority, min 1 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/source_nat"

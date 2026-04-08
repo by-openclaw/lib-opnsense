@@ -47,6 +47,18 @@ class IfGifManager(BaseManager):
                 "tunnel-local-addr": "10.0.0.1",
                 "tunnel-remote-addr": "10.0.0.2",
             })
+
+    Input (ensure present):
+        tunnel-local-addr:   Local tunnel endpoint IP (required)
+        tunnel-remote-addr:  Remote tunnel endpoint IP (required)
+        descr:               Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/gif_settings"

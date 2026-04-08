@@ -41,6 +41,21 @@ class UbAclManager(BaseManager):
                 "action": "allow",
                 "networks": "10.0.0.0/8",
             })
+
+    Input (ensure present):
+        name:         ACL name, max 255 (required)
+        action:       Access action — allow, deny, refuse, allow_snoop,
+                      deny_non_local, refuse_non_local (optional)
+        networks:     Network ranges (optional)
+        enabled:      Enable ACL (optional, default='1')
+        description:  Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "unbound/settings"

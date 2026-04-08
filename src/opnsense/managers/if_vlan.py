@@ -48,6 +48,19 @@ class IfVlanManager(BaseManager):
                 "tag": "400",
                 "descr": "Test VLAN",
             })
+
+    Input (ensure present):
+        tag:    VLAN ID, 1-4094 (required)
+        if:     Parent interface name, e.g. 'vtnet1' (required)
+        pcp:    802.1p priority code point, 0-7 (optional)
+        descr:  VLAN description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/vlan_settings"

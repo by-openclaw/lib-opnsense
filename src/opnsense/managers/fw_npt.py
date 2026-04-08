@@ -43,6 +43,22 @@ class FwNptManager(BaseManager):
                 "destination_net": "2001:db8:1::/64",
                 "interface": "wan",
             })
+
+    Input (ensure present):
+        source_net:       Source IPv6 prefix, max 255 (required)
+        destination_net:  Destination IPv6 prefix, max 255 (required)
+        interface:        Interface name (required)
+        enabled:          Enable rule (optional, default='1')
+        log:              Log matching packets (optional, default='0')
+        sequence:         Rule order priority, min 1 (optional)
+        description:      Rule description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/npt"

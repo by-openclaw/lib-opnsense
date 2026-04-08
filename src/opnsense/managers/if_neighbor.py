@@ -44,6 +44,18 @@ class IfNeighborManager(BaseManager):
                 "ipaddress": "10.0.0.1",
                 "etheraddr": "00:11:22:33:44:55",
             })
+
+    Input (ensure present):
+        ipaddress:  IP address (required)
+        etheraddr:  MAC / Ethernet address (required)
+        descr:      Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/neighbor_settings"

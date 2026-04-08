@@ -38,6 +38,17 @@ class AuthGroupManager(BaseManager):
         async with OpnsenseClient(...) as client:
             mgr = AuthGroupManager(client)
             result = await mgr.ensure("present", {"name": "admins", "description": "..."})
+
+    Input (ensure present):
+        name:         Group name, alphanumeric/underscore/hyphen, max 32 (required)
+        description:  Group description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "auth/group"

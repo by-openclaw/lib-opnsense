@@ -42,6 +42,16 @@ class IfLoopbackManager(BaseManager):
             result = await mgr.ensure("present", {
                 "description": "Mgmt Loopback",
             })
+
+    Input (ensure present):
+        description:  Loopback description, max 255 (required)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/loopback_settings"

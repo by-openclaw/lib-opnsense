@@ -41,6 +41,19 @@ class Kea6ReservationManager(BaseManager):
                 "duid": "00:03:00:01:00:11:22:33:44:55",
                 "hostname": "printer",
             })
+
+    Input (ensure present):
+        ip_address:   Reserved IPv6 address (required)
+        duid:         DHCP Unique Identifier (required)
+        hostname:     Client hostname, max 255 (optional)
+        description:  Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "kea/dhcpv6"

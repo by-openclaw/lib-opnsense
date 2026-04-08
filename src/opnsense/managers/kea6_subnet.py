@@ -40,6 +40,18 @@ class Kea6SubnetManager(BaseManager):
                 "subnet": "2001:db8::/64",
                 "description": "IPv6 LAN pool",
             })
+
+    Input (ensure present):
+        subnet:       Subnet CIDR, max 255 (required)
+        interface:    Interface name (required)
+        description:  Description, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "kea/dhcpv6"

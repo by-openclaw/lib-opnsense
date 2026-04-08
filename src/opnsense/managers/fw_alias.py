@@ -44,6 +44,23 @@ class FwAliasManager(BaseManager):
                 "content": "10.6.225.0/24",
                 "description": "DMZ subnet",
             })
+
+    Input (ensure present):
+        name:         Alias name, alphanumeric/underscore, max 32 (required)
+        type:         Alias type — host, network, port, url, urltable, urljson,
+                      geoip, networkgroup, mac, asn, dynipv6host, authgroup,
+                      internal, external (optional)
+        content:      Alias content/values, max 10000 (optional)
+        description:  Description, max 255 (optional)
+        enabled:      Enable alias (optional, default='1')
+        updatefreq:   URL table update frequency, max 10 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/alias"

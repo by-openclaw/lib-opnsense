@@ -46,6 +46,16 @@ class IfBridgeManager(BaseManager):
                 "descr": "LAN Bridge",
                 "members": "vtnet1,vtnet2",
             })
+
+    Input (ensure present):
+        descr:  Bridge description, max 255 (required)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/bridge_settings"

@@ -54,6 +54,21 @@ class IfVipManager(BaseManager):
                 "network": "32",
                 "descr": "SVC floating IP",
             })
+
+    Input (ensure present):
+        address:    IP address (required)
+        interface:  Interface to bind to, e.g. 'wan', 'lan' (required)
+        mode:       VIP type — ipalias, carp, proxyarp, other (required)
+        network:    Subnet mask in CIDR bits, e.g. '32' (optional)
+        descr:      Description, max 255 (optional)
+        password:   CARP password, max 255 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "interfaces/vip_settings"

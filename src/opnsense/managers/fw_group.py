@@ -42,6 +42,19 @@ class FwGroupManager(BaseManager):
                 "members": "lan,wireguard",
                 "descr": "Trusted internal interfaces",
             })
+
+    Input (ensure present):
+        ifname:    Interface group name, alphanumeric/underscore, max 32 (required)
+        members:   Member interfaces, comma-separated (required)
+        descr:     Description, max 255 (optional)
+        sequence:  Group order priority, min 1 (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "firewall/group"

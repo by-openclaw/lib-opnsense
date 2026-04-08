@@ -47,6 +47,24 @@ class AuthApiKeyManager:
 
             # Delete a key by its base64 ID
             result = await mgr.delete_key(key_id="base64-id-from-search")
+
+    Input (create_key):
+        username:    Username string (required)
+        check_mode:  Dry-run flag (optional, default=False)
+
+    Input (delete_key):
+        key_id:      Base64 key ID from search results (required)
+        check_mode:  Dry-run flag (optional, default=False)
+
+    Input (delete_all_keys):
+        username:    Username to delete all keys for (required)
+        check_mode:  Dry-run flag (optional, default=False)
+
+    Output (EnsureResult):
+        changed:  bool — True if keys were created/deleted
+        action:   'created' | 'deleted' | 'noop'
+        after:    Dict with username, key, secret (on create — secret shown once)
+        before:   Dict with key_id or username + key_count (on delete)
     """
 
     def __init__(self, client: OpnsenseClient) -> None:

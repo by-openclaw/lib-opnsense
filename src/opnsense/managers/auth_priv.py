@@ -46,6 +46,18 @@ class AuthPrivManager:
                 target_name="admins",
                 state="present",
             )
+
+    Input (ensure):
+        priv_id:      Privilege identifier, e.g. 'page-all' (required)
+        target_type:  Target type — 'user' or 'group' (required)
+        target_name:  Name of the user or group (required)
+        state:        Desired state — 'present' or 'absent' (optional, default='present')
+        check_mode:   Dry-run flag (optional, default=False)
+
+    Output (EnsureResult):
+        changed:  bool — True if assignment was modified
+        action:   'created' | 'deleted' | 'noop'
+        after:    Dict with priv_id, target_type, target_name, state (on change)
     """
 
     def __init__(self, client: OpnsenseClient) -> None:
