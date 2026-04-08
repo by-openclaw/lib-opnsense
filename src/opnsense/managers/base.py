@@ -8,12 +8,33 @@ Provides the full CRUD + ensure() lifecycle with:
 - check_mode (dry_run) support on all destructive methods
 - Field redaction for sensitive data in logs/results
 - Automatic reconfigure after mutations (when _apply_endpoint is set)
+
+Logging contract — every ensure() outcome logs these fields
+(designed for Ansible -vvvvvv compatibility):
+
++-----------------+-------+-------+------+--------+-------+---------+-------------+
+| Log site        | match | match | uuid | before | after | changed | duration_ms |
+|                 | field | value |      |        |       |         |             |
++-----------------+-------+-------+------+--------+-------+---------+-------------+
+| create chk_mode |  yes  |  yes  |  --  |   --   |  yes  |   yes   |     yes     |
+| created         |  yes  |  yes  | yes  |   --   |  yes  |   yes   |     yes     |
+| update chk_mode |  yes  |  yes  | yes  |  yes   |  yes  |   yes   |     yes     |
+| updated         |  yes  |  yes  | yes  |  yes   |  yes  |   yes   |     yes     |
+| delete chk_mode |  yes  |  yes  | yes  |  yes   |  --   |   yes   |     yes     |
+| deleted         |  yes  |  yes  | yes  |  yes   |  --   |   yes   |     yes     |
+| noop            |  yes  |  yes  | yes  |   --   |  --   |   yes   |     yes     |
+| error (all)     |  yes  |  yes  | yes* |  yes*  |  --   |   --    |     yes     |
++-----------------+-------+-------+------+--------+-------+---------+-------------+
+* = when available
+
+Severity: DEBUG=noop, INFO=create/update, WARNING=delete, ERROR=failure.
 """
 
 from __future__ import annotations
 
 import copy
 import logging
+import time
 from abc import ABC
 from typing import Any
 
@@ -125,22 +146,29 @@ class BaseManager(ABC):
         Returns:
             EnsureResult with action='created'.
         """
+        t0 = time.monotonic()
         match_val = params.get(self._match_key, "")
+        redacted_after = self._redact(params)
         if check_mode:
             logger.info(
-                "create check_mode=True",
+                "create check_mode=True %s=%s",
+                self._match_key,
+                match_val,
                 extra={
                     "action": "created",
                     "check_mode": True,
+                    "changed": True,
                     "match_field": self._match_key,
                     "match_value": match_val,
                     "endpoint": self._endpoint,
+                    "after": redacted_after,
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
             )
             return EnsureResult(
                 changed=True,
                 action="created",
-                after=self._redact(params),
+                after=redacted_after,
             )
 
         endpoint = f"{self._endpoint}/add{self._suffix}"
@@ -159,6 +187,7 @@ class BaseManager(ABC):
                     "match_value": match_val,
                     "endpoint": self._endpoint,
                     "error": str(exc),
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
             )
             raise
@@ -175,13 +204,15 @@ class BaseManager(ABC):
                 "match_field": self._match_key,
                 "match_value": match_val,
                 "endpoint": self._endpoint,
+                "after": redacted_after,
+                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
             },
         )
         return EnsureResult(
             changed=True,
             action="created",
             uuid=uuid,
-            after=self._redact(params),
+            after=redacted_after,
         )
 
     async def update(
@@ -200,15 +231,35 @@ class BaseManager(ABC):
         Returns:
             EnsureResult with action='updated'.
         """
+        t0 = time.monotonic()
         before = await self.get(uuid)
+        redacted_before = self._redact(before)
+        redacted_after = self._redact(params)
 
         if check_mode:
+            logger.info(
+                "update check_mode=True %s uuid=%s",
+                self._endpoint,
+                uuid,
+                extra={
+                    "action": "updated",
+                    "check_mode": True,
+                    "changed": True,
+                    "uuid": uuid,
+                    "match_field": self._match_key,
+                    "match_value": params.get(self._match_key, ""),
+                    "endpoint": self._endpoint,
+                    "before": redacted_before,
+                    "after": redacted_after,
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                },
+            )
             return EnsureResult(
                 changed=True,
                 action="updated",
                 uuid=uuid,
-                before=self._redact(before),
-                after=self._redact(params),
+                before=redacted_before,
+                after=redacted_after,
             )
 
         endpoint = f"{self._endpoint}/set{self._suffix}"
@@ -224,8 +275,12 @@ class BaseManager(ABC):
                 extra={
                     "action": "update_failed",
                     "uuid": uuid,
+                    "match_field": self._match_key,
+                    "match_value": params.get(self._match_key, ""),
                     "endpoint": self._endpoint,
                     "error": str(exc),
+                    "before": redacted_before,
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
             )
             raise
@@ -234,14 +289,24 @@ class BaseManager(ABC):
             "updated %s uuid=%s",
             self._endpoint,
             uuid,
-            extra={"action": "updated", "changed": True, "uuid": uuid, "endpoint": self._endpoint},
+            extra={
+                "action": "updated",
+                "changed": True,
+                "uuid": uuid,
+                "match_field": self._match_key,
+                "match_value": params.get(self._match_key, ""),
+                "endpoint": self._endpoint,
+                "before": redacted_before,
+                "after": redacted_after,
+                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+            },
         )
         return EnsureResult(
             changed=True,
             action="updated",
             uuid=uuid,
-            before=self._redact(before),
-            after=self._redact(params),
+            before=redacted_before,
+            after=redacted_after,
         )
 
     async def delete(
@@ -258,14 +323,32 @@ class BaseManager(ABC):
         Returns:
             EnsureResult with action='deleted'.
         """
+        t0 = time.monotonic()
         before = await self.get(uuid)
+        redacted_before = self._redact(before)
 
         if check_mode:
+            logger.warning(
+                "delete check_mode=True %s uuid=%s",
+                self._endpoint,
+                uuid,
+                extra={
+                    "action": "deleted",
+                    "check_mode": True,
+                    "changed": True,
+                    "uuid": uuid,
+                    "match_field": self._match_key,
+                    "match_value": before.get(self._match_key, ""),
+                    "endpoint": self._endpoint,
+                    "before": redacted_before,
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                },
+            )
             return EnsureResult(
                 changed=True,
                 action="deleted",
                 uuid=uuid,
-                before=self._redact(before),
+                before=redacted_before,
             )
 
         endpoint = f"{self._endpoint}/del{self._suffix}"
@@ -281,8 +364,12 @@ class BaseManager(ABC):
                 extra={
                     "action": "delete_failed",
                     "uuid": uuid,
+                    "match_field": self._match_key,
+                    "match_value": before.get(self._match_key, ""),
                     "endpoint": self._endpoint,
                     "error": str(exc),
+                    "before": redacted_before,
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
             )
             raise
@@ -291,13 +378,22 @@ class BaseManager(ABC):
             "deleted %s uuid=%s",
             self._endpoint,
             uuid,
-            extra={"action": "deleted", "changed": True, "uuid": uuid, "endpoint": self._endpoint},
+            extra={
+                "action": "deleted",
+                "changed": True,
+                "uuid": uuid,
+                "match_field": self._match_key,
+                "match_value": before.get(self._match_key, ""),
+                "endpoint": self._endpoint,
+                "before": redacted_before,
+                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+            },
         )
         return EnsureResult(
             changed=True,
             action="deleted",
             uuid=uuid,
-            before=self._redact(before),
+            before=redacted_before,
         )
 
     async def ensure(
@@ -326,6 +422,7 @@ class BaseManager(ABC):
         if state not in ("present", "absent"):
             raise ValueError(f"Invalid state '{state}'. Use 'present' or 'absent'.")
 
+        t0 = time.monotonic()
         existing = await self._find_existing(params)
 
         if state == "present":
@@ -338,15 +435,18 @@ class BaseManager(ABC):
 
             if diff is None:
                 logger.debug(
-                    "noop %s=%s — state matches",
+                    "noop %s=%s uuid=%s — state matches",
                     self._match_key,
                     params.get(self._match_key),
+                    existing_uuid,
                     extra={
                         "action": "noop",
                         "changed": False,
+                        "uuid": existing_uuid,
                         "match_field": self._match_key,
                         "match_value": params.get(self._match_key),
                         "endpoint": self._endpoint,
+                        "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                     },
                 )
                 return EnsureResult(changed=False, action="noop", uuid=existing_uuid)
@@ -355,6 +455,19 @@ class BaseManager(ABC):
 
         # state == "absent"
         if existing is None:
+            logger.debug(
+                "noop %s=%s — already absent",
+                self._match_key,
+                params.get(self._match_key),
+                extra={
+                    "action": "noop",
+                    "changed": False,
+                    "match_field": self._match_key,
+                    "match_value": params.get(self._match_key),
+                    "endpoint": self._endpoint,
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                },
+            )
             return EnsureResult(changed=False, action="noop")
 
         existing_uuid = existing.get("uuid", "")

@@ -8,6 +8,23 @@ Provides low-level CRUD operations against the OPNsense API with:
 - Status code -> typed exception mapping
 - Secret redaction in error messages
 - Async context manager lifecycle
+
+Logging contract — every HTTP call logs via structlog:
+
++-------------------+-------+----------+--------+--------+-------------+
+| Outcome           | level | method   | endpoint| status | duration_ms |
++-------------------+-------+----------+--------+--------+-------------+
+| Success (2xx)     | DEBUG | yes      | yes    | yes    | yes         |
+| Retry (500/net)   | WARN  | yes      | yes    | yes*   | yes         |
+| Auth error (401)  | ERROR | yes      | yes    | 401    | yes         |
+| Forbidden (403)   | ERROR | yes      | yes    | 403    | yes         |
+| Not found (404)   | ERROR | yes      | yes    | 404    | yes         |
+| Validation (400)  | ERROR | yes      | yes    | 400    | yes         |
+| Server error (500)| ERROR | yes      | yes    | 500    | yes         |
+| Timeout           | ERROR | yes      | yes    | None   | yes         |
+| Connection error  | ERROR | yes      | yes    | None   | yes         |
++-------------------+-------+----------+--------+--------+-------------+
+* status_code may be None for network-level failures
 """
 
 from __future__ import annotations
@@ -15,6 +32,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import logging
+import time
 from typing import Any
 
 import httpx
@@ -155,108 +173,164 @@ class OpnsenseClient:
             OpnsenseTimeoutError:         On request timeout.
             OpnsenseConnectionError:      On network-level failure.
         """
+        t0 = time.monotonic()
         http = await self._ensure_http()
         last_exc: Exception | None = None
+        status_code: int | None = None
 
-        for attempt in range(1, self._max_retries + 1):
-            try:
-                if method.upper() == "GET":
-                    response = await http.get(f"/{endpoint}")
-                else:
-                    response = await http.post(
-                        f"/{endpoint}",
-                        json=data or {},
-                        headers={"Content-Type": "application/json"},
+        try:
+            for attempt in range(1, self._max_retries + 1):
+                try:
+                    if method.upper() == "GET":
+                        response = await http.get(f"/{endpoint}")
+                    else:
+                        response = await http.post(
+                            f"/{endpoint}",
+                            json=data or {},
+                            headers={"Content-Type": "application/json"},
+                        )
+
+                    status_code = response.status_code
+
+                    # Non-retryable HTTP errors — raise immediately
+                    if response.status_code in (400, 401, 403, 404):
+                        self._raise_for_status(response, endpoint)
+
+                    # Retryable server error
+                    if response.status_code >= 500:
+                        if attempt < self._max_retries:
+                            delay = self._retry_backoff**attempt
+                            logger.warning(
+                                "OPNsense %s %s returned %d, retrying in %.1fs (attempt %d/%d)",
+                                method,
+                                endpoint,
+                                response.status_code,
+                                delay,
+                                attempt,
+                                self._max_retries,
+                                extra={
+                                    "method": method,
+                                    "endpoint": endpoint,
+                                    "status_code": response.status_code,
+                                    "attempt": attempt,
+                                    "max_retries": self._max_retries,
+                                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                                },
+                            )
+                            await asyncio.sleep(delay)
+                            continue
+                        self._raise_for_status(response, endpoint)
+
+                    # Success — parse JSON
+                    body: dict[str, Any] = response.json()
+
+                    # OPNsense returns result=failed for validation errors on 200
+                    if isinstance(body, dict) and body.get("result") == "failed":
+                        validations = body.get("validations", {})
+                        raise OpnsenseValidationError(
+                            message=f"Validation failed on {endpoint}",
+                            endpoint=endpoint,
+                            validations=validations,
+                        )
+
+                    logger.debug(
+                        "%s %s %d",
+                        method,
+                        endpoint,
+                        response.status_code,
+                        extra={
+                            "method": method,
+                            "endpoint": endpoint,
+                            "status_code": response.status_code,
+                            "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                        },
                     )
+                    return body
 
-                # Non-retryable HTTP errors — raise immediately
-                if response.status_code in (400, 401, 403, 404):
-                    self._raise_for_status(response, endpoint)
+                except (
+                    OpnsenseAuthError,
+                    OpnsensePermissionError,
+                    OpnsenseEndpointMissingError,
+                    OpnsenseValidationError,
+                ):
+                    raise  # Non-retryable — propagate immediately
 
-                # Retryable server error
-                if response.status_code >= 500:
+                except httpx.TimeoutException as exc:
+                    last_exc = exc
                     if attempt < self._max_retries:
                         delay = self._retry_backoff**attempt
-                        logger.error(
-                            "OPNsense %s %s returned %d, retrying in %.1fs (attempt %d/%d)",
+                        logger.warning(
+                            "OPNsense %s %s timed out, retrying in %.1fs (attempt %d/%d)",
                             method,
                             endpoint,
-                            response.status_code,
                             delay,
                             attempt,
                             self._max_retries,
+                            extra={
+                                "method": method,
+                                "endpoint": endpoint,
+                                "attempt": attempt,
+                                "max_retries": self._max_retries,
+                                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                            },
                         )
                         await asyncio.sleep(delay)
                         continue
-                    self._raise_for_status(response, endpoint)
-
-                # Success — parse JSON
-                body: dict[str, Any] = response.json()
-
-                # OPNsense returns result=failed for validation errors on 200
-                if isinstance(body, dict) and body.get("result") == "failed":
-                    validations = body.get("validations", {})
-                    raise OpnsenseValidationError(
-                        message=f"Validation failed on {endpoint}",
+                    raise OpnsenseTimeoutError(
+                        message=self._redact_secret(
+                            f"Request timed out after {self._timeout}s: {method} {endpoint}"
+                        ),
                         endpoint=endpoint,
-                        validations=validations,
-                    )
+                    ) from exc
 
-                return body
+                except httpx.ConnectError as exc:
+                    last_exc = exc
+                    if attempt < self._max_retries:
+                        delay = self._retry_backoff**attempt
+                        logger.warning(
+                            "OPNsense %s %s connection error, retrying in %.1fs (attempt %d/%d)",
+                            method,
+                            endpoint,
+                            delay,
+                            attempt,
+                            self._max_retries,
+                            extra={
+                                "method": method,
+                                "endpoint": endpoint,
+                                "attempt": attempt,
+                                "max_retries": self._max_retries,
+                                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                            },
+                        )
+                        await asyncio.sleep(delay)
+                        continue
+                    raise OpnsenseConnectionError(
+                        message=self._redact_secret(
+                            f"Connection failed: {method} {endpoint}: {exc}"
+                        ),
+                        endpoint=endpoint,
+                    ) from exc
 
-            except (
-                OpnsenseAuthError,
-                OpnsensePermissionError,
-                OpnsenseEndpointMissingError,
-                OpnsenseValidationError,
-            ):
-                raise  # Non-retryable — propagate immediately
+            # Should not reach here, but guard against it
+            raise OpnsenseError(
+                message=f"Request failed after {self._max_retries} attempts: {method} {endpoint}",
+                endpoint=endpoint,
+            ) from last_exc
 
-            except httpx.TimeoutException as exc:
-                last_exc = exc
-                if attempt < self._max_retries:
-                    delay = self._retry_backoff**attempt
-                    logger.error(
-                        "OPNsense %s %s timed out, retrying in %.1fs (attempt %d/%d)",
-                        method,
-                        endpoint,
-                        delay,
-                        attempt,
-                        self._max_retries,
-                    )
-                    await asyncio.sleep(delay)
-                    continue
-                raise OpnsenseTimeoutError(
-                    message=self._redact_secret(
-                        f"Request timed out after {self._timeout}s: {method} {endpoint}"
-                    ),
-                    endpoint=endpoint,
-                ) from exc
-
-            except httpx.ConnectError as exc:
-                last_exc = exc
-                if attempt < self._max_retries:
-                    delay = self._retry_backoff**attempt
-                    logger.error(
-                        "OPNsense %s %s connection error, retrying in %.1fs (attempt %d/%d)",
-                        method,
-                        endpoint,
-                        delay,
-                        attempt,
-                        self._max_retries,
-                    )
-                    await asyncio.sleep(delay)
-                    continue
-                raise OpnsenseConnectionError(
-                    message=self._redact_secret(f"Connection failed: {method} {endpoint}: {exc}"),
-                    endpoint=endpoint,
-                ) from exc
-
-        # Should not reach here, but guard against it
-        raise OpnsenseError(
-            message=f"Request failed after {self._max_retries} attempts: {method} {endpoint}",
-            endpoint=endpoint,
-        ) from last_exc
+        except OpnsenseError:
+            # Log every OpnsenseError at the client level before propagating
+            logger.error(
+                "%s %s failed",
+                method,
+                endpoint,
+                extra={
+                    "method": method,
+                    "endpoint": endpoint,
+                    "status_code": status_code,
+                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
+                },
+            )
+            raise
 
     def _raise_for_status(
         self,
