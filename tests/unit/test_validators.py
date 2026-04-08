@@ -1,13 +1,19 @@
 # Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
 # SPDX-License-Identifier: MIT
 # Repo: https://github.com/by-openclaw/lib-opnsense
-"""Unit tests for opnsense.validators — field validation framework."""
+"""Unit tests for opnsense.validators — backward-compatibility shim.
+
+Tests the module-level validate_params() function which delegates to
+core/validation.ValidatorRegistry. Core validator logic is tested
+separately in tests/unit/core/test_validation.py.
+"""
 
 from __future__ import annotations
 
 import pytest
 
-from opnsense.validators import FieldValidationError, validate_params
+from opnsense.exceptions import FieldValidationError
+from opnsense.validators import validate_params
 
 
 class TestStrValidator:
