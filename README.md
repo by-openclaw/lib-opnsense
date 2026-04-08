@@ -96,54 +96,15 @@ src/opnsense/
 
 ## Managers (20 total)
 
-### Auth (4 managers — changes apply immediately)
+| Scope | Managers | Status |
+|-------|:-------:|--------|
+| Auth (users, groups, privileges, API keys) | 4 | all integration tested |
+| Firewall (aliases, filter, D-NAT, S-NAT, 1:1, categories, groups) | 7 | all integration tested |
+| Interfaces (VLANs, VIPs) | 2 | all integration tested |
+| Traffic Shaper (pipes) | 1 | integration tested |
+| Unbound DNS (host overrides, aliases, forwarding, ACLs, DoT, diagnostics) | 6 | all integration tested |
 
-| Manager | Match keys | Notes |
-|---------|------------|-------|
-| AuthUserManager | `name` | CRUD + ensure, redacts password/otp |
-| AuthGroupManager | `name` | CRUD + ensure |
-| AuthPrivManager | — | Standalone, privilege assignment |
-| AuthApiKeyManager | — | Standalone, API key lifecycle |
-
-### Firewall (7 managers — requires apply/reconfigure)
-
-| Manager | Match keys | Notes |
-|---------|------------|-------|
-| FwAliasManager | `name` | Host, network, port, URL aliases |
-| FwFilterManager | `description, interface, direction, protocol` | Pass/block/reject rules |
-| FwDnatManager | `descr, interface, target` | Port forwarding (D-NAT) |
-| FwSourceNatManager | `description, interface, source_net` | Outbound NAT / masquerade |
-| FwOneToOneManager | `description, interface, source_net` | Bidirectional 1:1 NAT |
-| FwCategoryManager | `name` | Rule categories (immediate) |
-| FwGroupManager | `ifname` | Interface groups (immediate) |
-
-### Interfaces (2 managers — requires reconfigure)
-
-| Manager | Match keys | Notes |
-|---------|------------|-------|
-| IfVlanManager | `tag, if` | 802.1Q VLAN sub-interfaces |
-| IfVipManager | `address, interface, mode` | Virtual IPs (alias, CARP, proxy ARP) |
-
-### Traffic Shaper (1 manager — requires reconfigure)
-
-| Manager | Match keys | Notes |
-|---------|------------|-------|
-| TsPipeManager | `description, bandwidth, bandwidthMetric` | Bandwidth pipes |
-
-### Unbound DNS (6 managers — requires reconfigure)
-
-| Manager | Match keys | Notes |
-|---------|------------|-------|
-| UbHostOverrideManager | `hostname, domain, server` | Local A/AAAA/MX records |
-| UbHostAliasManager | `hostname, domain` | CNAME-like aliases (create+read only on 26.1.5) |
-| UbForwardManager | `domain, server` | Domain-specific DNS forwarding |
-| UbAclManager | `name` | Resolver access control lists |
-| UbDotManager | `server, port` | DNS-over-TLS upstream servers |
-| UbDiagnosticsManager | — | Read-only: stats + DNSBL config |
-
-### API coverage
-
-See [docs/api-coverage.md](docs/api-coverage.md) for the full per-endpoint status table (134 domains probed, 18 integration tested).
+Full per-manager table with match keys, endpoints, and test status: [docs/api-coverage.md](docs/api-coverage.md)
 
 ### Duplicate detection
 
