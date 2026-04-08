@@ -62,7 +62,6 @@ class UbHostOverrideManager(BaseManager):
         "mx": {"type": "str"},
         "ttl": {"type": "str"},
         "txtdata": {"type": "str"},
-        "txtdata": {"type": "str"},
         "addptr": {"type": "bool_str"},
         "enabled": {"type": "bool_str"},
         "description": {"type": "str", "max_length": 255},
