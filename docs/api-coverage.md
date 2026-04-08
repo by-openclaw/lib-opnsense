@@ -27,7 +27,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 35 |
+| Managers done (integration tested) | 37 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -108,10 +108,10 @@
 
 ## WireGuard (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| wg-server | `WgServerManager` | `GET /api/wireguard/server/get_server`, `POST /api/wireguard/server/search_server` | `ABSENT` |
-| wg-client | `WgClientManager` | `GET /api/wireguard/client/get_client`, `POST /api/wireguard/client/search_client` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| wg-server | `WgServerManager` | `name` | `wireguard/server` Server | `INTEGRATION_TEST_PASSED` | Requires privkey (use generate_keypair()). Redacts privkey/pubkey |
+| wg-client | `WgClientManager` | `name` | `wireguard/client` Client | `INTEGRATION_TEST_PASSED` | Peer entry — needs client's pubkey. Redacts psk/pubkey |
 
 ## IPsec (requires reconfigure)
 
