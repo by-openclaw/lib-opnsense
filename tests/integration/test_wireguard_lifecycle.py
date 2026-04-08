@@ -23,8 +23,10 @@ class TestWgServerCRUD:
     """WG server (tunnel interface) CRUD."""
 
     async def test_01_create(self, opn_client: OpnsenseClient) -> None:
-        keys = await opn_client.post("wireguard/server/keyPair")
         mgr = WgServerManager(opn_client)
+        keys = await mgr.generate_keypair()
+        assert "privkey" in keys
+        assert "pubkey" in keys
         r = await mgr.ensure(
             "present",
             {
@@ -48,7 +50,7 @@ class TestWgServerCRUD:
     async def test_03_redact_privkey(self, opn_client: OpnsenseClient) -> None:
         """Verify privkey is redacted in ensure results."""
         mgr = WgServerManager(opn_client)
-        keys = await opn_client.post("wireguard/server/keyPair")
+        keys = await mgr.generate_keypair()
         r = await mgr.ensure(
             "present",
             {

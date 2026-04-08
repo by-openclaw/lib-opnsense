@@ -2,7 +2,7 @@
 
 Async Python library for [OPNsense](https://opnsense.org/) REST API — CRUD + idempotent ensure() for auth, firewall, DNS, interfaces, and traffic shaping.
 
-[![Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/by-openclaw/lib-opnsense/releases)
+[![Version](https://img.shields.io/github/v/release/by-openclaw/lib-opnsense)](https://github.com/by-openclaw/lib-opnsense/releases)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://github.com/by-openclaw/lib-opnsense/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -14,7 +14,8 @@ Async Python library for [OPNsense](https://opnsense.org/) REST API — CRUD + i
 ## Install
 
 ```bash
-pip install git+https://github.com/by-openclaw/lib-opnsense.git@v0.2.0
+# Install latest release (see https://github.com/by-openclaw/lib-opnsense/releases)
+pip install git+https://github.com/by-openclaw/lib-opnsense.git@main
 ```
 
 Development:
