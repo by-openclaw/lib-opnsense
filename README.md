@@ -96,15 +96,18 @@ src/opnsense/
 
 ---
 
-## Managers (20 total)
+## Managers (37 total)
 
 | Scope | Managers | Status |
 |-------|:-------:|--------|
 | Auth (users, groups, privileges, API keys) | 4 | all integration tested |
-| Firewall (aliases, filter, D-NAT, S-NAT, 1:1, categories, groups) | 7 | all integration tested |
-| Interfaces (VLANs, VIPs) | 2 | all integration tested |
-| Traffic Shaper (pipes) | 1 | integration tested |
+| Firewall (aliases, filter, D-NAT, S-NAT, 1:1, NPTv6, categories, groups) | 8 | all integration tested |
+| Interfaces (VLANs, VIPs, bridge, GIF, GRE, LAGG, loopback, neighbor, VXLAN) | 9 | all integration tested |
+| Routing (gateways, static routes) | 2 | all integration tested |
+| Traffic Shaper (pipes, queues, rules) | 3 | all integration tested |
 | Unbound DNS (host overrides, aliases, forwarding, ACLs, DoT, diagnostics) | 6 | all integration tested |
+| Kea DHCP (v4 subnets, reservations, peers + v6 subnets, reservations) | 5 | all integration tested |
+| WireGuard (server + client/peer + key pair generation) | 2 | all integration tested |
 
 Full per-manager table with match keys, endpoints, and test status: [docs/api-coverage.md](docs/api-coverage.md)
 
