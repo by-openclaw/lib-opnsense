@@ -87,6 +87,30 @@ class FwDnatManager(BaseManager):
         "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
         "disabled": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
+        "log": {"type": "bool_str"},
+        "nordr": {"type": "bool_str"},
+        "nosync": {"type": "bool_str"},
+        "natreflection": {"type": "enum", "values": ["", "purenat", "disable"]},
+        "tag": {"type": "str"},
+        "tagged": {"type": "str"},
+        "source": {
+            "type": "dict",
+            "fields": {
+                "network": {"type": "str"},
+                "address": {"type": "str"},
+                "port": {"type": "str"},
+                "not": {"type": "bool_str"},
+            },
+        },
+        "destination": {
+            "type": "dict",
+            "fields": {
+                "network": {"type": "str"},
+                "address": {"type": "str"},
+                "port": {"type": "str"},
+                "not": {"type": "bool_str"},
+            },
+        },
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

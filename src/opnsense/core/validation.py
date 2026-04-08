@@ -162,6 +162,15 @@ def validate_hostname(field: str, value: str, spec: dict[str, Any]) -> None:
         )
 
 
+def validate_dict(field: str, value: str, spec: dict[str, Any]) -> None:
+    """Validate a nested dict field with optional sub-field specs.
+
+    The value parameter is ignored for dict validation — the actual dict
+    is validated in ValidatorRegistry.validate_params() which handles
+    dict types specially (passes the dict, not str(dict)).
+    """
+
+
 # -- Validator registry --------------------------------------------------------
 
 
@@ -192,6 +201,7 @@ class ValidatorRegistry:
             "port": validate_port,
             "color": validate_color,
             "hostname": validate_hostname,
+            "dict": validate_dict,
         }
 
     def register(self, type_name: str, validator: FieldValidator) -> None:
@@ -250,6 +260,22 @@ class ValidatorRegistry:
             for field, spec in validators.items():
                 required = spec.get("required", False)
                 value = params.get(field)
+                field_type = spec.get("type", "str")
+
+                # Dict fields — validate sub-fields recursively
+                if field_type == "dict":
+                    if value is None or value == "":
+                        if required:
+                            raise FieldValidationError(
+                                field, value, "required field is missing or empty"
+                            )
+                        continue
+                    if not isinstance(value, dict):
+                        raise FieldValidationError(field, value, "must be a dict")
+                    sub_validators = spec.get("fields", {})
+                    if sub_validators:
+                        self.validate_params(value, sub_validators)
+                    continue
 
                 if value is None or (isinstance(value, str) and value == ""):
                     if required:
