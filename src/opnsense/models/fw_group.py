@@ -27,4 +27,5 @@ class FwGroup:
     ifname: str
     members: str = ""
     descr: str = ""
+    sequence: str = ""
     uuid: str = ""

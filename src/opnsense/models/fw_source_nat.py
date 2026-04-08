@@ -33,4 +33,5 @@ class FwSourceNatRule:
     target: str = ""
     ipprotocol: str = "inet"
     enabled: str = "1"
+    sequence: str = ""
     uuid: str = ""

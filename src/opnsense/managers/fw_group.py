@@ -56,6 +56,7 @@ class FwGroupManager(BaseManager):
         "ifname": {"type": "str", "required": True, "max_length": 32, "regex": r"^[a-zA-Z0-9_]+$"},
         "members": {"type": "str", "required": True},
         "descr": {"type": "str", "max_length": 255},
+        "sequence": {"type": "int", "min": 1},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

@@ -69,6 +69,7 @@ class FwDnatManager(BaseManager):
         "protocol": {"type": "str"},
         "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
         "disabled": {"type": "bool_str"},
+        "sequence": {"type": "int", "min": 1},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

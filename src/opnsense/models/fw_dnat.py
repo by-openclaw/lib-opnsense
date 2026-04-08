@@ -37,4 +37,5 @@ class FwDnatRule:
     protocol: str = ""
     ipprotocol: str = "inet"
     disabled: str = "0"
+    sequence: str = ""
     uuid: str = ""
