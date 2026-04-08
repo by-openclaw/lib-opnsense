@@ -1,1 +1,1 @@
-[]
+[{"mac":"bc:24:11:1d:b7:f4","ip":"fe80::be24:11ff:fe1d:b7f4%vtnet0","intf":"vtnet0","manufacturer":"Proxmox Server Solutions GmbH","intf_description":"LAN"},{"mac":"bc:24:11:fa:2e:d1","ip":"fe80::be24:11ff:fefa:2ed1%vtnet1","intf":"vtnet1","manufacturer":"Proxmox Server Solutions GmbH","intf_description":"WAN"}]

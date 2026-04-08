@@ -1,1 +1,1 @@
-{"opnsense_version":"26.1.5","product":"OPNsense","arch":"amd64","nickname":"","os":"FreeBSD 14.3-RELEASE-p9","host":"https://10.6.224.106","probe_timestamp":"2026-04-05T12:37:58Z","probe_script":"probe-api-schemas.sh"}
+{"opnsense_version":"26.1.5","product":"OPNsense","arch":"amd64","nickname":"","os":"","host":"https://10.6.239.114","probe_timestamp":"2026-04-07T16:33:30Z","probe_script":"probe-api-schemas.sh"}
