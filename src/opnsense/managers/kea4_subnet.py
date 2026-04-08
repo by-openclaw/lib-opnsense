@@ -47,6 +47,17 @@ class Kea4SubnetManager(BaseManager):
         pools:        Address pool ranges (optional)
         next_server:  TFTP/PXE next-server address (optional)
         description:  Description, max 255 (optional)
+        option_data:  DHCP options (optional, dict):
+            domain_name_servers:    DNS servers (optional)
+            domain_search:          Search domains (optional)
+            routers:                Default gateway (optional)
+            static_routes:          Static routes (optional)
+            classless_static_route: Classless static routes (optional)
+            domain_name:            Domain name (optional)
+            ntp_servers:            NTP servers (optional)
+            time_servers:           Time servers (optional)
+            tftp_server_name:       TFTP server (optional)
+            boot_file_name:         PXE boot file (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified

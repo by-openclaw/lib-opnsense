@@ -53,14 +53,30 @@ class FwDnatManager(BaseManager):
             })
 
     Input (ensure present):
-        descr:       Rule description, max 255 (required)
-        interface:   Interface name (required)
-        target:      Destination IP address for forwarding (required)
-        local-port:  Local port to forward to (optional)
-        protocol:    Protocol name (optional)
-        ipprotocol:  IP protocol — inet, inet6, inet46 (optional)
-        disabled:    Disable rule (optional, default='0')
-        sequence:    Rule order priority, min 1 (optional)
+        descr:          Rule description, max 255 (required)
+        interface:      Interface name (required)
+        target:         Destination IP address for forwarding (required)
+        local-port:     Local port to forward to (optional)
+        protocol:       Protocol name (optional)
+        ipprotocol:     IP protocol — inet, inet6, inet46 (optional)
+        disabled:       Disable rule (optional, default='0')
+        sequence:       Rule order priority, min 1 (optional)
+        log:            Log matching packets (optional, default='0')
+        nordr:          No redirect (optional, default='0')
+        nosync:         No XML sync (optional, default='0')
+        natreflection:  NAT reflection — '', purenat, disable (optional)
+        tag:            PF tag (optional)
+        tagged:         Match PF tag (optional)
+        source:         Source match (optional, dict):
+            network:    Source network (optional)
+            address:    Source address (optional)
+            port:       Source port (optional)
+            not:        Invert source match (optional, '0' or '1')
+        destination:    Destination match (optional, dict):
+            network:    Destination network (optional)
+            address:    Destination address (optional)
+            port:       Destination port (optional)
+            not:        Invert destination match (optional, '0' or '1')
 
     Output (EnsureResult):
         changed:  bool — True if state was modified

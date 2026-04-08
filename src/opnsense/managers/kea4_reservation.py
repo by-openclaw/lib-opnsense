@@ -43,10 +43,22 @@ class Kea4ReservationManager(BaseManager):
             })
 
     Input (ensure present):
+        subnet:       Parent subnet UUID (required, first create only)
         ip_address:   Reserved IPv4 address (required)
         hw_address:   MAC address (required)
         hostname:     Client hostname, max 255 (optional)
         description:  Description, max 255 (optional)
+        option_data:  Per-host DHCP options (optional, dict):
+            domain_name_servers:    DNS servers (optional)
+            domain_search:          Search domains (optional)
+            routers:                Default gateway (optional)
+            static_routes:          Static routes (optional)
+            classless_static_route: Classless static routes (optional)
+            domain_name:            Domain name (optional)
+            ntp_servers:            NTP servers (optional)
+            time_servers:           Time servers (optional)
+            tftp_server_name:       TFTP server (optional)
+            boot_file_name:         PXE boot file (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
