@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import AmbiguousMatchError, OpnsenseValidationError
+from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
 from opnsense.managers.fw_filter import FwFilterManager
 
 
@@ -363,3 +363,27 @@ class TestAmbiguousMatch:
                     "protocol": "TCP",
                 },
             )
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_invalid_action_enum_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """action='drop' fails enum validation (valid: pass/block/reject)."""
+        mgr = FwFilterManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure(
+                "present",
+                params={"description": "test", "action": "drop", "interface": "lan"},
+            )
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_description_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'description' raises FieldValidationError."""
+        mgr = FwFilterManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"action": "pass", "interface": "lan"})
+        mock_client.create.assert_not_awaited()

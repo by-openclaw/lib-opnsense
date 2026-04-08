@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseValidationError
+from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
 from opnsense.managers.fw_group import FwGroupManager
 
 
@@ -91,3 +91,50 @@ class TestErrorHandling:
             await mgr.ensure(state="present", params={"ifname": "bad", "members": "lan"})
 
         assert any("create failed" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_empty_ifname_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """Empty required 'ifname' raises FieldValidationError before API call."""
+        mgr = FwGroupManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"ifname": "", "members": "lan"})
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_ifname_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'ifname' raises FieldValidationError."""
+        mgr = FwGroupManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"members": "lan"})
+        mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestCheckMode:
+    """Tests for check_mode (dry run)."""
+
+    async def test_check_mode_create(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        mgr = FwGroupManager(mock_client)
+        result = await mgr.ensure(
+            "present",
+            params={"ifname": "trusted", "members": "lan,wireguard"},
+            check_mode=True,
+        )
+        assert result.changed is True
+        assert result.action == "created"
+        mock_client.create.assert_not_awaited()
+
+    async def test_check_mode_delete(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [{"uuid": "uuid-1", "ifname": "trusted"}]
+        mock_client.get.return_value = {"group": {"uuid": "uuid-1", "ifname": "trusted"}}
+        mgr = FwGroupManager(mock_client)
+        result = await mgr.ensure("absent", params={"ifname": "trusted"}, check_mode=True)
+        assert result.changed is True
+        assert result.action == "deleted"
+        mock_client.delete.assert_not_awaited()

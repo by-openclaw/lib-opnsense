@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseError, OpnsenseValidationError
+from opnsense.exceptions import FieldValidationError, OpnsenseError, OpnsenseValidationError
 from opnsense.managers.fw_alias import FwAliasManager
 
 
@@ -242,3 +242,24 @@ class TestErrorHandling:
             await mgr.ensure(state="absent", params={"name": "test"})
 
         assert any("delete failed" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_invalid_name_regex_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """Name with spaces fails regex ^[a-zA-Z0-9_]+$ before API call."""
+        mgr = FwAliasManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"name": "bad name!"})
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_name_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'name' raises FieldValidationError before API call."""
+        mgr = FwAliasManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"type": "host"})
+        mock_client.create.assert_not_awaited()

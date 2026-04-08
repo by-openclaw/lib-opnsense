@@ -18,7 +18,12 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseError, OpnsenseValidationError
+from opnsense.exceptions import (
+    AmbiguousMatchError,
+    FieldValidationError,
+    OpnsenseError,
+    OpnsenseValidationError,
+)
 from opnsense.managers.if_vlan import IfVlanManager
 
 # Standard test params matching real OPNsense VLAN config
@@ -267,3 +272,43 @@ class TestErrorHandling:
 
         assert exc_info.value.status_code == 400
         assert exc_info.value.validations == {"vlan.tag": "required"}
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_tag_out_of_range_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """tag=99999 exceeds max 4094, raises FieldValidationError before API call."""
+        mgr = IfVlanManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"tag": "99999", "if": "vtnet1"})
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_tag_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'tag' raises FieldValidationError."""
+        mgr = IfVlanManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"if": "vtnet1", "descr": "Test"})
+        mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """AmbiguousMatchError when multiple resources match composite keys."""
+
+    async def test_ambiguous_match_raises(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [
+            {"uuid": "aaa", "tag": "330", "if": "vtnet1", "descr": "SVC-1"},
+            {"uuid": "bbb", "tag": "330", "if": "vtnet1", "descr": "SVC-2"},
+        ]
+        mgr = IfVlanManager(mock_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure(
+                "present",
+                params={"tag": "330", "if": "vtnet1", "descr": "SVC-1"},
+            )
+        assert exc_info.value.uuids == ["aaa", "bbb"]
+        mock_client.create.assert_not_awaited()

@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseValidationError
+from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
 from opnsense.managers.fw_category import FwCategoryManager
 
 
@@ -106,3 +106,46 @@ class TestErrorHandling:
             await mgr.ensure(state="present", params={"name": "bad"})
 
         assert any("create failed" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+class TestFieldValidation:
+    """FieldValidationError raised before API call for bad params."""
+
+    async def test_empty_name_raises_before_api_call(self, mock_client: AsyncMock) -> None:
+        """Empty required 'name' raises FieldValidationError before API call."""
+        mgr = FwCategoryManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"name": ""})
+        mock_client.create.assert_not_awaited()
+
+    async def test_missing_required_name_raises_before_api_call(
+        self, mock_client: AsyncMock
+    ) -> None:
+        """Missing required 'name' raises FieldValidationError."""
+        mgr = FwCategoryManager(mock_client)
+        with pytest.raises(FieldValidationError):
+            await mgr.ensure("present", params={"color": "ff0000"})
+        mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestCheckMode:
+    """Tests for check_mode (dry run)."""
+
+    async def test_check_mode_create(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        mgr = FwCategoryManager(mock_client)
+        result = await mgr.ensure("present", params={"name": "infra"}, check_mode=True)
+        assert result.changed is True
+        assert result.action == "created"
+        mock_client.create.assert_not_awaited()
+
+    async def test_check_mode_delete(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [{"uuid": "uuid-1", "name": "infra"}]
+        mock_client.get.return_value = {"category": {"uuid": "uuid-1", "name": "infra"}}
+        mgr = FwCategoryManager(mock_client)
+        result = await mgr.ensure("absent", params={"name": "infra"}, check_mode=True)
+        assert result.changed is True
+        assert result.action == "deleted"
+        mock_client.delete.assert_not_awaited()
