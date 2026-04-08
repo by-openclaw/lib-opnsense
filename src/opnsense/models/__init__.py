@@ -23,6 +23,11 @@ from opnsense.models.if_neighbor import IfNeighbor
 from opnsense.models.if_vip import IfVip
 from opnsense.models.if_vlan import IfVlan
 from opnsense.models.if_vxlan import IfVxlan
+from opnsense.models.kea4_peer import Kea4Peer
+from opnsense.models.kea4_reservation import Kea4Reservation
+from opnsense.models.kea4_subnet import Kea4Subnet
+from opnsense.models.kea6_reservation import Kea6Reservation
+from opnsense.models.kea6_subnet import Kea6Subnet
 from opnsense.models.rt_gateway import RtGateway
 from opnsense.models.rt_route import RtRoute
 from opnsense.models.ts_pipe import TsPipe
@@ -44,6 +49,11 @@ __all__ = [
     "FwNptRule",
     "FwOneToOneRule",
     "FwSourceNatRule",
+    "Kea4Peer",
+    "Kea4Reservation",
+    "Kea4Subnet",
+    "Kea6Reservation",
+    "Kea6Subnet",
     "IfBridge",
     "IfGif",
     "IfGre",

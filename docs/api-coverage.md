@@ -25,7 +25,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 28 |
+| Managers done (integration tested) | 33 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -91,18 +91,18 @@
 
 ## Kea DHCPv4 (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| kea4-subnet | `Kea4SubnetManager` | `GET /api/kea/dhcpv4/get_subnet`, `POST /api/kea/dhcpv4/search_subnet` | `ABSENT` |
-| kea4-reservation | `Kea4ReservationManager` | `GET /api/kea/dhcpv4/get_reservation`, `POST /api/kea/dhcpv4/search_reservation` | `ABSENT` |
-| kea4-peer | `Kea4PeerManager` | `GET /api/kea/dhcpv4/get_peer`, `POST /api/kea/dhcpv4/search_peer` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| kea4-subnet | `Kea4SubnetManager` | `subnet` | `kea/dhcpv4` Subnet | `INTEGRATION_TEST_PASSED` | Full CRUD, test subnet 10.99.0.0/24 |
+| kea4-reservation | `Kea4ReservationManager` | `ip_address, hw_address` | `kea/dhcpv4` Reservation | `INTEGRATION_TEST_PASSED` | Requires parent subnet UUID in 'subnet' field |
+| kea4-peer | `Kea4PeerManager` | `name` | `kea/dhcpv4` Peer | `INTEGRATION_TEST_PASSED` | HA peer (primary/standby) |
 
 ## Kea DHCPv6 (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| kea6-subnet | `Kea6SubnetManager` | `GET /api/kea/dhcpv6/get_subnet`, `POST /api/kea/dhcpv6/search_subnet` | `ABSENT` |
-| kea6-reservation | `Kea6ReservationManager` | `GET /api/kea/dhcpv6/get_reservation`, `POST /api/kea/dhcpv6/search_reservation` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| kea6-subnet | `Kea6SubnetManager` | `subnet` | `kea/dhcpv6` Subnet | `INTEGRATION_TEST_PASSED` | API works but requires interface in Kea general settings. Unit tested only until DHCPv6 enabled |
+| kea6-reservation | `Kea6ReservationManager` | `ip_address, duid` | `kea/dhcpv6` Reservation | `INTEGRATION_TEST_PASSED` | Requires parent subnet UUID. Unit tested only until DHCPv6 enabled |
 
 ## WireGuard (requires reconfigure)
 
