@@ -6,8 +6,19 @@
 API domain: /api/auth/group
 Payload key: group
 Match key:   name (unique group name)
+Entity suffix: '' (bare: search, get, add, set, del)
 
-Auth changes apply immediately — no reconfigure endpoint needed.
+Endpoints:
+    search  GET  auth/group/search
+    get     GET  auth/group/get/{uuid}
+    create  POST auth/group/add
+    update  POST auth/group/set/{uuid}
+    delete  POST auth/group/del/{uuid}
+    apply   None — auth changes apply immediately
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M02
 """
 
 from __future__ import annotations

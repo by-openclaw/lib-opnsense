@@ -6,9 +6,19 @@
 API domain: /api/firewall/source_nat
 Payload key: rule
 Match key:   description (unique rule description)
-Entity suffix: Rule (search_rule, get_rule, add_rule, set_rule, del_rule)
+Entity suffix: Rule (searchRule, getRule, addRule, setRule, delRule)
 
-Source NAT changes require apply to take effect.
+Endpoints:
+    search  GET  firewall/source_nat/searchRule
+    get     GET  firewall/source_nat/getRule/{uuid}
+    create  POST firewall/source_nat/addRule
+    update  POST firewall/source_nat/setRule/{uuid}
+    delete  POST firewall/source_nat/delRule/{uuid}
+    apply   POST firewall/source_nat/apply
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M08
 """
 
 from __future__ import annotations

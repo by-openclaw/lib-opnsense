@@ -6,9 +6,19 @@
 API domain: /api/firewall/one_to_one
 Payload key: rule
 Match key:   description (unique rule description)
-Entity suffix: Rule (search_rule, get_rule, add_rule, set_rule, del_rule)
+Entity suffix: Rule (searchRule, getRule, addRule, setRule, delRule)
 
-1:1 NAT changes require apply to take effect.
+Endpoints:
+    search  GET  firewall/one_to_one/searchRule
+    get     GET  firewall/one_to_one/getRule/{uuid}
+    create  POST firewall/one_to_one/addRule
+    update  POST firewall/one_to_one/setRule/{uuid}
+    delete  POST firewall/one_to_one/delRule/{uuid}
+    apply   POST firewall/one_to_one/apply
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M11
 """
 
 from __future__ import annotations

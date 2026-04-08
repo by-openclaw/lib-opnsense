@@ -6,10 +6,19 @@
 API domain: /api/firewall/group
 Payload key: group
 Match key:   ifname (unique group interface name)
-Entity suffix: Item (search_item, get_item, add_item, set_item, del_item)
+Entity suffix: Item (searchItem, getItem, addItem, setItem, delItem)
 
-Interface groups bundle multiple interfaces for rule assignment.
-No reconfigure needed — groups take effect immediately.
+Endpoints:
+    search  GET  firewall/group/searchItem
+    get     GET  firewall/group/getItem/{uuid}
+    create  POST firewall/group/addItem
+    update  POST firewall/group/setItem/{uuid}
+    delete  POST firewall/group/delItem/{uuid}
+    apply   None — groups apply immediately
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M10
 """
 
 from __future__ import annotations
