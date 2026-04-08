@@ -31,6 +31,8 @@ from opnsense.models.kea6_subnet import Kea6Subnet
 from opnsense.models.rt_gateway import RtGateway
 from opnsense.models.rt_route import RtRoute
 from opnsense.models.ts_pipe import TsPipe
+from opnsense.models.ts_queue import TsQueue
+from opnsense.models.ts_rule import TsRule
 from opnsense.models.ub_acl import UbAcl
 from opnsense.models.ub_dot import UbDot
 from opnsense.models.ub_forward import UbForward
@@ -66,6 +68,8 @@ __all__ = [
     "RtGateway",
     "RtRoute",
     "TsPipe",
+    "TsQueue",
+    "TsRule",
     "UbAcl",
     "UbDot",
     "UbForward",
