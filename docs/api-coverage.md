@@ -6,7 +6,7 @@
 
 > Probed against OPNsense **26.1.5** — 200/200 endpoints OK.
 > Probe data: `docs/api/data/26.1.5/`
-> Last updated: 2026-04-07
+> Last updated: 2026-04-08
 
 ## Status Legend
 
@@ -25,10 +25,10 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 6 |
-| Managers done (unit tested) | 5 |
-| Managers partial | 2 |
-| Managers absent (CRUD) | 53 |
+| Managers done (integration tested) | 18 |
+| Managers done (unit tested) | 0 |
+| Managers partial | 0 |
+| Managers absent (CRUD) | 48 |
 | Managers absent (read-only) | 68 |
 
 ---
@@ -48,24 +48,24 @@
 |---|---|---|---|
 | fw-filter-rule | `FwFilterManager` | `GET /api/firewall/filter/get_rule`, `POST /api/firewall/filter/search_rule` | `INTEGRATION_TEST_PASSED` |
 | fw-alias | `FwAliasManager` | `GET /api/firewall/alias/get_item`, `POST /api/firewall/alias/search_item` | `INTEGRATION_TEST_PASSED` |
-| fw-category | `FwCategoryManager` | `GET /api/firewall/category/get_item`, `POST /api/firewall/category/search_item` | `UNIT_TEST_PASSED` |
-| fw-group | `FwGroupManager` | `GET /api/firewall/group/get_item`, `POST /api/firewall/group/search_item` | `UNIT_TEST_PASSED` |
+| fw-category | `FwCategoryManager` | `GET /api/firewall/category/get_item`, `POST /api/firewall/category/search_item` | `INTEGRATION_TEST_PASSED` |
+| fw-group | `FwGroupManager` | `GET /api/firewall/group/get_item`, `POST /api/firewall/group/search_item` | `INTEGRATION_TEST_PASSED` |
 
 ## Firewall — NAT (requires apply)
 
 | Domain | Manager | Endpoints | Status |
 |---|---|---|---|
 | fw-dnat-rule | `FwDnatManager` | `GET /api/firewall/d_nat/get_rule`, `POST /api/firewall/d_nat/search_rule` | `INTEGRATION_TEST_PASSED` |
-| fw-snat-rule | `FwSourceNatManager` | `GET /api/firewall/source_nat/get_rule`, `POST /api/firewall/source_nat/search_rule` | `UNIT_TEST_PASSED` |
-| fw-1to1-rule | `FwOneToOneManager` | `GET /api/firewall/one_to_one/get_rule`, `POST /api/firewall/one_to_one/search_rule` | `UNIT_TEST_PASSED` |
+| fw-snat-rule | `FwSourceNatManager` | `GET /api/firewall/source_nat/get_rule`, `POST /api/firewall/source_nat/search_rule` | `INTEGRATION_TEST_PASSED` |
+| fw-1to1-rule | `FwOneToOneManager` | `GET /api/firewall/one_to_one/get_rule`, `POST /api/firewall/one_to_one/search_rule` | `INTEGRATION_TEST_PASSED` |
 | fw-npt-rule | `FwNptManager` | `GET /api/firewall/npt/get_rule`, `POST /api/firewall/npt/search_rule` | `ABSENT` |
 
 ## Interfaces (requires reconfigure)
 
 | Domain | Manager | Endpoints | Status |
 |---|---|---|---|
-| if-vlan | `IfVlanManager` | `GET /api/interfaces/vlan_settings/get_item`, `POST /api/interfaces/vlan_settings/search_item` | `PARTIAL` |
-| if-vip | `IfVipManager` | `GET /api/interfaces/vip_settings/get_item`, `POST /api/interfaces/vip_settings/search_item` | `PARTIAL` |
+| if-vlan | `IfVlanManager` | `GET /api/interfaces/vlan_settings/get_item`, `POST /api/interfaces/vlan_settings/search_item` | `INTEGRATION_TEST_PASSED` |
+| if-vip | `IfVipManager` | `GET /api/interfaces/vip_settings/get_item`, `POST /api/interfaces/vip_settings/search_item` | `INTEGRATION_TEST_PASSED` |
 | if-bridge | `IfBridgeManager` | `GET /api/interfaces/bridge_settings/get_item`, `POST /api/interfaces/bridge_settings/search_item` | `ABSENT` |
 | if-gif | `IfGifManager` | `GET /api/interfaces/gif_settings/get_item`, `POST /api/interfaces/gif_settings/search_item` | `ABSENT` |
 | if-gre | `IfGreManager` | `GET /api/interfaces/gre_settings/get_item`, `POST /api/interfaces/gre_settings/search_item` | `ABSENT` |
@@ -85,11 +85,13 @@
 
 | Domain | Manager | Endpoints | Status |
 |---|---|---|---|
-| ub-forward | `UbForwardManager` | `GET /api/unbound/settings/get_forward`, `POST /api/unbound/settings/search_forward` | `ABSENT` |
-| ub-host-override | `UbHostOverrideManager` | `GET /api/unbound/settings/get_host_override`, `POST /api/unbound/settings/search_host_override` | `ABSENT` |
-| ub-host-alias | `UbHostAliasManager` | `GET /api/unbound/settings/get_host_alias`, `POST /api/unbound/settings/search_host_alias` | `ABSENT` |
-| ub-acl | `UbAclManager` | `GET /api/unbound/settings/get_acl`, `POST /api/unbound/settings/search_acl` | `ABSENT` |
-| ub-dnsbl | `UbDnsblManager` | `GET /api/unbound/settings/get_dnsbl`, `POST /api/unbound/settings/search_dnsbl` | `ABSENT` |
+| ub-host-override | `UbHostOverrideManager` | `POST /api/unbound/settings/searchHostOverride`, CRUD | `INTEGRATION_TEST_PASSED` |
+| ub-host-alias | `UbHostAliasManager` | `POST /api/unbound/settings/searchHostAlias`, create+read only | `INTEGRATION_TEST_PASSED` (set/del=404 on 26.1.5) |
+| ub-forward | `UbForwardManager` | `POST /api/unbound/settings/searchForward`, CRUD | `INTEGRATION_TEST_PASSED` |
+| ub-acl | `UbAclManager` | `POST /api/unbound/settings/searchAcl`, CRUD | `INTEGRATION_TEST_PASSED` |
+| ub-dot | `UbDotManager` | `POST /api/unbound/settings/searchDot`, CRUD | `INTEGRATION_TEST_PASSED` |
+| ub-dnsbl | `UbDiagnosticsManager` | `GET /api/unbound/settings/getDnsbl`, read-only | `INTEGRATION_TEST_PASSED` (add/set/del=404 on 26.1.5) |
+| ub-domain-override | — | API broken on 26.1.5 (empty response) | `NOT_AVAILABLE` |
 
 ## Kea DHCPv4 (requires reconfigure)
 
@@ -130,7 +132,7 @@
 
 | Domain | Manager | Endpoints | Status |
 |---|---|---|---|
-| ts-pipe | `TsPipeManager` | `GET /api/trafficshaper/settings/get_pipe`, `POST /api/trafficshaper/settings/search_pipe` | `UNIT_TEST_PASSED` |
+| ts-pipe | `TsPipeManager` | `GET /api/trafficshaper/settings/get_pipe`, `POST /api/trafficshaper/settings/search_pipe` | `INTEGRATION_TEST_PASSED` |
 | ts-queue | `TsQueueManager` | `GET /api/trafficshaper/settings/get_queue`, `POST /api/trafficshaper/settings/search_queue` | `ABSENT` |
 | ts-rule | `TsRuleManager` | `GET /api/trafficshaper/settings/get_rule`, `POST /api/trafficshaper/settings/search_rule` | `ABSENT` |
 
@@ -307,5 +309,5 @@
 | ovpn-sessions | `OvpnSessionManager` | `GET /api/openvpn/sessions/search` | `ABSENT` |
 | trust-crl | `TrustCrlManager` | `GET /api/trust/crl/search` | `ABSENT` |
 | ts-stats | `TsStatsManager` | `GET /api/trafficshaper/service/statistics` | `ABSENT` |
-| ub-diag-stats | `UbDiagStatsManager` | `GET /api/unbound/diagnostics/stats` | `ABSENT` |
+| ub-diag-stats | `UbDiagnosticsManager` | `GET /api/unbound/diagnostics/stats` | `INTEGRATION_TEST_PASSED` |
 | wg-show | `WgShowManager` | `GET /api/wireguard/service/show` | `ABSENT` ||
