@@ -407,10 +407,23 @@ class BaseManager(ABC):
         diff: dict[str, str] = {}
         for key, desired_value in desired.items():
             current_value = current.get(key)
-            # Normalize for comparison — OPNsense returns selected values
-            # as dicts with {"selected": "1"} or CSV strings
-            if isinstance(current_value, dict) and "selected" in current_value:
-                current_value = current_value.get("selected", "")
+            # Skip fields not present in the current search row —
+            # search results are a subset of fields; missing fields
+            # do not indicate drift.
+            if current_value is None and key not in current:
+                continue
+            # Normalize OPNsense enum dicts for comparison.
+            # Format 1: {"selected": "1"} — simple selected value
+            # Format 2: {"lan": {"value": "LAN", "selected": 1}, ...} — enum dict
+            if isinstance(current_value, dict):
+                if "selected" in current_value:
+                    current_value = current_value.get("selected", "")
+                else:
+                    # Enum dict: find the key with selected=1
+                    for opt_key, opt_val in current_value.items():
+                        if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
+                            current_value = opt_key
+                            break
             if str(current_value) != str(desired_value):
                 diff[key] = str(desired_value)
         return diff if diff else None
