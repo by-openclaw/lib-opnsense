@@ -24,6 +24,16 @@ class FwSourceNatRule:
         target:       NAT target address.
         ipprotocol:   IP version ('inet', 'inet6', 'inet46').
         enabled:      Whether the rule is enabled ('0' or '1').
+        source_not:   Invert source match ('0' or '1').
+        destination_not: Invert destination match ('0' or '1').
+        destination_port: Destination port.
+        source_port:  Source port.
+        protocol:     Protocol name.
+        log:          Whether to log matches ('0' or '1').
+        nonat:        Disable NAT ('0' or '1').
+        staticnatport: Use static source port ('0' or '1').
+        target_port:  Target port.
+        categories:   Comma-separated category UUIDs.
         uuid:         Resource UUID assigned by OPNsense.
     """
 
@@ -34,4 +44,14 @@ class FwSourceNatRule:
     ipprotocol: str = "inet"
     enabled: str = "1"
     sequence: str = ""
+    source_not: str = "0"
+    destination_not: str = "0"
+    destination_port: str = ""
+    source_port: str = ""
+    protocol: str = ""
+    log: str = "0"
+    nonat: str = "0"
+    staticnatport: str = "0"
+    target_port: str = ""
+    categories: str = ""
     uuid: str = ""

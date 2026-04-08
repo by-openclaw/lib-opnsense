@@ -31,6 +31,17 @@ class FwFilterRule:
         enabled:          Whether the rule is enabled ('0' or '1').
         log:              Whether to log matches ('0' or '1').
         quick:            Whether to apply quick match ('0' or '1').
+        source_not:       Invert source match ('0' or '1').
+        destination_not:  Invert destination match ('0' or '1').
+        interfacenot:     Invert interface match ('0' or '1').
+        gateway:          Policy routing gateway.
+        categories:       Comma-separated category UUIDs.
+        icmptype:         ICMP types, comma-separated.
+        icmp6type:        ICMPv6 types, comma-separated.
+        statetype:        State type ('keep', 'sloppy', 'modulate', 'synproxy').
+        tag:              PF tag to apply.
+        tagged:           Match PF tag.
+        nosync:           No XML sync ('0' or '1').
         uuid:             Resource UUID assigned by OPNsense.
     """
 
@@ -48,4 +59,15 @@ class FwFilterRule:
     log: str = "0"
     quick: str = "1"
     sequence: str = ""
+    source_not: str = "0"
+    destination_not: str = "0"
+    interfacenot: str = "0"
+    gateway: str = ""
+    categories: str = ""
+    icmptype: str = ""
+    icmp6type: str = ""
+    statetype: str = ""
+    tag: str = ""
+    tagged: str = ""
+    nosync: str = "0"
     uuid: str = ""

@@ -54,6 +54,12 @@ class FwAliasManager(BaseManager):
         description:  Description, max 255 (optional)
         enabled:      Enable alias (optional, default='1')
         updatefreq:   URL table update frequency, max 10 (optional)
+        proto:        IP protocol — IPv4, IPv6 (optional)
+        categories:   Comma-separated category UUIDs (optional)
+        interface:    Interface name (optional)
+        username:     URL table auth username (optional)
+        password:     URL table auth password (optional)
+        authtype:     URL table auth type — '', Basic, Bearer, Header (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -101,6 +107,12 @@ class FwAliasManager(BaseManager):
         "description": {"type": "str", "max_length": 255},
         "enabled": {"type": "bool_str"},
         "updatefreq": {"type": "str", "max_length": 10},
+        "proto": {"type": "enum", "values": ["IPv4", "IPv6"]},
+        "categories": {"type": "str"},
+        "interface": {"type": "str"},
+        "username": {"type": "str"},
+        "password": {"type": "str"},
+        "authtype": {"type": "enum", "values": ["", "Basic", "Bearer", "Header"]},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

@@ -52,6 +52,8 @@ class FwNptManager(BaseManager):
         log:              Log matching packets (optional, default='0')
         sequence:         Rule order priority, min 1 (optional)
         description:      Rule description, max 255 (optional)
+        trackif:          Track interface (optional)
+        categories:       Comma-separated category UUIDs (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -77,6 +79,8 @@ class FwNptManager(BaseManager):
         "log": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
         "description": {"type": "str", "max_length": 255},
+        "trackif": {"type": "str"},
+        "categories": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

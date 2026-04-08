@@ -53,6 +53,16 @@ class FwSourceNatManager(BaseManager):
         ipprotocol:   IP protocol — inet, inet6, inet46 (optional)
         enabled:      Enable rule (optional, default='1')
         sequence:     Rule order priority, min 1 (optional)
+        source_not:   Invert source match (optional, default='0')
+        destination_not: Invert destination match (optional, default='0')
+        destination_port: Destination port (optional)
+        source_port:  Source port (optional)
+        protocol:     Protocol name (optional)
+        log:          Log matching packets (optional, default='0')
+        nonat:        Disable NAT (optional, default='0')
+        staticnatport: Use static source port (optional, default='0')
+        target_port:  Target port (optional)
+        categories:   Comma-separated category UUIDs (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -78,6 +88,16 @@ class FwSourceNatManager(BaseManager):
         "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
         "enabled": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
+        "source_not": {"type": "bool_str"},
+        "destination_not": {"type": "bool_str"},
+        "destination_port": {"type": "str"},
+        "source_port": {"type": "str"},
+        "protocol": {"type": "str"},
+        "log": {"type": "bool_str"},
+        "nonat": {"type": "bool_str"},
+        "staticnatport": {"type": "bool_str"},
+        "target_port": {"type": "str"},
+        "categories": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

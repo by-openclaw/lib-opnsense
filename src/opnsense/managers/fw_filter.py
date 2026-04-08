@@ -62,6 +62,17 @@ class FwFilterManager(BaseManager):
         log:              Log matching packets (optional, default='0')
         quick:            Quick match (optional, default='1')
         sequence:         Rule order priority, min 1 (optional)
+        source_not:       Invert source match (optional, default='0')
+        destination_not:  Invert destination match (optional, default='0')
+        interfacenot:     Invert interface match (optional, default='0')
+        gateway:          Policy routing gateway (optional)
+        categories:       Comma-separated category UUIDs (optional)
+        icmptype:         ICMP types, comma-separated (optional)
+        icmp6type:        ICMPv6 types, comma-separated (optional)
+        statetype:        State type — keep, sloppy, modulate, synproxy (optional)
+        tag:              PF tag to apply (optional)
+        tagged:           Match PF tag (optional)
+        nosync:           No XML sync (optional, default='0')
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -94,6 +105,17 @@ class FwFilterManager(BaseManager):
         "log": {"type": "bool_str"},
         "quick": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
+        "source_not": {"type": "bool_str"},
+        "destination_not": {"type": "bool_str"},
+        "interfacenot": {"type": "bool_str"},
+        "gateway": {"type": "str"},
+        "categories": {"type": "str"},
+        "icmptype": {"type": "str"},
+        "icmp6type": {"type": "str"},
+        "statetype": {"type": "enum", "values": ["keep", "sloppy", "modulate", "synproxy"]},
+        "tag": {"type": "str"},
+        "tagged": {"type": "str"},
+        "nosync": {"type": "bool_str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

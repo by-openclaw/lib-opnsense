@@ -25,6 +25,8 @@ class FwNptRule:
         log:              Whether to log matches ('0' or '1').
         sequence:         Rule sequence/priority.
         description:      Rule description (max 255).
+        trackif:          Track interface.
+        categories:       Comma-separated category UUIDs.
         uuid:             Resource UUID assigned by OPNsense.
     """
 
@@ -35,4 +37,6 @@ class FwNptRule:
     log: str = "0"
     sequence: str = "100"
     description: str = ""
+    trackif: str = ""
+    categories: str = ""
     uuid: str = ""

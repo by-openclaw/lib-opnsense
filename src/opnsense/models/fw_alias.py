@@ -24,6 +24,12 @@ class FwAlias:
         description:  Human-readable description (max 255).
         enabled:      Whether the alias is enabled ('0' or '1').
         updatefreq:   URL table update frequency in days (max 10).
+        proto:        IP protocol ('IPv4' or 'IPv6').
+        categories:   Comma-separated category UUIDs.
+        interface:    Interface name.
+        username:     URL table auth username.
+        password:     URL table auth password.
+        authtype:     URL table auth type ('', 'Basic', 'Bearer', 'Header').
         uuid:         Resource UUID assigned by OPNsense.
     """
 
@@ -33,4 +39,10 @@ class FwAlias:
     description: str = ""
     enabled: str = "1"
     updatefreq: str = ""
+    proto: str = ""
+    categories: str = ""
+    interface: str = ""
+    username: str = ""
+    password: str = ""
+    authtype: str = ""
     uuid: str = ""
