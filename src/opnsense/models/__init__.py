@@ -19,6 +19,7 @@ from opnsense.models.ts_pipe import TsPipe
 from opnsense.models.ub_acl import UbAcl
 from opnsense.models.ub_dot import UbDot
 from opnsense.models.ub_forward import UbForward
+from opnsense.models.ub_host_alias import UbHostAlias
 from opnsense.models.ub_host_override import UbHostOverride
 
 __all__ = [
@@ -38,5 +39,6 @@ __all__ = [
     "UbAcl",
     "UbDot",
     "UbForward",
+    "UbHostAlias",
     "UbHostOverride",
 ]

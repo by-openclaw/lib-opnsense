@@ -21,12 +21,16 @@ Safety:
 
 from __future__ import annotations
 
+import contextlib
+
 import pytest
 
 from opnsense.client import OpnsenseClient
 from opnsense.managers.ub_acl import UbAclManager
+from opnsense.managers.ub_diagnostics import UbDiagnosticsManager
 from opnsense.managers.ub_dot import UbDotManager
 from opnsense.managers.ub_forward import UbForwardManager
+from opnsense.managers.ub_host_alias import UbHostAliasManager
 from opnsense.managers.ub_host_override import UbHostOverrideManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
@@ -217,21 +221,114 @@ class TestDotCRUD:
 
 
 # =============================================================================
-# 5. Cleanup
+# 5. Host Alias (create + read only — set/del return 404 on 26.1.5)
+# =============================================================================
+
+
+class TestHostAliasCRUD:
+    """Host alias lifecycle. Requires a parent host override.
+
+    LIMITATION: OPNsense 26.1.5 does not expose setHostAlias or delHostAlias.
+    Only create + read tested. Cleanup uses raw client delete on parent override.
+    """
+
+    async def test_01_create_parent_host(self, opn_client: OpnsenseClient) -> None:
+        """Create parent host override for alias testing."""
+        mgr = UbHostOverrideManager(opn_client)
+        r = await mgr.ensure(
+            "present",
+            {
+                "hostname": "inttest-alias-parent",
+                "domain": "lab.test",
+                "server": "10.11.2.20",
+                "rr": "A",
+                "description": "inttest-alias-parent",
+            },
+        )
+        assert r.action in ("created", "noop")
+
+    async def test_02_create_alias(self, opn_client: OpnsenseClient) -> None:
+        """Create a host alias pointing to the parent override."""
+        # Find parent UUID
+        override_mgr = UbHostOverrideManager(opn_client)
+        rows = await override_mgr.list(search_phrase="inttest-alias-parent")
+        parent = [r for r in rows if r.get("hostname") == "inttest-alias-parent"]
+        assert len(parent) == 1, "Parent host override must exist"
+        parent_uuid = parent[0]["uuid"]
+
+        mgr = UbHostAliasManager(opn_client)
+        r = await mgr.ensure(
+            "present",
+            {
+                "host": parent_uuid,
+                "hostname": "inttest-web-alias",
+                "domain": "lab.test",
+                "description": "inttest-host-alias",
+            },
+        )
+        assert r.changed is True
+        assert r.action == "created"
+
+    async def test_03_list_alias(self, opn_client: OpnsenseClient) -> None:
+        """Verify alias appears in search results."""
+        mgr = UbHostAliasManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest-web-alias")
+        aliases = [r for r in rows if r.get("hostname") == "inttest-web-alias"]
+        assert len(aliases) >= 1
+
+
+# =============================================================================
+# 6. Diagnostics + DNSBL (read-only)
+# =============================================================================
+
+
+class TestDiagnostics:
+    """Read-only diagnostics — stats and DNSBL config."""
+
+    async def test_01_get_stats(self, opn_client: OpnsenseClient) -> None:
+        """Get resolver statistics — must return status=ok."""
+        diag = UbDiagnosticsManager(opn_client)
+        stats = await diag.get_stats()
+        assert stats.get("status") == "ok"
+        assert "data" in stats
+
+    async def test_02_get_dnsbl(self, opn_client: OpnsenseClient) -> None:
+        """Get DNSBL config — read-only on 26.1.5."""
+        diag = UbDiagnosticsManager(opn_client)
+        dnsbl = await diag.get_dnsbl()
+        assert "enabled" in dnsbl
+
+    async def test_03_list_dnsbl(self, opn_client: OpnsenseClient) -> None:
+        """List DNSBL entries via search."""
+        diag = UbDiagnosticsManager(opn_client)
+        rows = await diag.list_dnsbl()
+        assert isinstance(rows, list)
+
+
+# =============================================================================
+# 7. Cleanup
 # =============================================================================
 
 
 class TestCleanup:
     """Remove any leftover inttest- objects."""
 
+    async def test_cleanup_host_aliases(self, opn_client: OpnsenseClient) -> None:
+        """Remove host aliases first (before parent overrides)."""
+        mgr = UbHostAliasManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest")
+        for row in rows:
+            if "inttest" in str(row.get("hostname", "")):
+                # delHostAlias may 404 on 26.1.5
+                with contextlib.suppress(Exception):
+                    await opn_client.delete("unbound/settings/delHostAlias", row["uuid"])
+
     async def test_cleanup_host_overrides(self, opn_client: OpnsenseClient) -> None:
         mgr = UbHostOverrideManager(opn_client)
         rows = await mgr.list(search_phrase="inttest")
         for row in rows:
             if "inttest" in str(row.get("hostname", "")):
-                await opn_client.delete(
-                    "unbound/settings/delHostOverride", row["uuid"]
-                )
+                await opn_client.delete("unbound/settings/delHostOverride", row["uuid"])
         await opn_client.reconfigure("unbound/service/reconfigure", timeout=60)
 
     async def test_cleanup_forwards(self, opn_client: OpnsenseClient) -> None:
@@ -239,9 +336,7 @@ class TestCleanup:
         rows = await mgr.list(search_phrase="inttest")
         for row in rows:
             if "inttest" in str(row.get("domain", "")):
-                await opn_client.delete(
-                    "unbound/settings/delForward", row["uuid"]
-                )
+                await opn_client.delete("unbound/settings/delForward", row["uuid"])
 
     async def test_cleanup_acls(self, opn_client: OpnsenseClient) -> None:
         mgr = UbAclManager(opn_client)
