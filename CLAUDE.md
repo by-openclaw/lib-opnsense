@@ -178,6 +178,13 @@ finally:
 
 ---
 
+## API Coverage
+
+See [`docs/api-coverage.md`](docs/api-coverage.md) for the full per-endpoint status table.
+134 API domains probed, 18 integration tested, remaining tracked as `ABSENT`.
+
+---
+
 ## Cross-repo References
 
 All paths are relative from sibling repo clones (e.g. `../doc-platform-core/`).

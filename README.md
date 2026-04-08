@@ -113,6 +113,10 @@ src/opnsense/
 | IF | IfVipManager | `address, interface, mode` | reconfigure |
 | TS | TsPipeManager | `description, bandwidth, bandwidthMetric` | reconfigure |
 
+### API coverage
+
+See [docs/api-coverage.md](docs/api-coverage.md) for the full per-endpoint status table (134 domains probed, 18 integration tested).
+
 ### Duplicate detection
 
 OPNsense API does **not** enforce uniqueness on FW rules, NAT rules, interfaces, or traffic shaper pipes. The lib uses composite match keys + `AmbiguousMatchError` to detect and prevent silent duplication. Auth users/groups are server-enforced unique.
