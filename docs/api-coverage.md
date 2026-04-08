@@ -73,8 +73,8 @@
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
-| routing-gw | `RtGatewayManager` | `name` | `routing/settings` Gateway | `INTEGRATION_TEST_PASSED` | READ-ONLY in tests — never create/delete |
-| route | `RtRouteManager` | `network, gateway` | `routes/routes` Route | `INTEGRATION_TEST_PASSED` | CRUD with disabled=1, inttest- prefix |
+| routing-gw | `RtGatewayManager` | `name` | `routing/settings` Gateway | `INTEGRATION_TEST_PASSED` | API supports full CRUD. Tests are read-only — full CRUD deferred to WireGuard (2.14) when a real test gateway exists |
+| route | `RtRouteManager` | `network, gateway` | `routes/routes` Route | `INTEGRATION_TEST_PASSED` | CRUD with disabled=1, Null4 blackhole gateway (127.0.0.1, drops traffic), inttest- prefix |
 
 ## Unbound DNS (6 managers — requires reconfigure)
 
