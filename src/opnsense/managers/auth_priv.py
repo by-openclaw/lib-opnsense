@@ -7,7 +7,15 @@ Privileges are NOT CRUD entities — they are assignment relationships
 between users/groups and privilege IDs. This manager does NOT extend
 BaseManager.
 
-API domain: /api/auth/priv
+Endpoints:
+    list    GET  auth/priv/get
+    get     GET  auth/priv/get_item/{priv_id}
+    assign  POST auth/priv/set_item/{priv_id}
+    apply   None — auth changes apply immediately
+
+Redact fields: none
+Logging: custom (INFO=assign, WARNING=unassign, ERROR=failure)
+Safety:  see docs/test-zone-plan.md §M03
 """
 
 from __future__ import annotations

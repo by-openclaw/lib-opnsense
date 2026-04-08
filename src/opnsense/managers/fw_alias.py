@@ -6,9 +6,19 @@
 API domain: /api/firewall/alias
 Payload key: alias
 Match key:   name (unique alias name)
-Entity suffix: Item (search_item, get_item, add_item, set_item, del_item)
+Entity suffix: Item (searchItem, getItem, addItem, setItem, delItem)
 
-Alias changes require reconfigure to take effect.
+Endpoints:
+    search  GET  firewall/alias/searchItem
+    get     GET  firewall/alias/getItem/{uuid}
+    create  POST firewall/alias/addItem
+    update  POST firewall/alias/setItem/{uuid}
+    delete  POST firewall/alias/delItem/{uuid}
+    apply   POST firewall/alias/reconfigure
+
+Redact fields: password, username (URL table auth)
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M05
 """
 
 from __future__ import annotations

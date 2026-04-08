@@ -6,8 +6,19 @@
 API domain: /api/auth/user
 Payload key: user
 Match key:   name (unique username)
+Entity suffix: '' (bare: search, get, add, set, del)
 
-Auth changes apply immediately — no reconfigure endpoint needed.
+Endpoints:
+    search  GET  auth/user/search
+    get     GET  auth/user/get/{uuid}
+    create  POST auth/user/add
+    update  POST auth/user/set/{uuid}
+    delete  POST auth/user/del/{uuid}
+    apply   None — auth changes apply immediately
+
+Redact fields: password, otp_seed, scrambled_password, authorizedkeys
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M01
 """
 
 from __future__ import annotations

@@ -4,11 +4,17 @@
 """OPNsense auth API key manager — create, list, and delete API keys for users.
 
 API keys are NOT standard CRUD entities. On OPNsense 26.1, the endpoints use
-inconsistent identifiers (a known rough edge from the MVC migration):
+inconsistent identifiers (a known rough edge from the MVC migration).
 
-    POST /api/auth/user/add_api_key/{username}      — username string
-    POST /api/auth/user/search_api_key/{any}         — returns ALL keys (param ignored)
-    POST /api/auth/user/del_api_key/{id}             — base64 ID from search results
+Endpoints:
+    create  POST auth/user/add_api_key/{username}    — username string
+    search  POST auth/user/search_api_key/{any}      — returns ALL keys (param ignored)
+    delete  POST auth/user/del_api_key/{id}          — base64 ID from search results
+    apply   None — auth changes apply immediately
+
+Redact fields: key, secret (partial reveal via structlog)
+Logging: custom (INFO=create, WARNING=delete, ERROR=failure)
+Safety:  see docs/test-zone-plan.md §M04
 """
 
 from __future__ import annotations

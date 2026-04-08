@@ -6,9 +6,19 @@
 API domain: /api/trafficshaper/settings
 Payload key: pipe
 Match key:   description (unique pipe description)
-Entity suffix: Pipe (search_pipes uses plural — custom _find_existing)
+Entity suffix: Pipe (getPipe, addPipe, setPipe, delPipe)
 
-Traffic shaper changes require reconfigure to take effect.
+Endpoints:
+    search  GET  trafficshaper/settings/searchPipes  (plural — custom list() override)
+    get     GET  trafficshaper/settings/getPipe/{uuid}
+    create  POST trafficshaper/settings/addPipe
+    update  POST trafficshaper/settings/setPipe/{uuid}
+    delete  POST trafficshaper/settings/delPipe/{uuid}
+    apply   POST trafficshaper/service/reconfigure
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M12
 """
 
 from __future__ import annotations

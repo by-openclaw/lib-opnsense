@@ -6,9 +6,19 @@
 API domain: /api/firewall/filter
 Payload key: rule
 Match key:   description (unique rule description)
-Entity suffix: Rule (search_rule, get_rule, add_rule, set_rule, del_rule)
+Entity suffix: Rule (searchRule, getRule, addRule, setRule, delRule)
 
-Filter rule changes require apply to take effect.
+Endpoints:
+    search  GET  firewall/filter/searchRule
+    get     GET  firewall/filter/getRule/{uuid}
+    create  POST firewall/filter/addRule
+    update  POST firewall/filter/setRule/{uuid}
+    delete  POST firewall/filter/delRule/{uuid}
+    apply   POST firewall/filter/apply
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M06
 """
 
 from __future__ import annotations

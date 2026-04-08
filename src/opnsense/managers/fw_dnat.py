@@ -6,9 +6,19 @@
 API domain: /api/firewall/d_nat
 Payload key: rule
 Match key:   descr (unique rule description — note: 'descr' not 'description')
-Entity suffix: Rule (search_rule, get_rule, add_rule, set_rule, del_rule)
+Entity suffix: Rule (searchRule, getRule, addRule, setRule, delRule)
 
-D-NAT changes require apply to take effect.
+Endpoints:
+    search  GET  firewall/d_nat/searchRule
+    get     GET  firewall/d_nat/getRule/{uuid}
+    create  POST firewall/d_nat/addRule
+    update  POST firewall/d_nat/setRule/{uuid}
+    delete  POST firewall/d_nat/delRule/{uuid}
+    apply   POST firewall/d_nat/apply
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M07
 
 .. note::
     D-NAT was migrated from legacy PHP to MVC in OPNsense **26.1**.

@@ -6,10 +6,19 @@
 API domain: /api/firewall/category
 Payload key: category
 Match key:   name (unique category name)
-Entity suffix: Item (search_item, get_item, add_item, set_item, del_item)
+Entity suffix: Item (searchItem, getItem, addItem, setItem, delItem)
 
-Categories are labels applied to aliases and rules for grouping/filtering.
-No reconfigure needed — categories take effect immediately.
+Endpoints:
+    search  GET  firewall/category/searchItem
+    get     GET  firewall/category/getItem/{uuid}
+    create  POST firewall/category/addItem
+    update  POST firewall/category/setItem/{uuid}
+    delete  POST firewall/category/delItem/{uuid}
+    apply   None — categories apply immediately
+
+Redact fields: none
+Logging: inherits BaseManager contract (see base.py docstring)
+Safety:  see docs/test-zone-plan.md §M09
 """
 
 from __future__ import annotations
