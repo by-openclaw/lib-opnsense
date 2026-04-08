@@ -1,6 +1,6 @@
 # lib-opnsense
 
-Async Python library for [OPNsense](https://opnsense.org/) REST API — CRUD + idempotent ensure() for auth, firewall, interfaces, and traffic shaping.
+Async Python library for [OPNsense](https://opnsense.org/) REST API — CRUD + idempotent ensure() for auth, firewall, DNS, interfaces, and traffic shaping.
 
 [![Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/by-openclaw/lib-opnsense/releases)
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://github.com/by-openclaw/lib-opnsense/actions/workflows/ci.yml)
@@ -80,11 +80,11 @@ src/opnsense/
 ├── managers/
 │   ├── base.py                    # BaseManager — thin orchestrator (composes core/)
 │   ├── protocols.py               # ManagerProtocol (typing.Protocol for DI)
-│   └── 14 concrete managers       # Config only (~30 lines each)
+│   └── 20 concrete managers       # Config only (~30 lines each)
 │
 ├── models/                        # Frozen dataclasses — one per entity
 │   ├── base.py                    # EnsureResult
-│   └── 12 entity models           # AuthUser, FwFilterRule, IfVlan, TsPipe, ...
+│   └── 16 entity models           # AuthUser, FwFilterRule, UbHostOverride, ...
 │
 ├── client.py                      # httpx async transport (retry, exception mapping)
 ├── exceptions.py                  # Typed exception hierarchy (8 types)
@@ -94,7 +94,7 @@ src/opnsense/
 
 ---
 
-## Managers (14 total)
+## Managers (20 total)
 
 | Domain | Manager | Match keys | Apply |
 |--------|---------|------------|-------|
@@ -112,6 +112,12 @@ src/opnsense/
 | IF | IfVlanManager | `tag, if` | reconfigure |
 | IF | IfVipManager | `address, interface, mode` | reconfigure |
 | TS | TsPipeManager | `description, bandwidth, bandwidthMetric` | reconfigure |
+| DNS | UbHostOverrideManager | `hostname, domain, server` | reconfigure |
+| DNS | UbHostAliasManager | `hostname, domain` | reconfigure (create+read only on 26.1.5) |
+| DNS | UbForwardManager | `domain, server` | reconfigure |
+| DNS | UbAclManager | `name` | reconfigure |
+| DNS | UbDotManager | `server, port` | reconfigure |
+| DNS | UbDiagnosticsManager (read-only) | — | — |
 
 ### API coverage
 
@@ -176,17 +182,16 @@ except OpnsenseError as exc:
 
 ## Testing
 
-### Unit tests (476 tests, offline)
+### Unit tests (558 tests, offline)
 
 ```bash
 pytest tests/unit/ -q
 ```
 
-### Integration tests (146 tests, live OPNsense device)
+### Integration tests (173 tests, live OPNsense device)
 
 ```bash
 # Set credentials in .env or environment
-OPN_HOST=10.6.239.114 OPN_KEY=... OPN_SECRET=... \
 pytest tests/integration/ -q
 ```
 
