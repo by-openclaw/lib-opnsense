@@ -26,6 +26,7 @@ class WgClient:
         serveraddress:  Remote endpoint IP or hostname.
         serverport:     Remote endpoint port.
         keepalive:      Persistent keepalive interval in seconds.
+        endpoint:       Computed endpoint display.
         uuid:           Resource UUID assigned by OPNsense.
     """
 
@@ -37,4 +38,5 @@ class WgClient:
     serveraddress: str = ""
     serverport: str = ""
     keepalive: str = ""
+    endpoint: str = ""
     uuid: str = ""

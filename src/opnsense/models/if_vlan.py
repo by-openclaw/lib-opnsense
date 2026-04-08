@@ -21,6 +21,7 @@ class IfVlan:
         tag:    VLAN tag (1-4094, required).
         if_:    Parent interface name (required). Note: mapped from API field 'if'.
         pcp:    Priority Code Point (0-7).
+        proto:  VLAN protocol type ('ethertype8021q' or 'ethertype8021ad').
         descr:  Description (max 255). Note: 'descr' not 'description'.
         uuid:   Resource UUID assigned by OPNsense.
     """
@@ -28,5 +29,6 @@ class IfVlan:
     tag: str
     if_: str = ""
     pcp: str = ""
+    proto: str = ""
     descr: str = ""
     uuid: str = ""

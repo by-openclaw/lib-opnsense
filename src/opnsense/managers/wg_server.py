@@ -56,6 +56,8 @@ class WgServerManager(BaseManager):
         disableroutes:  Disable automatic route installation ('0' or '1', optional)
         gateway:        Gateway for tunnel traffic (optional)
         peers:          Comma-separated peer UUIDs (optional)
+        instance:       Instance number (optional, default='0')
+        debug:          Debug mode (optional, default='0')
 
     REDACT_FIELDS: privkey, pubkey — never exposed in before/after dicts.
 
@@ -86,6 +88,8 @@ class WgServerManager(BaseManager):
         "disableroutes": {"type": "bool_str"},
         "gateway": {"type": "str"},
         "peers": {"type": "str"},
+        "instance": {"type": "str"},
+        "debug": {"type": "bool_str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

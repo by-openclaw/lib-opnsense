@@ -49,6 +49,28 @@ class TsRuleManager(BaseManager):
                 "direction": "in",
                 "enabled": "1",
             })
+
+    Input (ensure present):
+        description:      Rule description, max 255 (required)
+        interface:        Network interface (required)
+        proto:            Protocol — ip, ip4, ip6, udp, tcp (optional)
+        direction:        Traffic direction — '', in, out (optional)
+        enabled:          Enable rule (optional, default='1')
+        sequence:         Rule priority / sequence number, min 1 (optional)
+        src_port:         Source port filter (optional)
+        dst_port:         Destination port filter (optional)
+        source_not:       Invert source match (optional, default='0')
+        destination_not:  Invert destination match (optional, default='0')
+        dscp:             DSCP marking (optional)
+        iplen:            IP length match (optional)
+        interface2:       Second interface (optional)
+
+    Output (EnsureResult):
+        changed:  bool — True if state was modified
+        action:   'created' | 'updated' | 'deleted' | 'noop'
+        uuid:     Resource UUID (None on noop absent)
+        before:   Previous state dict (redacted)
+        after:    New state dict (redacted)
     """
 
     _endpoint = "trafficshaper/settings"
@@ -71,6 +93,11 @@ class TsRuleManager(BaseManager):
         "sequence": {"type": "int", "min": 1},
         "src_port": {"type": "str"},
         "dst_port": {"type": "str"},
+        "source_not": {"type": "bool_str"},
+        "destination_not": {"type": "bool_str"},
+        "dscp": {"type": "str"},
+        "iplen": {"type": "str"},
+        "interface2": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

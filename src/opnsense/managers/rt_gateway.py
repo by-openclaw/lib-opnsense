@@ -53,14 +53,29 @@ class RtGatewayManager(BaseManager):
             })
 
     Input (ensure present):
-        name:        Gateway name, max 255 (required)
-        interface:   Interface name, e.g. 'wan' (required)
-        gateway:     Gateway IP address (required)
-        ipprotocol:  IP protocol — inet, inet6 (optional)
-        disabled:    Disable gateway (optional, default='0')
-        defaultgw:   Default gateway flag (optional, default='0')
-        priority:    Priority, 0-255 (optional)
-        weight:      Weight, 1-5 (optional)
+        name:                        Gateway name, max 255 (required)
+        interface:                   Interface name, e.g. 'wan' (required)
+        gateway:                     Gateway IP address (required)
+        ipprotocol:                  IP protocol — inet, inet6 (optional)
+        disabled:                    Disable gateway (optional, default='0')
+        defaultgw:                   Default gateway flag (optional, default='0')
+        priority:                    Priority, 0-255 (optional)
+        weight:                      Weight, 1-5 (optional)
+        fargw:                       Far gateway (optional, default='0')
+        force_down:                  Force down (optional, default='0')
+        monitor:                     Monitor IP address (optional)
+        monitor_disable:             Disable monitoring (optional, default='1')
+        monitor_noroute:             Monitor no-route (optional, default='0')
+        monitor_killstates:          Kill states on down (optional, default='0')
+        monitor_killstates_priority: Kill states priority (optional, default='0')
+        latencylow:                  Low latency threshold ms (optional)
+        latencyhigh:                 High latency threshold ms (optional)
+        losslow:                     Low loss threshold % (optional)
+        losshigh:                    High loss threshold % (optional)
+        interval:                    Probe interval (optional)
+        time_period:                 Time period (optional)
+        loss_interval:               Loss interval (optional)
+        data_length:                 Probe data length (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -87,6 +102,21 @@ class RtGatewayManager(BaseManager):
         "defaultgw": {"type": "bool_str"},
         "priority": {"type": "int", "min": 0, "max": 255},
         "weight": {"type": "int", "min": 1, "max": 5},
+        "fargw": {"type": "bool_str"},
+        "force_down": {"type": "bool_str"},
+        "monitor": {"type": "str"},
+        "monitor_disable": {"type": "bool_str"},
+        "monitor_noroute": {"type": "bool_str"},
+        "monitor_killstates": {"type": "bool_str"},
+        "monitor_killstates_priority": {"type": "bool_str"},
+        "latencylow": {"type": "str"},
+        "latencyhigh": {"type": "str"},
+        "losslow": {"type": "str"},
+        "losshigh": {"type": "str"},
+        "interval": {"type": "str"},
+        "time_period": {"type": "str"},
+        "loss_interval": {"type": "str"},
+        "data_length": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

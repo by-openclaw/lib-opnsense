@@ -25,8 +25,13 @@ class TsRule:
         enabled:      Whether the rule is enabled ('0' or '1').
         sequence:     Rule priority / sequence number (min 1).
         src_port:     Source port filter.
-        dst_port:     Destination port filter.
-        uuid:         Resource UUID assigned by OPNsense.
+        dst_port:         Destination port filter.
+        source_not:       Invert source match ('0' or '1').
+        destination_not:  Invert destination match ('0' or '1').
+        dscp:             DSCP marking.
+        iplen:            IP length match.
+        interface2:       Second interface.
+        uuid:             Resource UUID assigned by OPNsense.
     """
 
     description: str
@@ -37,4 +42,9 @@ class TsRule:
     sequence: str = "1"
     src_port: str = "any"
     dst_port: str = "any"
+    source_not: str = "0"
+    destination_not: str = "0"
+    dscp: str = ""
+    iplen: str = ""
+    interface2: str = ""
     uuid: str = ""

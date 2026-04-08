@@ -62,6 +62,15 @@ class IfVipManager(BaseManager):
         network:    Subnet mask in CIDR bits, e.g. '32' (optional)
         descr:      Description, max 255 (optional)
         password:   CARP password, max 255 (optional)
+        advbase:    CARP advertisement base, 1-254 (optional)
+        advskew:    CARP advertisement skew, 0-254 (optional)
+        vhid:       CARP virtual host ID (optional)
+        gateway:    Gateway IP (optional)
+        nobind:     Do not bind (optional, default='0')
+        noexpand:   Do not expand (optional, default='0')
+        nosync:     No XMLRPC sync (optional, default='0')
+        peer:       CARP peer IP (optional)
+        peer6:      CARP peer IPv6 (optional)
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -90,6 +99,15 @@ class IfVipManager(BaseManager):
         "network": {"type": "str"},
         "descr": {"type": "str", "max_length": 255},
         "password": {"type": "str", "max_length": 255},
+        "advbase": {"type": "int", "min": 1, "max": 254},
+        "advskew": {"type": "int", "min": 0, "max": 254},
+        "vhid": {"type": "str"},
+        "gateway": {"type": "str"},
+        "nobind": {"type": "bool_str"},
+        "noexpand": {"type": "bool_str"},
+        "nosync": {"type": "bool_str"},
+        "peer": {"type": "str"},
+        "peer6": {"type": "str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

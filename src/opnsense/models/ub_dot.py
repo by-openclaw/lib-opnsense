@@ -22,6 +22,7 @@ class UbDot:
         port:                 DoT server port.
         type:                 Forward type ('dot').
         verify:               TLS verification hostname.
+        domain:               Domain name.
         forward_tcp_upstream: Use TCP for upstream queries ('0' or '1').
         forward_first:        Try forwarding first, then resolve ('0' or '1').
         enabled:              Whether the DoT server is enabled ('0' or '1').
@@ -33,6 +34,7 @@ class UbDot:
     port: str = "853"
     type: str = "dot"
     verify: str = ""
+    domain: str = ""
     forward_tcp_upstream: str = "0"
     forward_first: str = "0"
     enabled: str = "1"

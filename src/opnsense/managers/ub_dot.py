@@ -47,6 +47,7 @@ class UbDotManager(BaseManager):
         port:                  Server port (optional)
         type:                  Server type — dot (optional)
         verify:                TLS verification hostname (optional)
+        domain:                Domain name (optional)
         forward_tcp_upstream:  Use TCP for upstream (optional, default='0')
         forward_first:         Forward first before resolving (optional, default='0')
         enabled:               Enable DoT server (optional, default='1')
@@ -74,6 +75,7 @@ class UbDotManager(BaseManager):
         "port": {"type": "str"},
         "type": {"type": "enum", "values": ["dot"]},
         "verify": {"type": "str"},
+        "domain": {"type": "str"},
         "forward_tcp_upstream": {"type": "bool_str"},
         "forward_first": {"type": "bool_str"},
         "enabled": {"type": "bool_str"},

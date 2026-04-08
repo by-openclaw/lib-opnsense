@@ -23,6 +23,9 @@ class Kea4Subnet:
         next_server:            TFTP/PXE next-server address.
         option_data_autocollect: Auto-collect option data ('0' or '1').
         description:            Human-readable description (max 255).
+        match_client_id:        Match client ID ('0' or '1'). API field: 'match-client-id'.
+        ddns_forward_zone:      DDNS forward zone.
+        ddns_dns_server:        DDNS DNS server address.
         uuid:                   Resource UUID assigned by OPNsense.
     """
 
@@ -31,4 +34,7 @@ class Kea4Subnet:
     next_server: str = ""
     option_data_autocollect: str = "1"
     description: str = ""
+    match_client_id: str = "1"
+    ddns_forward_zone: str = ""
+    ddns_dns_server: str = ""
     uuid: str = ""

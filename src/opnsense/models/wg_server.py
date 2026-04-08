@@ -29,6 +29,8 @@ class WgServer:
         privkey:        Private key (redacted in output).
         pubkey:         Public key (redacted in output).
         peers:          Comma-separated peer UUIDs.
+        instance:       Instance number.
+        debug:          Debug mode ('0' or '1').
         uuid:           Resource UUID assigned by OPNsense.
     """
 
@@ -43,4 +45,6 @@ class WgServer:
     privkey: str = ""
     pubkey: str = ""
     peers: str = ""
+    instance: str = "0"
+    debug: str = "0"
     uuid: str = ""
