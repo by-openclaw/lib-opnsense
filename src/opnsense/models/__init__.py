@@ -22,6 +22,8 @@ from opnsense.models.if_neighbor import IfNeighbor
 from opnsense.models.if_vip import IfVip
 from opnsense.models.if_vlan import IfVlan
 from opnsense.models.if_vxlan import IfVxlan
+from opnsense.models.rt_gateway import RtGateway
+from opnsense.models.rt_route import RtRoute
 from opnsense.models.ts_pipe import TsPipe
 from opnsense.models.ub_acl import UbAcl
 from opnsense.models.ub_dot import UbDot
@@ -49,6 +51,8 @@ __all__ = [
     "IfVip",
     "IfVlan",
     "IfVxlan",
+    "RtGateway",
+    "RtRoute",
     "TsPipe",
     "UbAcl",
     "UbDot",

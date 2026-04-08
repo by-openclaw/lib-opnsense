@@ -71,10 +71,10 @@
 
 ## Routing (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| route | `RtRouteManager` | `GET /api/routes/routes/get_route`, `POST /api/routes/routes/search_route` | `ABSENT` |
-| routing-gw | `RtGatewayManager` | `GET /api/routing/settings/get_gateway`, `POST /api/routing/settings/search_gateway` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| routing-gw | `RtGatewayManager` | `name` | `routing/settings` Gateway | `INTEGRATION_TEST_PASSED` | READ-ONLY in tests — never create/delete |
+| route | `RtRouteManager` | `network, gateway` | `routes/routes` Route | `INTEGRATION_TEST_PASSED` | CRUD with disabled=1, inttest- prefix |
 
 ## Unbound DNS (6 managers — requires reconfigure)
 
