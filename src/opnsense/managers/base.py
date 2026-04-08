@@ -421,10 +421,7 @@ class BaseManager(ABC):
                 else:
                     # Enum dict: find the key with selected=1
                     for opt_key, opt_val in current_value.items():
-                        if (
-                            isinstance(opt_val, dict)
-                            and opt_val.get("selected") in (1, "1", True)
-                        ):
+                        if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
                             current_value = opt_key
                             break
             if str(current_value) != str(desired_value):
