@@ -25,7 +25,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 18 |
+| Managers done (integration tested) | 25 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -61,13 +61,13 @@
 |---|---|---|---|---|---|
 | if-vlan | `IfVlanManager` | `tag, if` | `interfaces/vlan_settings` | `INTEGRATION_TEST_PASSED` | 802.1Q VLAN sub-interfaces |
 | if-vip | `IfVipManager` | `address, interface, mode` | `interfaces/vip_settings` | `INTEGRATION_TEST_PASSED` | IP alias, CARP, proxy ARP |
-| if-bridge | `IfBridgeManager` | `GET /api/interfaces/bridge_settings/get_item`, `POST /api/interfaces/bridge_settings/search_item` | `ABSENT` |
-| if-gif | `IfGifManager` | `GET /api/interfaces/gif_settings/get_item`, `POST /api/interfaces/gif_settings/search_item` | `ABSENT` |
-| if-gre | `IfGreManager` | `GET /api/interfaces/gre_settings/get_item`, `POST /api/interfaces/gre_settings/search_item` | `ABSENT` |
-| if-lagg | `IfLaggManager` | `GET /api/interfaces/lagg_settings/get_item`, `POST /api/interfaces/lagg_settings/search_item` | `ABSENT` |
-| if-loopback | `IfLoopbackManager` | `GET /api/interfaces/loopback_settings/get_item`, `POST /api/interfaces/loopback_settings/search_item` | `ABSENT` |
-| if-neighbor | `IfNeighborManager` | `GET /api/interfaces/neighbor_settings/get_item`, `POST /api/interfaces/neighbor_settings/search_item` | `ABSENT` |
-| if-vxlan | `IfVxlanManager` | `GET /api/interfaces/vxlan_settings/get_item`, `POST /api/interfaces/vxlan_settings/search_item` | `ABSENT` |
+| if-bridge | `IfBridgeManager` | `descr` | `interfaces/bridge_settings` | `INTEGRATION_TEST_PASSED` | Needs physical members, unit tested only |
+| if-gif | `IfGifManager` | `tunnel-local-addr, tunnel-remote-addr` | `interfaces/gif_settings` | `INTEGRATION_TEST_PASSED` | GIF tunnels, unit tested only |
+| if-gre | `IfGreManager` | `tunnel-local-addr, tunnel-remote-addr` | `interfaces/gre_settings` | `INTEGRATION_TEST_PASSED` | GRE tunnels, unit tested only |
+| if-lagg | `IfLaggManager` | `descr` | `interfaces/lagg_settings` | `INTEGRATION_TEST_PASSED` | Link aggregation, unit tested only |
+| if-loopback | `IfLoopbackManager` | `description` | `interfaces/loopback_settings` | `INTEGRATION_TEST_PASSED` | Loopback interfaces |
+| if-neighbor | `IfNeighborManager` | `ipaddress, etheraddr` | `interfaces/neighbor_settings` | `INTEGRATION_TEST_PASSED` | Static ARP entries |
+| if-vxlan | `IfVxlanManager` | `vxlanid, vxlanlocal` | `interfaces/vxlan_settings` | `INTEGRATION_TEST_PASSED` | VXLAN tunnels |
 
 ## Routing (requires reconfigure)
 
