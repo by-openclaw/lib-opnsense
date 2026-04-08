@@ -142,7 +142,16 @@ class BaseManager(ABC):
             List of resource dicts.
         """
         endpoint = f"{self._endpoint}/search{self._suffix}"
-        return await self._client.search(endpoint, search_phrase=search_phrase)
+        try:
+            return await self._client.search(endpoint, search_phrase=search_phrase)
+        except Exception as exc:
+            logger.error(
+                "list failed %s: %s",
+                self._endpoint,
+                exc,
+                extra={"action": "list_failed", "endpoint": self._endpoint, "error": str(exc)},
+            )
+            raise
 
     async def get(self, uuid: str) -> dict[str, Any]:
         """Get a single resource by UUID.
@@ -154,7 +163,22 @@ class BaseManager(ABC):
             Resource dict (the inner payload, unwrapped from payload_key).
         """
         endpoint = f"{self._endpoint}/get{self._suffix}/{uuid}"
-        body = await self._client.get(endpoint)
+        try:
+            body = await self._client.get(endpoint)
+        except Exception as exc:
+            logger.error(
+                "get failed %s uuid=%s: %s",
+                self._endpoint,
+                uuid,
+                exc,
+                extra={
+                    "action": "get_failed",
+                    "endpoint": self._endpoint,
+                    "uuid": uuid,
+                    "error": str(exc),
+                },
+            )
+            raise
         return body.get(self._payload_key, body)
 
     async def get_schema(self) -> dict[str, Any]:
@@ -164,7 +188,20 @@ class BaseManager(ABC):
             Schema dict showing available fields and defaults.
         """
         endpoint = f"{self._endpoint}/get{self._suffix}"
-        body = await self._client.get(endpoint)
+        try:
+            body = await self._client.get(endpoint)
+        except Exception as exc:
+            logger.error(
+                "get_schema failed %s: %s",
+                self._endpoint,
+                exc,
+                extra={
+                    "action": "get_schema_failed",
+                    "endpoint": self._endpoint,
+                    "error": str(exc),
+                },
+            )
+            raise
         return body.get(self._payload_key, body)
 
     async def create(
@@ -654,4 +691,17 @@ class BaseManager(ABC):
         apply immediately and set _apply_endpoint = None.
         """
         if self._apply_endpoint is not None:
-            await self._client.reconfigure(self._apply_endpoint)
+            try:
+                await self._client.reconfigure(self._apply_endpoint)
+            except Exception as exc:
+                logger.error(
+                    "apply failed %s: %s",
+                    self._apply_endpoint,
+                    exc,
+                    extra={
+                        "action": "apply_failed",
+                        "endpoint": self._apply_endpoint,
+                        "error": str(exc),
+                    },
+                )
+                raise
