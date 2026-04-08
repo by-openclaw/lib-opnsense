@@ -58,6 +58,13 @@ class IfVlanManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "tag": {"type": "int", "required": True, "min": 1, "max": 4094},
+        "if": {"type": "str", "required": True},
+        "pcp": {"type": "int", "min": 0, "max": 7},
+        "descr": {"type": "str", "max_length": 255},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the VLAN interface manager.
 

@@ -54,6 +54,15 @@ class FwSourceNatManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "description": {"type": "str", "required": True, "max_length": 255},
+        "interface": {"type": "str", "required": True},
+        "source_net": {"type": "str", "required": True},
+        "target": {"type": "str"},
+        "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
+        "enabled": {"type": "bool_str"},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the firewall source NAT manager.
 

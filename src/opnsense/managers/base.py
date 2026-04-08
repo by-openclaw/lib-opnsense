@@ -41,6 +41,7 @@ from typing import Any
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import AmbiguousMatchError
 from opnsense.models.base import EnsureResult
+from opnsense.validators import validate_params
 
 logger = logging.getLogger(__name__)
 
@@ -72,6 +73,7 @@ class BaseManager(ABC):
     _match_key: str | None = None  # Legacy single key
     _match_keys: list[str] | None = None  # Composite identity (preferred)
     _entity_suffix: str | None = None  # None = auto from _payload_key
+    _validators: dict[str, dict[str, Any]] = {}  # Field validators per manager
 
     REDACT_FIELDS: set[str] = set()
 
@@ -438,10 +440,15 @@ class BaseManager(ABC):
 
         Raises:
             ValueError: If state is not 'present' or 'absent'.
+            FieldValidationError: If any field fails client-side validation.
             AmbiguousMatchError: If multiple resources match the composite keys.
         """
         if state not in ("present", "absent"):
             raise ValueError(f"Invalid state '{state}'. Use 'present' or 'absent'.")
+
+        # Client-side validation — reject bad params before any API call
+        if self._validators and state == "present":
+            validate_params(params, self._validators)
 
         t0 = time.monotonic()
         label = self._match_label(params)

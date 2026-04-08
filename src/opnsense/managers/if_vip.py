@@ -64,6 +64,19 @@ class IfVipManager(BaseManager):
 
     REDACT_FIELDS = {"password"}  # CARP password
 
+    _validators = {
+        "address": {"type": "str", "required": True},
+        "interface": {"type": "str", "required": True},
+        "mode": {
+            "type": "enum",
+            "required": True,
+            "values": ["ipalias", "carp", "proxyarp", "other"],
+        },
+        "network": {"type": "str"},
+        "descr": {"type": "str", "max_length": 255},
+        "password": {"type": "str", "max_length": 255},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the Virtual IP manager.
 

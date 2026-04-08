@@ -156,7 +156,7 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="present", params={"description": "bad"})
+            await mgr.ensure(state="present", params={"description": "bad", "bandwidth": "10"})
 
         assert any("create failed" in r.message for r in caplog.records)
 

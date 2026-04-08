@@ -823,7 +823,13 @@ class TestErrorHandling:
         mgr = FwFilterManager(opn_client)
         result = await mgr.ensure(
             state="present",
-            params={"description": "inttest-should-not-exist", "action": "pass"},
+            params={
+                "description": "inttest-should-not-exist",
+                "action": "pass",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
             check_mode=True,
         )
         assert result.changed is True

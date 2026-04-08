@@ -61,6 +61,16 @@ class FwDnatManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "descr": {"type": "str", "required": True, "max_length": 255},
+        "interface": {"type": "str", "required": True},
+        "target": {"type": "ip", "required": True},
+        "local-port": {"type": "port"},
+        "protocol": {"type": "str"},
+        "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
+        "disabled": {"type": "bool_str"},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the firewall D-NAT manager.
 

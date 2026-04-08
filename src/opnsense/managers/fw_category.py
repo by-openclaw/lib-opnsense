@@ -51,6 +51,11 @@ class FwCategoryManager(BaseManager):
 
     REDACT_FIELDS: set[str] = set()
 
+    _validators = {
+        "name": {"type": "str", "required": True, "max_length": 255},
+        "color": {"type": "color"},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the firewall category manager.
 

@@ -44,6 +44,7 @@ class TestEnsurePresent:
                 "uuid": "uuid-existing",
                 "description": "Masquerade DMZ to WAN",
                 "interface": "wan",
+                "source_net": "10.6.225.0/24",
                 "target": "wanip",
             },
         ]
@@ -51,7 +52,12 @@ class TestEnsurePresent:
         mgr = FwSourceNatManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"description": "Masquerade DMZ to WAN", "interface": "wan", "target": "wanip"},
+            params={
+                "description": "Masquerade DMZ to WAN",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+                "target": "wanip",
+            },
         )
 
         assert result.changed is False
@@ -59,10 +65,22 @@ class TestEnsurePresent:
 
     async def test_update_when_target_changes(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [
-            {"uuid": "uuid-existing", "description": "SNAT rule", "target": "wanip"},
+            {
+                "uuid": "uuid-existing",
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+                "target": "wanip",
+            },
         ]
         mock_client.get.return_value = {
-            "rule": {"uuid": "uuid-existing", "description": "SNAT rule", "target": "wanip"},
+            "rule": {
+                "uuid": "uuid-existing",
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+                "target": "wanip",
+            },
         }
         mock_client.update.return_value = {"result": "saved"}
         mock_client.reconfigure.return_value = {"status": "ok"}
@@ -70,7 +88,12 @@ class TestEnsurePresent:
         mgr = FwSourceNatManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"description": "SNAT rule", "target": "10.6.224.1"},
+            params={
+                "description": "SNAT rule",
+                "interface": "wan",
+                "source_net": "10.6.225.0/24",
+                "target": "10.6.224.1",
+            },
         )
 
         assert result.changed is True
@@ -141,7 +164,10 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="present", params={"description": "bad"})
+            await mgr.ensure(
+                state="present",
+                params={"description": "bad", "interface": "wan", "source_net": "10.6.225.0/24"},
+            )
 
         assert any("create failed" in r.message for r in caplog.records)
 
@@ -155,6 +181,9 @@ class TestErrorHandling:
 
         mgr = FwSourceNatManager(mock_client)
         with pytest.raises(OpnsenseValidationError) as exc_info:
-            await mgr.ensure(state="present", params={"description": "bad"})
+            await mgr.ensure(
+                state="present",
+                params={"description": "bad", "interface": "wan", "source_net": "10.6.225.0/24"},
+            )
 
         assert exc_info.value.validations == {"rule.interface": "required"}

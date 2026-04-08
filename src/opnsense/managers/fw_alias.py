@@ -54,6 +54,38 @@ class FwAliasManager(BaseManager):
 
     REDACT_FIELDS = {"password", "username"}
 
+    _validators = {
+        "name": {
+            "type": "str",
+            "required": True,
+            "max_length": 32,
+            "regex": r"^[a-zA-Z0-9_]+$",
+        },
+        "type": {
+            "type": "enum",
+            "values": [
+                "host",
+                "network",
+                "port",
+                "url",
+                "urltable",
+                "urljson",
+                "geoip",
+                "networkgroup",
+                "mac",
+                "asn",
+                "dynipv6host",
+                "authgroup",
+                "internal",
+                "external",
+            ],
+        },
+        "content": {"type": "str", "max_length": 10000},
+        "description": {"type": "str", "max_length": 255},
+        "enabled": {"type": "bool_str"},
+        "updatefreq": {"type": "str", "max_length": 10},
+    }
+
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the firewall alias manager.
 

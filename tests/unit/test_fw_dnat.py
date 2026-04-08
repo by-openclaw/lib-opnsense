@@ -47,13 +47,19 @@ class TestEnsurePresent:
                 "descr": "Forward HTTPS to web server",
                 "interface": "wan",
                 "protocol": "tcp",
+                "target": "10.6.225.10",
             },
         ]
 
         mgr = FwDnatManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"descr": "Forward HTTPS to web server", "interface": "wan", "protocol": "tcp"},
+            params={
+                "descr": "Forward HTTPS to web server",
+                "interface": "wan",
+                "protocol": "tcp",
+                "target": "10.6.225.10",
+            },
         )
 
         assert result.changed is False
@@ -193,6 +199,9 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseValidationError),
         ):
-            await mgr.ensure(state="present", params={"descr": "bad"})
+            await mgr.ensure(
+                state="present",
+                params={"descr": "bad", "interface": "wan", "target": "10.6.225.10"},
+            )
 
         assert any("create failed" in r.message for r in caplog.records)
