@@ -95,7 +95,7 @@ src/opnsense/
 
 ---
 
-## Managers (53 total)
+## Managers (54 total)
 
 | Scope | Managers | Status |
 |-------|:-------:|--------|
@@ -113,6 +113,7 @@ src/opnsense/
 | Captive Portal (guest network zones) | 1 | all integration tested |
 | Syslog (remote destinations) | 1 | all integration tested |
 | Cron (scheduled jobs) | 1 | all integration tested |
+| DynDNS (Cloudflare, AWS, custom — A/AAAA updates) | 1 | integration tested |
 | Plugin management (list, install, remove) | 1 | integration tested |
 
 Full per-manager table with match keys, endpoints, and test status: [docs/api-coverage.md](docs/api-coverage.md)

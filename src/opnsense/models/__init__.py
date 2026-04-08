@@ -8,6 +8,7 @@ from opnsense.models.auth_user import AuthUser
 from opnsense.models.base import EnsureResult
 from opnsense.models.cp_zone import CpZone
 from opnsense.models.cron_job import CronJob
+from opnsense.models.ddns_account import DdnsAccount
 from opnsense.models.fw_alias import FwAlias
 from opnsense.models.fw_category import FwCategory
 from opnsense.models.fw_dnat import FwDnatRule
@@ -60,6 +61,7 @@ __all__ = [
     "AuthUser",
     "CpZone",
     "CronJob",
+    "DdnsAccount",
     "EnsureResult",
     "FwAlias",
     "FwCategory",

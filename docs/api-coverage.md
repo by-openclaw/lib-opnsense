@@ -27,7 +27,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 53 |
+| Managers done (integration tested) | 54 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -146,6 +146,12 @@
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
 | cron-job | `CronJobManager` | `description` | `cron/settings` Job | `INTEGRATION_TEST_PASSED` | Plural search (searchJobs). Scheduled tasks |
+
+## DynDNS (requires reconfigure)
+
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| ddns-account | `DdnsAccountManager` | `description` | `dyndns/accounts` Item | `INTEGRATION_TEST_PASSED` | Built-in on 26.1 (not os-ddclient). Supports Cloudflare, AWS, etc. Redacts password. hostnames + checkip required |
 
 ## Trust / PKI
 
