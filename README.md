@@ -96,28 +96,50 @@ src/opnsense/
 
 ## Managers (20 total)
 
-| Domain | Manager | Match keys | Apply |
-|--------|---------|------------|-------|
-| Auth | AuthUserManager | `name` | immediate |
-| Auth | AuthGroupManager | `name` | immediate |
-| Auth | AuthPrivManager (standalone) | — | immediate |
-| Auth | AuthApiKeyManager (standalone) | — | immediate |
-| FW | FwAliasManager | `name` | reconfigure |
-| FW | FwFilterManager | `description, interface, direction, protocol` | apply |
-| FW | FwDnatManager | `descr, interface, target` | apply |
-| FW | FwSourceNatManager | `description, interface, source_net` | apply |
-| FW | FwOneToOneManager | `description, interface, source_net` | apply |
-| FW | FwCategoryManager | `name` | immediate |
-| FW | FwGroupManager | `ifname` | immediate |
-| IF | IfVlanManager | `tag, if` | reconfigure |
-| IF | IfVipManager | `address, interface, mode` | reconfigure |
-| TS | TsPipeManager | `description, bandwidth, bandwidthMetric` | reconfigure |
-| DNS | UbHostOverrideManager | `hostname, domain, server` | reconfigure |
-| DNS | UbHostAliasManager | `hostname, domain` | reconfigure (create+read only on 26.1.5) |
-| DNS | UbForwardManager | `domain, server` | reconfigure |
-| DNS | UbAclManager | `name` | reconfigure |
-| DNS | UbDotManager | `server, port` | reconfigure |
-| DNS | UbDiagnosticsManager (read-only) | — | — |
+### Auth (4 managers — changes apply immediately)
+
+| Manager | Match keys | Notes |
+|---------|------------|-------|
+| AuthUserManager | `name` | CRUD + ensure, redacts password/otp |
+| AuthGroupManager | `name` | CRUD + ensure |
+| AuthPrivManager | — | Standalone, privilege assignment |
+| AuthApiKeyManager | — | Standalone, API key lifecycle |
+
+### Firewall (7 managers — requires apply/reconfigure)
+
+| Manager | Match keys | Notes |
+|---------|------------|-------|
+| FwAliasManager | `name` | Host, network, port, URL aliases |
+| FwFilterManager | `description, interface, direction, protocol` | Pass/block/reject rules |
+| FwDnatManager | `descr, interface, target` | Port forwarding (D-NAT) |
+| FwSourceNatManager | `description, interface, source_net` | Outbound NAT / masquerade |
+| FwOneToOneManager | `description, interface, source_net` | Bidirectional 1:1 NAT |
+| FwCategoryManager | `name` | Rule categories (immediate) |
+| FwGroupManager | `ifname` | Interface groups (immediate) |
+
+### Interfaces (2 managers — requires reconfigure)
+
+| Manager | Match keys | Notes |
+|---------|------------|-------|
+| IfVlanManager | `tag, if` | 802.1Q VLAN sub-interfaces |
+| IfVipManager | `address, interface, mode` | Virtual IPs (alias, CARP, proxy ARP) |
+
+### Traffic Shaper (1 manager — requires reconfigure)
+
+| Manager | Match keys | Notes |
+|---------|------------|-------|
+| TsPipeManager | `description, bandwidth, bandwidthMetric` | Bandwidth pipes |
+
+### Unbound DNS (6 managers — requires reconfigure)
+
+| Manager | Match keys | Notes |
+|---------|------------|-------|
+| UbHostOverrideManager | `hostname, domain, server` | Local A/AAAA/MX records |
+| UbHostAliasManager | `hostname, domain` | CNAME-like aliases (create+read only on 26.1.5) |
+| UbForwardManager | `domain, server` | Domain-specific DNS forwarding |
+| UbAclManager | `name` | Resolver access control lists |
+| UbDotManager | `server, port` | DNS-over-TLS upstream servers |
+| UbDiagnosticsManager | — | Read-only: stats + DNSBL config |
 
 ### API coverage
 
