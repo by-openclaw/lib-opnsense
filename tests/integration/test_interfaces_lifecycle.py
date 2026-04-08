@@ -62,12 +62,22 @@ class TestVlanCRUD:
         rows = await mgr.list(search_phrase="inttest")
         assert any(r.get("descr") == VLAN_DESCR for r in rows)
 
-    async def test_05_update_pcp(self, opn_client: OpnsenseClient) -> None:
-        """Update PCP priority -> changed."""
+    async def test_05_update_descr(self, opn_client: OpnsenseClient) -> None:
+        """Update description -> changed (descr is not a match key anymore)."""
         mgr = IfVlanManager(opn_client)
         result = await mgr.ensure(
             state="present",
-            params={"if": "vtnet0", "tag": "1399", "pcp": "3", "descr": VLAN_DESCR},
+            params={"if": "vtnet0", "tag": "1399", "descr": "inttest-vlan-updated"},
+        )
+        assert result.changed is True
+        assert result.action == "updated"
+
+    async def test_05b_restore_descr(self, opn_client: OpnsenseClient) -> None:
+        """Restore original description for delete test."""
+        mgr = IfVlanManager(opn_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"if": "vtnet0", "tag": "1399", "descr": VLAN_DESCR},
         )
         assert result.changed is True
         assert result.action == "updated"
@@ -75,14 +85,20 @@ class TestVlanCRUD:
     async def test_06_delete_vlan(self, opn_client: OpnsenseClient) -> None:
         """Delete the test VLAN."""
         mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"descr": VLAN_DESCR})
+        result = await mgr.ensure(
+            state="absent",
+            params={"tag": "1399", "if": "vtnet0"},
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_07_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"descr": VLAN_DESCR})
+        result = await mgr.ensure(
+            state="absent",
+            params={"tag": "1399", "if": "vtnet0"},
+        )
         assert result.changed is False
         assert result.action == "noop"
 
@@ -130,17 +146,21 @@ class TestVipCrud:
         rows = await mgr.list(search_phrase="inttest")
         assert any(r.get("descr") == VIP_DESCR for r in rows)
 
-    async def test_04_update_address(self, opn_client: OpnsenseClient) -> None:
-        """Update VIP address -> changed."""
+    async def test_04_update_descr(self, opn_client: OpnsenseClient) -> None:
+        """Update VIP description -> changed.
+
+        Note: ``address`` is a composite match key and cannot be used for
+        drift/update tests.  We update ``descr`` instead.
+        """
         mgr = IfVipManager(opn_client)
         result = await mgr.ensure(
             state="present",
             params={
                 "interface": "lan",
                 "mode": "ipalias",
-                "address": "10.11.1.201/32",
-                "network": "10.11.1.201/32",
-                "descr": VIP_DESCR,
+                "address": "10.11.1.200/32",
+                "network": "10.11.1.200/32",
+                "descr": VIP_DESCR + "-updated",
             },
         )
         assert result.changed is True
@@ -149,25 +169,47 @@ class TestVipCrud:
     async def test_05_check_mode_delete(self, opn_client: OpnsenseClient) -> None:
         """check_mode delete -> reports changed but VIP still exists."""
         mgr = IfVipManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"descr": VIP_DESCR}, check_mode=True)
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "address": "10.11.1.200/32",
+                "interface": "lan",
+                "mode": "ipalias",
+            },
+            check_mode=True,
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
         # VIP should still exist
         rows = await mgr.list(search_phrase="inttest")
-        assert any(r.get("descr") == VIP_DESCR for r in rows)
+        assert any(r.get("descr", "").startswith(VIP_DESCR) for r in rows)
 
     async def test_06_delete_vip(self, opn_client: OpnsenseClient) -> None:
         """Delete the VIP."""
         mgr = IfVipManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"descr": VIP_DESCR})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "address": "10.11.1.200/32",
+                "interface": "lan",
+                "mode": "ipalias",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_07_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = IfVipManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"descr": VIP_DESCR})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "address": "10.11.1.200/32",
+                "interface": "lan",
+                "mode": "ipalias",
+            },
+        )
         assert result.changed is False
         assert result.action == "noop"
 

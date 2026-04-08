@@ -60,7 +60,7 @@ class IfVipManager(BaseManager):
     _payload_key = "vip"
     _entity_suffix = "Item"
     _apply_endpoint = "interfaces/vip_settings/reconfigure"
-    _match_key = "descr"
+    _match_keys = ["address", "interface", "mode"]
 
     REDACT_FIELDS = {"password"}  # CARP password
 

@@ -54,7 +54,7 @@ class TsPipeManager(BaseManager):
     _payload_key = "pipe"
     _entity_suffix = "Pipe"  # get_pipe, add_pipe, set_pipe, del_pipe
     _apply_endpoint = "trafficshaper/service/reconfigure"
-    _match_key = "description"
+    _match_keys = ["description", "bandwidth", "bandwidthMetric"]
 
     REDACT_FIELDS: set[str] = set()
 

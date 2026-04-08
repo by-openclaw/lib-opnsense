@@ -63,14 +63,14 @@ class TestEnsurePresent:
         assert result.uuid == "uuid-1"
         mock_client.reconfigure.assert_not_awaited()
 
-    async def test_update_when_address_changes(self, mock_client: AsyncMock) -> None:
-        """ensure present when address changed -> update + reconfigure."""
+    async def test_update_when_network_changes(self, mock_client: AsyncMock) -> None:
+        """ensure present when network changed -> update + reconfigure."""
         mock_client.search.return_value = [{"uuid": "uuid-1", **VIP_PARAMS}]
         mock_client.get.return_value = {"vip": {"uuid": "uuid-1", **VIP_PARAMS}}
         mock_client.update.return_value = {"result": "saved"}
         mock_client.reconfigure.return_value = {"status": "ok"}
 
-        updated = {**VIP_PARAMS, "address": "10.1.3.201"}
+        updated = {**VIP_PARAMS, "network": "24"}
         mgr = IfVipManager(mock_client)
         result = await mgr.ensure(state="present", params=updated)
 
@@ -92,7 +92,10 @@ class TestEnsureAbsent:
         mock_client.reconfigure.return_value = {"status": "ok"}
 
         mgr = IfVipManager(mock_client)
-        result = await mgr.ensure(state="absent", params={"descr": "inttest-vip-svc"})
+        result = await mgr.ensure(
+            state="absent",
+            params={"address": "10.1.3.200", "interface": "lan", "mode": "ipalias"},
+        )
 
         assert result.changed is True
         assert result.action == "deleted"
@@ -132,7 +135,9 @@ class TestCheckMode:
 
         mgr = IfVipManager(mock_client)
         result = await mgr.ensure(
-            state="absent", params={"descr": "inttest-vip-svc"}, check_mode=True
+            state="absent",
+            params={"address": "10.1.3.200", "interface": "lan", "mode": "ipalias"},
+            check_mode=True,
         )
 
         assert result.changed is True
@@ -224,8 +229,17 @@ class TestErrorHandling:
     async def test_delete_failure_logs_error_and_reraises(
         self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
     ) -> None:
-        mock_client.search.return_value = [{"uuid": "uuid-1", "descr": "test"}]
-        mock_client.get.return_value = {"vip": {"uuid": "uuid-1", "descr": "test"}}
+        mock_client.search.return_value = [
+            {"uuid": "uuid-1", "address": "10.1.3.200", "interface": "lan", "mode": "ipalias"},
+        ]
+        mock_client.get.return_value = {
+            "vip": {
+                "uuid": "uuid-1",
+                "address": "10.1.3.200",
+                "interface": "lan",
+                "mode": "ipalias",
+            },
+        }
         mock_client.delete.side_effect = OpnsenseError(message="server error", status_code=500)
 
         mgr = IfVipManager(mock_client)
@@ -233,7 +247,10 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseError),
         ):
-            await mgr.ensure(state="absent", params={"descr": "test"})
+            await mgr.ensure(
+                state="absent",
+                params={"address": "10.1.3.200", "interface": "lan", "mode": "ipalias"},
+            )
 
         assert any("delete failed" in r.message for r in caplog.records)
 

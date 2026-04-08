@@ -57,7 +57,7 @@ class FwDnatManager(BaseManager):
     _payload_key = "rule"
     _entity_suffix = "Rule"  # search_rule, get_rule, add_rule, set_rule, del_rule
     _apply_endpoint = "firewall/d_nat/apply"
-    _match_key = "descr"  # D-NAT uses 'descr' not 'description'
+    _match_keys = ["descr", "interface", "target"]  # D-NAT uses 'descr' not 'description'
 
     REDACT_FIELDS: set[str] = set()
 

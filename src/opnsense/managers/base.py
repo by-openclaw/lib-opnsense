@@ -39,6 +39,7 @@ from abc import ABC
 from typing import Any
 
 from opnsense.client import OpnsenseClient
+from opnsense.exceptions import AmbiguousMatchError
 from opnsense.models.base import EnsureResult
 
 logger = logging.getLogger(__name__)
@@ -51,7 +52,11 @@ class BaseManager(ABC):
         _endpoint:       API domain path (e.g. 'auth/user')
         _payload_key:    Top-level JSON key for payloads (e.g. 'user')
         _apply_endpoint: Reconfigure endpoint, or None if changes are immediate
-        _match_key:      Field name used to match existing resources (e.g. 'name')
+
+    Identity — set ONE of:
+        _match_key:      Single field name (e.g. 'name'). Legacy, for API-enforced unique fields.
+        _match_keys:     List of fields forming composite identity (e.g. ['tag', 'if']).
+                         Preferred for all new managers. Raises AmbiguousMatchError on >1 match.
 
     Subclasses may override:
         REDACT_FIELDS:   Set of field names to redact in results/logs
@@ -64,7 +69,8 @@ class BaseManager(ABC):
     _endpoint: str
     _payload_key: str
     _apply_endpoint: str | None
-    _match_key: str
+    _match_key: str | None = None  # Legacy single key
+    _match_keys: list[str] | None = None  # Composite identity (preferred)
     _entity_suffix: str | None = None  # None = auto from _payload_key
 
     REDACT_FIELDS: set[str] = set()
@@ -80,6 +86,33 @@ class BaseManager(ABC):
     # ------------------------------------------------------------------
     # Endpoint helpers
     # ------------------------------------------------------------------
+
+    def _effective_match_keys(self) -> list[str]:
+        """Resolve the composite match keys for this manager.
+
+        Returns _match_keys if set, otherwise wraps _match_key in a list.
+        Raises NotImplementedError if neither is defined.
+        """
+        if self._match_keys is not None:
+            return list(self._match_keys)
+        if self._match_key is not None:
+            return [self._match_key]
+        raise NotImplementedError(
+            f"{self.__class__.__name__} must define _match_key or _match_keys"
+        )
+
+    def _match_log_fields(self, params: dict[str, Any]) -> dict[str, Any]:
+        """Build log extra fields for match keys from params."""
+        keys = self._effective_match_keys()
+        return {
+            "match_keys": {k: str(params.get(k, "")) for k in keys},
+            "endpoint": self._endpoint,
+        }
+
+    def _match_label(self, params: dict[str, Any]) -> str:
+        """Human-readable label for log messages: 'key1=val1 key2=val2'."""
+        keys = self._effective_match_keys()
+        return " ".join(f"{k}={params.get(k, '')}" for k in keys)
 
     @property
     def _suffix(self) -> str:
@@ -147,20 +180,18 @@ class BaseManager(ABC):
             EnsureResult with action='created'.
         """
         t0 = time.monotonic()
-        match_val = params.get(self._match_key, "")
+        label = self._match_label(params)
+        log_extra = self._match_log_fields(params)
         redacted_after = self._redact(params)
         if check_mode:
             logger.info(
-                "create check_mode=True %s=%s",
-                self._match_key,
-                match_val,
+                "create check_mode=True %s",
+                label,
                 extra={
                     "action": "created",
                     "check_mode": True,
                     "changed": True,
-                    "match_field": self._match_key,
-                    "match_value": match_val,
-                    "endpoint": self._endpoint,
+                    **log_extra,
                     "after": redacted_after,
                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
@@ -177,15 +208,12 @@ class BaseManager(ABC):
             await self._apply()
         except Exception as exc:
             logger.error(
-                "create failed %s=%s: %s",
-                self._match_key,
-                match_val,
+                "create failed %s: %s",
+                label,
                 exc,
                 extra={
                     "action": "create_failed",
-                    "match_field": self._match_key,
-                    "match_value": match_val,
-                    "endpoint": self._endpoint,
+                    **log_extra,
                     "error": str(exc),
                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
@@ -193,17 +221,14 @@ class BaseManager(ABC):
             raise
 
         logger.info(
-            "created %s=%s uuid=%s",
-            self._match_key,
-            match_val,
+            "created %s uuid=%s",
+            label,
             uuid,
             extra={
                 "action": "created",
                 "changed": True,
                 "uuid": uuid,
-                "match_field": self._match_key,
-                "match_value": match_val,
-                "endpoint": self._endpoint,
+                **log_extra,
                 "after": redacted_after,
                 "duration_ms": round((time.monotonic() - t0) * 1000, 1),
             },
@@ -232,6 +257,8 @@ class BaseManager(ABC):
             EnsureResult with action='updated'.
         """
         t0 = time.monotonic()
+        label = self._match_label(params)
+        log_extra = self._match_log_fields(params)
         before = await self.get(uuid)
         redacted_before = self._redact(before)
         redacted_after = self._redact(params)
@@ -239,16 +266,14 @@ class BaseManager(ABC):
         if check_mode:
             logger.info(
                 "update check_mode=True %s uuid=%s",
-                self._endpoint,
+                label,
                 uuid,
                 extra={
                     "action": "updated",
                     "check_mode": True,
                     "changed": True,
                     "uuid": uuid,
-                    "match_field": self._match_key,
-                    "match_value": params.get(self._match_key, ""),
-                    "endpoint": self._endpoint,
+                    **log_extra,
                     "before": redacted_before,
                     "after": redacted_after,
                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
@@ -269,15 +294,13 @@ class BaseManager(ABC):
         except Exception as exc:
             logger.error(
                 "update failed %s uuid=%s: %s",
-                self._endpoint,
+                label,
                 uuid,
                 exc,
                 extra={
                     "action": "update_failed",
                     "uuid": uuid,
-                    "match_field": self._match_key,
-                    "match_value": params.get(self._match_key, ""),
-                    "endpoint": self._endpoint,
+                    **log_extra,
                     "error": str(exc),
                     "before": redacted_before,
                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
@@ -287,15 +310,13 @@ class BaseManager(ABC):
 
         logger.info(
             "updated %s uuid=%s",
-            self._endpoint,
+            label,
             uuid,
             extra={
                 "action": "updated",
                 "changed": True,
                 "uuid": uuid,
-                "match_field": self._match_key,
-                "match_value": params.get(self._match_key, ""),
-                "endpoint": self._endpoint,
+                **log_extra,
                 "before": redacted_before,
                 "after": redacted_after,
                 "duration_ms": round((time.monotonic() - t0) * 1000, 1),
@@ -325,21 +346,21 @@ class BaseManager(ABC):
         """
         t0 = time.monotonic()
         before = await self.get(uuid)
+        label = self._match_label(before)
+        log_extra = self._match_log_fields(before)
         redacted_before = self._redact(before)
 
         if check_mode:
             logger.warning(
                 "delete check_mode=True %s uuid=%s",
-                self._endpoint,
+                label,
                 uuid,
                 extra={
                     "action": "deleted",
                     "check_mode": True,
                     "changed": True,
                     "uuid": uuid,
-                    "match_field": self._match_key,
-                    "match_value": before.get(self._match_key, ""),
-                    "endpoint": self._endpoint,
+                    **log_extra,
                     "before": redacted_before,
                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
@@ -358,15 +379,13 @@ class BaseManager(ABC):
         except Exception as exc:
             logger.error(
                 "delete failed %s uuid=%s: %s",
-                self._endpoint,
+                label,
                 uuid,
                 exc,
                 extra={
                     "action": "delete_failed",
                     "uuid": uuid,
-                    "match_field": self._match_key,
-                    "match_value": before.get(self._match_key, ""),
-                    "endpoint": self._endpoint,
+                    **log_extra,
                     "error": str(exc),
                     "before": redacted_before,
                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
@@ -376,15 +395,13 @@ class BaseManager(ABC):
 
         logger.warning(
             "deleted %s uuid=%s",
-            self._endpoint,
+            label,
             uuid,
             extra={
                 "action": "deleted",
                 "changed": True,
                 "uuid": uuid,
-                "match_field": self._match_key,
-                "match_value": before.get(self._match_key, ""),
-                "endpoint": self._endpoint,
+                **log_extra,
                 "before": redacted_before,
                 "duration_ms": round((time.monotonic() - t0) * 1000, 1),
             },
@@ -401,6 +418,7 @@ class BaseManager(ABC):
         state: str,
         params: dict[str, Any],
         check_mode: bool = False,
+        uuid: str | None = None,
     ) -> EnsureResult:
         """Ensure a resource matches desired state — full idempotent lifecycle.
 
@@ -410,20 +428,31 @@ class BaseManager(ABC):
 
         Args:
             state:      Desired state: 'present' or 'absent'.
-            params:     Resource parameters (must include _match_key field).
+            params:     Resource parameters (must include all _match_keys fields).
             check_mode: If True, return what would happen without making changes.
+            uuid:       Optional UUID — bypasses _find_existing. Use when UUID is
+                        known (e.g. after AmbiguousMatchError, or out-of-band creation).
 
         Returns:
             EnsureResult describing what was (or would be) done.
 
         Raises:
             ValueError: If state is not 'present' or 'absent'.
+            AmbiguousMatchError: If multiple resources match the composite keys.
         """
         if state not in ("present", "absent"):
             raise ValueError(f"Invalid state '{state}'. Use 'present' or 'absent'.")
 
         t0 = time.monotonic()
-        existing = await self._find_existing(params)
+        label = self._match_label(params)
+        log_extra = self._match_log_fields(params)
+
+        # Resolve existing resource — by UUID or by composite match keys
+        if uuid is not None:
+            existing = await self.get(uuid)
+            existing["uuid"] = uuid
+        else:
+            existing = await self._find_existing(params)
 
         if state == "present":
             if existing is None:
@@ -435,17 +464,14 @@ class BaseManager(ABC):
 
             if diff is None:
                 logger.debug(
-                    "noop %s=%s uuid=%s — state matches",
-                    self._match_key,
-                    params.get(self._match_key),
+                    "noop %s uuid=%s — state matches",
+                    label,
                     existing_uuid,
                     extra={
                         "action": "noop",
                         "changed": False,
                         "uuid": existing_uuid,
-                        "match_field": self._match_key,
-                        "match_value": params.get(self._match_key),
-                        "endpoint": self._endpoint,
+                        **log_extra,
                         "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                     },
                 )
@@ -456,15 +482,12 @@ class BaseManager(ABC):
         # state == "absent"
         if existing is None:
             logger.debug(
-                "noop %s=%s — already absent",
-                self._match_key,
-                params.get(self._match_key),
+                "noop %s — already absent",
+                label,
                 extra={
                     "action": "noop",
                     "changed": False,
-                    "match_field": self._match_key,
-                    "match_value": params.get(self._match_key),
-                    "endpoint": self._endpoint,
+                    **log_extra,
                     "duration_ms": round((time.monotonic() - t0) * 1000, 1),
                 },
             )
@@ -481,23 +504,48 @@ class BaseManager(ABC):
         self,
         params: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Search for an existing resource by _match_key.
+        """Search for an existing resource by composite match keys.
+
+        Uses the first match key as the search phrase (server-side substring
+        filter), then exact-matches ALL keys in Python.
 
         Args:
-            params: Parameters containing the _match_key field to search for.
+            params: Parameters containing all _match_keys fields.
 
         Returns:
-            The matching resource dict (with 'uuid' key), or None.
+            The single matching resource dict (with 'uuid' key), or None.
+
+        Raises:
+            AmbiguousMatchError: If more than one resource matches all keys.
         """
-        match_value = params.get(self._match_key, "")
-        if not match_value:
+        keys = self._effective_match_keys()
+        primary_value = str(params.get(keys[0], ""))
+        if not primary_value:
             return None
 
-        rows = await self.list(search_phrase=str(match_value))
-        for row in rows:
-            if row.get(self._match_key) == match_value:
-                return row
-        return None
+        rows = await self.list(search_phrase=primary_value)
+
+        matches = [
+            row for row in rows if all(str(row.get(k, "")) == str(params.get(k, "")) for k in keys)
+        ]
+
+        if len(matches) == 0:
+            return None
+        if len(matches) == 1:
+            return matches[0]
+
+        match_vals = {k: str(params.get(k, "")) for k in keys}
+        raise AmbiguousMatchError(
+            message=(
+                f"{self.__class__.__name__}: {len(matches)} resources match "
+                f"{match_vals}. "
+                f"UUIDs: {[m['uuid'] for m in matches]}. "
+                f"Deduplicate manually or pass uuid= to ensure()."
+            ),
+            match_keys=match_vals,
+            uuids=[m["uuid"] for m in matches],
+            endpoint=self._endpoint,
+        )
 
     def _compute_diff(
         self,

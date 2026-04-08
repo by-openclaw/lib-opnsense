@@ -59,13 +59,25 @@ class TestEnsurePresent:
         assert result.changed is False
         assert result.action == "noop"
 
-    async def test_update_when_target_changes(self, mock_client: AsyncMock) -> None:
-        """ensure present when target differs -> update + apply."""
+    async def test_update_when_local_port_changes(self, mock_client: AsyncMock) -> None:
+        """ensure present when local-port differs -> update + apply."""
         mock_client.search.return_value = [
-            {"uuid": "uuid-existing", "descr": "Forward HTTPS", "target": "10.6.225.10"},
+            {
+                "uuid": "uuid-existing",
+                "descr": "Forward HTTPS",
+                "interface": "wan",
+                "target": "10.6.225.10",
+                "local-port": "443",
+            },
         ]
         mock_client.get.return_value = {
-            "rule": {"uuid": "uuid-existing", "descr": "Forward HTTPS", "target": "10.6.225.10"},
+            "rule": {
+                "uuid": "uuid-existing",
+                "descr": "Forward HTTPS",
+                "interface": "wan",
+                "target": "10.6.225.10",
+                "local-port": "443",
+            },
         }
         mock_client.update.return_value = {"result": "saved"}
         mock_client.reconfigure.return_value = {"status": "ok"}
@@ -73,7 +85,12 @@ class TestEnsurePresent:
         mgr = FwDnatManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"descr": "Forward HTTPS", "target": "10.6.225.20"},
+            params={
+                "descr": "Forward HTTPS",
+                "interface": "wan",
+                "target": "10.6.225.10",
+                "local-port": "8443",
+            },
         )
 
         assert result.changed is True
@@ -113,22 +130,22 @@ class TestEnsureAbsent:
 
 
 @pytest.mark.asyncio
-class TestMatchKey:
-    """D-NAT uses 'descr' not 'description' as match key."""
+class TestMatchKeys:
+    """D-NAT uses composite match keys ['descr', 'interface', 'target']."""
 
-    async def test_match_key_is_descr(self) -> None:
-        assert FwDnatManager._match_key == "descr"
+    async def test_match_keys_is_composite(self) -> None:
+        assert FwDnatManager._match_keys == ["descr", "interface", "target"]
 
-    async def test_search_matches_on_descr(self, mock_client: AsyncMock) -> None:
+    async def test_search_matches_on_composite_keys(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [
-            {"uuid": "uuid-1", "descr": "Rule A"},
-            {"uuid": "uuid-2", "descr": "Rule B"},
+            {"uuid": "uuid-1", "descr": "Rule A", "interface": "wan", "target": "10.0.0.1"},
+            {"uuid": "uuid-2", "descr": "Rule B", "interface": "wan", "target": "10.0.0.2"},
         ]
 
         mgr = FwDnatManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"descr": "Rule B", "interface": "wan"},
+            params={"descr": "Rule B", "interface": "wan", "target": "10.0.0.2"},
         )
 
         # Should match Rule B, detect no drift on existing fields

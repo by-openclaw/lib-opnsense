@@ -384,14 +384,30 @@ class TestFilterCRUD:
     async def test_05_delete_filter_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the filter rule."""
         mgr = FwFilterManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": FILTER_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": FILTER_DESC,
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_06_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = FwFilterManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": FILTER_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": FILTER_DESC,
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        )
         assert result.changed is False
         assert result.action == "noop"
 
@@ -442,8 +458,12 @@ class TestDnatCRUD:
         assert result.changed is False
         assert result.action == "noop"
 
-    async def test_03_update_target(self, opn_client: OpnsenseClient) -> None:
-        """Update D-NAT target -> changed (still disabled)."""
+    async def test_03_update_local_port(self, opn_client: OpnsenseClient) -> None:
+        """Update D-NAT local-port -> changed (still disabled).
+
+        Note: ``target`` is a composite match key and cannot be used for
+        drift/update tests.  We update ``local-port`` instead.
+        """
         mgr = FwDnatManager(opn_client)
         result = await mgr.ensure(
             state="present",
@@ -452,8 +472,8 @@ class TestDnatCRUD:
                 "interface": "wan",
                 "ipprotocol": "inet",
                 "protocol": "tcp",
-                "target": "10.11.2.11",
-                "local-port": "80",
+                "target": "10.11.2.10",
+                "local-port": "8080",
                 "disabled": "1",
             },
         )
@@ -463,7 +483,14 @@ class TestDnatCRUD:
     async def test_04_delete_dnat_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the D-NAT rule."""
         mgr = FwDnatManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"descr": DNAT_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "descr": DNAT_DESC,
+                "interface": "wan",
+                "target": "10.11.2.10",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
@@ -514,7 +541,14 @@ class TestSourceNatCRUD:
     async def test_03_delete_snat_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the source NAT rule."""
         mgr = FwSourceNatManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": SNAT_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": SNAT_DESC,
+                "interface": "wan",
+                "source_net": "10.11.3.0/24",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
@@ -564,14 +598,28 @@ class TestOneToOneCRUD:
     async def test_03_delete_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the 1:1 NAT rule."""
         mgr = FwOneToOneManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": ONETOONE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": ONETOONE_DESC,
+                "interface": "wan",
+                "source_net": "10.11.2.10/32",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_04_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = FwOneToOneManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": ONETOONE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": ONETOONE_DESC,
+                "interface": "wan",
+                "source_net": "10.11.2.10/32",
+            },
+        )
         assert result.changed is False
         assert result.action == "noop"
 
@@ -709,15 +757,21 @@ class TestPipeCRUD:
         assert result.changed is False
         assert result.action == "noop"
 
-    async def test_03_update_bandwidth(self, opn_client: OpnsenseClient) -> None:
-        """Update bandwidth -> changed."""
+    async def test_03_update_enabled(self, opn_client: OpnsenseClient) -> None:
+        """Update enabled flag -> changed.
+
+        Note: ``bandwidth`` and ``bandwidthMetric`` are composite match keys
+        and cannot be used for drift/update tests.  We toggle ``enabled``
+        instead.
+        """
         mgr = TsPipeManager(opn_client)
         result = await mgr.ensure(
             state="present",
             params={
                 "description": PIPE_DESC,
-                "bandwidth": "20",
+                "bandwidth": "10",
                 "bandwidthMetric": "Mbit",
+                "enabled": "0",
             },
         )
         assert result.changed is True
@@ -726,14 +780,28 @@ class TestPipeCRUD:
     async def test_04_delete_pipe(self, opn_client: OpnsenseClient) -> None:
         """Delete pipe."""
         mgr = TsPipeManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": PIPE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": PIPE_DESC,
+                "bandwidth": "10",
+                "bandwidthMetric": "Mbit",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_05_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = TsPipeManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": PIPE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": PIPE_DESC,
+                "bandwidth": "10",
+                "bandwidthMetric": "Mbit",
+            },
+        )
         assert result.changed is False
         assert result.action == "noop"
 
