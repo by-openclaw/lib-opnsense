@@ -448,7 +448,20 @@ class BaseManager(ABC):
 
         # Client-side validation — reject bad params before any API call
         if self._validators and state == "present":
-            validate_params(params, self._validators)
+            try:
+                validate_params(params, self._validators)
+            except Exception as exc:
+                logger.error(
+                    "validation failed %s: %s",
+                    self.__class__.__name__,
+                    exc,
+                    extra={
+                        "action": "validation_failed",
+                        "endpoint": self._endpoint,
+                        "error": str(exc),
+                    },
+                )
+                raise
 
         t0 = time.monotonic()
         label = self._match_label(params)
