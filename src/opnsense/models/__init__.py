@@ -30,6 +30,7 @@ from opnsense.models.kea6_reservation import Kea6Reservation
 from opnsense.models.kea6_subnet import Kea6Subnet
 from opnsense.models.rt_gateway import RtGateway
 from opnsense.models.rt_route import RtRoute
+from opnsense.models.syslog_dest import SyslogDest
 from opnsense.models.ts_pipe import TsPipe
 from opnsense.models.ts_queue import TsQueue
 from opnsense.models.ts_rule import TsRule
@@ -69,6 +70,7 @@ __all__ = [
     "IfVxlan",
     "RtGateway",
     "RtRoute",
+    "SyslogDest",
     "TsPipe",
     "TsQueue",
     "TsRule",

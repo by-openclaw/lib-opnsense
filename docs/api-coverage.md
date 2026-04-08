@@ -27,7 +27,7 @@
 | CRUD domains (schema + search) | 66 |
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
-| Managers done (integration tested) | 37 |
+| Managers done (integration tested) | 38 |
 | Managers done (unit tested) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
@@ -137,9 +137,9 @@
 
 ## Syslog (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| syslog-dest | `SyslogDestManager` | `GET /api/syslog/settings/get_destination`, `POST /api/syslog/settings/search_destinations` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| syslog-dest | `SyslogDestManager` | `description` | `syslog/settings` Destination | `INTEGRATION_TEST_PASSED` | Remote syslog target. Plural search (searchDestinations). Created disabled for testing |
 
 ## Cron (requires reconfigure)
 
