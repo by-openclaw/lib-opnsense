@@ -448,6 +448,7 @@ class BaseManager(ABC):
         log_extra = self._match_log_fields(params)
 
         # Resolve existing resource — by UUID or by composite match keys
+        existing: dict[str, Any] | None
         if uuid is not None:
             existing = await self.get(uuid)
             existing["uuid"] = uuid
