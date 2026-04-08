@@ -70,6 +70,21 @@ class Kea4ReservationManager(BaseManager):
         "hw_address": {"type": "mac", "required": True},
         "hostname": {"type": "str", "max_length": 255},
         "description": {"type": "str", "max_length": 255},
+        "option_data": {
+            "type": "dict",
+            "fields": {
+                "domain_name_servers": {"type": "str"},
+                "domain_search": {"type": "str"},
+                "routers": {"type": "str"},
+                "static_routes": {"type": "str"},
+                "classless_static_route": {"type": "str"},
+                "domain_name": {"type": "str"},
+                "ntp_servers": {"type": "str"},
+                "time_servers": {"type": "str"},
+                "tftp_server_name": {"type": "str"},
+                "boot_file_name": {"type": "str"},
+            },
+        },
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

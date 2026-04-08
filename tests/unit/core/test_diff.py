@@ -83,6 +83,49 @@ class TestComputeDiff:
         assert diff == {"name": "youssef", "scope": "remote"}
 
 
+class TestNestedDictDiff:
+    """compute_diff handles nested dict comparison."""
+
+    def setup_method(self) -> None:
+        self.engine = DiffEngine()
+
+    def test_identical_nested_dicts(self) -> None:
+        current = {"options": {"dns": "10.0.0.1", "router": "10.0.0.1"}}
+        desired = {"options": {"dns": "10.0.0.1", "router": "10.0.0.1"}}
+        assert self.engine.compute_diff(current, desired) is None
+
+    def test_nested_dict_with_difference(self) -> None:
+        current = {"options": {"dns": "10.0.0.1", "router": "10.0.0.1"}}
+        desired = {"options": {"dns": "10.0.0.2", "router": "10.0.0.1"}}
+        diff = self.engine.compute_diff(current, desired)
+        assert diff is not None
+        assert "options" in diff
+
+    def test_nested_dict_with_enum_normalization(self) -> None:
+        """Nested enum dict (OPNsense read format) compared to flat write value."""
+        current = {
+            "options": {
+                "dns": {"10.0.0.1": {"value": "10.0.0.1", "selected": 1}},
+            }
+        }
+        desired = {"options": {"dns": "10.0.0.1"}}
+        assert self.engine.compute_diff(current, desired) is None
+
+    def test_nested_dict_desired_missing_from_current(self) -> None:
+        """Desired has nested dict but current doesn't have that key."""
+        current = {"name": "test"}
+        desired = {"name": "test", "options": {"dns": "10.0.0.1"}}
+        assert self.engine.compute_diff(current, desired) is None
+
+    def test_dnat_source_destination(self) -> None:
+        """D-NAT nested source/destination comparison."""
+        current = {"source": {"network": "", "port": "", "not": "0"}}
+        desired = {"source": {"network": "10.0.0.0/8", "not": "1"}}
+        diff = self.engine.compute_diff(current, desired)
+        assert diff is not None
+        assert "source" in diff
+
+
 class TestNormalizeValue:
     """normalize_value handles OPNsense enum dict formats."""
 

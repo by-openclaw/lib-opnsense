@@ -165,6 +165,62 @@ class TestFieldValidatorProtocol:
         assert isinstance(validate_str, FieldValidator)
 
 
+class TestDictValidator:
+    """Dict type validator — nested sub-field validation."""
+
+    def setup_method(self) -> None:
+        self.registry = ValidatorRegistry()
+
+    def test_dict_with_valid_sub_fields(self) -> None:
+        self.registry.validate_params(
+            {"options": {"dns": "10.0.0.1", "router": "10.0.0.1"}},
+            {
+                "options": {
+                    "type": "dict",
+                    "fields": {
+                        "dns": {"type": "str"},
+                        "router": {"type": "str"},
+                    },
+                }
+            },
+        )
+
+    def test_dict_missing_optional(self) -> None:
+        """Optional dict field missing → no error."""
+        self.registry.validate_params({}, {"options": {"type": "dict"}})
+
+    def test_dict_missing_required(self) -> None:
+        with pytest.raises(FieldValidationError, match="required"):
+            self.registry.validate_params({}, {"options": {"type": "dict", "required": True}})
+
+    def test_dict_not_a_dict(self) -> None:
+        with pytest.raises(FieldValidationError, match="must be a dict"):
+            self.registry.validate_params({"options": "not_a_dict"}, {"options": {"type": "dict"}})
+
+    def test_dict_sub_field_validation(self) -> None:
+        """Sub-field type checking works recursively."""
+        with pytest.raises(FieldValidationError, match="must be '0' or '1'"):
+            self.registry.validate_params(
+                {"options": {"enabled": "yes"}},
+                {
+                    "options": {
+                        "type": "dict",
+                        "fields": {"enabled": {"type": "bool_str"}},
+                    }
+                },
+            )
+
+    def test_dict_no_sub_validators(self) -> None:
+        """Dict without fields spec — accepts any dict."""
+        self.registry.validate_params(
+            {"options": {"anything": "goes"}}, {"options": {"type": "dict"}}
+        )
+
+    def test_dict_empty_value(self) -> None:
+        """Empty string treated as missing for dict."""
+        self.registry.validate_params({"options": ""}, {"options": {"type": "dict"}})
+
+
 class TestFieldValidationErrorAttributes:
     """FieldValidationError carries field, value, and rule."""
 

@@ -84,6 +84,12 @@ class DiffEngine:
                 current_value = current.get(key)
                 if current_value is None and key not in current:
                     continue
+                # Nested dict — recurse and compare sub-fields
+                if isinstance(desired_value, dict) and isinstance(current_value, dict):
+                    sub_diff = self.compute_diff(current_value, desired_value)
+                    if sub_diff is not None:
+                        diff[key] = str(desired_value)
+                    continue
                 normalized = self.normalize_value(current_value)
                 if normalized != str(desired_value):
                     diff[key] = str(desired_value)
