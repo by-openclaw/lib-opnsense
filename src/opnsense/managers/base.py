@@ -1,30 +1,31 @@
 # Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
 # SPDX-License-Identifier: MIT
 # Repo: https://github.com/by-openclaw/lib-opnsense
-"""Base manager — abstract class for OPNsense API domain managers.
+"""Base manager — thin orchestrator composing core/ components.
 
-Provides the full CRUD + ensure() lifecycle with:
-- Idempotent ensure() using fetch-diff-noop semantics
-- check_mode (dry_run) support on all destructive methods
-- Field redaction for sensitive data in logs/results
-- Automatic reconfigure after mutations (when _apply_endpoint is set)
+Provides the full CRUD + ensure() lifecycle by delegating to:
+    - core/identity.py    — IdentityResolver (match keys + find_existing)
+    - core/diff.py        — DiffEngine (state comparison)
+    - core/redaction.py   — Redactor (field redaction)
+    - core/validation.py  — ValidatorRegistry (field validation)
+    - core/endpoint.py    — EndpointResolver (URL construction)
+    - core/logging_helpers.py — ManagerLogBuilder (structured log dicts)
 
 Logging contract — every ensure() outcome logs these fields
 (designed for Ansible -vvvvvv compatibility):
 
-+-----------------+-------+-------+------+--------+-------+---------+-------------+
-| Log site        | match | match | uuid | before | after | changed | duration_ms |
-|                 | field | value |      |        |       |         |             |
-+-----------------+-------+-------+------+--------+-------+---------+-------------+
-| create chk_mode |  yes  |  yes  |  --  |   --   |  yes  |   yes   |     yes     |
-| created         |  yes  |  yes  | yes  |   --   |  yes  |   yes   |     yes     |
-| update chk_mode |  yes  |  yes  | yes  |  yes   |  yes  |   yes   |     yes     |
-| updated         |  yes  |  yes  | yes  |  yes   |  yes  |   yes   |     yes     |
-| delete chk_mode |  yes  |  yes  | yes  |  yes   |  --   |   yes   |     yes     |
-| deleted         |  yes  |  yes  | yes  |  yes   |  --   |   yes   |     yes     |
-| noop            |  yes  |  yes  | yes  |   --   |  --   |   yes   |     yes     |
-| error (all)     |  yes  |  yes  | yes* |  yes*  |  --   |   --    |     yes     |
-+-----------------+-------+-------+------+--------+-------+---------+-------------+
++-----------------+-------+------+--------+-------+---------+-------------+
+| Log site        | match | uuid | before | after | changed | duration_ms |
++-----------------+-------+------+--------+-------+---------+-------------+
+| create chk_mode |  yes  |  --  |   --   |  yes  |   yes   |     yes     |
+| created         |  yes  | yes  |   --   |  yes  |   yes   |     yes     |
+| update chk_mode |  yes  | yes  |  yes   |  yes  |   yes   |     yes     |
+| updated         |  yes  | yes  |  yes   |  yes  |   yes   |     yes     |
+| delete chk_mode |  yes  | yes  |  yes   |  --   |   yes   |     yes     |
+| deleted         |  yes  | yes  |  yes   |  --   |   yes   |     yes     |
+| noop            |  yes  | yes  |   --   |  --   |   yes   |     yes     |
+| error (all)     |  yes  | yes* |  yes*  |  --   |   --    |     yes     |
++-----------------+-------+------+--------+-------+---------+-------------+
 * = when available
 
 Severity: DEBUG=noop, INFO=create/update, WARNING=delete, ERROR=failure.
@@ -32,18 +33,25 @@ Severity: DEBUG=noop, INFO=create/update, WARNING=delete, ERROR=failure.
 
 from __future__ import annotations
 
-import copy
 import logging
-import time
 from abc import ABC
 from typing import Any
 
 from opnsense.client import OpnsenseClient
-from opnsense.exceptions import AmbiguousMatchError
+from opnsense.core.diff import DiffEngine
+from opnsense.core.endpoint import EndpointConfig, EndpointResolver
+from opnsense.core.identity import IdentityResolver
+from opnsense.core.logging_helpers import ManagerLogBuilder
+from opnsense.core.redaction import Redactor
+from opnsense.core.validation import ValidatorRegistry
 from opnsense.models.base import EnsureResult
-from opnsense.validators import validate_params
 
 logger = logging.getLogger(__name__)
+
+# Shared instances — stateless, safe to reuse across managers
+_diff_engine = DiffEngine()
+_redactor = Redactor()
+_validator_registry = ValidatorRegistry()
 
 
 class BaseManager(ABC):
@@ -85,48 +93,27 @@ class BaseManager(ABC):
         """
         self._client = client
 
-    # ------------------------------------------------------------------
-    # Endpoint helpers
-    # ------------------------------------------------------------------
+        # Resolve composite match keys
+        match_keys = self._match_keys or ([self._match_key] if self._match_key else None)
+        if not match_keys:
+            raise NotImplementedError(
+                f"{self.__class__.__name__} must define _match_key or _match_keys"
+            )
 
-    def _effective_match_keys(self) -> list[str]:
-        """Resolve the composite match keys for this manager.
-
-        Returns _match_keys if set, otherwise wraps _match_key in a list.
-        Raises NotImplementedError if neither is defined.
-        """
-        if self._match_keys is not None:
-            return list(self._match_keys)
-        if self._match_key is not None:
-            return [self._match_key]
-        raise NotImplementedError(
-            f"{self.__class__.__name__} must define _match_key or _match_keys"
+        # Build core components
+        self._identity = IdentityResolver(
+            match_keys=match_keys,
+            endpoint=self._endpoint,
+            manager_name=self.__class__.__name__,
         )
-
-    def _match_log_fields(self, params: dict[str, Any]) -> dict[str, Any]:
-        """Build log extra fields for match keys from params."""
-        keys = self._effective_match_keys()
-        return {
-            "match_keys": {k: str(params.get(k, "")) for k in keys},
-            "endpoint": self._endpoint,
-        }
-
-    def _match_label(self, params: dict[str, Any]) -> str:
-        """Human-readable label for log messages: 'key1=val1 key2=val2'."""
-        keys = self._effective_match_keys()
-        return " ".join(f"{k}={params.get(k, '')}" for k in keys)
-
-    @property
-    def _suffix(self) -> str:
-        """Resolve entity suffix for endpoint URLs.
-
-        Returns the _entity_suffix if explicitly set, otherwise capitalizes
-        _payload_key. Set _entity_suffix = '' for controllers using bare
-        action names (e.g. auth/user/search instead of auth/user/searchUser).
-        """
-        if self._entity_suffix is not None:
-            return self._entity_suffix
-        return self._payload_key.capitalize()
+        self._endpoints = EndpointResolver(
+            EndpointConfig(
+                base=self._endpoint,
+                payload_key=self._payload_key,
+                entity_suffix=self._entity_suffix,
+                apply_endpoint=self._apply_endpoint,
+            )
+        )
 
     # ------------------------------------------------------------------
     # Public CRUD methods
@@ -141,9 +128,8 @@ class BaseManager(ABC):
         Returns:
             List of resource dicts.
         """
-        endpoint = f"{self._endpoint}/search{self._suffix}"
         try:
-            return await self._client.search(endpoint, search_phrase=search_phrase)
+            return await self._client.search(self._endpoints.search(), search_phrase=search_phrase)
         except Exception as exc:
             logger.error(
                 "list failed %s: %s",
@@ -162,9 +148,8 @@ class BaseManager(ABC):
         Returns:
             Resource dict (the inner payload, unwrapped from payload_key).
         """
-        endpoint = f"{self._endpoint}/get{self._suffix}/{uuid}"
         try:
-            body = await self._client.get(endpoint)
+            body = await self._client.get(self._endpoints.get(uuid))
         except Exception as exc:
             logger.error(
                 "get failed %s uuid=%s: %s",
@@ -187,9 +172,8 @@ class BaseManager(ABC):
         Returns:
             Schema dict showing available fields and defaults.
         """
-        endpoint = f"{self._endpoint}/get{self._suffix}"
         try:
-            body = await self._client.get(endpoint)
+            body = await self._client.get(self._endpoints.get())
         except Exception as exc:
             logger.error(
                 "get_schema failed %s: %s",
@@ -218,44 +202,38 @@ class BaseManager(ABC):
         Returns:
             EnsureResult with action='created'.
         """
-        t0 = time.monotonic()
-        label = self._match_label(params)
-        log_extra = self._match_log_fields(params)
-        redacted_after = self._redact(params)
+        log = ManagerLogBuilder()
+        label = self._identity.match_label(params)
+        match_fields = self._identity.match_log_fields(params)
+        redacted_after = _redactor.redact_dict(params, redact_fields=self.REDACT_FIELDS)
+
         if check_mode:
             logger.info(
                 "create check_mode=True %s",
                 label,
-                extra={
-                    "action": "created",
-                    "check_mode": True,
-                    "changed": True,
-                    **log_extra,
-                    "after": redacted_after,
-                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                },
+                extra=log.build_extra(
+                    "created",
+                    match_fields,
+                    after=redacted_after,
+                    changed=True,
+                    check_mode=True,
+                ),
             )
-            return EnsureResult(
-                changed=True,
-                action="created",
-                after=redacted_after,
-            )
+            return EnsureResult(changed=True, action="created", after=redacted_after)
 
-        endpoint = f"{self._endpoint}/add{self._suffix}"
         try:
-            uuid = await self._client.create(endpoint, self._payload_key, params)
+            uuid = await self._client.create(self._endpoints.add(), self._payload_key, params)
             await self._apply()
         except Exception as exc:
             logger.error(
                 "create failed %s: %s",
                 label,
                 exc,
-                extra={
-                    "action": "create_failed",
-                    **log_extra,
-                    "error": str(exc),
-                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                },
+                extra=log.build_extra(
+                    "create_failed",
+                    match_fields,
+                    error=str(exc),
+                ),
             )
             raise
 
@@ -263,14 +241,13 @@ class BaseManager(ABC):
             "created %s uuid=%s",
             label,
             uuid,
-            extra={
-                "action": "created",
-                "changed": True,
-                "uuid": uuid,
-                **log_extra,
-                "after": redacted_after,
-                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-            },
+            extra=log.build_extra(
+                "created",
+                match_fields,
+                uuid=uuid,
+                after=redacted_after,
+                changed=True,
+            ),
         )
         return EnsureResult(
             changed=True,
@@ -295,28 +272,27 @@ class BaseManager(ABC):
         Returns:
             EnsureResult with action='updated'.
         """
-        t0 = time.monotonic()
-        label = self._match_label(params)
-        log_extra = self._match_log_fields(params)
+        log = ManagerLogBuilder()
+        label = self._identity.match_label(params)
+        match_fields = self._identity.match_log_fields(params)
         before = await self.get(uuid)
-        redacted_before = self._redact(before)
-        redacted_after = self._redact(params)
+        redacted_before = _redactor.redact_dict(before, redact_fields=self.REDACT_FIELDS)
+        redacted_after = _redactor.redact_dict(params, redact_fields=self.REDACT_FIELDS)
 
         if check_mode:
             logger.info(
                 "update check_mode=True %s uuid=%s",
                 label,
                 uuid,
-                extra={
-                    "action": "updated",
-                    "check_mode": True,
-                    "changed": True,
-                    "uuid": uuid,
-                    **log_extra,
-                    "before": redacted_before,
-                    "after": redacted_after,
-                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                },
+                extra=log.build_extra(
+                    "updated",
+                    match_fields,
+                    uuid=uuid,
+                    before=redacted_before,
+                    after=redacted_after,
+                    changed=True,
+                    check_mode=True,
+                ),
             )
             return EnsureResult(
                 changed=True,
@@ -326,9 +302,8 @@ class BaseManager(ABC):
                 after=redacted_after,
             )
 
-        endpoint = f"{self._endpoint}/set{self._suffix}"
         try:
-            await self._client.update(endpoint, uuid, self._payload_key, params)
+            await self._client.update(self._endpoints.set(), uuid, self._payload_key, params)
             await self._apply()
         except Exception as exc:
             logger.error(
@@ -336,14 +311,13 @@ class BaseManager(ABC):
                 label,
                 uuid,
                 exc,
-                extra={
-                    "action": "update_failed",
-                    "uuid": uuid,
-                    **log_extra,
-                    "error": str(exc),
-                    "before": redacted_before,
-                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                },
+                extra=log.build_extra(
+                    "update_failed",
+                    match_fields,
+                    uuid=uuid,
+                    before=redacted_before,
+                    error=str(exc),
+                ),
             )
             raise
 
@@ -351,15 +325,14 @@ class BaseManager(ABC):
             "updated %s uuid=%s",
             label,
             uuid,
-            extra={
-                "action": "updated",
-                "changed": True,
-                "uuid": uuid,
-                **log_extra,
-                "before": redacted_before,
-                "after": redacted_after,
-                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-            },
+            extra=log.build_extra(
+                "updated",
+                match_fields,
+                uuid=uuid,
+                before=redacted_before,
+                after=redacted_after,
+                changed=True,
+            ),
         )
         return EnsureResult(
             changed=True,
@@ -383,26 +356,25 @@ class BaseManager(ABC):
         Returns:
             EnsureResult with action='deleted'.
         """
-        t0 = time.monotonic()
+        log = ManagerLogBuilder()
         before = await self.get(uuid)
-        label = self._match_label(before)
-        log_extra = self._match_log_fields(before)
-        redacted_before = self._redact(before)
+        label = self._identity.match_label(before)
+        match_fields = self._identity.match_log_fields(before)
+        redacted_before = _redactor.redact_dict(before, redact_fields=self.REDACT_FIELDS)
 
         if check_mode:
             logger.warning(
                 "delete check_mode=True %s uuid=%s",
                 label,
                 uuid,
-                extra={
-                    "action": "deleted",
-                    "check_mode": True,
-                    "changed": True,
-                    "uuid": uuid,
-                    **log_extra,
-                    "before": redacted_before,
-                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                },
+                extra=log.build_extra(
+                    "deleted",
+                    match_fields,
+                    uuid=uuid,
+                    before=redacted_before,
+                    changed=True,
+                    check_mode=True,
+                ),
             )
             return EnsureResult(
                 changed=True,
@@ -411,9 +383,8 @@ class BaseManager(ABC):
                 before=redacted_before,
             )
 
-        endpoint = f"{self._endpoint}/del{self._suffix}"
         try:
-            await self._client.delete(endpoint, uuid)
+            await self._client.delete(self._endpoints.delete(), uuid)
             await self._apply()
         except Exception as exc:
             logger.error(
@@ -421,14 +392,13 @@ class BaseManager(ABC):
                 label,
                 uuid,
                 exc,
-                extra={
-                    "action": "delete_failed",
-                    "uuid": uuid,
-                    **log_extra,
-                    "error": str(exc),
-                    "before": redacted_before,
-                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                },
+                extra=log.build_extra(
+                    "delete_failed",
+                    match_fields,
+                    uuid=uuid,
+                    before=redacted_before,
+                    error=str(exc),
+                ),
             )
             raise
 
@@ -436,14 +406,13 @@ class BaseManager(ABC):
             "deleted %s uuid=%s",
             label,
             uuid,
-            extra={
-                "action": "deleted",
-                "changed": True,
-                "uuid": uuid,
-                **log_extra,
-                "before": redacted_before,
-                "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-            },
+            extra=log.build_extra(
+                "deleted",
+                match_fields,
+                uuid=uuid,
+                before=redacted_before,
+                changed=True,
+            ),
         )
         return EnsureResult(
             changed=True,
@@ -486,7 +455,7 @@ class BaseManager(ABC):
         # Client-side validation — reject bad params before any API call
         if self._validators and state == "present":
             try:
-                validate_params(params, self._validators)
+                _validator_registry.validate_params(params, self._validators)
             except Exception as exc:
                 logger.error(
                     "validation failed %s: %s",
@@ -500,9 +469,9 @@ class BaseManager(ABC):
                 )
                 raise
 
-        t0 = time.monotonic()
-        label = self._match_label(params)
-        log_extra = self._match_log_fields(params)
+        log = ManagerLogBuilder()
+        label = self._identity.match_label(params)
+        match_fields = self._identity.match_log_fields(params)
 
         # Resolve existing resource — by UUID or by composite match keys
         existing: dict[str, Any] | None
@@ -510,7 +479,7 @@ class BaseManager(ABC):
             existing = await self.get(uuid)
             existing["uuid"] = uuid
         else:
-            existing = await self._find_existing(params)
+            existing = await self._identity.find_existing(params, self.list)
 
         if state == "present":
             if existing is None:
@@ -518,20 +487,19 @@ class BaseManager(ABC):
 
             # Resource exists — check for drift
             existing_uuid = existing.get("uuid", "")
-            diff = self._compute_diff(existing, params)
+            diff = _diff_engine.compute_diff(existing, params)
 
             if diff is None:
                 logger.debug(
                     "noop %s uuid=%s — state matches",
                     label,
                     existing_uuid,
-                    extra={
-                        "action": "noop",
-                        "changed": False,
-                        "uuid": existing_uuid,
-                        **log_extra,
-                        "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                    },
+                    extra=log.build_extra(
+                        "noop",
+                        match_fields,
+                        uuid=existing_uuid,
+                        changed=False,
+                    ),
                 )
                 return EnsureResult(changed=False, action="noop", uuid=existing_uuid)
 
@@ -542,12 +510,7 @@ class BaseManager(ABC):
             logger.debug(
                 "noop %s — already absent",
                 label,
-                extra={
-                    "action": "noop",
-                    "changed": False,
-                    **log_extra,
-                    "duration_ms": round((time.monotonic() - t0) * 1000, 1),
-                },
+                extra=log.build_extra("noop", match_fields, changed=False),
             )
             return EnsureResult(changed=False, action="noop")
 
@@ -558,131 +521,6 @@ class BaseManager(ABC):
     # Private helpers
     # ------------------------------------------------------------------
 
-    async def _find_existing(
-        self,
-        params: dict[str, Any],
-    ) -> dict[str, Any] | None:
-        """Search for an existing resource by composite match keys.
-
-        Uses the first match key as the search phrase (server-side substring
-        filter), then exact-matches ALL keys in Python.
-
-        Args:
-            params: Parameters containing all _match_keys fields.
-
-        Returns:
-            The single matching resource dict (with 'uuid' key), or None.
-
-        Raises:
-            AmbiguousMatchError: If more than one resource matches all keys.
-        """
-        keys = self._effective_match_keys()
-        primary_value = str(params.get(keys[0], ""))
-        if not primary_value:
-            return None
-
-        rows = await self.list(search_phrase=primary_value)
-
-        matches = [
-            row for row in rows if all(str(row.get(k, "")) == str(params.get(k, "")) for k in keys)
-        ]
-
-        if len(matches) == 0:
-            return None
-        if len(matches) == 1:
-            return matches[0]
-
-        match_vals = {k: str(params.get(k, "")) for k in keys}
-        uuids = [m["uuid"] for m in matches]
-        logger.error(
-            "ambiguous match %s: %d resources match %s — UUIDs: %s",
-            self.__class__.__name__,
-            len(matches),
-            match_vals,
-            uuids,
-            extra={
-                "action": "ambiguous_match",
-                "match_keys": match_vals,
-                "uuids": uuids,
-                "count": len(matches),
-                "endpoint": self._endpoint,
-            },
-        )
-        raise AmbiguousMatchError(
-            message=(
-                f"{self.__class__.__name__}: {len(matches)} resources match "
-                f"{match_vals}. "
-                f"UUIDs: {uuids}. "
-                f"Deduplicate manually or pass uuid= to ensure()."
-            ),
-            match_keys=match_vals,
-            uuids=uuids,
-            endpoint=self._endpoint,
-        )
-
-    def _compute_diff(
-        self,
-        current: dict[str, Any],
-        desired: dict[str, Any],
-    ) -> dict[str, str] | None:
-        """Compare current state against desired and return changed fields.
-
-        Only compares fields present in ``desired`` — extra fields in
-        ``current`` are ignored (OPNsense returns many computed fields).
-
-        Args:
-            current: Current resource state from the API.
-            desired: Desired resource parameters.
-
-        Returns:
-            Dict of field: desired_value for fields that differ, or None
-            if no changes are needed.
-        """
-        diff: dict[str, str] = {}
-        for key, desired_value in desired.items():
-            current_value = current.get(key)
-            # Skip fields not present in the current search row —
-            # search results are a subset of fields; missing fields
-            # do not indicate drift.
-            if current_value is None and key not in current:
-                continue
-            # Normalize OPNsense enum dicts for comparison.
-            # Format 1: {"selected": "1"} — simple selected value
-            # Format 2: {"lan": {"value": "LAN", "selected": 1}, ...} — enum dict
-            if isinstance(current_value, dict):
-                if "selected" in current_value:
-                    current_value = current_value.get("selected", "")
-                else:
-                    # Enum dict: find the key with selected=1
-                    for opt_key, opt_val in current_value.items():
-                        if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
-                            current_value = opt_key
-                            break
-            if str(current_value) != str(desired_value):
-                diff[key] = str(desired_value)
-        return diff if diff else None
-
-    def _redact(self, data: dict[str, Any]) -> dict[str, Any]:
-        """Deep-redact REDACT_FIELDS from a data dict.
-
-        Returns a new dict with sensitive field values replaced by
-        ``<REDACTED:{field_name}>``.
-
-        Args:
-            data: Resource data dict to redact.
-
-        Returns:
-            A copy of the dict with sensitive fields redacted.
-        """
-        if not self.REDACT_FIELDS:
-            return data
-
-        redacted = copy.deepcopy(data)
-        for key in self.REDACT_FIELDS:
-            if key in redacted:
-                redacted[key] = f"<REDACTED:{key}>"
-        return redacted
-
     async def _apply(self) -> None:
         """Trigger reconfigure if _apply_endpoint is set.
 
@@ -690,17 +528,18 @@ class BaseManager(ABC):
         apply CRUD changes to the running configuration. Auth endpoints
         apply immediately and set _apply_endpoint = None.
         """
-        if self._apply_endpoint is not None:
+        apply_ep = self._endpoints.apply()
+        if apply_ep is not None:
             try:
-                await self._client.reconfigure(self._apply_endpoint)
+                await self._client.reconfigure(apply_ep)
             except Exception as exc:
                 logger.error(
                     "apply failed %s: %s",
-                    self._apply_endpoint,
+                    apply_ep,
                     exc,
                     extra={
                         "action": "apply_failed",
-                        "endpoint": self._apply_endpoint,
+                        "endpoint": apply_ep,
                         "error": str(exc),
                     },
                 )

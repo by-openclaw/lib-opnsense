@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import copy
 import logging
+from collections.abc import MutableMapping
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -150,7 +151,7 @@ class Redactor:
         self,
         _logger: Any,  # noqa: ANN401
         method_name: str,
-        event_dict: dict[str, Any],
+        event_dict: MutableMapping[str, Any],
     ) -> dict[str, Any]:
         """Structlog processor that redacts sensitive fields in every log event.
 
