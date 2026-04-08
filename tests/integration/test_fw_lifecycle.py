@@ -21,6 +21,7 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
+from opnsense.exceptions import AmbiguousMatchError
 from opnsense.managers.fw_alias import FwAliasManager
 from opnsense.managers.fw_category import FwCategoryManager
 from opnsense.managers.fw_dnat import FwDnatManager
@@ -831,6 +832,90 @@ class TestErrorHandling:
         # Verify it was NOT actually created
         rows = await mgr.list(search_phrase="inttest-should-not-exist")
         assert not any(r.get("description") == "inttest-should-not-exist" for r in rows)
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """Prove AmbiguousMatchError fires on real duplicate data.
+
+    Creates two identical filter rules via direct create() (bypassing ensure),
+    then verifies ensure() raises AmbiguousMatchError with both UUIDs.
+    Also tests the uuid= escape hatch.
+    """
+
+    DUP_PARAMS = {
+        "description": "inttest-dup-ambiguous",
+        "action": "pass",
+        "interface": "lan",
+        "direction": "in",
+        "protocol": "TCP",
+        "destination_port": "443",
+        "enabled": "0",
+    }
+
+    async def test_01_create_duplicate_rules(self, opn_client: OpnsenseClient) -> None:
+        """Create two identical rules via direct create (bypass ensure)."""
+        mgr = FwFilterManager(opn_client)
+        r1 = await mgr.create(params=self.DUP_PARAMS)
+        r2 = await mgr.create(params=self.DUP_PARAMS)
+        assert r1.uuid is not None
+        assert r2.uuid is not None
+        assert r1.uuid != r2.uuid
+
+    async def test_02_ensure_raises_ambiguous(self, opn_client: OpnsenseClient) -> None:
+        """ensure() on ambiguous pair -> AmbiguousMatchError with both UUIDs."""
+        mgr = FwFilterManager(opn_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure(state="present", params=self.DUP_PARAMS)
+
+        assert len(exc_info.value.uuids) == 2
+        assert exc_info.value.match_keys["description"] == "inttest-dup-ambiguous"
+        assert exc_info.value.match_keys["interface"] == "lan"
+
+    async def test_03_ensure_delete_raises_ambiguous(self, opn_client: OpnsenseClient) -> None:
+        """ensure(absent) on ambiguous pair -> AmbiguousMatchError."""
+        mgr = FwFilterManager(opn_client)
+        with pytest.raises(AmbiguousMatchError):
+            await mgr.ensure(
+                state="absent",
+                params={
+                    "description": "inttest-dup-ambiguous",
+                    "interface": "lan",
+                    "direction": "in",
+                    "protocol": "TCP",
+                },
+            )
+
+    async def test_04_uuid_escape_hatch(self, opn_client: OpnsenseClient) -> None:
+        """ensure(uuid=) bypasses _find_existing — works on ambiguous pair."""
+        mgr = FwFilterManager(opn_client)
+
+        # Get both UUIDs from search
+        rows = await mgr.list(search_phrase="inttest-dup-ambiguous")
+        dups = [r for r in rows if r.get("description") == "inttest-dup-ambiguous"]
+        assert len(dups) == 2
+
+        # Use uuid= to target the first one — should not raise
+        result = await mgr.ensure(
+            state="present",
+            uuid=dups[0]["uuid"],
+            params=self.DUP_PARAMS,
+        )
+        assert result.action == "noop"
+
+    async def test_05_cleanup_duplicates(self, opn_client: OpnsenseClient) -> None:
+        """Delete both duplicate rules by UUID."""
+        mgr = FwFilterManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest-dup-ambiguous")
+        dups = [r for r in rows if r.get("description") == "inttest-dup-ambiguous"]
+        for dup in dups:
+            await mgr.delete(dup["uuid"])
+
+        # Verify clean
+        rows = await mgr.list(search_phrase="inttest-dup-ambiguous")
+        remaining = [r for r in rows if r.get("description") == "inttest-dup-ambiguous"]
+        assert remaining == []
 
 
 @pytest.mark.integration

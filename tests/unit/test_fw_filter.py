@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import OpnsenseValidationError
+from opnsense.exceptions import AmbiguousMatchError, OpnsenseValidationError
 from opnsense.managers.fw_filter import FwFilterManager
 
 
@@ -201,3 +201,145 @@ class TestErrorHandling:
             await mgr.ensure(state="present", params={"description": "bad"})
 
         assert exc_info.value.validations == {"rule.action": "required"}
+
+
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """Tests for AmbiguousMatchError when multiple resources match composite keys."""
+
+    async def test_ambiguous_match_raises(self, mock_client: AsyncMock) -> None:
+        """Two rules with same composite keys -> AmbiguousMatchError."""
+        mock_client.search.return_value = [
+            {
+                "uuid": "uuid-1",
+                "description": "Allow HTTPS",
+                "action": "pass",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+            {
+                "uuid": "uuid-2",
+                "description": "Allow HTTPS",
+                "action": "block",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        ]
+
+        mgr = FwFilterManager(mock_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure(
+                state="present",
+                params={
+                    "description": "Allow HTTPS",
+                    "interface": "lan",
+                    "direction": "in",
+                    "protocol": "TCP",
+                    "action": "pass",
+                },
+            )
+
+        assert len(exc_info.value.uuids) == 2
+        assert "uuid-1" in exc_info.value.uuids
+        assert "uuid-2" in exc_info.value.uuids
+        assert exc_info.value.match_keys == {
+            "description": "Allow HTTPS",
+            "interface": "lan",
+            "direction": "in",
+            "protocol": "TCP",
+        }
+
+    async def test_no_ambiguity_different_composite_key(self, mock_client: AsyncMock) -> None:
+        """Two rules with same description but different interface -> no ambiguity."""
+        mock_client.search.return_value = [
+            {
+                "uuid": "uuid-1",
+                "description": "Allow HTTPS",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+            {
+                "uuid": "uuid-2",
+                "description": "Allow HTTPS",
+                "interface": "wan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        ]
+
+        mgr = FwFilterManager(mock_client)
+        result = await mgr.ensure(
+            state="present",
+            params={
+                "description": "Allow HTTPS",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+                "action": "pass",
+            },
+        )
+        # Should match uuid-1 only, no ambiguity
+        assert result.action == "noop"
+
+    async def test_uuid_escape_hatch_bypasses_find(self, mock_client: AsyncMock) -> None:
+        """ensure(uuid=) bypasses _find_existing entirely."""
+        mock_client.get.return_value = {
+            "rule": {
+                "description": "Allow HTTPS",
+                "action": "pass",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        }
+
+        mgr = FwFilterManager(mock_client)
+        result = await mgr.ensure(
+            state="present",
+            uuid="uuid-known",
+            params={
+                "description": "Allow HTTPS",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+                "action": "pass",
+            },
+        )
+
+        # Should NOT call search — went straight to get by UUID
+        mock_client.search.assert_not_awaited()
+        assert result.action == "noop"
+
+    async def test_ambiguous_match_on_delete(self, mock_client: AsyncMock) -> None:
+        """Delete with ambiguous match -> AmbiguousMatchError."""
+        mock_client.search.return_value = [
+            {
+                "uuid": "uuid-1",
+                "description": "dup",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+            {
+                "uuid": "uuid-2",
+                "description": "dup",
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        ]
+
+        mgr = FwFilterManager(mock_client)
+        with pytest.raises(AmbiguousMatchError):
+            await mgr.ensure(
+                state="absent",
+                params={
+                    "description": "dup",
+                    "interface": "lan",
+                    "direction": "in",
+                    "protocol": "TCP",
+                },
+            )
