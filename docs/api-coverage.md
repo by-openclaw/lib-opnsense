@@ -80,7 +80,7 @@
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
-| ub-host-override | `UbHostOverrideManager` | `hostname, domain, server` | `unbound/settings` HostOverride | `INTEGRATION_TEST_PASSED` | Local A/AAAA/MX records |
+| ub-host-override | `UbHostOverrideManager` | `hostname, domain, server` | `unbound/settings` HostOverride | `INTEGRATION_TEST_PASSED` | Local A/AAAA/MX/TXT records, full CRUD |
 | ub-host-alias | `UbHostAliasManager` | `hostname, domain` | `unbound/settings` HostAlias | `INTEGRATION_TEST_PASSED` | Create+read only (set/del=404 on 26.1.5) |
 | ub-forward | `UbForwardManager` | `domain, server` | `unbound/settings` Forward | `INTEGRATION_TEST_PASSED` | Domain-specific DNS forwarding |
 | ub-acl | `UbAclManager` | `name` | `unbound/settings` Acl | `INTEGRATION_TEST_PASSED` | Resolver access control lists |
