@@ -13,8 +13,15 @@ from opnsense.models.fw_filter import FwFilterRule
 from opnsense.models.fw_group import FwGroup
 from opnsense.models.fw_one_to_one import FwOneToOneRule
 from opnsense.models.fw_source_nat import FwSourceNatRule
+from opnsense.models.if_bridge import IfBridge
+from opnsense.models.if_gif import IfGif
+from opnsense.models.if_gre import IfGre
+from opnsense.models.if_lagg import IfLagg
+from opnsense.models.if_loopback import IfLoopback
+from opnsense.models.if_neighbor import IfNeighbor
 from opnsense.models.if_vip import IfVip
 from opnsense.models.if_vlan import IfVlan
+from opnsense.models.if_vxlan import IfVxlan
 from opnsense.models.ts_pipe import TsPipe
 from opnsense.models.ub_acl import UbAcl
 from opnsense.models.ub_dot import UbDot
@@ -33,8 +40,15 @@ __all__ = [
     "FwGroup",
     "FwOneToOneRule",
     "FwSourceNatRule",
+    "IfBridge",
+    "IfGif",
+    "IfGre",
+    "IfLagg",
+    "IfLoopback",
+    "IfNeighbor",
     "IfVip",
     "IfVlan",
+    "IfVxlan",
     "TsPipe",
     "UbAcl",
     "UbDot",
