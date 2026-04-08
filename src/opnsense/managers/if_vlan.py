@@ -54,7 +54,7 @@ class IfVlanManager(BaseManager):
     _payload_key = "vlan"
     _entity_suffix = "Item"
     _apply_endpoint = "interfaces/vlan_settings/reconfigure"
-    _match_key = "descr"
+    _match_keys = ["tag", "if"]
 
     REDACT_FIELDS: set[str] = set()
 

@@ -170,6 +170,38 @@ class OpnsenseConnectionError(OpnsenseError):
         super().__init__(message, status_code=None, endpoint=endpoint)
 
 
+class AmbiguousMatchError(OpnsenseError):
+    """Multiple resources match the given composite keys.
+
+    Raised by ``_find_existing`` when more than one resource matches
+    all ``_match_keys``. The caller must deduplicate manually or pass
+    ``uuid=`` directly to ``ensure()`` to bypass search.
+
+    Attributes:
+        match_keys: Dict of field=value pairs that were searched.
+        uuids:      List of UUIDs that matched.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        match_keys: dict[str, str] | None = None,
+        uuids: list[str] | None = None,
+        endpoint: str | None = None,
+    ) -> None:
+        """Initialise with match context.
+
+        Args:
+            message:    Human-readable description.
+            match_keys: The composite key values that produced ambiguity.
+            uuids:      All UUIDs that matched.
+            endpoint:   API endpoint for context.
+        """
+        super().__init__(message, endpoint=endpoint)
+        self.match_keys = match_keys or {}
+        self.uuids = uuids or []
+
+
 class OpnsenseServerError(OpnsenseError):
     """Server-side error — HTTP 500.
 

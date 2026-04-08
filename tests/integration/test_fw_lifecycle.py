@@ -21,6 +21,7 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
+from opnsense.exceptions import AmbiguousMatchError
 from opnsense.managers.fw_alias import FwAliasManager
 from opnsense.managers.fw_category import FwCategoryManager
 from opnsense.managers.fw_dnat import FwDnatManager
@@ -384,14 +385,30 @@ class TestFilterCRUD:
     async def test_05_delete_filter_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the filter rule."""
         mgr = FwFilterManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": FILTER_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": FILTER_DESC,
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_06_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = FwFilterManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": FILTER_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": FILTER_DESC,
+                "interface": "lan",
+                "direction": "in",
+                "protocol": "TCP",
+            },
+        )
         assert result.changed is False
         assert result.action == "noop"
 
@@ -442,8 +459,12 @@ class TestDnatCRUD:
         assert result.changed is False
         assert result.action == "noop"
 
-    async def test_03_update_target(self, opn_client: OpnsenseClient) -> None:
-        """Update D-NAT target -> changed (still disabled)."""
+    async def test_03_update_local_port(self, opn_client: OpnsenseClient) -> None:
+        """Update D-NAT local-port -> changed (still disabled).
+
+        Note: ``target`` is a composite match key and cannot be used for
+        drift/update tests.  We update ``local-port`` instead.
+        """
         mgr = FwDnatManager(opn_client)
         result = await mgr.ensure(
             state="present",
@@ -452,8 +473,8 @@ class TestDnatCRUD:
                 "interface": "wan",
                 "ipprotocol": "inet",
                 "protocol": "tcp",
-                "target": "10.11.2.11",
-                "local-port": "80",
+                "target": "10.11.2.10",
+                "local-port": "8080",
                 "disabled": "1",
             },
         )
@@ -463,7 +484,14 @@ class TestDnatCRUD:
     async def test_04_delete_dnat_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the D-NAT rule."""
         mgr = FwDnatManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"descr": DNAT_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "descr": DNAT_DESC,
+                "interface": "wan",
+                "target": "10.11.2.10",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
@@ -514,7 +542,14 @@ class TestSourceNatCRUD:
     async def test_03_delete_snat_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the source NAT rule."""
         mgr = FwSourceNatManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": SNAT_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": SNAT_DESC,
+                "interface": "wan",
+                "source_net": "10.11.3.0/24",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
@@ -564,14 +599,28 @@ class TestOneToOneCRUD:
     async def test_03_delete_rule(self, opn_client: OpnsenseClient) -> None:
         """Delete the 1:1 NAT rule."""
         mgr = FwOneToOneManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": ONETOONE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": ONETOONE_DESC,
+                "interface": "wan",
+                "source_net": "10.11.2.10/32",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_04_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = FwOneToOneManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": ONETOONE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": ONETOONE_DESC,
+                "interface": "wan",
+                "source_net": "10.11.2.10/32",
+            },
+        )
         assert result.changed is False
         assert result.action == "noop"
 
@@ -709,15 +758,21 @@ class TestPipeCRUD:
         assert result.changed is False
         assert result.action == "noop"
 
-    async def test_03_update_bandwidth(self, opn_client: OpnsenseClient) -> None:
-        """Update bandwidth -> changed."""
+    async def test_03_update_enabled(self, opn_client: OpnsenseClient) -> None:
+        """Update enabled flag -> changed.
+
+        Note: ``bandwidth`` and ``bandwidthMetric`` are composite match keys
+        and cannot be used for drift/update tests.  We toggle ``enabled``
+        instead.
+        """
         mgr = TsPipeManager(opn_client)
         result = await mgr.ensure(
             state="present",
             params={
                 "description": PIPE_DESC,
-                "bandwidth": "20",
+                "bandwidth": "10",
                 "bandwidthMetric": "Mbit",
+                "enabled": "0",
             },
         )
         assert result.changed is True
@@ -726,14 +781,28 @@ class TestPipeCRUD:
     async def test_04_delete_pipe(self, opn_client: OpnsenseClient) -> None:
         """Delete pipe."""
         mgr = TsPipeManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": PIPE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": PIPE_DESC,
+                "bandwidth": "10",
+                "bandwidthMetric": "Mbit",
+            },
+        )
         assert result.changed is True
         assert result.action == "deleted"
 
     async def test_05_delete_noop(self, opn_client: OpnsenseClient) -> None:
         """Delete again -> noop."""
         mgr = TsPipeManager(opn_client)
-        result = await mgr.ensure(state="absent", params={"description": PIPE_DESC})
+        result = await mgr.ensure(
+            state="absent",
+            params={
+                "description": PIPE_DESC,
+                "bandwidth": "10",
+                "bandwidthMetric": "Mbit",
+            },
+        )
         assert result.changed is False
         assert result.action == "noop"
 
@@ -763,6 +832,90 @@ class TestErrorHandling:
         # Verify it was NOT actually created
         rows = await mgr.list(search_phrase="inttest-should-not-exist")
         assert not any(r.get("description") == "inttest-should-not-exist" for r in rows)
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+class TestAmbiguousMatch:
+    """Prove AmbiguousMatchError fires on real duplicate data.
+
+    Creates two identical filter rules via direct create() (bypassing ensure),
+    then verifies ensure() raises AmbiguousMatchError with both UUIDs.
+    Also tests the uuid= escape hatch.
+    """
+
+    DUP_PARAMS = {
+        "description": "inttest-dup-ambiguous",
+        "action": "pass",
+        "interface": "lan",
+        "direction": "in",
+        "protocol": "TCP",
+        "destination_port": "443",
+        "enabled": "0",
+    }
+
+    async def test_01_create_duplicate_rules(self, opn_client: OpnsenseClient) -> None:
+        """Create two identical rules via direct create (bypass ensure)."""
+        mgr = FwFilterManager(opn_client)
+        r1 = await mgr.create(params=self.DUP_PARAMS)
+        r2 = await mgr.create(params=self.DUP_PARAMS)
+        assert r1.uuid is not None
+        assert r2.uuid is not None
+        assert r1.uuid != r2.uuid
+
+    async def test_02_ensure_raises_ambiguous(self, opn_client: OpnsenseClient) -> None:
+        """ensure() on ambiguous pair -> AmbiguousMatchError with both UUIDs."""
+        mgr = FwFilterManager(opn_client)
+        with pytest.raises(AmbiguousMatchError) as exc_info:
+            await mgr.ensure(state="present", params=self.DUP_PARAMS)
+
+        assert len(exc_info.value.uuids) == 2
+        assert exc_info.value.match_keys["description"] == "inttest-dup-ambiguous"
+        assert exc_info.value.match_keys["interface"] == "lan"
+
+    async def test_03_ensure_delete_raises_ambiguous(self, opn_client: OpnsenseClient) -> None:
+        """ensure(absent) on ambiguous pair -> AmbiguousMatchError."""
+        mgr = FwFilterManager(opn_client)
+        with pytest.raises(AmbiguousMatchError):
+            await mgr.ensure(
+                state="absent",
+                params={
+                    "description": "inttest-dup-ambiguous",
+                    "interface": "lan",
+                    "direction": "in",
+                    "protocol": "TCP",
+                },
+            )
+
+    async def test_04_uuid_escape_hatch(self, opn_client: OpnsenseClient) -> None:
+        """ensure(uuid=) bypasses _find_existing — works on ambiguous pair."""
+        mgr = FwFilterManager(opn_client)
+
+        # Get both UUIDs from search
+        rows = await mgr.list(search_phrase="inttest-dup-ambiguous")
+        dups = [r for r in rows if r.get("description") == "inttest-dup-ambiguous"]
+        assert len(dups) == 2
+
+        # Use uuid= to target the first one — should not raise
+        result = await mgr.ensure(
+            state="present",
+            uuid=dups[0]["uuid"],
+            params=self.DUP_PARAMS,
+        )
+        assert result.action == "noop"
+
+    async def test_05_cleanup_duplicates(self, opn_client: OpnsenseClient) -> None:
+        """Delete both duplicate rules by UUID."""
+        mgr = FwFilterManager(opn_client)
+        rows = await mgr.list(search_phrase="inttest-dup-ambiguous")
+        dups = [r for r in rows if r.get("description") == "inttest-dup-ambiguous"]
+        for dup in dups:
+            await mgr.delete(dup["uuid"])
+
+        # Verify clean
+        rows = await mgr.list(search_phrase="inttest-dup-ambiguous")
+        remaining = [r for r in rows if r.get("description") == "inttest-dup-ambiguous"]
+        assert remaining == []
 
 
 @pytest.mark.integration

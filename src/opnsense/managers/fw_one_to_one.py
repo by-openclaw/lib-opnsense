@@ -50,7 +50,7 @@ class FwOneToOneManager(BaseManager):
     _payload_key = "rule"
     _entity_suffix = "Rule"  # search_rule, get_rule, add_rule, set_rule, del_rule
     _apply_endpoint = "firewall/one_to_one/apply"
-    _match_key = "description"
+    _match_keys = ["description", "interface", "source_net"]
 
     REDACT_FIELDS: set[str] = set()
 

@@ -63,7 +63,7 @@ class TestEnsurePresent:
         mock_client.reconfigure.assert_not_awaited()
 
     async def test_update_when_drift_detected(self, mock_client: AsyncMock) -> None:
-        """ensure present when tag changed -> update + reconfigure."""
+        """ensure present when descr changed -> update + reconfigure."""
         mock_client.search.return_value = [
             {"uuid": "uuid-1", "descr": "SVC", "if": "vtnet1", "tag": "330"},
         ]
@@ -76,7 +76,7 @@ class TestEnsurePresent:
         mgr = IfVlanManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"descr": "SVC", "if": "vtnet1", "tag": "331"},
+            params={"descr": "SVC-updated", "if": "vtnet1", "tag": "330"},
         )
 
         assert result.changed is True
@@ -98,7 +98,7 @@ class TestEnsureAbsent:
         mock_client.reconfigure.return_value = {"status": "ok"}
 
         mgr = IfVlanManager(mock_client)
-        result = await mgr.ensure(state="absent", params={"descr": "SVC"})
+        result = await mgr.ensure(state="absent", params={"tag": "330", "if": "vtnet1"})
 
         assert result.changed is True
         assert result.action == "deleted"
@@ -140,7 +140,9 @@ class TestCheckMode:
         mock_client.get.return_value = {"vlan": {"uuid": "uuid-1", **VLAN_PARAMS}}
 
         mgr = IfVlanManager(mock_client)
-        result = await mgr.ensure(state="absent", params={"descr": "SVC"}, check_mode=True)
+        result = await mgr.ensure(
+            state="absent", params={"tag": "330", "if": "vtnet1"}, check_mode=True
+        )
 
         assert result.changed is True
         assert result.action == "deleted"
@@ -223,8 +225,12 @@ class TestErrorHandling:
         self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
     ) -> None:
         """When delete() fails, manager logs ERROR and re-raises."""
-        mock_client.search.return_value = [{"uuid": "uuid-1", "descr": "SVC"}]
-        mock_client.get.return_value = {"vlan": {"uuid": "uuid-1", "descr": "SVC"}}
+        mock_client.search.return_value = [
+            {"uuid": "uuid-1", "tag": "330", "if": "vtnet1", "descr": "SVC"},
+        ]
+        mock_client.get.return_value = {
+            "vlan": {"uuid": "uuid-1", "tag": "330", "if": "vtnet1", "descr": "SVC"},
+        }
         mock_client.delete.side_effect = OpnsenseError(message="server error", status_code=500)
 
         mgr = IfVlanManager(mock_client)
@@ -232,7 +238,7 @@ class TestErrorHandling:
             caplog.at_level(logging.ERROR, logger="opnsense.managers.base"),
             pytest.raises(OpnsenseError),
         ):
-            await mgr.ensure(state="absent", params={"descr": "SVC"})
+            await mgr.ensure(state="absent", params={"tag": "330", "if": "vtnet1"})
 
         assert any("delete failed" in r.message for r in caplog.records)
 

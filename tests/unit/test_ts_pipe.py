@@ -53,10 +53,22 @@ class TestEnsurePresent:
 
     async def test_update(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [
-            {"uuid": "uuid-1", "description": "Upload limit", "bandwidth": "100"},
+            {
+                "uuid": "uuid-1",
+                "description": "Upload limit",
+                "bandwidth": "100",
+                "bandwidthMetric": "Mbit",
+                "enabled": "1",
+            },
         ]
         mock_client.get.return_value = {
-            "pipe": {"uuid": "uuid-1", "description": "Upload limit", "bandwidth": "100"},
+            "pipe": {
+                "uuid": "uuid-1",
+                "description": "Upload limit",
+                "bandwidth": "100",
+                "bandwidthMetric": "Mbit",
+                "enabled": "1",
+            },
         }
         mock_client.update.return_value = {"result": "saved"}
         mock_client.reconfigure.return_value = {"status": "ok"}
@@ -64,7 +76,12 @@ class TestEnsurePresent:
         mgr = TsPipeManager(mock_client)
         result = await mgr.ensure(
             state="present",
-            params={"description": "Upload limit", "bandwidth": "50"},
+            params={
+                "description": "Upload limit",
+                "bandwidth": "100",
+                "bandwidthMetric": "Mbit",
+                "enabled": "0",
+            },
         )
 
         assert result.changed is True
