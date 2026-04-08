@@ -95,7 +95,7 @@ src/opnsense/
 
 ---
 
-## Managers (42 total)
+## Managers (50 total)
 
 | Scope | Managers | Status |
 |-------|:-------:|--------|
@@ -109,6 +109,7 @@ src/opnsense/
 | WireGuard (server + client/peer + key pair generation) | 2 | all integration tested |
 | Trust/PKI (CA + certificates, import or generate) | 2 | all integration tested |
 | OpenVPN (server/client instances, needs CA + cert) | 1 | integration tested |
+| IPsec (connections, children, local/remote, PSK, keypairs, pools, VTI) | 8 | all integration tested |
 | Captive Portal (guest network zones) | 1 | all integration tested |
 | Syslog (remote destinations) | 1 | all integration tested |
 
