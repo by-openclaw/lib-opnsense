@@ -37,7 +37,7 @@ class TestEnsurePresent:
         assert result.action == "created"
         assert result.uuid == "uuid-new"
         mock_client.create.assert_awaited_once()
-        mock_client.reconfigure.assert_awaited_once_with("firewall/filter/apply")
+        mock_client.reconfigure.assert_awaited_once_with("firewall/filter/apply", timeout=None)
 
     async def test_noop_when_already_exists_no_drift(self, mock_client: AsyncMock) -> None:
         """ensure present when rule matches -> noop."""
@@ -95,7 +95,7 @@ class TestEnsurePresent:
 
         assert result.changed is True
         assert result.action == "updated"
-        mock_client.reconfigure.assert_awaited_once_with("firewall/filter/apply")
+        mock_client.reconfigure.assert_awaited_once_with("firewall/filter/apply", timeout=None)
 
 
 @pytest.mark.asyncio
@@ -118,7 +118,7 @@ class TestEnsureAbsent:
 
         assert result.changed is True
         assert result.action == "deleted"
-        mock_client.reconfigure.assert_awaited_once_with("firewall/filter/apply")
+        mock_client.reconfigure.assert_awaited_once_with("firewall/filter/apply", timeout=None)
 
     async def test_noop_when_already_absent(self, mock_client: AsyncMock) -> None:
         """ensure absent when rule does not exist -> noop."""

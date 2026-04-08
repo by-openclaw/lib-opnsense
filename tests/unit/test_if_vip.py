@@ -49,7 +49,9 @@ class TestEnsurePresent:
         mock_client.create.assert_awaited_once_with(
             "interfaces/vip_settings/addItem", "vip", VIP_PARAMS
         )
-        mock_client.reconfigure.assert_awaited_once_with("interfaces/vip_settings/reconfigure")
+        mock_client.reconfigure.assert_awaited_once_with(
+            "interfaces/vip_settings/reconfigure", timeout=None
+        )
 
     async def test_noop_when_no_drift(self, mock_client: AsyncMock) -> None:
         """ensure present when VIP exists with matching params -> noop."""
