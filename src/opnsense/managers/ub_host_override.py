@@ -57,7 +57,7 @@ class UbHostOverrideManager(BaseManager):
         "hostname": {"type": "str", "required": True, "max_length": 255},
         "domain": {"type": "str", "max_length": 255},
         "server": {"type": "str", "max_length": 255},
-        "rr": {"type": "enum", "values": ["A", "AAAA", "MX"]},
+        "rr": {"type": "enum", "values": ["A", "AAAA", "MX", "TXT"]},
         "mxprio": {"type": "str"},
         "mx": {"type": "str"},
         "ttl": {"type": "str"},

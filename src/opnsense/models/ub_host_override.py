@@ -21,7 +21,7 @@ class UbHostOverride:
         hostname:    Hostname for the override (required).
         domain:      Domain name.
         server:      IP address the hostname resolves to.
-        rr:          DNS record type (A, AAAA, MX).
+        rr:          DNS record type (A, AAAA, MX, TXT).
         mxprio:      MX priority (when rr=MX).
         mx:          MX target hostname (when rr=MX).
         ttl:         Time-to-live in seconds.

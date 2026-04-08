@@ -71,16 +71,16 @@
 
 ## Routing (requires reconfigure)
 
-| Domain | Manager | Endpoints | Status |
-|---|---|---|---|
-| route | `RtRouteManager` | `GET /api/routes/routes/get_route`, `POST /api/routes/routes/search_route` | `ABSENT` |
-| routing-gw | `RtGatewayManager` | `GET /api/routing/settings/get_gateway`, `POST /api/routing/settings/search_gateway` | `ABSENT` |
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| routing-gw | `RtGatewayManager` | `name` | `routing/settings` Gateway | `INTEGRATION_TEST_PASSED` | API supports full CRUD. Tests are read-only — full CRUD deferred to WireGuard (2.14) when a real test gateway exists |
+| route | `RtRouteManager` | `network, gateway` | `routes/routes` Route | `INTEGRATION_TEST_PASSED` | CRUD with disabled=1, Null4 blackhole gateway (127.0.0.1, drops traffic), inttest- prefix |
 
 ## Unbound DNS (6 managers — requires reconfigure)
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
-| ub-host-override | `UbHostOverrideManager` | `hostname, domain, server` | `unbound/settings` HostOverride | `INTEGRATION_TEST_PASSED` | Local A/AAAA/MX records |
+| ub-host-override | `UbHostOverrideManager` | `hostname, domain, server` | `unbound/settings` HostOverride | `INTEGRATION_TEST_PASSED` | Local A/AAAA/MX/TXT records, full CRUD |
 | ub-host-alias | `UbHostAliasManager` | `hostname, domain` | `unbound/settings` HostAlias | `INTEGRATION_TEST_PASSED` | Create+read only (set/del=404 on 26.1.5) |
 | ub-forward | `UbForwardManager` | `domain, server` | `unbound/settings` Forward | `INTEGRATION_TEST_PASSED` | Domain-specific DNS forwarding |
 | ub-acl | `UbAclManager` | `name` | `unbound/settings` Acl | `INTEGRATION_TEST_PASSED` | Resolver access control lists |
