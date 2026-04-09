@@ -736,10 +736,14 @@ User prepares manually:
 
 - [x] Install OPNsense from ISO (console)
 - [x] Enable WebGUI (HTTPS on LAN)
-- [x] Create user `svc-rune` with admin + API key → store in `infra/secrets/`
-- [x] Enable SSH, permit root login
-- [x] Add Rune SSH pubkey to root (WebGUI + filesystem)
-- [x] `pfctl -d` from console (required after every reboot — no WAN allow rule yet)
+- [x] `pfctl -d` from console (disable firewall for initial API access)
+- [x] Create user `svc-rune` with admin group
+- [x] Generate API key for `svc-rune` → store in `infra/secrets/`
+- [x] Set `svc-rune` shell = `/bin/sh` (WebGUI or API — default is "none" which kills SSH)
+- [x] Add SSH pubkey(s) to `svc-rune` authorizedkeys (WebGUI or API, newline-separated for multiple)
+- [x] Enable SSH (System → Administration → Secure Shell)
+- [ ] ~~Add Rune SSH pubkey to root~~ — **NOT NEEDED**: `svc-rune` SSH works with shell + pubkey set
+- [ ] ~~Permit root login~~ — **NOT NEEDED**: use `svc-rune` (admin) instead
 - [x] Upgrade to 26.1.5
 - [x] Rune verifies: API works (`GET /api/core/firmware/status`)
 - [x] Rune verifies: SSH works (`ssh -i ~/.ssh/id_ed25519_opnsense root@10.6.239.114`)
