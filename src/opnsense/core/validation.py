@@ -148,6 +148,42 @@ def validate_port(field: str, value: str, spec: dict[str, Any]) -> None:
                 raise FieldValidationError(field, value, "port must be 1-65535")
 
 
+_ALIAS_RE = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*$")
+
+
+def validate_port_or_alias(field: str, value: str, spec: dict[str, Any]) -> None:
+    """Validate port number (1-65535), port range, or OPNsense alias name.
+
+    OPNsense PortField accepts numeric ports, ranges (80:443),
+    comma-separated (80,443), or alias names (MyPorts, inttest_web).
+    """
+    for part in value.split(","):
+        part = part.strip()
+        if ":" in part:
+            # Range like 80:443
+            low_s, high_s = part.split(":", 1)
+            try:
+                low_i, high_i = int(low_s), int(high_s)
+            except ValueError:
+                raise FieldValidationError(
+                    field, value, "port range parts must be numeric"
+                ) from None
+            if not (1 <= low_i <= 65535 and 1 <= high_i <= 65535):
+                raise FieldValidationError(field, value, "port range must be 1-65535")
+        elif part.isdigit() or (part.startswith("-") and part[1:].isdigit()):
+            # Numeric port
+            port_i = int(part)
+            if not 1 <= port_i <= 65535:
+                raise FieldValidationError(field, value, "port must be 1-65535")
+        elif _ALIAS_RE.match(part):
+            # Alias name (e.g. inttest_web_ports)
+            pass
+        else:
+            raise FieldValidationError(
+                field, value, "must be port (1-65535), range (80:443), or alias name"
+            )
+
+
 def validate_color(field: str, value: str, spec: dict[str, Any]) -> None:
     """Validate hex color (6 digits, no # prefix)."""
     if not _COLOR_RE.match(value):
@@ -200,6 +236,7 @@ class ValidatorRegistry:
             "mac": validate_mac,
             "port": validate_port,
             "color": validate_color,
+            "port_or_alias": validate_port_or_alias,
             "hostname": validate_hostname,
             "dict": validate_dict,
         }

@@ -114,7 +114,7 @@ class FwDnatManager(BaseManager):
             "fields": {
                 "network": {"type": "str"},
                 "address": {"type": "str"},
-                "port": {"type": "str"},
+                "port": {"type": "port_or_alias"},
                 "not": {"type": "bool_str"},
             },
         },
@@ -123,7 +123,7 @@ class FwDnatManager(BaseManager):
             "fields": {
                 "network": {"type": "str"},
                 "address": {"type": "str"},
-                "port": {"type": "str"},
+                "port": {"type": "port_or_alias"},
                 "not": {"type": "bool_str"},
             },
         },

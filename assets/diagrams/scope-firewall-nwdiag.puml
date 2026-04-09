@@ -1,27 +1,40 @@
-@startuml scope-firewall-nwdiag
 ' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+@startuml scope-firewall-nwdiag
+!pragma useVerticalIf on
+skinparam backgroundColor #FFFFFF
+
 nwdiag {
   network WAN {
     address = "10.6.224.0/20"
-    rune_vm [address = "10.100.0.101", description = "Rune VM\n(test client)"]
-    opnsense_wan [address = "10.6.239.114", description = "OPNsense WAN"]
+
+    rune_vm [address = "10.100.0.101\nRune VM (test client)"]
+    opnsense [address = "10.6.239.114\nOPNsense WAN"]
   }
 
   network MGMT {
-    address = "10.11.1.0/24"
-    opnsense_mgmt [address = "10.11.1.1", description = "OPNsense\nVLAN 1310"]
+    address = "10.11.1.0/24\nVLAN 1310"
+
+    opnsense [address = "10.11.1.1"]
   }
 
   network DMZ {
-    address = "10.11.2.0/24"
-    opnsense_dmz [address = "10.11.2.1", description = "OPNsense\nVLAN 1320"]
-    webdmz [address = "10.11.2.10", description = "lxc-webdmz\n(DNAT target)"]
+    address = "10.11.2.0/24\nVLAN 1320"
+
+    opnsense [address = "10.11.2.1"]
+    webdmz [address = "10.11.2.10\nlxc-webdmz\n(DNAT target)"]
   }
 
   network SVC {
-    address = "10.11.3.0/24"
-    opnsense_svc [address = "10.11.3.1", description = "OPNsense\nVLAN 1330"]
-    websrv [address = "10.11.3.10", description = "lxc-websrv\n(internal)"]
+    address = "10.11.3.0/24\nVLAN 1330"
+
+    opnsense [address = "10.11.3.1"]
+    websrv [address = "10.11.3.10\nlxc-websrv\n(internal)"]
+  }
+
+  network VPN {
+    address = "10.11.4.0/24\nVLAN 1340"
+
+    opnsense [address = "10.11.4.1"]
   }
 }
 @enduml
