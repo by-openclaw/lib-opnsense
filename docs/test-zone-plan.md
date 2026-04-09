@@ -9,45 +9,50 @@
 ## Network Diagram
 
 ```
-  Rune VM (10.100.0.101)
-  pfSense DMZ (prod)
-        │
-        │ pfSense routes DMZ ↔ OOB
-        │
-        ┌──────────┴───────────┐
-        │  pfSense01 (prod)    │
-        │  10.100.0.1 (DMZ)    │
-        │  10.6.224.1 (OOB)    │
-        └──────────┬───────────┘
-                   │ vmbrWAN3
-                   │
-  ┌────────────────┴──────────────────────┐
-  │       OPNsense test VM (101)          │
-  │                                       │
-  │  WAN: vtnet1 ── vmbrWAN3             │
-  │  LAN: vtnet0 ── vmbrAPPS (trunk)     │
-  │    ├── vlan1310 → 10.11.1.1/24 (MGMT)│
-  │    ├── vlan1320 → 10.11.2.1/24 (DMZ) │
-  │    └── vlan1330 → 10.11.3.1/24 (SVC) │
-  └──┬──────────────┬──────────────┬──────┘
-     │              │              │
-     │ VLAN 1310    │ VLAN 1320    │ VLAN 1330
-     │ VNet: tmgmt  │ VNet: tdmz   │ VNet: tsvc
-  ┌──┴───────────┐ ┌┴────────────┐ ┌┴─────────────────┐
-  │ MGMT Zone    │ │ DMZ Zone    │ │ SVC Zone          │
-  │ 10.11.1.0/24 │ │ 10.11.2.0/24│ │ 10.11.3.0/24      │
-  │              │ │             │ │                   │
-  │ (API access  │ │ LXC webdmz │ │ LXC websrv        │
-  │  via WAN)    │ │ 10.11.2.10 │ │ 10.11.3.10        │
-  │              │ │ DNAT ←WAN  │ │ internal only     │
-  └──────────────┘ └─────────────┘ └───────────────────┘
+  Physical server (srv-proxmox-01)
+  Proxmox hypervisor
+  ═══════════════════════════════════════════════════════
 
-  Test flow:
-  Rune (10.100.0.101) → pfSense → OPNsense WAN (10.6.239.114)
-    ├── API: https://10.6.239.114/api/...
-    ├── DNAT: curl 10.6.239.114:8080 → webdmz (10.11.2.10)
-    └── SSH: ssh -i ~/.ssh/id_ed25519_opnsense root@10.6.239.114
+  vmbrWAN ── ISP uplink (Proximus/Telenet)
+  vmbrMGMT ── OOB/management (Proxmox API: :8006)
+  vmbrAPPS ── application VLANs (trunk)
+
+  ═══ PROD (vmbrMGMT — no FW in path) ═════════════════
+
+  vm-fw-01 (100)           vm-terraform-01 (101)    vm-rune-01 (102)
+  prod OPNsense            TF + Ansible             dev workstation
+  ├ vtnet0: vmbrWAN        └ vtnet0: vmbrMGMT       └ vtnet0: vmbrMGMT
+  └ vtnet1: vmbrAPPS         direct Proxmox API       direct Proxmox API
+    (prod VLANs)
+
+  ═══ TEST (behind vm-fw-test-01) ══════════════════════
+
+  vm-fw-test-01 (1100)
+  test OPNsense
+  ├ vtnet0: vmbrMGMT (WAN for test FW)
+  └ vtnet1: vmbrAPPS (trunk: test VLANs 1310-1340)
+    │
+    ├── VLAN 1310 (MGMT)  10.11.1.0/24  fd11:1::/64
+    ├── VLAN 1320 (DMZ)   10.11.2.0/24  fd11:2::/64
+    │   ├── lxc-webdmz-test-01 (1500)   10.11.2.10
+    │   └── lxc-dhcpclient-test-01 (1502) DHCP
+    ├── VLAN 1330 (SVC)   10.11.3.0/24  fd11:3::/64
+    │   └── lxc-websrv-test-01 (1501)    10.11.3.10
+    └── VLAN 1340 (VPN)   10.11.4.0/24  fd11:4::/64
+
+  ═══ ACCESS ═══════════════════════════════════════════
+
+  vm-rune-01 ──→ OPNsense test API: direct via vmbrMGMT (WAN side)
+  vm-rune-01 ──→ test VMs (10.11.x.x): WireGuard VPN through vm-fw-test-01
+  vm-rune-01 ──→ Proxmox API: direct via vmbrMGMT
+  Proxmox noVNC ──→ any VM: hypervisor level (true OOB, always works)
+
+  FW down = internet/VLANs down, management plane (vmbrMGMT) intact.
 ```
+
+> **Temporary state:** pfSense currently serves as prod FW. OPNsense vm-fw-01 (100)
+> will replace it. Until migration, test uses vm-fw-poc-01 (101) on vmbrWAN3.
+> All architecture above describes the target state.
 
 ## SDN Zone 'test' (offset +1000 from 'poc')
 
@@ -779,23 +784,29 @@ User prepares manually:
 - Currently DHCP: 10.6.239.114
 - Will be set to static 10.6.239.114/20 (task 0.8)
 
-## Bill of Materials — Full Test Infrastructure
+## Bill of Materials — Full Infrastructure
 
-### Virtual Machines
+### Prod VMs (vmbrMGMT — direct Proxmox API, no FW in path)
 
-| # | VM | VMID | Role | OS | Network |
+| # | VMID | Hostname | Role | OS | Bridge |
 |---|---|---|---|---|---|
-| 1 | OPNsense test | 101 | Firewall under test | OPNsense 26.1.5 | WAN: vmbrWAN3 (10.6.239.114), LAN: vmbrAPPS (trunk) |
-| 2 | Rune VM | — | Test client + API caller | Linux | WAN: 10.100.0.101 |
-| 3 | Win11 Desktop | — | VPN client (WireGuard, OpenVPN) | Windows 11 | WAN: 10.100.0.x |
+| 1 | 100 | vm-fw-01 | Prod firewall (replaces pfSense) | OPNsense | vmbrWAN + vmbrAPPS |
+| 2 | 101 | vm-terraform-01 | TF + Ansible (manages all envs) | Debian 12 cloud-init | vmbrMGMT |
+| 3 | 102 | vm-rune-01 | Dev workstation | Debian 12 cloud-init | vmbrMGMT |
 
-### LXC Containers
+### Test VMs (behind vm-fw-test-01)
 
-| # | LXC | IP (v4) | IP (v6) | VLAN | Zone | Purpose | Used by scopes |
-|---|---|---|---|---|---|---|---|
-| 1 | lxc-webdmz-test-01 | 10.11.2.10 (static) | fd11:2::10 (static) | 1320 | DMZ | DNAT target, HTTP server | firewall, dns, interfaces |
-| 2 | lxc-websrv-test-01 | 10.11.3.10 (static) | fd11:3::10 (static) | 1330 | SVC | Internal service, inter-zone routing | firewall, routing, shaper |
-| 3 | lxc-dhcpclient-test-01 | DHCP (Kea4) | DHCPv6 (Kea6) | 1320 | DMZ | DHCP lease validation | dhcp |
+| # | VMID | Hostname | Role | OS | Bridge |
+|---|---|---|---|---|---|
+| 4 | 1100 | vm-fw-test-01 | Test firewall | OPNsense 26.1.2 ISO → upgrade | vmbrMGMT (WAN) + vmbrAPPS (trunk) |
+
+### Test LXC Containers
+
+| # | VMID | Hostname | IP (v4) | IP (v6) | VLAN | Purpose | Used by scopes | Depends on |
+|---|---|---|---|---|---|---|---|---|
+| 5 | 1500 | lxc-webdmz-test-01 | 10.11.2.10 (static) | fd11:2::10 | 1320 (DMZ) | DNAT target, HTTP | firewall, dns, interfaces | — |
+| 6 | 1501 | lxc-websrv-test-01 | 10.11.3.10 (static) | fd11:3::10 | 1330 (SVC) | Internal service | firewall, routing, shaper | — |
+| 7 | 1502 | lxc-dhcpclient-test-01 | DHCP (Kea4) | DHCPv6 (Kea6) | 1320 (DMZ) | DHCP lease test | dhcp | FW + Kea configured |
 
 ### VLANs
 
@@ -833,12 +844,14 @@ User prepares manually:
 
 | Resource | Count |
 |---|---|
-| VMs | 3 (OPNsense + Rune + Win11) |
-| LXCs | 3 (webdmz + websrv + dhcpclient) |
-| VLANs | 4 (MGMT + DMZ + SVC + VPN) |
+| Prod VMs (vmbrMGMT) | 3 (fw-01, terraform-01, rune-01) |
+| Test VMs | 1 (fw-test-01) |
+| Test LXCs | 3 (webdmz, websrv, dhcpclient) |
+| VLANs (test zone) | 4 (MGMT + DMZ + SVC + VPN) |
 | VPN tunnels | 3 (WG + OVPN + IPsec) |
-| Subnets (v4) | 7 (3 zones + 1 VPN zone + 3 tunnels) |
-| Subnets (v6) | 4 (3 zones + 1 VPN zone, ULA fd11:x::/64) |
+| Subnets (v4) | 7 (4 zones + 3 tunnels) |
+| Subnets (v6) | 4 (4 zones, ULA fd11:x::/64) |
+| Proxmox bridges | 3 (vmbrWAN, vmbrMGMT, vmbrAPPS) |
 
 ## Deliverables
 
