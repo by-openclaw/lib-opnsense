@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.0.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.5.0...v1.0.0) (2026-04-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* add package docstrings and fix smoke test
+* update all import paths to scoped packages
+* All import paths change. Module layout now uses scope packages instead of flat files:
+
+### Bug Fixes
+
+* add port_or_alias validator, fix port field types ([b4d3112](https://github.com/by-openclaw/lib-opnsense/commit/b4d31122197a5c2e89eb6f0a405bfe2530c7aa61))
+* nwdiag syntax — remove unsupported description attribute ([a7fa827](https://github.com/by-openclaw/lib-opnsense/commit/a7fa8273b91a554712f197c8c4eed43cb3bf5af0))
+* revert port field types to str, add port-field-reference doc ([64e56fc](https://github.com/by-openclaw/lib-opnsense/commit/64e56fcf7ceb6fc0dc145dd5bad162c222bcfce3))
+
+
+### Documentation
+
+* add CRUD verification commands to all scope docs ([3b28ca2](https://github.com/by-openclaw/lib-opnsense/commit/3b28ca2b541f2ec5243049c066b7d364bca9edc0))
+* add per-scope documentation (10 scope files) ([e930f9e](https://github.com/by-openclaw/lib-opnsense/commit/e930f9ec61e1630ce41881b649104f31a04ce218))
+* enhance scope docs with diagrams, BoM, granular VPN rules ([d26b755](https://github.com/by-openclaw/lib-opnsense/commit/d26b7555d120e89fd0771f1611e3ac1ea3b29675))
+* update CLAUDE.md and README.md for v1.0.0 scope layout ([5be261d](https://github.com/by-openclaw/lib-opnsense/commit/5be261d9a435dfb1698b6ba6c9a75756b956c5d4))
+
+
+### Code Refactoring
+
+* add package docstrings and fix smoke test ([5a3603c](https://github.com/by-openclaw/lib-opnsense/commit/5a3603cad38721ce21a0f2921e5d9ee1517a270f))
+* reorganize managers, models, tests by scope ([fd5f975](https://github.com/by-openclaw/lib-opnsense/commit/fd5f975a7b4da906c1711c24783cc706b8bc8e4e))
+* update all import paths to scoped packages ([c59bd68](https://github.com/by-openclaw/lib-opnsense/commit/c59bd68806a5b06ab56c4f60ecaa0d3a38eb5b03))
+
 ## [0.5.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.4.0...v0.5.0) (2026-04-08)
 
 
