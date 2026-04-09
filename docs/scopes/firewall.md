@@ -6,6 +6,12 @@ https://github.com/by-systems/lib-opnsense
 
 # Firewall Scope — lib-opnsense
 
+## Diagrams
+
+- [Network Diagram](../../assets/diagrams/scope-firewall-nwdiag.puml)
+- [FW Rule State Diagram](../../assets/diagrams/scope-firewall-state.puml)
+- [Class Diagram — core architecture](../../assets/diagrams/scope-lib-class.puml)
+
 ## Overview
 8 managers: FwAliasManager, FwFilterManager, FwDnatManager, FwSourceNatManager, FwOneToOneManager, FwNptManager, FwCategoryManager, FwGroupManager.
 All require reconfigure/apply after CRUD. ALL test rules created DISABLED (enabled=0 or disabled=1).
@@ -119,6 +125,13 @@ All FW managers support sequence field for rule ordering.
 | 05 | Delete + idempotent | | deleted then noop | |
 | 06 | Error: missing action | omit action | validation error | |
 | 07 | Error: invalid protocol | protocol=BOGUS | validation error | |
+| 08 | **Inverted source** | source_not=1, source_net=10.11.2.0/24 (NOT DMZ), enabled=0 | created | source inversion |
+| 09 | **Inverted destination** | destination_not=1, destination_net=10.11.3.0/24, enabled=0 | created | destination inversion |
+| 10 | **Sequence ordering** | create 3 rules with sequence=10,20,30, verify list order | ordered by sequence | rule evaluation order |
+| 11 | **Disable/enable toggle** | create enabled=0, update enabled=1, verify, update back to enabled=0 | changed each time | toggle without traffic risk |
+| 12 | **Duplicate: same description** | create rule with same description | AmbiguousMatchError on next ensure() | lib-side guard (API allows it) |
+| 13 | **Categories field** | categories=inttest-cat (from FwCategoryManager) | created with category link | cross-manager reference |
+| 14 | **Gateway field** | gateway=Null4, enabled=0 | created | policy routing (blackhole safe) |
 
 ### FwDnatManager
 | # | Use case | Params | Expected | Validates |
@@ -128,6 +141,7 @@ All FW managers support sequence field for rule ordering.
 | 03 | Update target | target=10.11.2.11 | updated | drift |
 | 04 | Delete + idempotent | | deleted then noop | |
 | 05 | Error: invalid target | target=not-an-ip | validation error | |
+| 06 | **Duplicate: same description** | create second DNAT with same descr | AmbiguousMatchError | lib detects duplicates |
 
 ### FwSourceNatManager
 | # | Use case | Params | Expected | Validates |
@@ -135,6 +149,7 @@ All FW managers support sequence field for rule ordering.
 | 01 | Create SNAT (disabled) | description=inttest-snat, interface=wan, source_net=10.11.3.0/24, target=wanip, enabled=0 | created | safe |
 | 02 | Idempotent noop | same | noop | enum dicts |
 | 03 | Delete + idempotent | | deleted then noop | |
+| 04 | **Duplicate: same description** | create second SNAT same description | AmbiguousMatchError | |
 
 ### FwOneToOneManager
 | # | Use case | Params | Expected | Validates |
@@ -173,6 +188,22 @@ All FW managers support sequence field for rule ordering.
 - IPs from test zone subnets only (10.11.x.x)
 - Phase 3 only: enable rules for E2E with LXC targets
 - sequence field validates rule ordering without affecting traffic
+
+## Logging
+
+Logger path follows package structure:
+```
+opnsense.managers.firewall.alias       → FwAliasManager
+opnsense.managers.firewall.filter      → FwFilterManager
+opnsense.managers.firewall.dnat        → FwDnatManager
+opnsense.managers.firewall.source_nat  → FwSourceNatManager
+opnsense.managers.firewall.one_to_one  → FwOneToOneManager
+opnsense.managers.firewall.npt         → FwNptManager
+opnsense.managers.firewall.category    → FwCategoryManager
+opnsense.managers.firewall.group       → FwGroupManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.firewall"`
 
 ## Test Status
 | Test | Status | Notes |

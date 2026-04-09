@@ -26,6 +26,7 @@ Mixed responsibilities — system services that don't fit other scopes.
 | 02 | Idempotent noop | same | noop | |
 | 03 | Update schedule | minutes=30, hours=4 | updated | drift |
 | 04 | Delete | | deleted | |
+| 05 | **Duplicate: same description** | description=inttest-cron (exists) | AmbiguousMatchError | duplicate guard |
 
 ### SyslogDestManager
 | # | Use case | Params | Expected | Validates |
@@ -66,6 +67,19 @@ Mixed responsibilities — system services that don't fit other scopes.
 - example.com domain only for DynDNS
 - Never install/remove production plugins
 - Captive portal zones: test only, no interface binding
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.services.cron_job      → CronJobManager
+opnsense.managers.services.syslog_dest   → SyslogDestManager
+opnsense.managers.services.cp_zone       → CpZoneManager
+opnsense.managers.services.ddns_account  → DdnsAccountManager
+opnsense.managers.services.plugin        → PluginManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.services"`
 
 ## Test Status
 | Test | Status | Notes |

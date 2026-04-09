@@ -77,6 +77,7 @@ Host overrides support A, AAAA, MX, TXT record types.
 | 05 | Idempotent noop | same as 01 | noop | composite match |
 | 06 | Delete all | | deleted | cleanup |
 | 07 | Error: missing hostname | omit hostname | validation error | |
+| 08 | **Duplicate: same hostname+domain** | hostname=inttest, domain=example.com (exists) | AmbiguousMatchError | composite key guard |
 
 ### UbHostAliasManager
 | # | Use case | Params | Expected | Validates |
@@ -117,6 +118,20 @@ Host overrides support A, AAAA, MX, TXT record types.
 - example.com domain only
 - NEVER modify production DNS forwarding
 - Diagnostics: read-only, no mutations
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.dns.ub_host_override  → UbHostOverrideManager
+opnsense.managers.dns.ub_host_alias     → UbHostAliasManager
+opnsense.managers.dns.ub_forward        → UbForwardManager
+opnsense.managers.dns.ub_acl            → UbAclManager
+opnsense.managers.dns.ub_dot            → UbDotManager
+opnsense.managers.dns.ub_diagnostics    → UbDiagnosticsManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.dns"`
 
 ## Test Status
 | Test | Status | Notes |

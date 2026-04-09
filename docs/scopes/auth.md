@@ -6,6 +6,12 @@
 
 # Auth Scope — lib-opnsense
 
+## Diagrams
+
+- [Use Case Diagram](../../assets/diagrams/scope-auth-usecase.puml)
+- [Sequence Diagram — ensure() flow](../../assets/diagrams/scope-auth-sequence.puml)
+- [Class Diagram — core architecture](../../assets/diagrams/scope-lib-class.puml)
+
 ## Overview
 
 4 managers: AuthUserManager, AuthGroupManager, AuthPrivManager, AuthApiKeyManager.
@@ -68,6 +74,8 @@ All operations are API-only, no traffic flow affected.
 | 08 | Delete idempotent | already gone | changed=False, noop | absent noop |
 | 09 | Error: duplicate create | direct create() on existing | OpnsenseValidationError | server-enforced |
 | 10 | Error: invalid email | email=not-an-email | capture API response | validation shape |
+| 11 | **Duplicate: create same user** | name=inttest-alice (already exists) | OpnsenseValidationError (server-enforced) | duplicate detection |
+| 12 | **API token: create user + generate key + test API call** | create inttest-apitest, generate API key, use key to call GET /api/core/firmware/status | 200 OK | API token works end-to-end |
 
 ### M02 — AuthGroupManager
 
@@ -79,6 +87,7 @@ All operations are API-only, no traffic flow affected.
 | 04 | Delete + idempotent | | deleted then noop | |
 | 05 | User-group assignment | assign inttest-alice via GID | updated | memberships |
 | 06 | Error: delete group with members | delete while users assigned | capture error | |
+| 07 | **Duplicate: create same group** | name=inttest-engineers (exists) | OpnsenseValidationError | server-enforced uniqueness |
 
 ### M03 — AuthPrivManager
 
@@ -102,6 +111,7 @@ All operations are API-only, no traffic flow affected.
 | 04 | check_mode delete_all | | changed but keys exist | dry run |
 | 05 | Delete all + idempotent | | deleted then noop | |
 | 06 | Error: nonexistent user | username=nonexistent-99 | OpnsenseError | API error |
+| 07 | **API token: use generated key for API call** | use key from test 01 to call GET /api/core/firmware/status | 200 OK or 403 (depends on user privs) | key is functional |
 
 ## Bill of Materials
 
@@ -115,6 +125,18 @@ No infrastructure required — auth is local to OPNsense.
 - NEVER touch: root, svc-rune, admins group, system users
 - Safe read-only privileges only: page-diagnostics-*, page-status-*
 - NEVER assign page-all or admin privs to test users
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.auth.user      → AuthUserManager operations
+opnsense.managers.auth.group     → AuthGroupManager operations
+opnsense.managers.auth.priv      → AuthPrivManager operations
+opnsense.managers.auth.api_key   → AuthApiKeyManager operations
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.auth"`
 
 ## Test Status
 

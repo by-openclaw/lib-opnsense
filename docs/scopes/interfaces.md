@@ -54,6 +54,7 @@ All require reconfigure after CRUD.
 | 02 | Idempotent noop | same | noop | composite match |
 | 03 | Delete + idempotent | | deleted then noop | |
 | 04 | Error: invalid tag | tag=99999 | validation error | |
+| 05 | **Duplicate: same VLAN tag** | tag=1399, if=vtnet0 (already exists) | AmbiguousMatchError or API rejection | duplicate guard |
 
 ### IfVipManager
 | # | Use case | Params | Expected | Validates |
@@ -104,6 +105,23 @@ All require reconfigure after CRUD.
 - Use tag 1399+ for test VLANs
 - inttest- prefix on all descriptions
 - VIP test addresses from test subnets only
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.interfaces.vlan      → IfVlanManager
+opnsense.managers.interfaces.vip       → IfVipManager
+opnsense.managers.interfaces.bridge    → IfBridgeManager
+opnsense.managers.interfaces.gif       → IfGifManager
+opnsense.managers.interfaces.gre       → IfGreManager
+opnsense.managers.interfaces.lagg      → IfLaggManager
+opnsense.managers.interfaces.loopback  → IfLoopbackManager
+opnsense.managers.interfaces.neighbor  → IfNeighborManager
+opnsense.managers.interfaces.vxlan     → IfVxlanManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.interfaces"`
 
 ## Test Status
 | Test | Status | Notes |

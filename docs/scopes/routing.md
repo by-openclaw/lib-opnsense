@@ -60,6 +60,7 @@ Routes use Null4 blackhole gateway for safe testing.
 | 02 | Idempotent noop | same | noop | diff engine |
 | 03 | Delete + idempotent | | deleted then noop | |
 | 04 | Error: invalid network | network=bogus | validation error | |
+| 05 | **Duplicate: same route** | description=inttest-route (exists) | AmbiguousMatchError | duplicate guard |
 
 ## Bill of Materials
 
@@ -72,6 +73,16 @@ Routes use Null4 blackhole gateway for safe testing.
 - Use Null4 (127.0.0.1) blackhole for all test routes
 - Test network: 10.99.0.0/24 (unused, safe)
 - Gateway manager: READ-ONLY tests only
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.routing.gateway  → RtGatewayManager
+opnsense.managers.routing.route    → RtRouteManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.routing"`
 
 ## Test Status
 

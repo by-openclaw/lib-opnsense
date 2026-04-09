@@ -6,6 +6,13 @@
 
 # VPN Scope — lib-opnsense
 
+## Diagrams
+
+- [WireGuard Key Exchange Sequence](../../assets/diagrams/scope-vpn-sequence.puml)
+- [VPN Granular Access Rules](../../assets/diagrams/scope-vpn-fw-rules.puml)
+- [Network Diagram](../../assets/diagrams/scope-firewall-nwdiag.puml)
+- [Class Diagram — core architecture](../../assets/diagrams/scope-lib-class.puml)
+
 ## Overview
 13 managers across 3 protocols:
 - WireGuard: WgServerManager (+ generate_keypair()), WgClientManager
@@ -80,6 +87,7 @@ IpsecVtiManager: ipsec/vti, match=description, plain IPs (no CIDR). Module: `opn
 | 01 | Generate keypair | generate_keypair() | privkey + pubkey | API key gen |
 | 02 | Create server | name=inttest-wg, privkey=..., port=51820, tunneladdress=10.10.0.1/24 | created | |
 | 03 | Delete | | deleted | |
+| 04 | **Duplicate: same name** | name=inttest-wg (exists) | AmbiguousMatchError | duplicate guard |
 
 ### WgClientManager
 | # | Use case | Params | Expected | Validates |
@@ -108,10 +116,51 @@ IpsecVtiManager: ipsec/vti, match=description, plain IPs (no CIDR). Module: `opn
 | 01 | Create VTI | local=10.11.1.1, remote=10.99.99.1, tunnel_local=10.10.99.1, tunnel_remote=10.10.99.2 | created | plain IPs |
 | 02 | Delete | | deleted | |
 
+## VPN Firewall Rules — Granular Access
+
+VPN users should access specific VLANs/hosts, NOT the whole network.
+Each VPN protocol (WG, OpenVPN, IPsec) gets firewall rules on its tunnel interface.
+
+### WireGuard → Zone Access Rules (all disabled for Phase 2)
+
+| # | Rule | Interface | Source | Destination | Port | Action | Validates |
+|---|---|---|---|---|---|---|---|
+| V01 | VPN user → MGMT SSH | wg0 | 10.10.0.0/24 | 10.11.1.0/24 | 22 | pass (disabled) | SSH to management hosts |
+| V02 | VPN user → DMZ HTTPS | wg0 | 10.10.0.0/24 | 10.11.2.10 | 443 | pass (disabled) | HTTPS to specific host |
+| V03 | VPN user → SVC block | wg0 | 10.10.0.0/24 | 10.11.3.0/24 | any | block (disabled) | no SVC access via VPN |
+| V04 | VPN user → WAN block | wg0 | 10.10.0.0/24 | any | any | block (disabled) | no internet via VPN split tunnel |
+| V05 | VPN user → single host only | wg0 | 10.10.0.2/32 | 10.11.2.10 | 80,443 | pass (disabled) | per-user granular access |
+| V06 | VPN → DNS (Unbound) | wg0 | 10.10.0.0/24 | 10.11.1.1 | 53 | pass (disabled) | DNS resolution through tunnel |
+
+### Use Case: Per-User VPN Access
+
+```
+Scenario: Rune (Win11) connects via WireGuard
+  - Gets IP 10.10.0.2 from tunnel
+  - Can SSH to any MGMT host (10.11.1.0/24:22)
+  - Can HTTPS to webdmz (10.11.2.10:443)
+  - CANNOT reach SVC zone (10.11.3.0/24) — blocked
+  - CANNOT reach internet via VPN — split tunnel
+  - DNS queries go to OPNsense Unbound (10.11.1.1:53)
+```
+
+### Phase 3 E2E: Enable VPN rules + validate from Win11
+
+| # | Test | Enable rule | Validate from | Expected |
+|---|---|---|---|---|
+| E01 | WG tunnel up | — | Win11: wg show | handshake OK, TX/RX bytes |
+| E02 | SSH to MGMT | V01 | Win11: ssh 10.11.1.1 | connection OK |
+| E03 | HTTPS to DMZ | V02 | Win11: curl https://10.11.2.10 | 200 OK |
+| E04 | SVC blocked | V03 | Win11: curl 10.11.3.10 | timeout |
+| E05 | Internet blocked | V04 | Win11: curl example.com via VPN | timeout |
+| E06 | DNS works | V06 | Win11: nslookup inttest.example.com 10.11.1.1 | resolved |
+
 ## Bill of Materials
 - OPNsense with WireGuard enabled
 - Trust/PKI: CA + cert for OpenVPN (see trust scope)
 - E2E: Rune VM or Win11 desktop as VPN client (WAN side)
+- E2E: Rune Win11 desktop as WireGuard client (WAN side, 10.100.0.x)
+- VPN VLAN (optional): VLAN 1340, 10.11.4.0/24 for dedicated VPN client subnet (if isolating VPN clients from other zones)
 - No additional LXC needed
 
 ## Safety Boundaries
@@ -121,6 +170,25 @@ IpsecVtiManager: ipsec/vti, match=description, plain IPs (no CIDR). Module: `opn
 - IPsec: test IPs from 10.99.x.x range
 - VTI: plain IPs only (API rejects CIDR)
 - Never touch production VPN tunnels
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.vpn.wg_server      → WgServerManager
+opnsense.managers.vpn.wg_client      → WgClientManager
+opnsense.managers.vpn.ovpn_instance  → OvpnInstanceManager
+opnsense.managers.vpn.ipsec_conn     → IpsecConnManager
+opnsense.managers.vpn.ipsec_child    → IpsecChildManager
+opnsense.managers.vpn.ipsec_local    → IpsecLocalManager
+opnsense.managers.vpn.ipsec_remote   → IpsecRemoteManager
+opnsense.managers.vpn.ipsec_psk      → IpsecPskManager
+opnsense.managers.vpn.ipsec_keypair  → IpsecKeypairManager
+opnsense.managers.vpn.ipsec_pool     → IpsecPoolManager
+opnsense.managers.vpn.ipsec_vti      → IpsecVtiManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.vpn"`
 
 ## Test Status
 | Test | Status | Notes |

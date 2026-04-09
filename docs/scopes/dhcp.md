@@ -42,6 +42,7 @@ Kea6 subnet needs interface field. option_data uses nested dict validator.
 | 01 | Create subnet | subnet=10.11.2.0/24, pools=10.11.2.100-10.11.2.200 | created | |
 | 02 | Idempotent + delete | | noop then deleted | |
 | 03 | With option_data | option_data nested dict | created | nested dict validator |
+| 04 | **Duplicate: same subnet** | subnet=10.11.2.0/24 (exists) | AmbiguousMatchError or API rejection | duplicate guard |
 
 ### Kea4ReservationManager
 | # | Use case | Params | Expected | Validates |
@@ -64,6 +65,19 @@ Kea6 subnet needs interface field. option_data uses nested dict validator.
 - Test subnets only (10.11.x.0/24, fd11:x::/64)
 - inttest prefix on all objects
 - Never modify production DHCP scopes
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.dhcp.kea4_subnet       → Kea4SubnetManager
+opnsense.managers.dhcp.kea4_reservation  → Kea4ReservationManager
+opnsense.managers.dhcp.kea4_peer         → Kea4PeerManager
+opnsense.managers.dhcp.kea6_subnet       → Kea6SubnetManager
+opnsense.managers.dhcp.kea6_reservation  → Kea6ReservationManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.dhcp"`
 
 ## Test Status
 | Test | Status | Notes |

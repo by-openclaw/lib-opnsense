@@ -36,6 +36,7 @@ Both redact private keys (prv, prv_payload).
 | 01 | Generate CA | descr=inttest-ca, key_type=RSA, key_length=2048 | created | CA generation |
 | 02 | Import CA | descr=inttest-ca-import, crt=<PEM> | created | CA import |
 | 03 | Delete | | deleted | |
+| 04 | **Duplicate: same descr** | descr=inttest-ca (exists) | AmbiguousMatchError or API rejection | duplicate guard |
 
 ### TrustCertManager
 | # | Use case | Params | Expected | Validates |
@@ -52,6 +53,16 @@ Both redact private keys (prv, prv_payload).
 - inttest- prefix on all CA/cert descriptions
 - Never touch production CAs or certs
 - Private keys redacted in logs (prv, prv_payload)
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.trust.ca    → TrustCaManager
+opnsense.managers.trust.cert  → TrustCertManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.trust"`
 
 ## Test Status
 | Test | Status | Notes |

@@ -36,6 +36,7 @@ Plural search endpoints (searchPipes, searchQueues, searchRules).
 |---|---|---|---|---|
 | 01 | Create pipe | description=inttest-pipe, bandwidth=10, bandwidthMetric=Mbit | created | CoDel/PIE |
 | 02 | Idempotent + delete | | noop then deleted | |
+| 03 | **Duplicate: same description** | description=inttest-pipe (exists) | AmbiguousMatchError | lib guard (API allows dupes) |
 
 ### TsQueueManager
 | # | Use case | Params | Expected | Validates |
@@ -58,6 +59,17 @@ Plural search endpoints (searchPipes, searchQueues, searchRules).
 - inttest- prefix on all objects
 - Create pipe first, then queue, then rule (dependency chain)
 - Delete in reverse order: rule → queue → pipe
+
+## Logging
+
+Logger path follows package structure for Loki/Promtail filtering:
+```
+opnsense.managers.shaper.ts_pipe   → TsPipeManager
+opnsense.managers.shaper.ts_queue  → TsQueueManager
+opnsense.managers.shaper.ts_rule   → TsRuleManager
+```
+
+Filter in Loki: `{job="opnsense"} |= "opnsense.managers.shaper"`
 
 ## Test Status
 | Test | Status | Notes |

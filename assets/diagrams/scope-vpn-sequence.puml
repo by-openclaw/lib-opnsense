@@ -1,0 +1,33 @@
+@startuml scope-vpn-sequence
+' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+participant "Ansible/Consumer" as A
+participant "WgServerManager" as WS
+participant "WgClientManager" as WC
+participant "OPNsense API" as API
+participant "Win11/Mobile" as Client
+
+== Key Generation ==
+A -> WS: generate_keypair()
+WS -> API: POST /api/wireguard/server/keyPair
+API --> WS: {privkey, pubkey}
+WS --> A: {privkey, pubkey}
+A -> A: Store privkey in Vault KV
+
+== Server Tunnel ==
+A -> WS: ensure("present", {name:"wg0", privkey, port:51820, tunneladdress:"10.10.0.1/24"})
+WS -> API: POST /api/wireguard/server/addServer
+API --> WS: {uuid}
+WS --> A: EnsureResult(created)
+
+== Share Public Keys ==
+A --> Client: server pubkey + endpoint
+Client --> A: client pubkey
+
+== Add Peer ==
+A -> WC: ensure("present", {name:"win11-rune", pubkey:<client-pub>, tunneladdress:"10.10.0.2/32"})
+WC -> API: POST /api/wireguard/client/addClient
+API --> WC: {uuid}
+
+== Tunnel Active ==
+Client <--> API: WireGuard tunnel (10.10.0.1 <-> 10.10.0.2)
+@enduml

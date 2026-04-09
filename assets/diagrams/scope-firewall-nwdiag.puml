@@ -1,0 +1,27 @@
+@startuml scope-firewall-nwdiag
+' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+nwdiag {
+  network WAN {
+    address = "10.6.224.0/20"
+    rune_vm [address = "10.100.0.101", description = "Rune VM\n(test client)"]
+    opnsense_wan [address = "10.6.239.114", description = "OPNsense WAN"]
+  }
+
+  network MGMT {
+    address = "10.11.1.0/24"
+    opnsense_mgmt [address = "10.11.1.1", description = "OPNsense\nVLAN 1310"]
+  }
+
+  network DMZ {
+    address = "10.11.2.0/24"
+    opnsense_dmz [address = "10.11.2.1", description = "OPNsense\nVLAN 1320"]
+    webdmz [address = "10.11.2.10", description = "lxc-webdmz\n(DNAT target)"]
+  }
+
+  network SVC {
+    address = "10.11.3.0/24"
+    opnsense_svc [address = "10.11.3.1", description = "OPNsense\nVLAN 1330"]
+    websrv [address = "10.11.3.10", description = "lxc-websrv\n(internal)"]
+  }
+}
+@enduml
