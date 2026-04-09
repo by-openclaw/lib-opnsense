@@ -72,6 +72,20 @@ Mixed responsibilities — system services that don't fit other scopes.
 - Never install/remove production plugins
 - Captive portal zones: test only, no interface binding
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create cron job | `ssh root@10.6.239.114 "crontab -l"` | OPNsense SSH | job listed (if enabled) |
+| Cron disabled | same crontab | OPNsense SSH | job NOT in crontab (disabled jobs not scheduled) |
+| Create syslog dest | `ssh root@10.6.239.114 "cat /var/etc/syslog.d/*.conf"` | OPNsense SSH | remote destination configured |
+| Syslog message arrives | `nc -lu 514` on target host (10.11.1.99) | Target LXC | syslog messages received |
+| Create captive portal zone | WebGUI Services → Captive Portal | WebGUI | zone visible |
+| Create DynDNS account | WebGUI Services → Dynamic DNS | WebGUI | account listed (disabled) |
+| Plugin installed | `ssh root@10.6.239.114 "pkg info \| grep os-ddclient"` | OPNsense SSH | package installed |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

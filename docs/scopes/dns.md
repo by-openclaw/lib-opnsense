@@ -119,6 +119,21 @@ Host overrides support A, AAAA, MX, TXT record types.
 - NEVER modify production DNS forwarding
 - Diagnostics: read-only, no mutations
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create host override (A) | `dig inttest.example.com @10.6.239.114` | Rune VM | A record → 10.11.1.99 |
+| Create host override (AAAA) | `dig AAAA inttest.example.com @10.6.239.114` | Rune VM | AAAA → fd11:1::99 |
+| Create host override (MX) | `dig MX inttest-mx.example.com @10.6.239.114` | Rune VM | MX 10 mail.example.com |
+| Create host override (TXT) | `dig TXT inttest-txt.example.com @10.6.239.114` | Rune VM | TXT "v=spf1..." |
+| Delete host override | `dig inttest.example.com @10.6.239.114` | Rune VM | NXDOMAIN |
+| Create forward | `dig external-domain.com @10.6.239.114` (if forward set) | Rune VM | resolved via forwarder |
+| Reconfigure applied | `ssh root@10.6.239.114 "configctl unbound reconfigure"` | OPNsense SSH | Unbound reloaded |
+| Cache stats | `ssh root@10.6.239.114 "unbound-control stats_noreset"` | OPNsense SSH | stats returned |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

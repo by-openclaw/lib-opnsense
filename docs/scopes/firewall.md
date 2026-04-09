@@ -202,6 +202,20 @@ All FW managers support sequence field for rule ordering.
 - Phase 3 only: enable rules for E2E with LXC targets
 - sequence field validates rule ordering without affecting traffic
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create alias | `ssh root@10.6.239.114 "pfctl -t inttest_alias_host -T show"` | OPNsense SSH | IP listed in pf table |
+| Create filter rule (disabled) | `ssh root@10.6.239.114 "pfctl -sr"` | OPNsense SSH | rule NOT in active ruleset (disabled) |
+| Create filter rule (enabled) | `pfctl -sr \| grep inttest` | OPNsense SSH | rule present in pf |
+| Create DNAT (disabled) | `pfctl -sn \| grep inttest` | OPNsense SSH | NOT in NAT rules (disabled) |
+| Reconfigure applied | `ssh root@10.6.239.114 "configctl filter reload"` then `pfctl -sr` | OPNsense SSH | rules reloaded |
+| E2E: DNAT enabled | `curl http://10.6.239.114:8080` | Rune VM (WAN) | whoami response from webdmz LXC |
+| E2E: inter-zone block | `curl --connect-timeout 3 http://10.11.3.10` | Rune VM (WAN) | timeout (SVC blocked) |
+
 ## Logging
 
 Logger path follows package structure:

@@ -60,6 +60,18 @@ Plural search endpoints (searchPipes, searchQueues, searchRules).
 - Create pipe first, then queue, then rule (dependency chain)
 - Delete in reverse order: rule → queue → pipe
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create pipe | `ssh root@10.6.239.114 "dnctl pipe show"` | OPNsense SSH | pipe listed with bandwidth |
+| Create queue | `dnctl queue show` | OPNsense SSH | queue listed under pipe |
+| Create rule | `dnctl show` or `ipfw show` | OPNsense SSH | rule matching traffic to pipe |
+| Bandwidth test | `iperf3 -c 10.11.3.10` through pipe | Rune VM → websrv LXC | bandwidth capped to pipe limit |
+| Delete pipe | `dnctl pipe show` | OPNsense SSH | pipe gone |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

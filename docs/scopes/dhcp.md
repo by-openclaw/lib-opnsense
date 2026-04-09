@@ -66,6 +66,20 @@ Kea6 subnet needs interface field. option_data uses nested dict validator.
 - inttest prefix on all objects
 - Never modify production DHCP scopes
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create Kea4 subnet | `ssh root@10.6.239.114 "cat /var/kea/kea-dhcp4.conf \| grep 10.11.2"` | OPNsense SSH | subnet in Kea config |
+| Create Kea4 reservation | same conf file, grep MAC/IP | OPNsense SSH | reservation present |
+| Kea4 lease acquired | `dhclient -v eth0` on lxc-dhcpclient-test-01 | LXC SSH | IP 10.11.2.20 assigned |
+| Kea4 lease file | `ssh root@10.6.239.114 "cat /var/kea/kea-leases4.csv"` | OPNsense SSH | lease entry |
+| Create Kea6 subnet | `cat /var/kea/kea-dhcp6.conf \| grep fd11:2` | OPNsense SSH | v6 subnet in config |
+| Kea6 lease acquired | `dhclient -6 -v eth0` on lxc-dhcpclient-test-01 | LXC SSH | fd11:2::20 assigned |
+| Reconfigure | `ssh root@10.6.239.114 "configctl kea restart"` | OPNsense SSH | Kea restarted |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

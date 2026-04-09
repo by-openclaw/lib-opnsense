@@ -54,6 +54,17 @@ Both redact private keys (prv, prv_payload).
 - Never touch production CAs or certs
 - Private keys redacted in logs (prv, prv_payload)
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create CA | `ssh root@10.6.239.114 "openssl x509 -in /var/db/opnsense/... -text"` or WebGUI Trust → Authorities | OPNsense SSH / WebGUI | CA certificate visible |
+| Create cert | WebGUI Trust → Certificates | WebGUI | cert listed, signed by inttest-ca |
+| Cert chain valid | `openssl verify -CAfile ca.pem cert.pem` | OPNsense SSH | OK |
+| Delete CA | WebGUI Trust → Authorities | WebGUI | inttest-ca gone |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

@@ -74,6 +74,17 @@ Routes use Null4 blackhole gateway for safe testing.
 - Test network: 10.99.0.0/24 (unused, safe)
 - Gateway manager: READ-ONLY tests only
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create route | `ssh root@10.6.239.114 "netstat -rn \| grep 10.99.0"` | OPNsense SSH | route to Null4 visible |
+| Delete route | same netstat | OPNsense SSH | route gone |
+| List gateways | `ssh root@10.6.239.114 "netstat -rn \| grep default"` | OPNsense SSH | default gateway present |
+| Blackhole test | `ssh root@10.6.239.114 "ping -c1 -W1 10.99.0.1"` | OPNsense SSH | 100% packet loss (blackhole) |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

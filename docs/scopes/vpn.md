@@ -178,6 +178,22 @@ Scenario: Rune (Win11) connects via WireGuard
 - VTI: plain IPs only (API rejects CIDR)
 - Never touch production VPN tunnels
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create WG server | `ssh root@10.6.239.114 "wg show wg0"` | OPNsense SSH | interface up, listening port, pubkey |
+| Create WG peer | `wg show wg0` (peers section) | OPNsense SSH | peer pubkey + allowed IPs listed |
+| WG tunnel up | `wg show` on Win11 client | Win11 | handshake OK, TX/RX bytes > 0 |
+| WG connectivity | `ping 10.10.0.1` from Win11 tunnel | Win11 | replies from OPNsense |
+| Create OpenVPN instance | `ssh root@10.6.239.114 "ifconfig tun0"` | OPNsense SSH | tunnel interface exists |
+| OpenVPN service | `ssh root@10.6.239.114 "configctl openvpn status"` | OPNsense SSH | server running |
+| Create IPsec conn | `ssh root@10.6.239.114 "ipsec statusall"` | OPNsense SSH | connection listed |
+| IPsec SA established | `ipsec statusall` (after peer connects) | OPNsense SSH | ESTABLISHED |
+| Delete WG server | `wg show wg0` | OPNsense SSH | interface gone |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

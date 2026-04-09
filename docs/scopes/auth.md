@@ -126,6 +126,17 @@ No infrastructure required — auth is local to OPNsense.
 - Safe read-only privileges only: page-diagnostics-*, page-status-*
 - NEVER assign page-all or admin privs to test users
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create user | `ssh root@10.6.239.114 "opnsense-shell auth list"` or WebGUI System → Access → Users | OPNsense SSH | inttest-alice visible |
+| Create API key | `curl -k -u <key>:<secret> https://10.6.239.114/api/core/firmware/status` | Rune VM | 200 OK (key works) |
+| Delete user | same list command | OPNsense SSH | inttest-alice gone |
+| Assign privilege | WebGUI System → Access → Users → inttest-alice → Effective Privileges | WebGUI | page-diagnostics-arptable listed |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:

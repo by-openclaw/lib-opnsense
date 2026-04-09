@@ -106,6 +106,18 @@ All require reconfigure after CRUD.
 - inttest- prefix on all descriptions
 - VIP test addresses from test subnets only
 
+## CRUD Verification
+
+API CRUD must be confirmed on the device, not just by API response.
+
+| After CRUD | Verify with | From | Expected |
+|---|---|---|---|
+| Create VLAN | `ssh root@10.6.239.114 "ifconfig vlan1399"` | OPNsense SSH | interface exists |
+| Delete VLAN | same ifconfig | OPNsense SSH | interface gone |
+| Create VIP | `ssh root@10.6.239.114 "ifconfig \| grep 10.11.1.200"` | OPNsense SSH | IP bound |
+| Create bridge | `ssh root@10.6.239.114 "ifconfig bridge*"` | OPNsense SSH | bridge interface exists |
+| Create loopback | `ifconfig lo*` | OPNsense SSH | loopback visible |
+
 ## Logging
 
 Logger path follows package structure for Loki/Promtail filtering:
