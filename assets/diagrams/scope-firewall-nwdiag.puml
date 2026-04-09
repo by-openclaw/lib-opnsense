@@ -2,31 +2,36 @@
 @startnwdiag
   network WAN {
     address = "10.6.224.0/20"
-    rune_vm [address = "10.100.0.101", description = "Rune VM\n(test client)"];
-    win11 [address = "10.100.0.x", description = "Win11 Desktop\n(VPN client)"];
-    opnsense [address = "10.6.239.114", description = "OPNsense WAN"];
+
+    rune_vm [address = "10.100.0.101"];
+    win11 [address = "10.100.0.x"];
+    opnsense [address = "10.6.239.114"];
   }
 
   network MGMT {
-    address = "10.11.1.0/24 (VLAN 1310)"
+    address = "10.11.1.0/24"
+
     opnsense [address = "10.11.1.1"];
   }
 
   network DMZ {
-    address = "10.11.2.0/24 (VLAN 1320)"
+    address = "10.11.2.0/24"
+
     opnsense [address = "10.11.2.1"];
-    webdmz [address = "10.11.2.10", description = "lxc-webdmz\n(DNAT target)"];
-    dhcpclient [address = "DHCP", description = "lxc-dhcpclient\n(Kea lease)"];
+    webdmz [address = "10.11.2.10"];
+    dhcpclient [address = "DHCP"];
   }
 
   network SVC {
-    address = "10.11.3.0/24 (VLAN 1330)"
+    address = "10.11.3.0/24"
+
     opnsense [address = "10.11.3.1"];
-    websrv [address = "10.11.3.10", description = "lxc-websrv\n(internal)"];
+    websrv [address = "10.11.3.10"];
   }
 
   network VPN {
-    address = "10.11.4.0/24 (VLAN 1340)"
-    opnsense [address = "10.11.4.1", description = "VPN clients\n(optional isolation)"];
+    address = "10.11.4.0/24"
+
+    opnsense [address = "10.11.4.1"];
   }
 @endnwdiag
