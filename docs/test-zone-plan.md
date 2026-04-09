@@ -156,9 +156,34 @@ VLAN sub-interfaces created by OPNsense on vtnet0:
 
 **Before starting a new manager: scope + use cases must be validated.**
 
+**Per-scope documentation:** See [docs/scopes/](scopes/) for full use cases, diagrams, and BoM per scope.
+
+| # | Domain | Managers | Scope doc | Status |
+|---|---|---|---|---|
+| 2.1 | Auth | 4 (user, group, priv, api_key) | [auth.md](scopes/auth.md) | DONE |
+| 2.2 | Firewall | 8 (alias, filter, dnat, snat, 1:1, npt, category, group) | [firewall.md](scopes/firewall.md) | DONE |
+| 2.3 | Interfaces | 9 (vlan, vip, bridge, gif, gre, lagg, loopback, neighbor, vxlan) | [interfaces.md](scopes/interfaces.md) | DONE |
+| 2.4 | Routing | 2 (gateway, route) | [routing.md](scopes/routing.md) | DONE |
+| 2.5 | DNS (Unbound) | 6 (host override, alias, forward, acl, dot, diagnostics) | [dns.md](scopes/dns.md) | DONE |
+| 2.6 | DHCP (Kea) | 5 (v4 subnet, reservation, peer + v6 subnet, reservation) | [dhcp.md](scopes/dhcp.md) | DONE |
+| 2.7 | VPN (WG+OVPN+IPsec) | 13 (wg 2, ovpn 1, ipsec 8) | [vpn.md](scopes/vpn.md) | DONE |
+| 2.8 | Traffic Shaper | 3 (pipe, queue, rule) | [shaper.md](scopes/shaper.md) | DONE |
+| 2.9 | Trust/PKI | 2 (ca, cert) | [trust.md](scopes/trust.md) | DONE |
+| 2.10 | Services | 5 (cron, syslog, captive portal, ddns, plugin) | [services.md](scopes/services.md) | DONE |
+| 2.11 | IDS/Suricata | 3 (planned) | — | STANDBY |
+
+**Total: 54 managers implemented, 3 standby (IDS).**
+
+---
+
+> **Per-scope details moved to `docs/scopes/`.**
+> Each scope file contains: network diagram, manager list, use case tables,
+> bill of materials, safety boundaries, sequence diagrams, and test status.
+> The sections below (M01–M14) are archived inline for historical reference.
+
 | # | Domain | Manager(s) | Safety | Priority | Status |
 |---|---|---|---|---|---|
-| 2.1 | Interfaces | IfVlanManager, IfVipManager | CRUD safe — test zone VLANs | HIGH | partial |
+| 2.1 | Interfaces | IfVlanManager, IfVipManager | CRUD safe — test zone VLANs | HIGH | DONE |
 | 2.2 | Routing | RtGatewayManager, RtRouteManager | CRUD safe — test routes | HIGH | absent |
 | 2.3 | FW aliases | FwAliasManager | CRUD safe — `inttest-` prefix | DONE | done |
 | 2.4 | FW filter | FwFilterManager | CRUD safe — disabled rules | DONE | done |
