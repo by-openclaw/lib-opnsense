@@ -12,7 +12,7 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.ddns_account import DdnsAccountManager
+from opnsense.managers.services.ddns_account import DdnsAccountManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

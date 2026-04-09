@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ub_host_override import UbHostOverride
+from opnsense.models.dns.ub_host_override import UbHostOverride
 
 
 class TestUbHostOverride:

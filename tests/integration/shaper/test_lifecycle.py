@@ -12,9 +12,9 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.ts_pipe import TsPipeManager
-from opnsense.managers.ts_queue import TsQueueManager
-from opnsense.managers.ts_rule import TsRuleManager
+from opnsense.managers.shaper.ts_pipe import TsPipeManager
+from opnsense.managers.shaper.ts_queue import TsQueueManager
+from opnsense.managers.shaper.ts_rule import TsRuleManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

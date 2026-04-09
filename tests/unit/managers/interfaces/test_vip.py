@@ -23,7 +23,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_vip import IfVipManager
+from opnsense.managers.interfaces.vip import IfVipManager
 
 # Standard test params — IP alias on LAN (SVC VLAN)
 VIP_PARAMS = {

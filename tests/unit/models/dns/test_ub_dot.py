@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ub_dot import UbDot
+from opnsense.models.dns.ub_dot import UbDot
 
 
 class TestUbDot:

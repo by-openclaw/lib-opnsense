@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.wg_server import WgServer
+from opnsense.models.vpn.wg_server import WgServer
 
 
 class TestWgServer:

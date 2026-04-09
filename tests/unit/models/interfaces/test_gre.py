@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_gre import IfGre
+from opnsense.models.interfaces.gre import IfGre
 
 
 class TestIfGre:

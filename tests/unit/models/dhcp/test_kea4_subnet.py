@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.kea4_subnet import Kea4Subnet
+from opnsense.models.dhcp.kea4_subnet import Kea4Subnet
 
 
 class TestKea4Subnet:

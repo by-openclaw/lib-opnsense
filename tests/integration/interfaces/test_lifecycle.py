@@ -18,8 +18,8 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.if_vip import IfVipManager
-from opnsense.managers.if_vlan import IfVlanManager
+from opnsense.managers.interfaces.vip import IfVipManager
+from opnsense.managers.interfaces.vlan import IfVlanManager
 
 VLAN_DESCR = "inttest-vlan"
 VIP_DESCR = "inttest-vip-alias"

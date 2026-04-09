@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_one_to_one import FwOneToOneRule
+from opnsense.models.firewall.one_to_one import FwOneToOneRule
 
 
 class TestFwOneToOneRule:

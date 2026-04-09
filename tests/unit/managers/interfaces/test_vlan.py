@@ -24,7 +24,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_vlan import IfVlanManager
+from opnsense.managers.interfaces.vlan import IfVlanManager
 
 # Standard test params matching real OPNsense VLAN config
 VLAN_PARAMS = {"descr": "SVC", "if": "vtnet1", "tag": "330"}

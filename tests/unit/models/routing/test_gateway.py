@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.rt_gateway import RtGateway
+from opnsense.models.routing.gateway import RtGateway
 
 
 class TestRtGateway:

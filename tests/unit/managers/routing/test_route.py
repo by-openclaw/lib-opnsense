@@ -22,7 +22,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.rt_route import RtRouteManager
+from opnsense.managers.routing.route import RtRouteManager
 
 # Standard test params matching real OPNsense route config
 ROUTE_PARAMS = {

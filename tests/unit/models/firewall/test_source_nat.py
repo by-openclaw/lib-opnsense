@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_source_nat import FwSourceNatRule
+from opnsense.models.firewall.source_nat import FwSourceNatRule
 
 
 class TestFwSourceNatRule:

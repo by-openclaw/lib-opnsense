@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.kea6_reservation import Kea6Reservation
+from opnsense.models.dhcp.kea6_reservation import Kea6Reservation
 
 
 class TestKea6Reservation:

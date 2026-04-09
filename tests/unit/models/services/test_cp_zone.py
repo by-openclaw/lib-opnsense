@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.cp_zone import CpZone
+from opnsense.models.services.cp_zone import CpZone
 
 
 class TestCpZone:

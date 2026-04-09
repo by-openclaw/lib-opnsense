@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_filter import FwFilterRule
+from opnsense.models.firewall.filter import FwFilterRule
 
 
 class TestFwFilterRule:

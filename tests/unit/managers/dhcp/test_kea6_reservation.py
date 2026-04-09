@@ -12,7 +12,7 @@ from opnsense.exceptions import (
     FieldValidationError,
     OpnsenseValidationError,
 )
-from opnsense.managers.kea6_reservation import Kea6ReservationManager
+from opnsense.managers.dhcp.kea6_reservation import Kea6ReservationManager
 
 
 @pytest.mark.asyncio

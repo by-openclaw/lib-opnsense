@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ddns_account import DdnsAccount
+from opnsense.models.services.ddns_account import DdnsAccount
 
 
 class TestDdnsAccount:

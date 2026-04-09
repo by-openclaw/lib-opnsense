@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.rt_route import RtRoute
+from opnsense.models.routing.route import RtRoute
 
 
 class TestRtRoute:

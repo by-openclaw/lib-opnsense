@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.ovpn_instance import OvpnInstanceManager
+from opnsense.managers.vpn.ovpn_instance import OvpnInstanceManager
 
 
 @pytest.mark.asyncio

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.trust_cert import TrustCert
+from opnsense.models.trust.cert import TrustCert
 
 
 class TestTrustCert:

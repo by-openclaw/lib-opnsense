@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.trust_ca import TrustCaManager
+from opnsense.managers.trust.ca import TrustCaManager
 
 
 @pytest.mark.asyncio

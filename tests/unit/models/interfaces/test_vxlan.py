@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_vxlan import IfVxlan
+from opnsense.models.interfaces.vxlan import IfVxlan
 
 
 class TestIfVxlan:

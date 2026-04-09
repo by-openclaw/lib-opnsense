@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ts_queue import TsQueue
+from opnsense.models.shaper.ts_queue import TsQueue
 
 
 class TestTsQueue:

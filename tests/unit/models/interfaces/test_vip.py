@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_vip import IfVip
+from opnsense.models.interfaces.vip import IfVip
 
 
 class TestIfVip:

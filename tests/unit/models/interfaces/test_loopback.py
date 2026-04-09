@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_loopback import IfLoopback
+from opnsense.models.interfaces.loopback import IfLoopback
 
 
 class TestIfLoopback:

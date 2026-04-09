@@ -13,7 +13,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.plugin import PluginManager
+from opnsense.managers.services.plugin import PluginManager
 
 
 @pytest.fixture

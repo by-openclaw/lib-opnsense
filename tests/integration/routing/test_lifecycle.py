@@ -16,8 +16,8 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.rt_gateway import RtGatewayManager
-from opnsense.managers.rt_route import RtRouteManager
+from opnsense.managers.routing.gateway import RtGatewayManager
+from opnsense.managers.routing.route import RtRouteManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

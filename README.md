@@ -34,7 +34,7 @@ pip install -e ".[dev]"
 ```python
 import asyncio
 from opnsense import OpnsenseClient
-from opnsense.managers.fw_filter import FwFilterManager
+from opnsense.managers.firewall.filter import FwFilterManager
 from opnsense.credentials import get_credentials
 
 async def main():
@@ -176,8 +176,8 @@ except OpnsenseError as exc:
 ### WireGuard key pair flow
 
 ```python
-from opnsense.managers.wg_server import WgServerManager
-from opnsense.managers.wg_client import WgClientManager
+from opnsense.managers.vpn.wg_server import WgServerManager
+from opnsense.managers.vpn.wg_client import WgClientManager
 
 async with OpnsenseClient(...) as client:
     server_mgr = WgServerManager(client)

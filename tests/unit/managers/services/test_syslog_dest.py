@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.syslog_dest import SyslogDestManager
+from opnsense.managers.services.syslog_dest import SyslogDestManager
 
 
 @pytest.mark.asyncio

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ipsec_local import IpsecLocal
+from opnsense.models.vpn.ipsec_local import IpsecLocal
 
 
 class TestIpsecLocal:

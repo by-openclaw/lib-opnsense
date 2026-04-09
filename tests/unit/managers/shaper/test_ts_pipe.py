@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
-from opnsense.managers.ts_pipe import TsPipeManager
+from opnsense.managers.shaper.ts_pipe import TsPipeManager
 
 
 @pytest.mark.asyncio

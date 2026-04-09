@@ -13,7 +13,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.ub_diagnostics import UbDiagnosticsManager
+from opnsense.managers.dns.ub_diagnostics import UbDiagnosticsManager
 
 
 @pytest.fixture

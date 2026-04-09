@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.ts_queue import TsQueueManager
+from opnsense.managers.shaper.ts_queue import TsQueueManager
 
 
 @pytest.mark.asyncio

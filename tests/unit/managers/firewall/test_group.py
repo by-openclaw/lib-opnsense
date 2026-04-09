@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.fw_group import FwGroupManager
+from opnsense.managers.firewall.group import FwGroupManager
 
 
 @pytest.mark.asyncio

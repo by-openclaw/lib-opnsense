@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.kea4_peer import Kea4Peer
+from opnsense.models.dhcp.kea4_peer import Kea4Peer
 
 
 class TestKea4Peer:

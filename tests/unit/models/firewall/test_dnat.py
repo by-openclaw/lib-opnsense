@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_dnat import FwDnatRule
+from opnsense.models.firewall.dnat import FwDnatRule
 
 
 class TestFwDnatRule:

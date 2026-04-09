@@ -21,7 +21,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_bridge import IfBridgeManager
+from opnsense.managers.interfaces.bridge import IfBridgeManager
 
 BRIDGE_PARAMS = {"descr": "LAN Bridge", "members": "vtnet1,vtnet2"}
 

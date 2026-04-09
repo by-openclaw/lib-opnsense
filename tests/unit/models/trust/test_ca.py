@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.trust_ca import TrustCa
+from opnsense.models.trust.ca import TrustCa
 
 
 class TestTrustCa:

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ovpn_instance import OvpnInstance
+from opnsense.models.vpn.ovpn_instance import OvpnInstance
 
 
 class TestOvpnInstance:

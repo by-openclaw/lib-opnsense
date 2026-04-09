@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.wg_client import WgClient
+from opnsense.models.vpn.wg_client import WgClient
 
 
 class TestWgClient:

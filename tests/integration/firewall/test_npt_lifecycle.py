@@ -12,7 +12,7 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.fw_npt import FwNptManager
+from opnsense.managers.firewall.npt import FwNptManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

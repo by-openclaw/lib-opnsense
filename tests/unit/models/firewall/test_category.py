@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_category import FwCategory
+from opnsense.models.firewall.category import FwCategory
 
 
 class TestFwCategory:

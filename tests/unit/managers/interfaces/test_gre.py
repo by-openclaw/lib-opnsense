@@ -23,7 +23,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_gre import IfGreManager
+from opnsense.managers.interfaces.gre import IfGreManager
 
 GRE_PARAMS = {
     "tunnel-local-addr": "10.0.0.1",

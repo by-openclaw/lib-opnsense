@@ -14,9 +14,9 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.ovpn_instance import OvpnInstanceManager
-from opnsense.managers.trust_ca import TrustCaManager
-from opnsense.managers.trust_cert import TrustCertManager
+from opnsense.managers.vpn.ovpn_instance import OvpnInstanceManager
+from opnsense.managers.trust.ca import TrustCaManager
+from opnsense.managers.trust.cert import TrustCertManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

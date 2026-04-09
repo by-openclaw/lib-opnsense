@@ -11,7 +11,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import OpnsenseError
-from opnsense.managers.auth_priv import AuthPrivManager
+from opnsense.managers.auth.priv import AuthPrivManager
 
 
 @pytest.mark.asyncio

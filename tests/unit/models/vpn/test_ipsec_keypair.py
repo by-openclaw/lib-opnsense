@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ipsec_keypair import IpsecKeypair
+from opnsense.models.vpn.ipsec_keypair import IpsecKeypair
 
 
 class TestIpsecKeypair:

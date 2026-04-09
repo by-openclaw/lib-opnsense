@@ -13,7 +13,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.fw_one_to_one import FwOneToOneManager
+from opnsense.managers.firewall.one_to_one import FwOneToOneManager
 
 # Standard test params matching real OPNsense 1:1 NAT config
 OTO_PARAMS = {

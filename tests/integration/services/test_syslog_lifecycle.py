@@ -11,7 +11,7 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.syslog_dest import SyslogDestManager
+from opnsense.managers.services.syslog_dest import SyslogDestManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

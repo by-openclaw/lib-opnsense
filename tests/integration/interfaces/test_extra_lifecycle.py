@@ -14,9 +14,9 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.if_loopback import IfLoopbackManager
-from opnsense.managers.if_neighbor import IfNeighborManager
-from opnsense.managers.if_vxlan import IfVxlanManager
+from opnsense.managers.interfaces.loopback import IfLoopbackManager
+from opnsense.managers.interfaces.neighbor import IfNeighborManager
+from opnsense.managers.interfaces.vxlan import IfVxlanManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

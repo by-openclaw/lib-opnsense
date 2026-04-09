@@ -21,7 +21,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_loopback import IfLoopbackManager
+from opnsense.managers.interfaces.loopback import IfLoopbackManager
 
 LOOPBACK_PARAMS = {"description": "Mgmt Loopback"}
 

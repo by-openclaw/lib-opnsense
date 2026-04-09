@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.cron_job import CronJob
+from opnsense.models.services.cron_job import CronJob
 
 
 class TestCronJob:

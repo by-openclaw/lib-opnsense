@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
-from opnsense.managers.fw_source_nat import FwSourceNatManager
+from opnsense.managers.firewall.source_nat import FwSourceNatManager
 
 
 @pytest.mark.asyncio

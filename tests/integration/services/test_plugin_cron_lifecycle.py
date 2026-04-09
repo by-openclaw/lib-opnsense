@@ -12,8 +12,8 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.cron_job import CronJobManager
-from opnsense.managers.plugin import PluginManager
+from opnsense.managers.services.cron_job import CronJobManager
+from opnsense.managers.services.plugin import PluginManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

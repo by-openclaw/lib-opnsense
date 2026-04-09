@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.wg_client import WgClientManager
+from opnsense.managers.vpn.wg_client import WgClientManager
 
 
 @pytest.mark.asyncio

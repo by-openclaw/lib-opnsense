@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_group import FwGroup
+from opnsense.models.firewall.group import FwGroup
 
 
 class TestFwGroup:

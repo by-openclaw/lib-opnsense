@@ -29,10 +29,10 @@ import os
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.auth_api_key import AuthApiKeyManager
-from opnsense.managers.auth_group import AuthGroupManager
-from opnsense.managers.auth_priv import AuthPrivManager
-from opnsense.managers.auth_user import AuthUserManager
+from opnsense.managers.auth.api_key import AuthApiKeyManager
+from opnsense.managers.auth.group import AuthGroupManager
+from opnsense.managers.auth.priv import AuthPrivManager
+from opnsense.managers.auth.user import AuthUserManager
 
 # -- Test data constants -------------------------------------------------------
 

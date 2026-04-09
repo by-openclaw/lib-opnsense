@@ -11,7 +11,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.cron_job import CronJobManager
+from opnsense.managers.services.cron_job import CronJobManager
 
 
 @pytest.mark.asyncio

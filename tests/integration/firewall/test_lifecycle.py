@@ -22,14 +22,14 @@ import pytest
 
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import AmbiguousMatchError
-from opnsense.managers.fw_alias import FwAliasManager
-from opnsense.managers.fw_category import FwCategoryManager
-from opnsense.managers.fw_dnat import FwDnatManager
-from opnsense.managers.fw_filter import FwFilterManager
-from opnsense.managers.fw_group import FwGroupManager
-from opnsense.managers.fw_one_to_one import FwOneToOneManager
-from opnsense.managers.fw_source_nat import FwSourceNatManager
-from opnsense.managers.ts_pipe import TsPipeManager
+from opnsense.managers.firewall.alias import FwAliasManager
+from opnsense.managers.firewall.category import FwCategoryManager
+from opnsense.managers.firewall.dnat import FwDnatManager
+from opnsense.managers.firewall.filter import FwFilterManager
+from opnsense.managers.firewall.group import FwGroupManager
+from opnsense.managers.firewall.one_to_one import FwOneToOneManager
+from opnsense.managers.firewall.source_nat import FwSourceNatManager
+from opnsense.managers.shaper.ts_pipe import TsPipeManager
 
 # Test object names — all prefixed with inttest-
 ALIAS_NAME = "inttest_alias_host"

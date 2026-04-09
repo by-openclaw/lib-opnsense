@@ -24,10 +24,10 @@ import pytest
 
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import AmbiguousMatchError, OpnsenseValidationError
-from opnsense.managers.auth_group import AuthGroupManager
-from opnsense.managers.auth_user import AuthUserManager
-from opnsense.managers.fw_filter import FwFilterManager
-from opnsense.managers.ts_pipe import TsPipeManager
+from opnsense.managers.auth.group import AuthGroupManager
+from opnsense.managers.auth.user import AuthUserManager
+from opnsense.managers.firewall.filter import FwFilterManager
+from opnsense.managers.shaper.ts_pipe import TsPipeManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ipsec_pool import IpsecPool
+from opnsense.models.vpn.ipsec_pool import IpsecPool
 
 
 class TestIpsecPool:

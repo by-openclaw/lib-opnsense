@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ipsec_psk import IpsecPsk
+from opnsense.models.vpn.ipsec_psk import IpsecPsk
 
 
 class TestIpsecPsk:

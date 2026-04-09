@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_npt import FwNptRule
+from opnsense.models.firewall.npt import FwNptRule
 
 
 class TestFwNptRule:

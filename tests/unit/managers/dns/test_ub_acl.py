@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.ub_acl import UbAclManager
+from opnsense.managers.dns.ub_acl import UbAclManager
 
 
 @pytest.mark.asyncio

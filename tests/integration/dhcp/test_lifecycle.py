@@ -17,10 +17,10 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.kea4_peer import Kea4PeerManager
-from opnsense.managers.kea4_reservation import Kea4ReservationManager
-from opnsense.managers.kea4_subnet import Kea4SubnetManager
-from opnsense.managers.kea6_subnet import Kea6SubnetManager
+from opnsense.managers.dhcp.kea4_peer import Kea4PeerManager
+from opnsense.managers.dhcp.kea4_reservation import Kea4ReservationManager
+from opnsense.managers.dhcp.kea4_subnet import Kea4SubnetManager
+from opnsense.managers.dhcp.kea6_subnet import Kea6SubnetManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

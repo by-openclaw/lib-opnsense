@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
-from opnsense.managers.ub_dot import UbDotManager
+from opnsense.managers.dns.ub_dot import UbDotManager
 
 
 @pytest.mark.asyncio

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ts_pipe import TsPipe
+from opnsense.models.shaper.ts_pipe import TsPipe
 
 
 class TestTsPipe:

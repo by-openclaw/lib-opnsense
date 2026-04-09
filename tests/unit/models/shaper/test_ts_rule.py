@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ts_rule import TsRule
+from opnsense.models.shaper.ts_rule import TsRule
 
 
 class TestTsRule:

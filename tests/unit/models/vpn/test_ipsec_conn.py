@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ipsec_conn import IpsecConn
+from opnsense.models.vpn.ipsec_conn import IpsecConn
 
 
 class TestIpsecConn:

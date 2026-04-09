@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ub_acl import UbAcl
+from opnsense.models.dns.ub_acl import UbAcl
 
 
 class TestUbAcl:

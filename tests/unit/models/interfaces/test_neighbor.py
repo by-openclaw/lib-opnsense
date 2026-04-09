@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_neighbor import IfNeighbor
+from opnsense.models.interfaces.neighbor import IfNeighbor
 
 
 class TestIfNeighbor:

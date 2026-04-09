@@ -20,7 +20,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.rt_gateway import RtGatewayManager
+from opnsense.managers.routing.gateway import RtGatewayManager
 
 # Standard test params matching real OPNsense gateway config
 GW_PARAMS = {"name": "WAN_GW", "interface": "wan", "gateway": "10.0.0.1"}

@@ -16,7 +16,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import AmbiguousMatchError, FieldValidationError, OpnsenseValidationError
-from opnsense.managers.ub_host_alias import UbHostAliasManager
+from opnsense.managers.dns.ub_host_alias import UbHostAliasManager
 
 
 @pytest.mark.asyncio

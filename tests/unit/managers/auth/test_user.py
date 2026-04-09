@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseError, OpnsenseValidationError
-from opnsense.managers.auth_user import AuthUserManager
+from opnsense.managers.auth.user import AuthUserManager
 
 
 @pytest.mark.asyncio

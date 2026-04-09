@@ -12,13 +12,13 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.ipsec_child import IpsecChildManager
-from opnsense.managers.ipsec_conn import IpsecConnManager
-from opnsense.managers.ipsec_local import IpsecLocalManager
-from opnsense.managers.ipsec_pool import IpsecPoolManager
-from opnsense.managers.ipsec_psk import IpsecPskManager
-from opnsense.managers.ipsec_remote import IpsecRemoteManager
-from opnsense.managers.ipsec_vti import IpsecVtiManager
+from opnsense.managers.vpn.ipsec_child import IpsecChildManager
+from opnsense.managers.vpn.ipsec_conn import IpsecConnManager
+from opnsense.managers.vpn.ipsec_local import IpsecLocalManager
+from opnsense.managers.vpn.ipsec_pool import IpsecPoolManager
+from opnsense.managers.vpn.ipsec_psk import IpsecPskManager
+from opnsense.managers.vpn.ipsec_remote import IpsecRemoteManager
+from opnsense.managers.vpn.ipsec_vti import IpsecVtiManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

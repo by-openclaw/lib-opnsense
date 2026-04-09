@@ -13,8 +13,8 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.wg_client import WgClientManager
-from opnsense.managers.wg_server import WgServerManager
+from opnsense.managers.vpn.wg_client import WgClientManager
+from opnsense.managers.vpn.wg_server import WgServerManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

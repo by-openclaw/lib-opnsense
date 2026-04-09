@@ -23,7 +23,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_neighbor import IfNeighborManager
+from opnsense.managers.interfaces.neighbor import IfNeighborManager
 
 NEIGHBOR_PARAMS = {
     "ipaddress": "10.0.0.1",

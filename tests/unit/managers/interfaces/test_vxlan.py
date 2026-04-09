@@ -23,7 +23,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_vxlan import IfVxlanManager
+from opnsense.managers.interfaces.vxlan import IfVxlanManager
 
 VXLAN_PARAMS = {
     "vxlanid": "100",

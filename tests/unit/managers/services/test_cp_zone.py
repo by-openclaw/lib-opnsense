@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.cp_zone import CpZoneManager
+from opnsense.managers.services.cp_zone import CpZoneManager
 
 
 @pytest.mark.asyncio

@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import OpnsenseError
-from opnsense.managers.auth_api_key import AuthApiKeyManager
+from opnsense.managers.auth.api_key import AuthApiKeyManager
 
 
 @pytest.fixture

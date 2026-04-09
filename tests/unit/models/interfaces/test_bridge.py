@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_bridge import IfBridge
+from opnsense.models.interfaces.bridge import IfBridge
 
 
 class TestIfBridge:

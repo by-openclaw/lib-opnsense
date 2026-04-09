@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_vlan import IfVlan
+from opnsense.models.interfaces.vlan import IfVlan
 
 
 class TestIfVlan:

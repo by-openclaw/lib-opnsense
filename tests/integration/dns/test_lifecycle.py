@@ -26,12 +26,12 @@ import contextlib
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.managers.ub_acl import UbAclManager
-from opnsense.managers.ub_diagnostics import UbDiagnosticsManager
-from opnsense.managers.ub_dot import UbDotManager
-from opnsense.managers.ub_forward import UbForwardManager
-from opnsense.managers.ub_host_alias import UbHostAliasManager
-from opnsense.managers.ub_host_override import UbHostOverrideManager
+from opnsense.managers.dns.ub_acl import UbAclManager
+from opnsense.managers.dns.ub_diagnostics import UbDiagnosticsManager
+from opnsense.managers.dns.ub_dot import UbDotManager
+from opnsense.managers.dns.ub_forward import UbForwardManager
+from opnsense.managers.dns.ub_host_alias import UbHostAliasManager
+from opnsense.managers.dns.ub_host_override import UbHostOverrideManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 

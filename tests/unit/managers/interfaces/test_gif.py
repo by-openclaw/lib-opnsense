@@ -23,7 +23,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_gif import IfGifManager
+from opnsense.managers.interfaces.gif import IfGifManager
 
 GIF_PARAMS = {
     "tunnel-local-addr": "10.0.0.1",

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_gif import IfGif
+from opnsense.models.interfaces.gif import IfGif
 
 
 class TestIfGif:

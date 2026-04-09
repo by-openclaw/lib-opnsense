@@ -21,7 +21,7 @@ from opnsense.exceptions import (
     OpnsenseError,
     OpnsenseValidationError,
 )
-from opnsense.managers.if_lagg import IfLaggManager
+from opnsense.managers.interfaces.lagg import IfLaggManager
 
 LAGG_PARAMS = {"descr": "Bond0", "members": "vtnet1,vtnet2", "proto": "lacp"}
 

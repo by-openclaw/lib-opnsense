@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.ub_forward import UbForward
+from opnsense.models.dns.ub_forward import UbForward
 
 
 class TestUbForward:

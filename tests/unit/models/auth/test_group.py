@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.auth_group import AuthGroup
+from opnsense.models.auth.group import AuthGroup
 
 
 class TestAuthGroup:

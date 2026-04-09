@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock
 import pytest
 
 from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
-from opnsense.managers.kea4_subnet import Kea4SubnetManager
+from opnsense.managers.dhcp.kea4_subnet import Kea4SubnetManager
 
 
 @pytest.mark.asyncio

@@ -9,7 +9,7 @@ from dataclasses import asdict
 
 import pytest
 
-from opnsense.models.auth_user import AuthUser
+from opnsense.models.auth.user import AuthUser
 
 
 class TestAuthUser:

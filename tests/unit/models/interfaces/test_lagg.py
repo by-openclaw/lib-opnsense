@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.if_lagg import IfLagg
+from opnsense.models.interfaces.lagg import IfLagg
 
 
 class TestIfLagg:

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.fw_alias import FwAlias
+from opnsense.models.firewall.alias import FwAlias
 
 
 class TestFwAlias:

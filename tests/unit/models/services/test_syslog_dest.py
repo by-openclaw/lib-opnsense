@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import pytest
 
-from opnsense.models.syslog_dest import SyslogDest
+from opnsense.models.services.syslog_dest import SyslogDest
 
 
 class TestSyslogDest:
