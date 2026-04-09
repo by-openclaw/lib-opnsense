@@ -1,0 +1,28 @@
+@startuml scope-firewall-state
+' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+[*] --> Absent
+
+Absent --> Created : ensure("present")
+Created --> Staged : API accepts
+Staged --> Applied : reconfigure/apply
+Applied --> Updated : ensure("present", changed params)
+Updated --> Applied : reconfigure/apply
+Applied --> Deleted : ensure("absent")
+Deleted --> Absent : cleanup
+
+state Created {
+  [*] --> Disabled : enabled=0
+  Disabled --> Enabled : update enabled=1
+  Enabled --> Disabled : update enabled=0
+}
+
+note right of Staged
+  Changes staged in OPNsense
+  Not active until apply
+end note
+
+note right of Disabled
+  Phase 2: always disabled
+  Phase 3: enable for E2E
+end note
+@enduml

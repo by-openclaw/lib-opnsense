@@ -34,7 +34,7 @@ pip install -e ".[dev]"
 ```python
 import asyncio
 from opnsense import OpnsenseClient
-from opnsense.managers.fw_filter import FwFilterManager
+from opnsense.managers.firewall.filter import FwFilterManager
 from opnsense.credentials import get_credentials
 
 async def main():
@@ -81,11 +81,20 @@ src/opnsense/
 ├── managers/
 │   ├── base.py                    # BaseManager — thin orchestrator (composes core/)
 │   ├── protocols.py               # ManagerProtocol (typing.Protocol for DI)
-│   └── 20 concrete managers       # Config only (~30 lines each)
+│   ├── auth/                      # user, group, priv, api_key
+│   ├── firewall/                  # alias, filter, dnat, source_nat, one_to_one, npt, category, group
+│   ├── interfaces/                # vlan, vip, bridge, gif, gre, lagg, loopback, neighbor, vxlan
+│   ├── routing/                   # gateway, route
+│   ├── dns/                       # ub_host_override, ub_host_alias, ub_forward, ub_acl, ub_dot, ub_diagnostics
+│   ├── dhcp/                      # kea4_subnet, kea4_reservation, kea4_peer, kea6_subnet, kea6_reservation
+│   ├── vpn/                       # wg_server, wg_client, ovpn_instance, ipsec_conn/child/local/remote/psk/keypair/pool/vti
+│   ├── shaper/                    # ts_pipe, ts_queue, ts_rule
+│   ├── trust/                     # ca, cert
+│   └── services/                  # cron_job, syslog_dest, cp_zone, ddns_account, plugin
 │
-├── models/                        # Frozen dataclasses — one per entity
+├── models/                        # Frozen dataclasses — mirrors managers/ structure
 │   ├── base.py                    # EnsureResult
-│   └── 16 entity models           # AuthUser, FwFilterRule, UbHostOverride, ...
+│   └── {scope}/                   # One model per entity (50 models)
 │
 ├── client.py                      # httpx async transport (retry, exception mapping)
 ├── exceptions.py                  # Typed exception hierarchy (8 types)
@@ -176,8 +185,8 @@ except OpnsenseError as exc:
 ### WireGuard key pair flow
 
 ```python
-from opnsense.managers.wg_server import WgServerManager
-from opnsense.managers.wg_client import WgClientManager
+from opnsense.managers.vpn.wg_server import WgServerManager
+from opnsense.managers.vpn.wg_client import WgClientManager
 
 async with OpnsenseClient(...) as client:
     server_mgr = WgServerManager(client)
@@ -213,13 +222,13 @@ Private keys never leave the device. Store server privkey in Vault KV.
 
 ## Testing
 
-### Unit tests (905 tests, offline)
+### Unit tests (1178 tests, offline)
 
 ```bash
 pytest tests/unit/ -q
 ```
 
-### Integration tests (236 tests, live OPNsense device)
+### Integration tests (294 tests, live OPNsense device)
 
 ```bash
 # Set credentials in .env or environment

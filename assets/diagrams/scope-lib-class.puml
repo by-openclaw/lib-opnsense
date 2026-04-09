@@ -1,0 +1,81 @@
+@startuml scope-lib-class
+' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+skinparam classAttributeIconSize 0
+
+package "opnsense.core" {
+  class IdentityResolver {
+    +find_existing(rows, match_keys): dict
+    +match_label(match_keys): str
+  }
+  class DiffEngine {
+    +compute_diff(existing, desired): dict
+    -normalize_enum(value): str
+  }
+  class Redactor {
+    +redact(data, fields): dict
+    +partial_reveal(value, depth): str
+  }
+  class ValidatorRegistry {
+    +validate(field, value, rule): None
+    +register(type, validator): None
+  }
+  class EndpointResolver {
+    +search_url(): str
+    +get_url(uuid): str
+    +create_url(): str
+    +update_url(uuid): str
+    +delete_url(uuid): str
+  }
+}
+
+package "opnsense.managers" {
+  abstract class BaseManager {
+    #_endpoint: str
+    #_payload_key: str
+    #_match_key: str
+    #_apply_endpoint: str
+    +ensure(state, params): EnsureResult
+    +list(search_phrase): list
+    +create(params): EnsureResult
+    +update(uuid, params): EnsureResult
+    +delete(uuid): EnsureResult
+  }
+}
+
+package "opnsense.managers.firewall" {
+  class FwFilterManager
+  class FwAliasManager
+  class FwDnatManager
+}
+
+package "opnsense.managers.auth" {
+  class AuthUserManager
+  class AuthGroupManager
+}
+
+BaseManager *-- IdentityResolver
+BaseManager *-- DiffEngine
+BaseManager *-- Redactor
+BaseManager *-- ValidatorRegistry
+BaseManager *-- EndpointResolver
+
+FwFilterManager --|> BaseManager
+FwAliasManager --|> BaseManager
+FwDnatManager --|> BaseManager
+AuthUserManager --|> BaseManager
+AuthGroupManager --|> BaseManager
+
+package "opnsense" {
+  class OpnsenseClient {
+    +get(endpoint): dict
+    +post(endpoint, data): dict
+    +search(endpoint, phrase): list
+    +create(endpoint, key, params): str
+    +update(endpoint, uuid, key, params): dict
+    +delete(endpoint, uuid): dict
+    +reconfigure(endpoint): dict
+  }
+}
+
+BaseManager o-- OpnsenseClient
+@enduml

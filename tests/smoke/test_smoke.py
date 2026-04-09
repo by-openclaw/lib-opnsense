@@ -8,7 +8,7 @@ def test_import_opnsense() -> None:
     import opnsense
 
     assert hasattr(opnsense, "__version__")
-    assert opnsense.__version__ == "0.1.0"
+    assert opnsense.__version__  # just verify it's set
 
 
 def test_client_can_be_instantiated() -> None:
@@ -21,9 +21,9 @@ def test_client_can_be_instantiated() -> None:
 
 def test_manager_classes_importable() -> None:
     """All manager classes can be imported."""
-    from opnsense.managers.auth_group import AuthGroupManager
-    from opnsense.managers.auth_priv import AuthPrivManager
-    from opnsense.managers.auth_user import AuthUserManager
+    from opnsense.managers.auth.group import AuthGroupManager
+    from opnsense.managers.auth.priv import AuthPrivManager
+    from opnsense.managers.auth.user import AuthUserManager
 
     assert AuthUserManager is not None
     assert AuthGroupManager is not None

@@ -1,0 +1,34 @@
+@startuml scope-auth-sequence
+' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+participant "Consumer" as C
+participant "AuthUserManager" as M
+participant "IdentityResolver" as IR
+participant "DiffEngine" as DE
+participant "OpnsenseClient" as API
+participant "OPNsense" as OPN
+
+C -> M: ensure("present", {name: "alice"})
+M -> API: search("auth/user", "alice")
+API -> OPN: POST /api/auth/user/search
+OPN --> API: [{uuid, name, email, ...}]
+API --> M: rows
+
+alt user not found
+  M -> API: create("auth/user", "user", params)
+  API -> OPN: POST /api/auth/user/add
+  OPN --> API: {uuid: "abc-123"}
+  M --> C: EnsureResult(changed=True, action="created")
+else user found
+  M -> IR: find_existing(rows, {name: "alice"})
+  IR --> M: existing_record
+  M -> DE: compute_diff(existing, desired)
+  DE --> M: diff (empty or fields changed)
+  alt no diff
+    M --> C: EnsureResult(changed=False, action="noop")
+  else has diff
+    M -> API: update("auth/user", uuid, params)
+    API -> OPN: POST /api/auth/user/set/{uuid}
+    M --> C: EnsureResult(changed=True, action="updated")
+  end
+end
+@enduml

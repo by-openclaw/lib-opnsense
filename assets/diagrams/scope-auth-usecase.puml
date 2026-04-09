@@ -1,0 +1,35 @@
+@startuml scope-auth-usecase
+' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Ansible / Consumer" as consumer
+actor "OPNsense API" as api
+
+rectangle "Auth Scope" {
+  usecase "Create User" as UC1
+  usecase "Update User" as UC2
+  usecase "Delete User" as UC3
+  usecase "Create Group" as UC4
+  usecase "Assign Privilege" as UC5
+  usecase "Generate API Key" as UC6
+  usecase "Test API Key" as UC7
+  usecase "Detect Duplicate" as UC8
+}
+
+consumer --> UC1
+consumer --> UC2
+consumer --> UC3
+consumer --> UC4
+consumer --> UC5
+consumer --> UC6
+consumer --> UC7
+UC1 --> api
+UC2 --> api
+UC3 --> api
+UC4 --> api
+UC5 --> api
+UC6 --> api
+UC7 --> api
+UC8 ..> UC1 : <<extends>>
+@enduml

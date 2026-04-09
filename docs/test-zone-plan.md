@@ -156,9 +156,34 @@ VLAN sub-interfaces created by OPNsense on vtnet0:
 
 **Before starting a new manager: scope + use cases must be validated.**
 
+**Per-scope documentation:** See [docs/scopes/](scopes/) for full use cases, diagrams, and BoM per scope.
+
+| # | Domain | Managers | Scope doc | Status |
+|---|---|---|---|---|
+| 2.1 | Auth | 4 (user, group, priv, api_key) | [auth.md](scopes/auth.md) | DONE |
+| 2.2 | Firewall | 8 (alias, filter, dnat, snat, 1:1, npt, category, group) | [firewall.md](scopes/firewall.md) | DONE |
+| 2.3 | Interfaces | 9 (vlan, vip, bridge, gif, gre, lagg, loopback, neighbor, vxlan) | [interfaces.md](scopes/interfaces.md) | DONE |
+| 2.4 | Routing | 2 (gateway, route) | [routing.md](scopes/routing.md) | DONE |
+| 2.5 | DNS (Unbound) | 6 (host override, alias, forward, acl, dot, diagnostics) | [dns.md](scopes/dns.md) | DONE |
+| 2.6 | DHCP (Kea) | 5 (v4 subnet, reservation, peer + v6 subnet, reservation) | [dhcp.md](scopes/dhcp.md) | DONE |
+| 2.7 | VPN (WG+OVPN+IPsec) | 13 (wg 2, ovpn 1, ipsec 8) | [vpn.md](scopes/vpn.md) | DONE |
+| 2.8 | Traffic Shaper | 3 (pipe, queue, rule) | [shaper.md](scopes/shaper.md) | DONE |
+| 2.9 | Trust/PKI | 2 (ca, cert) | [trust.md](scopes/trust.md) | DONE |
+| 2.10 | Services | 5 (cron, syslog, captive portal, ddns, plugin) | [services.md](scopes/services.md) | DONE |
+| 2.11 | IDS/Suricata | 3 (planned) | — | STANDBY |
+
+**Total: 54 managers implemented, 3 standby (IDS).**
+
+---
+
+> **Per-scope details moved to `docs/scopes/`.**
+> Each scope file contains: network diagram, manager list, use case tables,
+> bill of materials, safety boundaries, sequence diagrams, and test status.
+> The sections below (M01–M14) are archived inline for historical reference.
+
 | # | Domain | Manager(s) | Safety | Priority | Status |
 |---|---|---|---|---|---|
-| 2.1 | Interfaces | IfVlanManager, IfVipManager | CRUD safe — test zone VLANs | HIGH | partial |
+| 2.1 | Interfaces | IfVlanManager, IfVipManager | CRUD safe — test zone VLANs | HIGH | DONE |
 | 2.2 | Routing | RtGatewayManager, RtRouteManager | CRUD safe — test routes | HIGH | absent |
 | 2.3 | FW aliases | FwAliasManager | CRUD safe — `inttest-` prefix | DONE | done |
 | 2.4 | FW filter | FwFilterManager | CRUD safe — disabled rules | DONE | done |
@@ -749,6 +774,67 @@ User prepares manually:
 **WAN IP:**
 - Currently DHCP: 10.6.239.114
 - Will be set to static 10.6.239.114/20 (task 0.8)
+
+## Bill of Materials — Full Test Infrastructure
+
+### Virtual Machines
+
+| # | VM | VMID | Role | OS | Network |
+|---|---|---|---|---|---|
+| 1 | OPNsense test | 101 | Firewall under test | OPNsense 26.1.5 | WAN: vmbrWAN3 (10.6.239.114), LAN: vmbrAPPS (trunk) |
+| 2 | Rune VM | — | Test client + API caller | Linux | WAN: 10.100.0.101 |
+| 3 | Win11 Desktop | — | VPN client (WireGuard, OpenVPN) | Windows 11 | WAN: 10.100.0.x |
+
+### LXC Containers
+
+| # | LXC | IP (v4) | IP (v6) | VLAN | Zone | Purpose | Used by scopes |
+|---|---|---|---|---|---|---|---|
+| 1 | lxc-webdmz-test-01 | 10.11.2.10 (static) | fd11:2::10 (static) | 1320 | DMZ | DNAT target, HTTP server | firewall, dns, interfaces |
+| 2 | lxc-websrv-test-01 | 10.11.3.10 (static) | fd11:3::10 (static) | 1330 | SVC | Internal service, inter-zone routing | firewall, routing, shaper |
+| 3 | lxc-dhcpclient-test-01 | DHCP (Kea4) | DHCPv6 (Kea6) | 1320 | DMZ | DHCP lease validation | dhcp |
+
+### VLANs
+
+| # | VLAN ID | VNet | Subnet (v4) | Subnet (v6) | Gateway | Purpose |
+|---|---|---|---|---|---|---|
+| 1 | 1310 | tmgmt | 10.11.1.0/24 | fd11:1::/64 | 10.11.1.1 / fd11:1::1 | Management (API, SSH) |
+| 2 | 1320 | tdmz | 10.11.2.0/24 | fd11:2::/64 | 10.11.2.1 / fd11:2::1 | DMZ (public-facing via DNAT) |
+| 3 | 1330 | tsvc | 10.11.3.0/24 | fd11:3::/64 | 10.11.3.1 / fd11:3::1 | Services (internal only) |
+| 4 | 1340 | tvpn | 10.11.4.0/24 | fd11:4::/64 | 10.11.4.1 / fd11:4::1 | VPN clients (optional isolation) |
+
+### VPN Tunnels
+
+| # | Protocol | Interface | Subnet | Port | Purpose |
+|---|---|---|---|---|---|
+| 1 | WireGuard | wg0 | 10.10.0.0/24 | 51820 | Remote access (Win11/mobile) |
+| 2 | OpenVPN | tun0 | 10.10.1.0/24 | 1194 | Legacy remote access |
+| 3 | IPsec | ipsec0 | 10.10.2.0/24 | 500/4500 | Site-to-site (test) |
+
+### Scope → Infrastructure Matrix
+
+| Scope | OPNsense | webdmz LXC | websrv LXC | dhcpclient LXC | Rune VM | Win11 | VPN tunnel |
+|---|---|---|---|---|---|---|---|
+| auth | x | | | | x | | |
+| firewall | x | x (DNAT) | x (inter-zone) | | x (WAN) | | |
+| interfaces | x | | | | | | |
+| routing | x | | x (route target) | | | | |
+| dns | x | | | | x (nslookup) | | |
+| dhcp | x | | | x (lease) | | | |
+| vpn | x | | | | x (IPsec) | x (WG/OVPN) | x |
+| shaper | x | | x (iperf3) | | | | |
+| trust | x | | | | | | |
+| services | x | | | | | | |
+
+### Total Infrastructure Count
+
+| Resource | Count |
+|---|---|
+| VMs | 3 (OPNsense + Rune + Win11) |
+| LXCs | 3 (webdmz + websrv + dhcpclient) |
+| VLANs | 4 (MGMT + DMZ + SVC + VPN) |
+| VPN tunnels | 3 (WG + OVPN + IPsec) |
+| Subnets (v4) | 7 (3 zones + 1 VPN zone + 3 tunnels) |
+| Subnets (v6) | 4 (3 zones + 1 VPN zone, ULA fd11:x::/64) |
 
 ## Deliverables
 

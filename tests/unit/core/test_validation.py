@@ -231,3 +231,46 @@ class TestFieldValidationErrorAttributes:
         assert err.field == "name"
         assert err.value == "bad!"
         assert err.rule == "must be alphanumeric"
+
+
+class TestPortOrAlias:
+    """Validate port_or_alias type: numeric ports, ranges, aliases."""
+
+    def setup_method(self) -> None:
+        self.registry = ValidatorRegistry()
+        self.spec = {"port": {"type": "port_or_alias"}}
+
+    def test_single_port_valid(self) -> None:
+        self.registry.validate_params({"port": "443"}, self.spec)
+
+    def test_port_range_valid(self) -> None:
+        self.registry.validate_params({"port": "80:443"}, self.spec)
+
+    def test_port_comma_valid(self) -> None:
+        self.registry.validate_params({"port": "80,443,8080"}, self.spec)
+
+    def test_alias_name_valid(self) -> None:
+        self.registry.validate_params({"port": "inttest_web_ports"}, self.spec)
+
+    def test_alias_name_caps_valid(self) -> None:
+        self.registry.validate_params({"port": "MyPorts"}, self.spec)
+
+    def test_port_zero_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="1-65535"):
+            self.registry.validate_params({"port": "0"}, self.spec)
+
+    def test_port_too_high_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="1-65535"):
+            self.registry.validate_params({"port": "125657"}, self.spec)
+
+    def test_port_negative_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="1-65535"):
+            self.registry.validate_params({"port": "-1"}, self.spec)
+
+    def test_range_too_high_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="1-65535"):
+            self.registry.validate_params({"port": "80:99999"}, self.spec)
+
+    def test_invalid_string_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="port.*alias"):
+            self.registry.validate_params({"port": "not a port!"}, self.spec)

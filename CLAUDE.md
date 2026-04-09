@@ -14,7 +14,7 @@ AI agent context. Read before touching any file.
 
 ## What This Repo Does
 
-Async Python library for the OPNsense REST API -- CRUD for users, groups, privileges, and future firewall/DNS/VPN domains.
+Async Python library for the OPNsense REST API -- CRUD + idempotent ensure() for 54 managers across 10 scopes (auth, firewall, interfaces, routing, dns, dhcp, vpn, shaper, trust, services).
 Published as a versioned package; consumed as a dependency by platform-setup and Ansible modules.
 
 **NOT for:** direct deployment, VM provisioning, or any infra changes.
@@ -49,7 +49,7 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 
 ---
 
-## Current State (v0.2.0)
+## Current State (v1.0.0)
 
 | Component | Status |
 |---|---|
@@ -62,15 +62,13 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 | core/logging_helpers.py -- ManagerLogBuilder (structured logs) | Done |
 | managers/base.py -- BaseManager (thin orchestrator, composes core/) | Done |
 | managers/protocols.py -- ManagerProtocol (typing.Protocol for DI) | Done |
-| Auth managers (user, group, priv, api_key) | Done |
-| Firewall managers (alias, filter, dnat, snat, onetoone, category, group) | Done |
-| Interface managers (vlan, vip) | Done |
-| Traffic shaper (pipe) | Done |
+| 54 managers across 10 scope packages (all integration tested) | Done |
+| 50 typed frozen dataclass models | Done |
 | Exception hierarchy (OpnsenseError -> 8 typed exceptions + FieldValidationError) | Done |
 | Credential provider (env vars + .env) | Done |
 | EnsureResult frozen dataclass | Done |
-| Unit tests (377 tests) | Done |
-| Integration tests (133 tests on live OPNsense 26.1.5) | Done |
+| Unit tests (1178 tests) | Done |
+| Integration tests (294 tests on live OPNsense 26.1.5) | Done |
 | CI: ruff + mypy + bandit + pytest (Python 3.10-3.13) | Done |
 | Dev container (.devcontainer/) | Done |
 | Ansible collection | Phase 2 |
@@ -97,15 +95,17 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 | `src/opnsense/core/logging_helpers.py` | ManagerLogBuilder -- structured log dict construction |
 | `src/opnsense/managers/base.py` | BaseManager -- thin orchestrator composing core/ components |
 | `src/opnsense/managers/protocols.py` | ManagerProtocol -- typing.Protocol for consumer DI |
-| `src/opnsense/managers/auth_user.py` | AuthUserManager -- local user CRUD (~30 lines, config only) |
-| `src/opnsense/managers/auth_group.py` | AuthGroupManager -- local group CRUD |
-| `src/opnsense/managers/auth_priv.py` | AuthPrivManager -- privilege assignment (standalone) |
-| `src/opnsense/managers/auth_api_key.py` | AuthApiKeyManager -- API key CRUD (standalone) |
-| `src/opnsense/managers/fw_filter.py` | FwFilterManager -- firewall filter rules |
+| `src/opnsense/managers/{scope}/` | 10 scope packages, 54 concrete managers |
+| `src/opnsense/managers/auth/user.py` | AuthUserManager -- local user CRUD |
+| `src/opnsense/managers/auth/group.py` | AuthGroupManager -- local group CRUD |
+| `src/opnsense/managers/auth/priv.py` | AuthPrivManager -- privilege assignment (standalone) |
+| `src/opnsense/managers/auth/api_key.py` | AuthApiKeyManager -- API key CRUD (standalone) |
+| `src/opnsense/managers/firewall/filter.py` | FwFilterManager -- firewall filter rules |
 | `src/opnsense/models/base.py` | EnsureResult frozen dataclass |
-| `tests/unit/` | Unit tests (377 tests) |
+| `src/opnsense/models/{scope}/` | 10 scope packages, 50 frozen dataclasses |
+| `tests/unit/` | Unit tests (1178 tests) |
 | `tests/unit/core/` | Core module tests (110 tests) |
-| `tests/integration/` | Integration tests (133 tests, live OPNsense device) |
+| `tests/integration/` | Integration tests (294 tests, live OPNsense device) |
 | `CHANGELOG.md` | Semantic versioning history |
 
 ---
@@ -184,7 +184,7 @@ finally:
 ## API Coverage
 
 See [`docs/api-coverage.md`](docs/api-coverage.md) for the full per-endpoint status table.
-134 API domains probed, 18 integration tested, remaining tracked as `ABSENT`.
+134 API domains probed, 54 managers integration tested, remaining tracked as `ABSENT`.
 
 ---
 

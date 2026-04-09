@@ -1,0 +1,29 @@
+@startuml scope-vpn-fw-rules
+' Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
+skinparam packageStyle rectangle
+
+package "WireGuard Tunnel" {
+  [wg0: 10.10.0.0/24]
+}
+
+package "OPNsense Firewall Rules" {
+  [Rule 1: wg0 → MGMT\nallow SSH to 10.11.1.0/24:22] as R1
+  [Rule 2: wg0 → DMZ\nallow HTTPS to 10.11.2.10:443] as R2
+  [Rule 3: wg0 → SVC\nblock all] as R3
+  [Rule 4: wg0 → WAN\nblock (no internet via VPN)] as R4
+}
+
+package "Zones" {
+  [MGMT\n10.11.1.0/24] as MGMT
+  [DMZ\n10.11.2.0/24] as DMZ
+  [SVC\n10.11.3.0/24] as SVC
+}
+
+[wg0: 10.10.0.0/24] --> R1
+[wg0: 10.10.0.0/24] --> R2
+[wg0: 10.10.0.0/24] --> R3
+[wg0: 10.10.0.0/24] --> R4
+R1 --> MGMT : allow
+R2 --> DMZ : allow
+R3 --> SVC : block
+@enduml
