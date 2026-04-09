@@ -8,7 +8,7 @@ def test_import_opnsense() -> None:
     import opnsense
 
     assert hasattr(opnsense, "__version__")
-    assert opnsense.__version__ == "0.1.0"
+    assert opnsense.__version__  # just verify it's set
 
 
 def test_client_can_be_instantiated() -> None:

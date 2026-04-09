@@ -1,0 +1,1 @@
+"""Unit tests — shaper managers."""
