@@ -18,6 +18,29 @@
 Auth changes apply immediately — no reconfigure needed.
 Users/groups are server-enforced unique (API rejects duplicates).
 
+### SSH access for non-root users
+
+OPNsense non-root users can SSH **only if both fields are set**:
+
+| Field | Required value | Default | What happens without it |
+|---|---|---|---|
+| `shell` | `/bin/sh` (or `/bin/csh`, `/bin/tcsh`) | `Default (none)` | SSH authenticates but connection closes immediately — no shell to spawn |
+| `authorizedkeys` | SSH pubkey(s), newline-separated | empty | SSH rejects key auth |
+
+Multiple pubkeys are supported — newline-separated in the `authorizedkeys` field.
+
+**No root SSH workaround needed.** Previously, root SSH was required because `svc-rune` had no shell set. With `shell=/bin/sh` + pubkey, `ssh svc-rune@<IP>` works directly.
+
+Bootstrap example:
+```python
+await mgr.ensure("present", {
+    "name": "svc-rune",
+    "shell": "/bin/sh",
+    "authorizedkeys": "ssh-ed25519 AAAA... rune@workstation",
+    "group_memberships": "<admins-gid>",
+})
+```
+
 ## Network Diagram
 
 ```
@@ -76,6 +99,10 @@ All operations are API-only, no traffic flow affected.
 | 10 | Error: invalid email | email=not-an-email | capture API response | validation shape |
 | 11 | **Duplicate: create same user** | name=inttest-alice (already exists) | OpnsenseValidationError (server-enforced) | duplicate detection |
 | 12 | **API token: create user + generate key + test API call** | create inttest-apitest, generate API key, use key to call GET /api/core/firmware/status | 200 OK | API token works end-to-end |
+| 13 | **SSH: set shell + pubkey** | name=inttest-alice, shell=/bin/sh, authorizedkeys=ssh-ed25519... | updated | shell required for SSH |
+| 14 | **SSH: verify login** | `ssh -i key inttest-alice@10.6.239.114 whoami` | inttest-alice | non-root SSH works |
+| 15 | **SSH: no shell = connection closed** | shell=Default (none), authorizedkeys=set | SSH authenticates, connection closes | proves shell is mandatory |
+| 16 | **SSH: multiple pubkeys** | authorizedkeys=key1\nkey2 (newline-separated) | both keys work | multi-key support |
 
 ### M02 — AuthGroupManager
 
