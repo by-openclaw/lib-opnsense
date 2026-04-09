@@ -14,14 +14,14 @@
   ═══════════════════════════════════════════════════════
 
   vmbrWAN ── ISP uplink (Proximus/Telenet)
-  vmbrMGMT ── OOB/management (Proxmox API: :8006)
+  vmbrOOB ── OOB/management (Proxmox API: :8006)
   vmbrAPPS ── application VLANs (trunk)
 
-  ═══ PROD (vmbrMGMT — no FW in path) ═════════════════
+  ═══ PROD (vmbrOOB — no FW in path) ═════════════════
 
   vm-fw-01 (100)           vm-terraform-01 (101)    vm-rune-01 (102)
   prod OPNsense            TF + Ansible             dev workstation
-  ├ vtnet0: vmbrWAN        └ vtnet0: vmbrMGMT       └ vtnet0: vmbrMGMT
+  ├ vtnet0: vmbrWAN        └ vtnet0: vmbrOOB       └ vtnet0: vmbrOOB
   └ vtnet1: vmbrAPPS         direct Proxmox API       direct Proxmox API
     (prod VLANs)
 
@@ -29,7 +29,7 @@
 
   vm-fw-test-01 (1100)
   test OPNsense
-  ├ vtnet0: vmbrMGMT (WAN for test FW)
+  ├ vtnet0: vmbrOOB (WAN for test FW)
   └ vtnet1: vmbrAPPS (trunk: test VLANs 1310-1340)
     │
     ├── VLAN 1310 (MGMT)  10.11.1.0/24  fd11:1::/64
@@ -42,12 +42,12 @@
 
   ═══ ACCESS ═══════════════════════════════════════════
 
-  vm-rune-01 ──→ OPNsense test API: direct via vmbrMGMT (WAN side)
+  vm-rune-01 ──→ OPNsense test API: direct via vmbrOOB (WAN side)
   vm-rune-01 ──→ test VMs (10.11.x.x): WireGuard VPN through vm-fw-test-01
-  vm-rune-01 ──→ Proxmox API: direct via vmbrMGMT
+  vm-rune-01 ──→ Proxmox API: direct via vmbrOOB
   Proxmox noVNC ──→ any VM: hypervisor level (true OOB, always works)
 
-  FW down = internet/VLANs down, management plane (vmbrMGMT) intact.
+  FW down = internet/VLANs down, management plane (vmbrOOB) intact.
 ```
 
 > **Temporary state:** pfSense currently serves as prod FW. OPNsense vm-fw-01 (100)
@@ -786,19 +786,19 @@ User prepares manually:
 
 ## Bill of Materials — Full Infrastructure
 
-### Prod VMs (vmbrMGMT — direct Proxmox API, no FW in path)
+### Prod VMs (vmbrOOB — direct Proxmox API, no FW in path)
 
 | # | VMID | Hostname | Role | OS | Bridge |
 |---|---|---|---|---|---|
 | 1 | 100 | vm-fw-01 | Prod firewall (replaces pfSense) | OPNsense | vmbrWAN + vmbrAPPS |
-| 2 | 101 | vm-terraform-01 | TF + Ansible (manages all envs) | Debian 12 cloud-init | vmbrMGMT |
-| 3 | 102 | vm-rune-01 | Dev workstation | Debian 12 cloud-init | vmbrMGMT |
+| 2 | 101 | vm-terraform-01 | TF + Ansible (manages all envs) | Debian 12 cloud-init | vmbrOOB |
+| 3 | 102 | vm-rune-01 | Dev workstation | Debian 12 cloud-init | vmbrOOB |
 
 ### Test VMs (behind vm-fw-test-01)
 
 | # | VMID | Hostname | Role | OS | Bridge |
 |---|---|---|---|---|---|
-| 4 | 1100 | vm-fw-test-01 | Test firewall | OPNsense 26.1.2 ISO → upgrade | vmbrMGMT (WAN) + vmbrAPPS (trunk) |
+| 4 | 1100 | vm-fw-test-01 | Test firewall | OPNsense 26.1.2 ISO → upgrade | vmbrOOB (WAN) + vmbrAPPS (trunk) |
 
 ### Test LXC Containers
 
@@ -844,14 +844,14 @@ User prepares manually:
 
 | Resource | Count |
 |---|---|
-| Prod VMs (vmbrMGMT) | 3 (fw-01, terraform-01, rune-01) |
+| Prod VMs (vmbrOOB) | 3 (fw-01, terraform-01, rune-01) |
 | Test VMs | 1 (fw-test-01) |
 | Test LXCs | 3 (webdmz, websrv, dhcpclient) |
 | VLANs (test zone) | 4 (MGMT + DMZ + SVC + VPN) |
 | VPN tunnels | 3 (WG + OVPN + IPsec) |
 | Subnets (v4) | 7 (4 zones + 3 tunnels) |
 | Subnets (v6) | 4 (4 zones, ULA fd11:x::/64) |
-| Proxmox bridges | 3 (vmbrWAN, vmbrMGMT, vmbrAPPS) |
+| Proxmox bridges | 3 (vmbrWAN, vmbrOOB, vmbrAPPS) |
 
 ## Deliverables
 
