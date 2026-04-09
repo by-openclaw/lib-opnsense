@@ -742,8 +742,8 @@ User prepares manually:
 - [x] Set `svc-rune` shell = `/bin/sh` (WebGUI or API — default is "none" which kills SSH)
 - [x] Add SSH pubkey(s) to `svc-rune` authorizedkeys (WebGUI or API, newline-separated for multiple)
 - [x] Enable SSH (System → Administration → Secure Shell)
-- [ ] ~~Add Rune SSH pubkey to root~~ — **NOT NEEDED**: `svc-rune` SSH works with shell + pubkey set
-- [ ] ~~Permit root login~~ — **NOT NEEDED**: use `svc-rune` (admin) instead
+- [x] Enable root login (permit root SSH) — **KEEP for bootstrap + OOB emergency**
+- [ ] Disable root SSH — **AFTER** VPN + monitoring validated (Phase 3), Proxmox console remains OOB fallback
 - [x] Upgrade to 26.1.5
 - [x] Rune verifies: API works (`GET /api/core/firmware/status`)
 - [x] Rune verifies: SSH works (`ssh -i ~/.ssh/id_ed25519_opnsense root@10.6.239.114`)
