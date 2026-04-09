@@ -88,6 +88,13 @@ IpsecVtiManager: ipsec/vti, match=description, plain IPs (no CIDR). Module: `opn
 | 02 | Create server | name=inttest-wg, privkey=..., port=51820, tunneladdress=10.10.0.1/24 | created | |
 | 03 | Delete | | deleted | |
 | 04 | **Duplicate: same name** | name=inttest-wg (exists) | AmbiguousMatchError | duplicate guard |
+| 05 | **Port: boundary min** | port=1 | created | min port |
+| 06 | **Port: boundary max** | port=65535 | created | max port |
+| 07 | **Error: port 0** | port=0 | FieldValidationError | below range (lib validates) |
+| 08 | **Error: port > 65535** | port=125657 | FieldValidationError | above range |
+
+> **Port field note:** `port` on WgServer/OvpnInstance uses `type: port` (strict 1-65535).
+> See [port-field-reference.md](../port-field-reference.md).
 
 ### WgClientManager
 | # | Use case | Params | Expected | Validates |

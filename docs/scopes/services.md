@@ -33,6 +33,10 @@ Mixed responsibilities — system services that don't fit other scopes.
 |---|---|---|---|---|
 | 01 | Create dest | description=inttest-syslog, transport=udp4, hostname=10.11.1.99, port=514 | created | |
 | 02 | Delete | | deleted | |
+| 03 | **Port: boundary min** | port=1 | created | min port |
+| 04 | **Port: boundary max** | port=65535 | created | max port |
+| 05 | **Error: port > 65535** | port=125657 | FieldValidationError | above range |
+| 06 | **Error: port 0** | port=0 | FieldValidationError | below range |
 
 ### CpZoneManager
 | # | Use case | Params | Expected | Validates |

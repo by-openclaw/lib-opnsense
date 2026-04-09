@@ -132,6 +132,19 @@ All FW managers support sequence field for rule ordering.
 | 12 | **Duplicate: same description** | create rule with same description | AmbiguousMatchError on next ensure() | lib-side guard (API allows it) |
 | 13 | **Categories field** | categories=inttest-cat (from FwCategoryManager) | created with category link | cross-manager reference |
 | 14 | **Gateway field** | gateway=Null4, enabled=0 | created | policy routing (blackhole safe) |
+| 15 | **Port: valid single** | destination_port=443 | created | port accepted |
+| 16 | **Port: valid range** | destination_port=80:443 | created | range accepted |
+| 17 | **Port: valid comma** | destination_port=80,443,8080 | created | multi-port accepted |
+| 18 | **Port: alias name** | destination_port=inttest_web_ports (alias) | created | alias reference accepted |
+| 19 | **Port: boundary min** | destination_port=1 | created | min port |
+| 20 | **Port: boundary max** | destination_port=65535 | created | max port |
+| 21 | **Error: port 0** | destination_port=0 | API rejection | below range |
+| 22 | **Error: port > 65535** | destination_port=125657 | API rejection | above range |
+| 23 | **Error: negative port** | destination_port=-1 | API rejection | invalid |
+
+> **Port fields note:** `source_port` and `destination_port` are typed as `str` in the
+> lib to match the OPNsense MVC model exactly. The API validates server-side.
+> See [port-field-reference.md](../port-field-reference.md) for the full inventory.
 
 ### FwDnatManager
 | # | Use case | Params | Expected | Validates |

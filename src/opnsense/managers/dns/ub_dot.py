@@ -72,7 +72,7 @@ class UbDotManager(BaseManager):
 
     _validators = {
         "server": {"type": "str", "required": True, "max_length": 255},
-        "port": {"type": "port"},
+        "port": {"type": "str"},
         "type": {"type": "enum", "values": ["dot"]},
         "verify": {"type": "str"},
         "domain": {"type": "str"},

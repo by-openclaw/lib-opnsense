@@ -90,13 +90,13 @@ class FwSourceNatManager(BaseManager):
         "sequence": {"type": "int", "min": 1},
         "source_not": {"type": "bool_str"},
         "destination_not": {"type": "bool_str"},
-        "destination_port": {"type": "port_or_alias"},
-        "source_port": {"type": "port_or_alias"},
+        "destination_port": {"type": "str"},
+        "source_port": {"type": "str"},
         "protocol": {"type": "str"},
         "log": {"type": "bool_str"},
         "nonat": {"type": "bool_str"},
         "staticnatport": {"type": "bool_str"},
-        "target_port": {"type": "port_or_alias"},
+        "target_port": {"type": "str"},
         "categories": {"type": "str"},
     }
 

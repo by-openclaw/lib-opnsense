@@ -73,7 +73,7 @@ class UbForwardManager(BaseManager):
         "domain": {"type": "str", "required": True, "max_length": 255},
         "server": {"type": "str", "max_length": 255},
         "type": {"type": "enum", "values": ["forward", "stub"]},
-        "port": {"type": "port"},
+        "port": {"type": "str"},
         "verify": {"type": "str"},
         "forward_tcp_upstream": {"type": "bool_str"},
         "forward_first": {"type": "bool_str"},
