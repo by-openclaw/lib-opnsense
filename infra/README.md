@@ -98,7 +98,16 @@ After `terraform apply` creates VM 1100:
     ssh -i ~/.ssh/id_ed25519 svc-rune@<WAN-IP>
     # Expected: shell prompt, type 'exit'
     ```
-12. Create `.env` for lib-opnsense:
+12. Store credentials in KV format:
+    ```bash
+    # File: ~/.openclaw/workspace/infra/secrets/OPNsense.internal_svc-rune_apikey.txt
+    key=<API_KEY>
+    secret=<API_SECRET>
+    host=<WAN-IP>
+    port=443
+    verify_ssl=false
+    ```
+    Then create `.env` referencing the secrets:
     ```bash
     cat > .env << 'EOF'
     OPN_HOST=<WAN-IP>

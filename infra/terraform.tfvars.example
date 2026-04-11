@@ -1,0 +1,6 @@
+# Copy to terraform.tfvars and fill in values
+# DO NOT commit terraform.tfvars (contains secrets)
+
+proxmox_endpoint  = "https://10.6.224.105:8006"
+proxmox_api_token = "svc-terraform@pve!ci=<REDACTED:uuid>"
+target_node       = "srv-proxmox-poc-01"
