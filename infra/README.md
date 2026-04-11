@@ -12,6 +12,17 @@ Terraform config to provision the test environment for lib-opnsense integration 
 
 This directory contains a **reference copy** of the SDN + VM + LXC config needed to run integration tests. If Proxmox exists, a developer can apply this to get a working test zone.
 
+## Quick start
+
+```bash
+cd infra/terraform/
+cp terraform.tfvars.example terraform.tfvars  # fill in Proxmox creds
+terraform init
+terraform plan
+terraform apply
+# Then: bootstrap OPNsense via console (see below)
+```
+
 ## Prerequisites
 
 - Proxmox VE node with `bpg/proxmox` provider access

@@ -109,68 +109,133 @@ resource "proxmox_sdn_vnet" "tcctv" {
   depends_on = [proxmox_sdn_zone_vlan.test]
 }
 
-# --- Subnets ---
+# --- IPv4 Subnets ---
 
-resource "proxmox_sdn_subnet" "tmgmt" {
+resource "proxmox_sdn_subnet" "tmgmt_v4" {
   vnet       = proxmox_sdn_vnet.tmgmt.id
   cidr       = "10.11.1.0/24"
   gateway    = "10.11.1.1"
   depends_on = [proxmox_sdn_vnet.tmgmt]
 }
 
-resource "proxmox_sdn_subnet" "tdmz" {
+resource "proxmox_sdn_subnet" "tdmz_v4" {
   vnet       = proxmox_sdn_vnet.tdmz.id
   cidr       = "10.11.2.0/24"
   gateway    = "10.11.2.1"
   depends_on = [proxmox_sdn_vnet.tdmz]
 }
 
-resource "proxmox_sdn_subnet" "tsvc" {
+resource "proxmox_sdn_subnet" "tsvc_v4" {
   vnet       = proxmox_sdn_vnet.tsvc.id
   cidr       = "10.11.3.0/24"
   gateway    = "10.11.3.1"
   depends_on = [proxmox_sdn_vnet.tsvc]
 }
 
-resource "proxmox_sdn_subnet" "tvpn" {
+resource "proxmox_sdn_subnet" "tvpn_v4" {
   vnet       = proxmox_sdn_vnet.tvpn.id
   cidr       = "10.11.4.0/24"
   gateway    = "10.11.4.1"
   depends_on = [proxmox_sdn_vnet.tvpn]
 }
 
-resource "proxmox_sdn_subnet" "tiot" {
+resource "proxmox_sdn_subnet" "tiot_v4" {
   vnet       = proxmox_sdn_vnet.tiot.id
   cidr       = "10.11.10.0/24"
   gateway    = "10.11.10.1"
   depends_on = [proxmox_sdn_vnet.tiot]
 }
 
-resource "proxmox_sdn_subnet" "tvoip" {
+resource "proxmox_sdn_subnet" "tvoip_v4" {
   vnet       = proxmox_sdn_vnet.tvoip.id
   cidr       = "10.11.11.0/24"
   gateway    = "10.11.11.1"
   depends_on = [proxmox_sdn_vnet.tvoip]
 }
 
-resource "proxmox_sdn_subnet" "tstor" {
+resource "proxmox_sdn_subnet" "tstor_v4" {
   vnet       = proxmox_sdn_vnet.tstor.id
   cidr       = "10.11.20.0/24"
   gateway    = "10.11.20.1"
   depends_on = [proxmox_sdn_vnet.tstor]
 }
 
-resource "proxmox_sdn_subnet" "tmedia" {
+resource "proxmox_sdn_subnet" "tmedia_v4" {
   vnet       = proxmox_sdn_vnet.tmedia.id
   cidr       = "10.11.30.0/24"
   gateway    = "10.11.30.1"
   depends_on = [proxmox_sdn_vnet.tmedia]
 }
 
-resource "proxmox_sdn_subnet" "tcctv" {
+resource "proxmox_sdn_subnet" "tcctv_v4" {
   vnet       = proxmox_sdn_vnet.tcctv.id
   cidr       = "10.11.40.0/24"
   gateway    = "10.11.40.1"
+  depends_on = [proxmox_sdn_vnet.tcctv]
+}
+
+# --- IPv6 Subnets (ULA fd11::/32) ---
+
+resource "proxmox_sdn_subnet" "tmgmt_v6" {
+  vnet       = proxmox_sdn_vnet.tmgmt.id
+  cidr       = "fd11:1::/64"
+  gateway    = "fd11:1::1"
+  depends_on = [proxmox_sdn_vnet.tmgmt]
+}
+
+resource "proxmox_sdn_subnet" "tdmz_v6" {
+  vnet       = proxmox_sdn_vnet.tdmz.id
+  cidr       = "fd11:2::/64"
+  gateway    = "fd11:2::1"
+  depends_on = [proxmox_sdn_vnet.tdmz]
+}
+
+resource "proxmox_sdn_subnet" "tsvc_v6" {
+  vnet       = proxmox_sdn_vnet.tsvc.id
+  cidr       = "fd11:3::/64"
+  gateway    = "fd11:3::1"
+  depends_on = [proxmox_sdn_vnet.tsvc]
+}
+
+resource "proxmox_sdn_subnet" "tvpn_v6" {
+  vnet       = proxmox_sdn_vnet.tvpn.id
+  cidr       = "fd11:4::/64"
+  gateway    = "fd11:4::1"
+  depends_on = [proxmox_sdn_vnet.tvpn]
+}
+
+resource "proxmox_sdn_subnet" "tiot_v6" {
+  vnet       = proxmox_sdn_vnet.tiot.id
+  cidr       = "fd11:10::/64"
+  gateway    = "fd11:10::1"
+  depends_on = [proxmox_sdn_vnet.tiot]
+}
+
+resource "proxmox_sdn_subnet" "tvoip_v6" {
+  vnet       = proxmox_sdn_vnet.tvoip.id
+  cidr       = "fd11:11::/64"
+  gateway    = "fd11:11::1"
+  depends_on = [proxmox_sdn_vnet.tvoip]
+}
+
+resource "proxmox_sdn_subnet" "tstor_v6" {
+  vnet       = proxmox_sdn_vnet.tstor.id
+  cidr       = "fd11:20::/64"
+  gateway    = "fd11:20::1"
+  depends_on = [proxmox_sdn_vnet.tstor]
+}
+
+resource "proxmox_sdn_subnet" "tmedia_v6" {
+  vnet       = proxmox_sdn_vnet.tmedia.id
+  cidr       = "fd11:30::/64"
+  gateway    = "fd11:30::1"
+  depends_on = [proxmox_sdn_vnet.tmedia]
+}
+
+resource "proxmox_sdn_subnet" "tcctv_v6" {
+  vnet       = proxmox_sdn_vnet.tcctv.id
+  cidr       = "fd11:40::/64"
+  gateway    = "fd11:40::1"
   depends_on = [proxmox_sdn_vnet.tcctv]
 }
 
@@ -180,9 +245,12 @@ resource "proxmox_sdn_applier" "test" {
     proxmox_sdn_vnet.tmgmt, proxmox_sdn_vnet.tdmz, proxmox_sdn_vnet.tsvc,
     proxmox_sdn_vnet.tvpn, proxmox_sdn_vnet.tiot, proxmox_sdn_vnet.tvoip,
     proxmox_sdn_vnet.tstor, proxmox_sdn_vnet.tmedia, proxmox_sdn_vnet.tcctv,
-    proxmox_sdn_subnet.tmgmt, proxmox_sdn_subnet.tdmz, proxmox_sdn_subnet.tsvc,
-    proxmox_sdn_subnet.tvpn, proxmox_sdn_subnet.tiot, proxmox_sdn_subnet.tvoip,
-    proxmox_sdn_subnet.tstor, proxmox_sdn_subnet.tmedia, proxmox_sdn_subnet.tcctv,
+    proxmox_sdn_subnet.tmgmt_v4, proxmox_sdn_subnet.tdmz_v4, proxmox_sdn_subnet.tsvc_v4,
+    proxmox_sdn_subnet.tvpn_v4, proxmox_sdn_subnet.tiot_v4, proxmox_sdn_subnet.tvoip_v4,
+    proxmox_sdn_subnet.tstor_v4, proxmox_sdn_subnet.tmedia_v4, proxmox_sdn_subnet.tcctv_v4,
+    proxmox_sdn_subnet.tmgmt_v6, proxmox_sdn_subnet.tdmz_v6, proxmox_sdn_subnet.tsvc_v6,
+    proxmox_sdn_subnet.tvpn_v6, proxmox_sdn_subnet.tiot_v6, proxmox_sdn_subnet.tvoip_v6,
+    proxmox_sdn_subnet.tstor_v6, proxmox_sdn_subnet.tmedia_v6, proxmox_sdn_subnet.tcctv_v6,
   ]
 }
 
