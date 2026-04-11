@@ -10,9 +10,9 @@ variable "proxmox_api_token" {
 }
 
 variable "target_node" {
-  description = "Proxmox node name (e.g. srv-proxmox-poc-01)"
+  description = "Proxmox node name (e.g. srv-proxmox-01)"
   type        = string
-  default     = "srv-proxmox-poc-01"
+  default     = "srv-proxmox-01"
 }
 
 variable "iso_file" {
