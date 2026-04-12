@@ -1,5 +1,6 @@
 # AGENTS.md -- lib-opnsense
 
+> **Rules:** OPERATING-STANDARD.md (workspace) is mandatory for all agents, all sessions.
 
 Async Python library for OPNsense REST API -- auth user/group/privilege CRUD with ensure() idempotency.
 
