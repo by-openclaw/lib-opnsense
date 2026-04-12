@@ -100,7 +100,7 @@ class FwDnatManager(BaseManager):
         "target": {"type": "ip", "required": True},
         "local-port": {"type": "port"},
         "protocol": {"type": "str"},
-        "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
+        "ipprotocol": {"type": "enum", "values": ["", "inet", "inet6", "inet46"]},
         "disabled": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
         "log": {"type": "bool_str"},

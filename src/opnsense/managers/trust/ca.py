@@ -81,7 +81,7 @@ class TrustCaManager(BaseManager):
 
     _validators = {
         "descr": {"type": "str", "required": True, "max_length": 255},
-        "action": {"type": "enum", "values": ["existing", "internal"]},
+        "action": {"type": "enum", "values": ["existing", "internal", "ocsp"]},
         "key_type": {"type": "str"},
         "digest": {"type": "str"},
         "lifetime": {"type": "int", "min": 1},

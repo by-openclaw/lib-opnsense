@@ -21,7 +21,19 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+try:
+    import bcrypt
+
+    _HAS_BCRYPT = True
+except ImportError:  # pragma: no cover — optional dependency
+    _HAS_BCRYPT = False
+
 logger = logging.getLogger(__name__)
+
+# OPNsense UpdateOnlyTextField stores bcrypt hashes ($2y$ prefix).
+# The search endpoint returns the hash; the get endpoint returns "".
+# We use bcrypt.checkpw() to compare plaintext input against stored hash.
+_BCRYPT_PREFIX_RE = "$2y$"
 
 
 class DiffEngine:
@@ -51,6 +63,10 @@ class DiffEngine:
                 for _opt_key, opt_val in value.items():
                     if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
                         return str(_opt_key)
+            # OPNsense search endpoint returns native bool for "0"/"1" fields.
+            # Normalize to "1"/"0" to match the string format used in create/update.
+            if isinstance(value, bool):
+                return "1" if value else "0"
             return str(value)
         except Exception as exc:
             logger.error(
@@ -91,8 +107,26 @@ class DiffEngine:
                         diff[key] = str(desired_value)
                     continue
                 normalized = self.normalize_value(current_value)
-                if normalized != str(desired_value):
-                    diff[key] = str(desired_value)
+                desired_str = str(desired_value)
+                if normalized != desired_str:
+                    # OPNsense UpdateOnlyTextField: API returns bcrypt hash
+                    # ($2y$...), input is plaintext. Use bcrypt.checkpw()
+                    # to verify match instead of string comparison.
+                    if (
+                        _HAS_BCRYPT
+                        and isinstance(normalized, str)
+                        and normalized.startswith(_BCRYPT_PREFIX_RE)
+                        and not desired_str.startswith(_BCRYPT_PREFIX_RE)
+                    ):
+                        try:
+                            if bcrypt.checkpw(
+                                desired_str.encode("utf-8"),
+                                normalized.encode("utf-8"),
+                            ):
+                                continue  # password matches — no diff
+                        except Exception:
+                            pass  # bcrypt error — fall through to diff
+                    diff[key] = desired_str
             return diff if diff else None
         except Exception as exc:
             logger.error(

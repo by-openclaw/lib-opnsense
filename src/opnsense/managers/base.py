@@ -68,7 +68,7 @@ class BaseManager(ABC):
                          Preferred for all new managers. Raises AmbiguousMatchError on >1 match.
 
     Subclasses may override:
-        REDACT_FIELDS:   Set of field names to redact in results/logs
+        REDACT_FIELDS:   Set of field names to redact in results/logs (Loki)
         _entity_suffix:  Suffix appended to CRUD action names in endpoint URLs.
                          Default: capitalized _payload_key (e.g. 'Item', 'Rule').
                          Set to '' for controllers that use bare names

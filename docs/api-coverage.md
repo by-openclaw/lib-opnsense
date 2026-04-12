@@ -6,7 +6,7 @@
 
 > Probed against OPNsense **26.1.5** — 200/200 endpoints OK.
 > Probe data: `docs/api/data/26.1.5/`
-> Last updated: 2026-04-08
+> Last updated: 2026-04-11
 
 ## Status Legend
 
@@ -28,7 +28,9 @@
 | Read-only / service / settings domains | 68 |
 | **Total managers needed** | **134** |
 | Managers done (integration tested) | 54 |
-| Managers done (unit tested) | 0 |
+| Integration test files | 49 (~360 tests across 10 scopes) |
+| Unit tests | 1,207 |
+| Managers done (unit tested only) | 0 |
 | Managers partial | 0 |
 | Managers absent (CRUD) | 48 |
 | Managers absent (read-only) | 68 |
@@ -44,7 +46,7 @@
 | auth-priv | `AuthPrivManager` | — | `auth/priv` | `INTEGRATION_TEST_PASSED` | Standalone, privilege assignment |
 | auth-apikey | `AuthApiKeyManager` | — | `auth/user/search_api_key` | `INTEGRATION_TEST_PASSED` | Standalone, API key lifecycle |
 
-## Firewall (7 managers — requires apply/reconfigure)
+## Firewall (8 managers — requires apply/reconfigure)
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
@@ -57,7 +59,7 @@
 | fw-group | `FwGroupManager` | `ifname` | `firewall/group` | `INTEGRATION_TEST_PASSED` | Interface groups (immediate) |
 | fw-npt | `FwNptManager` | `source_net, destination_net` | `firewall/npt` Rule | `INTEGRATION_TEST_PASSED` | IPv6 NPTv6 (NAT66), disabled ULA prefixes for testing |
 
-## Interfaces (2 managers — requires reconfigure)
+## Interfaces (9 managers — requires reconfigure)
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
@@ -127,7 +129,7 @@
 | ipsec-pool | `IpsecPoolManager` | `name` | `ipsec/pools` (bare) | `INTEGRATION_TEST_PASSED` | IP address pools for clients |
 | ipsec-vti | `IpsecVtiManager` | `description` | `ipsec/vti` (bare) | `INTEGRATION_TEST_PASSED` | Virtual tunnel interfaces. reqid + tunnel IPs required (plain, no CIDR) |
 
-## Traffic Shaper (1 manager — requires reconfigure)
+## Traffic Shaper (3 managers — requires reconfigure)
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|

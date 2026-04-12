@@ -1,16 +1,27 @@
 # Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
 # SPDX-License-Identifier: MIT
 # Repo: https://github.com/by-openclaw/lib-opnsense
-"""Integration tests for interface managers — VLAN + VIP CRUD.
+"""Integration tests — IfVipManager lifecycle against a live OPNsense device.
 
-Requires a live OPNsense 26.1+ device (test zone VM 101).
+Requirements:
+    - Live OPNsense device accessible via OPN_HOST, OPN_KEY, OPN_SECRET env vars
+    - API user must have full admin privileges
+    - Run with: pytest tests/integration/interfaces/test_vip.py -v
 
-Safety boundaries:
-    VLAN: CRUD with tag=1399 (unused). DO NOT touch 1310/1320/1330 (test zone infra).
-    VIP:  CRUD safe — use IP alias mode with inttest- prefix, test zone IPs.
+Test flow (ordered, 10-step standard):
+    1. Create (C)       -- TestVipCrud.test_01_create_vip
+    2. Idempotent (I)   -- TestVipCrud.test_02_idempotent_noop
+    3. Update (U)       -- TestVipCrud.test_04_update_descr
+    4. Check mode (K)   -- TestVipCrud.test_05_check_mode_delete
+    5. Read/list (R)    -- TestVipCrud.test_03_get_created_vip
+    6. Ambiguous (A)    -- N/A -- no ambiguous match test
+    7. Error (E)        -- TestErrorHandling.test_01 + test_02
+    8. Delete (D)       -- TestVipCrud.test_06_delete_vip
+    9. Delete noop (Dn) -- TestVipCrud.test_07_delete_noop
+    10. Cleanup (X)     -- TestCleanup.test_99_cleanup_vips
 
-Environment variables:
-    OPN_HOST, OPN_KEY, OPN_SECRET, OPN_PORT, OPN_VERIFY_SSL
+Naming convention:
+    All test objects use prefix 'inttest-' to avoid collision with real config.
 """
 
 from __future__ import annotations
@@ -21,90 +32,11 @@ from opnsense.client import OpnsenseClient
 from opnsense.managers.interfaces.vip import IfVipManager
 from opnsense.managers.interfaces.vlan import IfVlanManager
 
-VLAN_DESCR = "inttest-vlan"
+pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
+
 VIP_DESCR = "inttest-vip-alias"
 
 
-@pytest.mark.integration
-@pytest.mark.asyncio
-class TestVlanCRUD:
-    """VLAN CRUD lifecycle. Uses tag=1399 (unused). DO NOT touch 1310/1320/1330."""
-
-    async def test_01_create_vlan(self, opn_client: OpnsenseClient) -> None:
-        """Create a test VLAN on vtnet0 (LAN trunk), or noop if leftover."""
-        mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(
-            state="present",
-            params={"if": "vtnet0", "tag": "1399", "descr": VLAN_DESCR},
-        )
-        assert result.action in ("created", "updated", "noop")
-
-    async def test_02_idempotent_noop(self, opn_client: OpnsenseClient) -> None:
-        """Same params -> noop."""
-        mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(
-            state="present",
-            params={"if": "vtnet0", "tag": "1399", "descr": VLAN_DESCR},
-        )
-        assert result.changed is False
-        assert result.action == "noop"
-
-    async def test_03_get_schema(self, opn_client: OpnsenseClient) -> None:
-        """Schema returns VLAN field definitions."""
-        mgr = IfVlanManager(opn_client)
-        schema = await mgr.get_schema()
-        assert "tag" in schema
-        assert "descr" in schema
-
-    async def test_04_list_contains_test_vlan(self, opn_client: OpnsenseClient) -> None:
-        """Search confirms test VLAN exists."""
-        mgr = IfVlanManager(opn_client)
-        rows = await mgr.list(search_phrase="inttest")
-        assert any(r.get("descr") == VLAN_DESCR for r in rows)
-
-    async def test_05_update_descr(self, opn_client: OpnsenseClient) -> None:
-        """Update description -> changed (descr is not a match key anymore)."""
-        mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(
-            state="present",
-            params={"if": "vtnet0", "tag": "1399", "descr": "inttest-vlan-updated"},
-        )
-        assert result.changed is True
-        assert result.action == "updated"
-
-    async def test_05b_restore_descr(self, opn_client: OpnsenseClient) -> None:
-        """Restore original description for delete test."""
-        mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(
-            state="present",
-            params={"if": "vtnet0", "tag": "1399", "descr": VLAN_DESCR},
-        )
-        assert result.changed is True
-        assert result.action == "updated"
-
-    async def test_06_delete_vlan(self, opn_client: OpnsenseClient) -> None:
-        """Delete the test VLAN."""
-        mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(
-            state="absent",
-            params={"tag": "1399", "if": "vtnet0"},
-        )
-        assert result.changed is True
-        assert result.action == "deleted"
-
-    async def test_07_delete_noop(self, opn_client: OpnsenseClient) -> None:
-        """Delete again -> noop."""
-        mgr = IfVlanManager(opn_client)
-        result = await mgr.ensure(
-            state="absent",
-            params={"tag": "1399", "if": "vtnet0"},
-        )
-        assert result.changed is False
-        assert result.action == "noop"
-
-
-@pytest.mark.integration
-@pytest.mark.asyncio
 class TestVipCrud:
     """VIP CRUD lifecycle — safe IP alias on LAN."""
 
@@ -214,8 +146,6 @@ class TestVipCrud:
         assert result.action == "noop"
 
 
-@pytest.mark.integration
-@pytest.mark.asyncio
 class TestErrorHandling:
     """Error handling tests against live device."""
 
@@ -244,8 +174,10 @@ class TestErrorHandling:
         assert not any(r.get("descr") == "inttest-should-not-exist" for r in rows)
 
 
-@pytest.mark.integration
-@pytest.mark.asyncio
+# NOTE: VLAN duplicates are rejected by OPNsense API (tag must be unique per parent).
+# No TestAmbiguousMatch needed — same behavior as auth domain.
+
+
 class TestCleanup:
     """Final cleanup — remove any leftover test VIPs."""
 

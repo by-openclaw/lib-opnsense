@@ -88,10 +88,24 @@ class TrustCertManager(BaseManager):
     _validators = {
         "descr": {"type": "str", "required": True, "max_length": 255},
         "caref": {"type": "str"},
-        "action": {"type": "enum", "values": ["internal", "external", "existing"]},
+        "action": {
+            "type": "enum",
+            "values": [
+                "internal",
+                "external",
+                "import",
+                "import_csr",
+                "manual",
+                "reissue",
+                "sign_csr",
+            ],
+        },
         "key_type": {"type": "str"},
         "digest": {"type": "str"},
-        "cert_type": {"type": "enum", "values": ["usr_cert", "server_cert"]},
+        "cert_type": {
+            "type": "enum",
+            "values": ["usr_cert", "server_cert", "combined_server_client", "v3_ca"],
+        },
         "lifetime": {"type": "int", "min": 1},
         "commonname": {"type": "str", "max_length": 255},
         "altnames_dns": {"type": "str"},

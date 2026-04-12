@@ -50,7 +50,7 @@ class FwSourceNatManager(BaseManager):
         interface:    Interface name (required)
         source_net:   Source network (required)
         target:       NAT target address (optional)
-        ipprotocol:   IP protocol — inet, inet6, inet46 (optional)
+        ipprotocol:   IP protocol — inet, inet6 (optional)
         enabled:      Enable rule (optional, default='1')
         sequence:     Rule order priority, min 1 (optional)
         source_not:   Invert source match (optional, default='0')
@@ -85,7 +85,7 @@ class FwSourceNatManager(BaseManager):
         "interface": {"type": "str", "required": True},
         "source_net": {"type": "str", "required": True},
         "target": {"type": "str"},
-        "ipprotocol": {"type": "enum", "values": ["inet", "inet6", "inet46"]},
+        "ipprotocol": {"type": "enum", "values": ["inet", "inet6"]},
         "enabled": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
         "source_not": {"type": "bool_str"},

@@ -1,0 +1,63 @@
+lib-opnsense -- Architecture (ASCII)
+=====================================
+
++-----------------------------------------------------------------------+
+| package "opnsense"                                                    |
+|                                                                       |
+|  +----------------------------+    +----------------------------+     |
+|  | OpnsenseClient             |    | EnsureResult <<frozen>>    |     |
+|  |----------------------------|    |----------------------------|     |
+|  | -_http: httpx.AsyncClient  |    | +changed: bool             |     |
+|  | -_base_url: str            |    | +action: str               |     |
+|  | -_timeout: float           |    | +uuid: str | None          |     |
+|  | -_max_retries: int         |    | +before: dict | None       |     |
+|  | -_retry_backoff: float     |    | +after: dict | None        |     |
+|  |----------------------------|    +----------------------------+     |
+|  | +get/post/search/create    |               ^                      |
+|  | +update/delete/reconfigure |               | returns              |
+|  | +wait_for_ready            |               |                      |
+|  +----------------------------+    +----------------------------+     |
+|          |          ^              | BaseManager <<abstract>>   |     |
+|          |          | uses         |----------------------------|     |
+|          |          +--------------| #_client: OpnsenseClient   |     |
+|          |                         | #_endpoint: str            |     |
+|          |                         | #_payload_key: str         |     |
+|          |                         | #_match_key: str           |     |
+|          |                         | #REDACT_FIELDS: set[str]   |     |
+|          |                         |----------------------------|     |
+|          |                         | +list/get/get_schema       |     |
+|          |                         | +ensure(state,params,check)|     |
+|          |                         | -_find_existing/_compute_  |     |
+|          |                         |  diff/_redact              |     |
+|          |                         +----------------------------+     |
+|          |                            |          |                    |
+|          |                 +----------+    +-----+-----+              |
+|          |                 |               |           |              |
+|          |          AuthUserMgr    AuthGroupMgr   ... (54 managers)   |
+|          |                                                            |
+|          |  +------------------+   +------------------+               |
+|          |  | Exceptions       |   | Credentials      |               |
+|          |  |------------------|   |------------------|               |
+|          |  | OpnsenseError    |   | OpnsenseCredentials              |
+|          |  |   AuthError      |   | EnvCredentialProvider             |
+|          |  |   PermissionError|   | VaultCredentialProvider            |
+|          |  |   ValidationError|   +------------------+               |
+|          |  |   ServerError    |                                      |
+|          |  |   TimeoutError   |                                      |
+|          |  |   ConnectionError|                                      |
+|          |  +------------------+                                      |
++-----------------------------------------------------------------------+
+           |
+           | HTTPS (httpx async)
+           v
+  +------------------+     +-------------------+
+  | OPNsense 26.1+   |     | Dependencies      |
+  |  [REST API]      |     |-------------------|
+  +------------------+     | httpx (async HTTP) |
+                           | structlog (logging)|
+                           | bcrypt (checkpw    |
+                           |   for $2y$ hashes) |
+                           +-------------------+
+
+  Note: DiffEngine detects WRITE_ONLY fields (UpdateOnlyTextField)
+  and uses bcrypt.checkpw() to compare bcrypt hashes without re-sending.

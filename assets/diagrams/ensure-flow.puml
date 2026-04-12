@@ -39,6 +39,12 @@ else (state == "present")
   else (yes)
     :GET current state\n/api/.../get_{entity}/{uuid};
     :DIFF current vs desired;
+    note right
+      For **$2y$ hash fields** (e.g. password):
+      DiffEngine calls **bcrypt.checkpw()**
+      via UpdateOnlyTextField.
+      Match = noop, No match = update.
+    end note
     if (diff found?) then (no)
       :return EnsureResult\n(changed=False, action="noop");
       stop

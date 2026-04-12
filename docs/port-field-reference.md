@@ -27,60 +27,106 @@ These are pure port fields — the API only accepts numeric values.
 
 ### Fields typed as `"str"` (port OR alias name)
 
-These accept numeric ports, ranges, comma-separated, or OPNsense alias names.
 The API validates server-side. The lib keeps `str` to match MVC model.
 
-| Manager | Field | Validator type | Accepts |
-|---|---|---|---|
-| FwFilterManager | `source_port` | `str` | port, range, alias name |
-| FwFilterManager | `destination_port` | `str` | port, range, alias name |
-| FwSourceNatManager | `source_port` | `str` | port, range, alias name |
-| FwSourceNatManager | `destination_port` | `str` | port, range, alias name |
-| FwSourceNatManager | `target_port` | `str` | port, range, alias name |
-| FwDnatManager | `source.port` (nested) | `str` | port, range, alias name |
-| FwDnatManager | `destination.port` (nested) | `str` | port, range, alias name |
-| TsRuleManager | `src_port` | `str` | port, range, alias name |
-| TsRuleManager | `dst_port` | `str` | port, range, alias name |
-| UbForwardManager | `port` | `str` | numeric port |
-| UbDotManager | `port` | `str` | numeric port |
+**IMPORTANT — tested on OPNsense 26.1.5:**
+Filter rule port fields (`source_port`, `destination_port`) accept ONLY:
+- Single numeric port: `443`
+- Alias name: `inttest_web_ports`
+- **NOT ranges** (`80:443` → rejected)
+- **NOT comma-separated** (`80,443` → rejected)
 
-## What the API accepts (from MVC model)
+To use multiple ports or ranges in a filter rule, create a **port alias** first:
+```
+alias content: "80\n443\n8080"   (multi-port)
+alias content: "8000:8999"       (range)
+→ reference alias name in rule destination_port field
+```
 
-OPNsense `PortField` validates:
-- Single port: `443`
-- Port range: `80:443`
-- Comma-separated: `80,443,8080`
-- Alias name: `MyPorts`, `inttest_web_ports`
+| Manager | Field | Validator type | Single port | Alias name | Range | Comma-list |
+|---|---|---|---|---|---|---|
+| FwFilterManager | `source_port` | `str` | YES | YES | **NO** | **NO** |
+| FwFilterManager | `destination_port` | `str` | YES | YES | **NO** | **NO** |
+| FwSourceNatManager | `source_port` | `str` | YES | YES | **NO** | **NO** |
+| FwSourceNatManager | `destination_port` | `str` | YES | YES | **NO** | **NO** |
+| FwSourceNatManager | `target_port` | `str` | YES | YES | **NO** | **NO** |
+| FwDnatManager | `source.port` (nested) | `str` | YES | YES | TBD | TBD |
+| FwDnatManager | `destination.port` (nested) | `str` | YES | YES | TBD | TBD |
+| TsRuleManager | `src_port` | `str` | YES | YES | TBD | TBD |
+| TsRuleManager | `dst_port` | `str` | YES | YES | TBD | TBD |
+| UbForwardManager | `port` | `str` | YES | NO | NO | NO |
+| UbDotManager | `port` | `str` | YES | NO | NO | NO |
 
-OPNsense `IntegerField` (for service ports like WireGuard, syslog):
-- Single integer: `51820`
-- Range: 1-65535
+## What the API accepts — verified on 26.1.5
 
-## What the API rejects
+### Filter/SNAT rule port fields (FwFilterManager, FwSourceNatManager)
 
-- Port 0 (reserved)
-- Port > 65535 (e.g. 125657)
-- Negative numbers
-- Non-numeric strings on strict port fields (wg, ovpn, syslog)
-- Empty string on required port fields
+| Format | Accepted? | Tested? |
+|---|---|---|
+| Single port `443` | **YES** | P01 PASS |
+| Alias name `inttest_web_ports` | **YES** | P04 PASS |
+| Port alias with range content `8000:8999` | **YES** (via alias) | P04b PASS |
+| Inline range `80:443` | **NO** — `OpnsenseValidationError` | P02 PASS (rejected) |
+| Inline comma `80,443,8080` | **NO** — `OpnsenseValidationError` | P03 PASS (rejected) |
+| Port 1 (min) | **YES** | P05 PASS |
+| Port 65535 (max) | **YES** | P06 PASS |
+| Port 0 | **NO** — `OpnsenseValidationError` | P07 PASS (rejected) |
+| Negative `-1` | **NO** — `OpnsenseValidationError` | P08 PASS (rejected) |
+| Port 125657 (>65535) | **NO** — `OpnsenseValidationError` | P09 PASS (rejected) |
 
-## Integration test coverage needed
+### D-NAT local-port field (FwDnatManager)
 
-Every port field must be tested with:
+| Format | Accepted? |
+|---|---|
+| Single port `8080` | YES |
+| Range `80:443` | YES (D-NAT supports ranges) |
 
-| # | Test case | Input | Expected API response |
-|---|---|---|---|
-| P01 | Valid port | `443` | accepted |
-| P02 | Valid range | `80:443` | accepted (where supported) |
-| P03 | Valid comma | `80,443,8080` | accepted (where supported) |
-| P04 | Valid alias | `inttest_web_ports` | accepted (FW/shaper only) |
-| P05 | Port 0 | `0` | rejected |
-| P06 | Port > 65535 | `125657` | rejected |
-| P07 | Negative port | `-1` | rejected |
-| P08 | Random string | `not_a_port!` | rejected |
-| P09 | Empty on required | `""` | rejected |
-| P10 | Port 1 (min) | `1` | accepted |
-| P11 | Port 65535 (max) | `65535` | accepted |
+### Service port fields (WG, OVPN, Syslog)
+
+| Format | Accepted? |
+|---|---|
+| Single integer `51820` | YES |
+| Range/comma/alias | NO — strict IntegerField |
+
+## Pattern: multiple ports in a filter rule
+
+OPNsense filter rules do NOT accept inline port lists or ranges.
+The correct pattern is:
+
+1. Create a port alias with the ports/ranges you need
+2. Reference the alias name in the rule's port field
+
+```python
+# Step 1: port alias with multiple ports
+await alias_mgr.ensure("present", {
+    "name": "web_ports", "type": "port",
+    "content": "80\n443\n8080",
+})
+
+# Step 2: filter rule references alias by name
+await filter_mgr.ensure("present", {
+    "description": "allow-web",
+    "destination_port": "web_ports",  # alias name, not inline ports
+    ...
+})
+```
+
+## Integration test results
+
+All tests run on OPNsense 26.1.5 via `tests/integration/firewall/test_port_validation.py`:
+
+| # | Test | Input | Result | Notes |
+|---|---|---|---|---|
+| P01 | Single port | `443` | PASS (created) | Universally accepted |
+| P02 | Inline range | `80:443` | PASS (rejected) | API rejects — use alias |
+| P03 | Inline comma-list | `80,443,8080` | PASS (rejected) | API rejects — use alias |
+| P04 | Port alias (multi) | `inttest_web_ports` | PASS (created) | Alias has `80\n443\n8080` |
+| P04b | Port alias (range) | `inttest_range_ports` | PASS (created) | Alias has `8000:8999` |
+| P05 | Boundary min | `1` | PASS (created) | |
+| P06 | Boundary max | `65535` | PASS (created) | |
+| P07 | Port 0 | `0` | PASS (rejected) | API rejects below range |
+| P08 | Negative | `-1` | PASS (rejected) | API rejects |
+| P09 | Too high | `125657` | PASS (rejected) | API rejects above range |
 
 ## Utility validator
 

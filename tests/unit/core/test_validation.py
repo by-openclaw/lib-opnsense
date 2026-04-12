@@ -246,8 +246,10 @@ class TestPortOrAlias:
     def test_port_range_valid(self) -> None:
         self.registry.validate_params({"port": "80:443"}, self.spec)
 
-    def test_port_comma_valid(self) -> None:
-        self.registry.validate_params({"port": "80,443,8080"}, self.spec)
+    def test_port_comma_rejected(self) -> None:
+        """Comma-separated ports rejected — use port alias instead."""
+        with pytest.raises(FieldValidationError):
+            self.registry.validate_params({"port": "80,443,8080"}, self.spec)
 
     def test_alias_name_valid(self) -> None:
         self.registry.validate_params({"port": "inttest_web_ports"}, self.spec)
@@ -274,3 +276,109 @@ class TestPortOrAlias:
     def test_invalid_string_rejected(self) -> None:
         with pytest.raises(FieldValidationError, match="port.*alias"):
             self.registry.validate_params({"port": "not a port!"}, self.spec)
+
+
+class TestIpClassification:
+    """IP validator with version and scope restrictions."""
+
+    registry = ValidatorRegistry()
+
+    # -- IPv4 vs IPv6 version restriction --
+
+    def test_ipv4_accepted_when_v4_required(self) -> None:
+        self.registry.validate_params({"addr": "10.0.0.1"}, {"addr": {"type": "ip", "version": 4}})
+
+    def test_ipv6_rejected_when_v4_required(self) -> None:
+        with pytest.raises(FieldValidationError, match="IPv4"):
+            self.registry.validate_params(
+                {"addr": "fd00::1"}, {"addr": {"type": "ip", "version": 4}}
+            )
+
+    def test_ipv6_accepted_when_v6_required(self) -> None:
+        self.registry.validate_params({"addr": "fd00::1"}, {"addr": {"type": "ip", "version": 6}})
+
+    def test_ipv4_rejected_when_v6_required(self) -> None:
+        with pytest.raises(FieldValidationError, match="IPv6"):
+            self.registry.validate_params(
+                {"addr": "10.0.0.1"}, {"addr": {"type": "ip", "version": 6}}
+            )
+
+    def test_both_versions_accepted_without_restriction(self) -> None:
+        self.registry.validate_params({"addr": "10.0.0.1"}, {"addr": {"type": "ip"}})
+        self.registry.validate_params({"addr": "fd00::1"}, {"addr": {"type": "ip"}})
+
+    # -- Scope: private/public --
+
+    def test_private_ipv4_accepted(self) -> None:
+        self.registry.validate_params(
+            {"addr": "10.0.0.1"}, {"addr": {"type": "ip", "scope": "private"}}
+        )
+
+    def test_public_ipv4_rejected_when_private_required(self) -> None:
+        with pytest.raises(FieldValidationError, match="private"):
+            self.registry.validate_params(
+                {"addr": "8.8.8.8"}, {"addr": {"type": "ip", "scope": "private"}}
+            )
+
+    def test_private_ipv6_ula_accepted(self) -> None:
+        self.registry.validate_params(
+            {"addr": "fd00::1"}, {"addr": {"type": "ip", "scope": "private"}}
+        )
+
+    def test_public_ipv4_accepted_when_public_required(self) -> None:
+        self.registry.validate_params(
+            {"addr": "8.8.8.8"}, {"addr": {"type": "ip", "scope": "public"}}
+        )
+
+    def test_private_ipv4_rejected_when_public_required(self) -> None:
+        with pytest.raises(FieldValidationError, match="public"):
+            self.registry.validate_params(
+                {"addr": "192.168.1.1"}, {"addr": {"type": "ip", "scope": "public"}}
+            )
+
+    # -- Scope: unicast/multicast/loopback/link-local --
+
+    def test_unicast_accepted(self) -> None:
+        self.registry.validate_params(
+            {"addr": "10.0.0.1"}, {"addr": {"type": "ip", "scope": "unicast"}}
+        )
+
+    def test_multicast_rejected_when_unicast_required(self) -> None:
+        with pytest.raises(FieldValidationError, match="unicast"):
+            self.registry.validate_params(
+                {"addr": "224.0.0.1"}, {"addr": {"type": "ip", "scope": "unicast"}}
+            )
+
+    def test_loopback_rejected_when_unicast_required(self) -> None:
+        with pytest.raises(FieldValidationError, match="unicast"):
+            self.registry.validate_params(
+                {"addr": "127.0.0.1"}, {"addr": {"type": "ip", "scope": "unicast"}}
+            )
+
+    def test_multicast_ipv4_accepted(self) -> None:
+        self.registry.validate_params(
+            {"addr": "224.0.0.1"}, {"addr": {"type": "ip", "scope": "multicast"}}
+        )
+
+    def test_multicast_ipv6_accepted(self) -> None:
+        self.registry.validate_params(
+            {"addr": "ff02::1"}, {"addr": {"type": "ip", "scope": "multicast"}}
+        )
+
+    def test_link_local_ipv4_accepted(self) -> None:
+        self.registry.validate_params(
+            {"addr": "169.254.1.1"}, {"addr": {"type": "ip", "scope": "link_local"}}
+        )
+
+    def test_link_local_ipv6_accepted(self) -> None:
+        self.registry.validate_params(
+            {"addr": "fe80::1"}, {"addr": {"type": "ip", "scope": "link_local"}}
+        )
+
+    # -- IP/CIDR notation (VIP uses 10.11.99.1/32) --
+
+    def test_ip_with_cidr_suffix_accepted(self) -> None:
+        self.registry.validate_params({"addr": "10.11.99.1/32"}, {"addr": {"type": "ip"}})
+
+    def test_ipv6_with_prefix_accepted(self) -> None:
+        self.registry.validate_params({"addr": "fd00::1/128"}, {"addr": {"type": "ip"}})

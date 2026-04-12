@@ -93,12 +93,28 @@ package "opnsense" {
   }
 }
 
-package "OPNsense 25.x" <<Cloud>> {
+package "Dependencies" {
+  class httpx <<external>>
+  class structlog <<external>>
+  class bcrypt <<external>> {
+    checkpw() for bcrypt hashes
+  }
+}
+
+package "OPNsense 26.1+" <<Cloud>> {
   [REST API] as API
 }
 
 OpnsenseClient --> API : HTTPS\n(httpx async)
+OpnsenseClient ..> httpx : uses
 BaseManager --> OpnsenseClient : uses
+BaseManager ..> bcrypt : "bcrypt hash\ncomparison\n(UpdateOnlyTextField)"
+
+note bottom of BaseManager
+  DiffEngine detects WRITE_ONLY fields
+  (UpdateOnlyTextField) and uses bcrypt.checkpw()
+  to compare bcrypt hashes without re-sending.
+end note
 AuthUserManager --|> BaseManager
 AuthGroupManager --|> BaseManager
 AuthPrivManager --> OpnsenseClient : uses

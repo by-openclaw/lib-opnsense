@@ -66,7 +66,7 @@ Before writing, editing, or reviewing any file in this repo, read:
 
 ## Test Device
 
-**OPNsense 25.1.12** at `opnsense.example.com` (port 443).
+**OPNsense 26.1.5** at `opnsense.example.com` (port 443).
 
 ### `svc-rune` -- API executor
 - API key stored in `.env` (gitignored)
@@ -86,16 +86,19 @@ Owner: @yboujraf
 
 ## Project Stats
 
-> Auto-updated on every release. Last updated: 2026-04-04
+> Auto-updated on every release. Last updated: 2026-04-11
 
 | Metric | Value |
 |---|---|
-| Version | v0.1.0 |
-| Tagged releases | 0 |
-| Unit tests | Pending |
-| Python source files | 10 |
+| Version | v1.0.0 |
+| Tagged releases | 1 |
+| Unit tests | 1,207 |
+| Integration tests | ~360 (49 files across 10 scopes) |
+| Python source files | 144 |
+| Managers | 54 (all integration tested) |
+| Models | 50 frozen dataclasses |
 | Open issues | 0 |
-| CI workflows | Pending |
-| Pre-commit hooks | Pending |
-| Dev container | Pending |
-| mypy | Pending |
+| CI workflows | ruff + mypy + bandit + pytest (3.10-3.13) |
+| Pre-commit hooks | Active |
+| Dev container | Active |
+| mypy | Clean |

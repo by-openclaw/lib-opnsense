@@ -72,7 +72,7 @@ class UbForwardManager(BaseManager):
     _validators = {
         "domain": {"type": "str", "required": True, "max_length": 255},
         "server": {"type": "str", "max_length": 255},
-        "type": {"type": "enum", "values": ["forward", "stub"]},
+        "type": {"type": "enum", "values": ["forward", "dot"]},
         "port": {"type": "str"},
         "verify": {"type": "str"},
         "forward_tcp_upstream": {"type": "bool_str"},

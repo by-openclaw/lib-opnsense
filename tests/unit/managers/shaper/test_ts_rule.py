@@ -251,7 +251,7 @@ class TestFieldValidation:
     """FieldValidationError raised before API call for bad params."""
 
     async def test_invalid_proto_enum_raises_before_api_call(self, mock_client: AsyncMock) -> None:
-        """proto='icmp' fails enum validation (valid: ip, ip4, ip6, udp, tcp)."""
+        """proto='sctp' fails enum validation — not in OPNsense shaper proto list."""
         mgr = TsRuleManager(mock_client)
         with pytest.raises(FieldValidationError):
             await mgr.ensure(
@@ -259,7 +259,7 @@ class TestFieldValidation:
                 params={
                     "description": "test",
                     "interface": "lan",
-                    "proto": "icmp",
+                    "proto": "sctp",
                 },
             )
         mock_client.create.assert_not_awaited()

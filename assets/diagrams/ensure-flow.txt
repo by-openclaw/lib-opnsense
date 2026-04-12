@@ -1,0 +1,49 @@
+ensure() -- Idempotent Lifecycle Flow (ASCII)
+==============================================
+
+    caller invokes
+    manager.ensure(state, params, check_mode)
+                |
+                v
+    SEARCH existing by match_key
+    (name, description, ...)
+                |
+        +-------+-------+
+        |               |
+   state=absent    state=present
+        |               |
+        v               v
+  existing found?   existing found?
+   /        \        /        \
+  YES        NO    NO         YES
+   |          |     |          |
+   v          v     v          v
+check_mode?  noop  check_mode?  GET current state
+ /     \            /     \          |
+YES     NO        YES     NO        v
+ |       |         |       |    DIFF current vs desired
+ |       v         |       v    +--------------------------+
+ |    DELETE       |    CREATE  | For $2y$ hash fields:    |
+ |    + APPLY      |    + APPLY | bcrypt.checkpw() via     |
+ |       |         |       |    | UpdateOnlyTextField.     |
+ v       v         v       v    | Match=noop, else=update. |
+return  return   return  return +--------------------------+
+changed changed  changed changed        |
+=True   =True    =True   =True    diff found?
+action  action   action  action    /        \
+=deleted=deleted =created=created NO        YES
+(dry)   (real)   (dry)   (real)    |          |
+                                   v          v
+                                 noop    check_mode?
+                                          /     \
+                                        YES     NO
+                                         |       |
+                                         v       v
+                                       return  UPDATE
+                                       changed + APPLY
+                                       =True      |
+                                       action      v
+                                       =updated  return
+                                       (dry)     changed=True
+                                                 action=updated
+                                                 (real)
