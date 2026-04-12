@@ -191,7 +191,7 @@ Reusable address / network / port / group objects used by firewall and NAT rules
 - system aliases exist and are read-only.
 
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/firewall-aliases.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/firewall-aliases.md`
 
 ---
 
@@ -272,7 +272,7 @@ Core packet-filter policy: pass / block / reject rules on WAN/LAN/OPT/WireGuard.
 - **Evidence level:** mixed `DOC` + local probe evidence; elevate to `LIVE_TESTED` for exact reconciliation semantics and module-behavior validation.
 
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/firewall-rules.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/firewall-rules.md`
 
 ---
 
@@ -321,7 +321,7 @@ Masquerade / no-NAT policy for egressing traffic.
 - **Automation recommendation:** use `CUSTOM_WRAPPER` until NAT mode handling and ordering/apply semantics are live-validated.
 - **Evidence level:** `DOC` + local probe notes, not yet fully `LIVE_TESTED`.
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/source-nat.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/source-nat.md`
 
 ---
 
@@ -390,8 +390,8 @@ Layer-3 / interface control surface: VLAN subinterfaces, IPs, interface bindings
 - **Automation recommendation:** keep interface assignment as an explicit `EXCEPTION` until disproven by live WebUI/API inspection.
 - **Evidence level:** local probe evidence indicates real uncertainty remains here.
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/interfaces-vlans.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/gaps.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/interfaces-vlans.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/gaps.md`
 
 ---
 
@@ -424,8 +424,8 @@ Static routes and route reconfigure.
 - gateway choices appear via schema enum.
 
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/system.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/gaps.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/system.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/gaps.md`
 
 ---
 
@@ -498,7 +498,7 @@ Core platform status, system metadata, firmware state, logs.
 | `destinations.destination` | list | remote targets |
 
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/system.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/system.md`
 
 ---
 
@@ -601,7 +601,7 @@ DNS resolver service, host overrides, forwarders, DoT.
 | `description` | string | description |
 
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/unbound-dns.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/unbound-dns.md`
 
 ---
 
@@ -691,7 +691,7 @@ Modern DHCPv4 control plane in OPNsense 25.1.
 - **Automation recommendation:** `CUSTOM_WRAPPER` on top of Kea endpoints is the preferred current direction.
 - **Evidence level:** route coverage is strong; end-to-end payload/apply validation should be pushed to `LIVE_TESTED`.
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/kea-dhcpv4.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/kea-dhcpv4.md`
 
 ---
 
@@ -772,7 +772,7 @@ VPN server instances, peers, and service control.
 - **Automation recommendation:** `CUSTOM_WRAPPER` for server/peer reconciliation until upstream behavior is proven clean.
 - **Evidence level:** route and field coverage are strong; update/delete/apply semantics still need live confirmation.
 ## Probe source
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/wireguard.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/wireguard.md`
 
 ---
 
@@ -843,15 +843,15 @@ These controllers now work on 26.1+:
 # Topic 11 — Per-Topic Source Files
 
 This consolidated doc was built from:
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/firewall-aliases.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/firewall-rules.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/source-nat.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/interfaces-vlans.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/system.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/unbound-dns.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/kea-dhcpv4.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/wireguard.md`
-- `/home/by-systems/.openclaw/workspace/repos/ansible-platform/docs/tools/opnsense/api/gaps.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/firewall-aliases.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/firewall-rules.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/source-nat.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/interfaces-vlans.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/system.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/unbound-dns.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/kea-dhcpv4.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/wireguard.md`
+- `/home/by-systems/repos/ansible-platform/docs/tools/opnsense/api/gaps.md`
 
 ---
 
