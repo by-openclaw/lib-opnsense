@@ -55,9 +55,9 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 |---|---|
 | OpnsenseClient (httpx async, retry, exception mapping) | Done |
 | core/identity.py -- IdentityResolver (composite match keys) | Done |
-| core/diff.py -- DiffEngine (state comparison + enum normalization) | Done |
+| core/diff.py -- DiffEngine (state comparison + enum normalization + bcrypt $2y$ hash via UpdateOnlyTextField) | Done |
 | core/redaction.py -- Redactor (unified field redaction) | Done |
-| core/validation.py -- FieldValidator protocol + ValidatorRegistry | Done |
+| core/validation.py -- FieldValidator protocol + ValidatorRegistry (14 enum fixes, port regex, IP scope) | Done |
 | core/endpoint.py -- EndpointConfig + EndpointResolver | Done |
 | core/logging_helpers.py -- ManagerLogBuilder (structured logs) | Done |
 | managers/base.py -- BaseManager (thin orchestrator, composes core/) | Done |
@@ -67,9 +67,16 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 | Exception hierarchy (OpnsenseError -> 8 typed exceptions + FieldValidationError) | Done |
 | Credential provider (env vars + .env) | Done |
 | EnsureResult frozen dataclass | Done |
-| Unit tests (1178 tests) | Done |
-| Integration tests (294 tests on live OPNsense 26.1.5) | Done |
+| Unit tests (1,207 tests) | Done |
+| Integration tests (~360 tests, 49 files across 10 scopes on live OPNsense 26.1.5) | Done |
 | CI: ruff + mypy + bandit + pytest (Python 3.10-3.13) | Done |
+| bcrypt: diff engine uses bcrypt.checkpw() for $2y$ hash comparison (UpdateOnlyTextField) | Done |
+| Enum fixes: 14 total, verified by scripts/verify-validators.py (0 mismatches) | Done |
+| Port validator: regex-based (_PORT_SINGLE_RE, _PORT_RANGE_RE, _ALIAS_RE) | Done |
+| IP validator: version (4/6), scope (private/public/unicast/multicast/loopback/link_local) | Done |
+| New dependency: bcrypt>=4.0 | Done |
+| New scripts: verify-validators.py, firmware-upgrade-check.sh | Done |
+| New docs: enum-field-reference.md, port-field-reference.md | Done |
 | Dev container (.devcontainer/) | Done |
 | Ansible collection | Phase 2 |
 | Vault AppRole auth | Phase 2 -- blocked until Vault deployed |
@@ -103,9 +110,9 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 | `src/opnsense/managers/firewall/filter.py` | FwFilterManager -- firewall filter rules |
 | `src/opnsense/models/base.py` | EnsureResult frozen dataclass |
 | `src/opnsense/models/{scope}/` | 10 scope packages, 50 frozen dataclasses |
-| `tests/unit/` | Unit tests (1178 tests) |
+| `tests/unit/` | Unit tests (1,207 tests) |
 | `tests/unit/core/` | Core module tests (110 tests) |
-| `tests/integration/` | Integration tests (294 tests, live OPNsense device) |
+| `tests/integration/` | Integration tests (~360 tests, 49 files, live OPNsense device) |
 | `CHANGELOG.md` | Semantic versioning history |
 
 ---

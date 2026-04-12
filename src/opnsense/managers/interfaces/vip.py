@@ -18,7 +18,7 @@ Supported endpoints:
 
 VIP fields:
     interface — interface to bind to (e.g. 'wan', 'lan')
-    mode      — VIP type: 'ipalias', 'carp', 'proxyarp', 'other'
+    mode      — VIP type: 'ipalias', 'carp', 'proxyarp'
     address   — IP address
     network   — subnet mask (CIDR bits, e.g. '32')
     descr     — description (match key)
@@ -58,7 +58,7 @@ class IfVipManager(BaseManager):
     Input (ensure present):
         address:    IP address (required)
         interface:  Interface to bind to, e.g. 'wan', 'lan' (required)
-        mode:       VIP type — ipalias, carp, proxyarp, other (required)
+        mode:       VIP type — ipalias, carp, proxyarp (required)
         network:    Subnet mask in CIDR bits, e.g. '32' (optional)
         descr:      Description, max 255 (optional)
         password:   CARP password, max 255 (optional)
@@ -94,7 +94,7 @@ class IfVipManager(BaseManager):
         "mode": {
             "type": "enum",
             "required": True,
-            "values": ["ipalias", "carp", "proxyarp", "other"],
+            "values": ["ipalias", "carp", "proxyarp"],
         },
         "network": {"type": "str"},
         "descr": {"type": "str", "max_length": 255},

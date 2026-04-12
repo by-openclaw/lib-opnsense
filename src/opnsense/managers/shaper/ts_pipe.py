@@ -57,7 +57,7 @@ class TsPipeManager(BaseManager):
         delay:            Pipe delay in ms (optional)
         mask:             Mask type — none, src-ip, dst-ip, src-ip6, dst-ip6 (optional)
         buckets:          Hash buckets (optional)
-        scheduler:        Scheduler — '', fifo, wf2q+, rr, qfq, fq_codel, fq_pie (optional)
+        scheduler:        Scheduler — '', fifo, rr, qfq, fq_codel, fq_pie (optional)
         codel_enable:     Enable CoDel AQM (optional, default='0')
         codel_target:     CoDel target delay (optional)
         codel_interval:   CoDel interval (optional)
@@ -99,7 +99,7 @@ class TsPipeManager(BaseManager):
         "buckets": {"type": "str"},
         "scheduler": {
             "type": "enum",
-            "values": ["", "fifo", "wf2q+", "rr", "qfq", "fq_codel", "fq_pie"],
+            "values": ["", "fifo", "rr", "qfq", "fq_codel", "fq_pie"],
         },
         "codel_enable": {"type": "bool_str"},
         "codel_target": {"type": "str"},

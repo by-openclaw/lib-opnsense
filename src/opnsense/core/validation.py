@@ -38,6 +38,11 @@ _MAC_RE = re.compile(r"^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$")
 _COLOR_RE = re.compile(r"^[0-9a-fA-F]{6}$")
 _HOSTNAME_RE = re.compile(r"^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?$")
 
+# Port patterns — used by validate_port and validate_port_or_alias
+_PORT_SINGLE_RE = re.compile(r"^\d{1,5}$")
+_PORT_RANGE_RE = re.compile(r"^(\d{1,5}):(\d{1,5})$")
+_ALIAS_RE = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*$")
+
 
 # -- FieldValidator protocol --------------------------------------------------
 
@@ -104,21 +109,69 @@ def validate_email(field: str, value: str, spec: dict[str, Any]) -> None:
 
 
 def validate_ip(field: str, value: str, spec: dict[str, Any]) -> None:
-    """Validate IPv4 or IPv6 address using stdlib ipaddress."""
+    """Validate IPv4 or IPv6 address using stdlib ipaddress.
+
+    Optional spec keys for classification:
+        version:   4 or 6 — restrict to IPv4-only or IPv6-only
+        scope:     "private", "public", "unicast", "multicast", "loopback", "link_local"
+                   — reject addresses outside the specified scope
+
+    Examples::
+
+        {"type": "ip"}                          # any valid IP
+        {"type": "ip", "version": 4}            # IPv4 only
+        {"type": "ip", "scope": "private"}      # RFC 1918 / ULA only
+        {"type": "ip", "scope": "unicast"}      # no multicast, no loopback
+    """
+    # Handle IP/CIDR notation (e.g. 10.11.99.1/32 from VIP)
+    addr_str = value.split("/")[0] if "/" in value else value
+
     try:
-        ipaddress.ip_address(value)
+        addr = ipaddress.ip_address(addr_str)
     except ValueError:
         raise FieldValidationError(field, value, "must be a valid IP address") from None
 
+    # Version restriction
+    required_version = spec.get("version")
+    if required_version is not None and addr.version != required_version:
+        raise FieldValidationError(
+            field, value, f"must be IPv{required_version}, got IPv{addr.version}"
+        )
+
+    # Scope restriction
+    scope = spec.get("scope")
+    if scope == "private" and not addr.is_private:
+        raise FieldValidationError(field, value, "must be a private IP address")
+    elif scope == "public" and addr.is_private:
+        raise FieldValidationError(field, value, "must be a public IP address")
+    elif scope == "unicast" and (addr.is_multicast or addr.is_loopback):
+        raise FieldValidationError(field, value, "must be a unicast IP address")
+    elif scope == "multicast" and not addr.is_multicast:
+        raise FieldValidationError(field, value, "must be a multicast IP address")
+    elif scope == "loopback" and not addr.is_loopback:
+        raise FieldValidationError(field, value, "must be a loopback IP address")
+    elif scope == "link_local" and not addr.is_link_local:
+        raise FieldValidationError(field, value, "must be a link-local IP address")
+
 
 def validate_cidr(field: str, value: str, spec: dict[str, Any]) -> None:
-    """Validate CIDR notation (e.g. 10.0.0.0/24) using stdlib ipaddress."""
+    """Validate CIDR notation (e.g. 10.0.0.0/24) using stdlib ipaddress.
+
+    Optional spec keys:
+        version: 4 or 6 — restrict to IPv4-only or IPv6-only
+    """
     try:
-        ipaddress.ip_network(value, strict=False)
+        net = ipaddress.ip_network(value, strict=False)
     except ValueError:
         raise FieldValidationError(
             field, value, "must be valid CIDR notation (e.g. 10.0.0.0/24)"
         ) from None
+
+    required_version = spec.get("version")
+    if required_version is not None and net.version != required_version:
+        raise FieldValidationError(
+            field, value, f"must be IPv{required_version} CIDR, got IPv{net.version}"
+        )
 
 
 def validate_mac(field: str, value: str, spec: dict[str, Any]) -> None:
@@ -127,61 +180,73 @@ def validate_mac(field: str, value: str, spec: dict[str, Any]) -> None:
         raise FieldValidationError(field, value, "must be a MAC address (xx:xx:xx:xx:xx:xx)")
 
 
+def _check_port_in_range(field: str, value: str, port_str: str) -> None:
+    """Check a single port number is 1-65535."""
+    port_i = int(port_str)
+    if not 1 <= port_i <= 65535:
+        raise FieldValidationError(field, value, f"port {port_i} out of range 1-65535")
+
+
 def validate_port(field: str, value: str, spec: dict[str, Any]) -> None:
-    """Validate port number (1-65535) or port range (80:443)."""
-    for part in value.split(","):
-        part = part.strip()
-        if ":" in part:
-            low_s, high_s = part.split(":", 1)
-            try:
-                low_i, high_i = int(low_s), int(high_s)
-            except ValueError:
-                raise FieldValidationError(field, value, "port range must be numeric") from None
-            if not (1 <= low_i <= 65535 and 1 <= high_i <= 65535):
-                raise FieldValidationError(field, value, "port range must be 1-65535")
-        else:
-            try:
-                port_i = int(part)
-            except ValueError:
-                raise FieldValidationError(field, value, "port must be numeric") from None
-            if not 1 <= port_i <= 65535:
-                raise FieldValidationError(field, value, "port must be 1-65535")
+    r"""Validate strict numeric port — used by WireGuard, OpenVPN, syslog, D-NAT local-port.
 
+    Accepts:
+        - Single port: ``443``
+        - Range: ``80:443`` (colon-separated, both ends 1-65535)
 
-_ALIAS_RE = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_]*$")
+    Rejects:
+        - Alias names, comma-separated, negative, zero, >65535, non-numeric.
+
+    Regex: ``^\\d{1,5}$`` or ``^(\\d{1,5}):(\\d{1,5})$``
+    """
+    m_range = _PORT_RANGE_RE.match(value)
+    if m_range:
+        _check_port_in_range(field, value, m_range.group(1))
+        _check_port_in_range(field, value, m_range.group(2))
+        return
+
+    m_single = _PORT_SINGLE_RE.match(value)
+    if m_single:
+        _check_port_in_range(field, value, value)
+        return
+
+    raise FieldValidationError(field, value, "must be numeric port (1-65535) or range (80:443)")
 
 
 def validate_port_or_alias(field: str, value: str, spec: dict[str, Any]) -> None:
-    """Validate port number (1-65535), port range, or OPNsense alias name.
+    r"""Validate port, range, or OPNsense alias name — used by FW filter/shaper port fields.
 
-    OPNsense PortField accepts numeric ports, ranges (80:443),
-    comma-separated (80,443), or alias names (MyPorts, inttest_web).
+    Accepts (per OPNsense PortField MVC model):
+        - Single port: ``443``
+        - Range: ``80:443``
+        - Alias name: ``MyPorts``, ``inttest_web_ports``
+
+    NOTE on filter rules (FwFilterManager):
+        OPNsense 26.1.5 filter rules reject inline ranges and comma-lists.
+        Use port aliases instead. See docs/port-field-reference.md.
+        This validator accepts ranges because the MVC PortField type does —
+        the endpoint-specific restriction is enforced server-side.
+
+    Regex: ``^\\d{1,5}$`` | ``^(\\d{1,5}):(\\d{1,5})$`` | ``^[a-zA-Z_][a-zA-Z0-9_]*$``
     """
-    for part in value.split(","):
-        part = part.strip()
-        if ":" in part:
-            # Range like 80:443
-            low_s, high_s = part.split(":", 1)
-            try:
-                low_i, high_i = int(low_s), int(high_s)
-            except ValueError:
-                raise FieldValidationError(
-                    field, value, "port range parts must be numeric"
-                ) from None
-            if not (1 <= low_i <= 65535 and 1 <= high_i <= 65535):
-                raise FieldValidationError(field, value, "port range must be 1-65535")
-        elif part.isdigit() or (part.startswith("-") and part[1:].isdigit()):
-            # Numeric port
-            port_i = int(part)
-            if not 1 <= port_i <= 65535:
-                raise FieldValidationError(field, value, "port must be 1-65535")
-        elif _ALIAS_RE.match(part):
-            # Alias name (e.g. inttest_web_ports)
-            pass
-        else:
-            raise FieldValidationError(
-                field, value, "must be port (1-65535), range (80:443), or alias name"
-            )
+    # Try each valid format via regex
+    m_range = _PORT_RANGE_RE.match(value)
+    if m_range:
+        _check_port_in_range(field, value, m_range.group(1))
+        _check_port_in_range(field, value, m_range.group(2))
+        return
+
+    m_single = _PORT_SINGLE_RE.match(value)
+    if m_single:
+        _check_port_in_range(field, value, value)
+        return
+
+    if _ALIAS_RE.match(value):
+        return  # valid alias name
+
+    raise FieldValidationError(
+        field, value, "must be port (1-65535), range (80:443), or alias name"
+    )
 
 
 def validate_color(field: str, value: str, spec: dict[str, Any]) -> None:

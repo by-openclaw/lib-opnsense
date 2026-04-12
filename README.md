@@ -222,18 +222,25 @@ Private keys never leave the device. Store server privkey in Vault KV.
 
 ## Testing
 
-### Unit tests (1178 tests, offline)
+### Unit tests (1,207 tests, offline)
 
 ```bash
 pytest tests/unit/ -q
 ```
 
-### Integration tests (294 tests, live OPNsense device)
+### Integration tests (~360 tests, 49 files across 10 scopes, live OPNsense device)
 
 ```bash
 # Set credentials in .env or environment
 pytest tests/integration/ -q
 ```
+
+### Features
+
+- **bcrypt password verification** -- diff engine uses `bcrypt.checkpw()` for `$2y$` hashed fields (UpdateOnlyTextField), avoiding unnecessary updates on password-type fields
+- **Firmware upgrade validation** -- `scripts/firmware-upgrade-check.sh` validates API compatibility before OPNsense upgrades
+- **Enum field validation** -- 14 enum fixes verified by `scripts/verify-validators.py` (0 mismatches); per-manager regex-based port and IP validators
+- **Per-manager test files** -- each integration test file follows a 10-step standard (setup, create, verify, update, verify, noop, delete, verify, cleanup, summary)
 
 ### Quality gates
 

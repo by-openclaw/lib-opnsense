@@ -72,7 +72,7 @@ class IfLaggManager(BaseManager):
         "descr": {"type": "str", "required": True, "max_length": 255},
         "proto": {
             "type": "enum",
-            "values": ["none", "lacp", "failover", "fec", "loadbalance"],
+            "values": ["none", "lacp", "failover", "fec", "loadbalance", "roundrobin"],
         },
     }
 

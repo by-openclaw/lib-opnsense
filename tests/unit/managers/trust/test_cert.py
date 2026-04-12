@@ -282,7 +282,7 @@ class TestRedactFields:
             state="present",
             params={
                 "descr": "Import Cert",
-                "action": "existing",
+                "action": "import",
                 "prv_payload": "SECRET-KEY",
                 "csr_payload": "SECRET-CSR",
             },

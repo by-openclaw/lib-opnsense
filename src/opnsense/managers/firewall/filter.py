@@ -69,7 +69,7 @@ class FwFilterManager(BaseManager):
         categories:       Comma-separated category UUIDs (optional)
         icmptype:         ICMP types, comma-separated (optional)
         icmp6type:        ICMPv6 types, comma-separated (optional)
-        statetype:        State type — keep, sloppy, modulate, synproxy (optional)
+        statetype:        State type — keep, sloppy, modulate, synproxy, none (optional)
         tag:              PF tag to apply (optional)
         tagged:           Match PF tag (optional)
         nosync:           No XML sync (optional, default='0')
@@ -112,7 +112,7 @@ class FwFilterManager(BaseManager):
         "categories": {"type": "str"},
         "icmptype": {"type": "str"},
         "icmp6type": {"type": "str"},
-        "statetype": {"type": "enum", "values": ["keep", "sloppy", "modulate", "synproxy"]},
+        "statetype": {"type": "enum", "values": ["keep", "sloppy", "modulate", "synproxy", "none"]},
         "tag": {"type": "str"},
         "tagged": {"type": "str"},
         "nosync": {"type": "bool_str"},

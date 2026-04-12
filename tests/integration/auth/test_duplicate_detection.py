@@ -1,21 +1,31 @@
 # Copyright (c) 2026 BY-SYSTEMS SRL. MIT License.
 # SPDX-License-Identifier: MIT
 # Repo: https://github.com/by-openclaw/lib-opnsense
-"""Integration tests — duplicate detection on live OPNsense device.
+"""Integration tests — duplicate detection across domains against a live OPNsense device.
 
-Proves that:
-    1. Auth domain: OPNsense server REJECTS duplicate users/groups (API-enforced)
-    2. FW domain:   OPNsense ALLOWS duplicate rules — AmbiguousMatchError is our guard
-    3. IF domain:   OPNsense ALLOWS duplicate VLANs — AmbiguousMatchError is our guard
-    4. TS domain:   OPNsense ALLOWS duplicate pipes — AmbiguousMatchError is our guard
+Requirements:
+    - Live OPNsense device accessible via OPN_HOST, OPN_KEY, OPN_SECRET env vars
+    - API user must have full admin privileges
+    - Run with: pytest tests/integration/auth/test_duplicate_detection.py -v
 
-These tests confirm WHY composite match keys + AmbiguousMatchError exist:
-the OPNsense API does NOT enforce uniqueness on FW/IF/TS resources.
+Test flow (cross-cutting: duplicate detection across domains):
+    Not a standard per-manager CRUD lifecycle. Tests duplicate handling
+    across auth, firewall, and traffic shaper domains.
+    1. Create (C)       -- N/A -- cross-cutting duplicate detection
+    2. Idempotent (I)   -- N/A
+    3. Update (U)       -- N/A
+    4. Check mode (K)   -- N/A
+    5. Read/list (R)    -- N/A
+    6. Ambiguous (A)    -- TestAuthDuplicateRejection (API rejects),
+                           TestFwDuplicateDetection (AmbiguousMatchError),
+                           TestTsDuplicateDetection (AmbiguousMatchError)
+    7. Error (E)        -- covered by ambiguous tests above
+    8. Delete (D)       -- N/A
+    9. Delete noop (Dn) -- N/A
+    10. Cleanup (X)     -- per-class test_99_cleanup methods
 
-Safety:
-    - All objects use ``inttest-dup-`` prefix
-    - FW rules created disabled (enabled='0')
-    - Full cleanup after each test class
+Naming convention:
+    All test objects use prefix 'inttest-dup-' to avoid collision with real config.
 """
 
 from __future__ import annotations
@@ -49,9 +59,10 @@ class TestAuthDuplicateRejection:
         assert r1.changed is True
         assert r1.action == "created"
 
-        # Second create with same name → ensure sees existing, returns noop
+        # Second ensure with DIFFERENT password → bcrypt verify detects mismatch → update
+        # Search endpoint returns $2y$ hash, diff engine uses bcrypt.checkpw()
         r2 = await mgr.ensure("present", {"name": "inttest-dup-user", "password": "Test5678!"})
-        assert r2.changed is True  # password differs → update
+        assert r2.changed is True
         assert r2.action == "updated"
 
     async def test_02_duplicate_user_direct_api_rejected(self, opn_client: OpnsenseClient) -> None:

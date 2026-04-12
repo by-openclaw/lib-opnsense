@@ -84,7 +84,7 @@ class SyslogDestManager(BaseManager):
         "enabled": {"type": "bool_str"},
         "transport": {
             "type": "enum",
-            "values": ["udp4", "tcp4", "udp6", "tcp6"],
+            "values": ["udp4", "tcp4", "udp6", "tcp6", "tls4", "tls6"],
         },
         "program": {"type": "str"},
         "level": {"type": "str"},

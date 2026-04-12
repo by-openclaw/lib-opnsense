@@ -88,7 +88,7 @@ class TestEnsurePresent:
             params={
                 "domain": "example.com",
                 "server": "10.0.0.53",
-                "type": "stub",
+                "type": "dot",
             },
         )
 

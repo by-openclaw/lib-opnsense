@@ -144,8 +144,10 @@ class TestPortValidator:
     def test_valid_port_range(self) -> None:
         validate_params({"port": "8080:8090"}, {"port": {"type": "port"}})
 
-    def test_valid_port_csv(self) -> None:
-        validate_params({"port": "80,443"}, {"port": {"type": "port"}})
+    def test_port_csv_rejected(self) -> None:
+        """Comma-separated ports rejected — use port alias instead."""
+        with pytest.raises(FieldValidationError):
+            validate_params({"port": "80,443"}, {"port": {"type": "port"}})
 
     def test_port_out_of_range(self) -> None:
         with pytest.raises(FieldValidationError, match="1-65535"):
