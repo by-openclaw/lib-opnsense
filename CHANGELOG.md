@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.1.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.0.0...v1.1.0) (2026-04-12)
+
+
+### Features
+
+* add self-contained TF config for integration test infra ([1cb43be](https://github.com/by-openclaw/lib-opnsense/commit/1cb43befd6afc8848d4087b5c3e2e83941b7d151))
+
+
+### Bug Fixes
+
+* **api:** bcrypt diff, 14 enum fixes, port regex, test split 49 files ([505e706](https://github.com/by-openclaw/lib-opnsense/commit/505e7064c6cd5e09cd20e99f5571a7238e63a97a))
+* **api:** bcrypt diff, 14 enum fixes, port regex, test split 49 files ([14077a8](https://github.com/by-openclaw/lib-opnsense/commit/14077a8ba64fe6941d7cb9008d1ff626bdc7e5c8))
+* move TF to infra/terraform/, add IPv6 subnets ([054ebc2](https://github.com/by-openclaw/lib-opnsense/commit/054ebc29e9b5d830044129a73334f72530302c5f))
+* remove IPv6 SDN subnets — IPv6 configured on OPNsense ([7d37783](https://github.com/by-openclaw/lib-opnsense/commit/7d377831a4219839fcb74b5738b1fdbf959248ae))
+* update TF node name srv-proxmox-poc-01 → srv-proxmox-01 ([d8cff3c](https://github.com/by-openclaw/lib-opnsense/commit/d8cff3c4a841a585b2624d22314a620368fd9af3))
+
+
+### Documentation
+
+* Docs:  ([14077a8](https://github.com/by-openclaw/lib-opnsense/commit/14077a8ba64fe6941d7cb9008d1ff626bdc7e5c8))
+* add infra/ with integration test bootstrap guide ([794cc41](https://github.com/by-openclaw/lib-opnsense/commit/794cc415ec912f8b47a728efa3471ff056e02c2f))
+* corrected network layout — vmbrMGMT for prod, test behind OPNsense ([7e3d445](https://github.com/by-openclaw/lib-opnsense/commit/7e3d44574d76a8282f313969ad69badc9c956af1))
+* keep root SSH for bootstrap + OOB, disable after Phase 3 ([308cf8d](https://github.com/by-openclaw/lib-opnsense/commit/308cf8d404428a9d024b8e19ded55ea2dcf4936d))
+* rename vmbrMGMT → vmbrOOB in all docs ([086e80c](https://github.com/by-openclaw/lib-opnsense/commit/086e80c0dc0d6b870dc5553f45372b74e05197a4))
+* SSH access for non-root users — shell + pubkey required ([8e72b99](https://github.com/by-openclaw/lib-opnsense/commit/8e72b995585aeb1e827c1d53618369dbdf82af44))
+
 ## [1.0.0](https://github.com/by-openclaw/lib-opnsense/compare/v0.5.0...v1.0.0) (2026-04-09)
 
 
