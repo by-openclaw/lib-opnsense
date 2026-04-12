@@ -1,6 +1,5 @@
 # AGENTS.md -- lib-opnsense
 
-> **Rules:** See [OPERATING-STANDARD.md](~/.openclaw/workspace/OPERATING-STANDARD.md) for all platform rules.
 
 Async Python library for OPNsense REST API -- auth user/group/privilege CRUD with ensure() idempotency.
 
