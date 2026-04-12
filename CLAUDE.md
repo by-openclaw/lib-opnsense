@@ -43,9 +43,7 @@ These are architectural decisions. They are NOT suggestions. Do not override the
 - Vault integration is Phase 2 -- blocked until Vault is deployed.
 
 ### Commit and version discipline
-- All commits MUST follow Conventional Commits format.
-- Release Please is the canonical release path.
-- Never manually edit version strings. Never run `cz bump` if Release Please is active.
+See OPERATING-STANDARD.md §4. Conventional Commits + Release Please.
 
 ---
 
