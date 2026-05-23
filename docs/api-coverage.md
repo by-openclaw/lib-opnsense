@@ -206,7 +206,15 @@
 
 | Domain | Manager | Endpoints | Status | Notes |
 |---|---|---|---|---|
-| dnsmasq-* (6 domains) | — | `dnsmasq/settings` | `SKIPPED` | Replaced by Kea (DHCP) + Unbound (DNS). TFTP/PXE belongs on dedicated LXC, not firewall |
+| dnsmasq-* (6 domains) | — | `dnsmasq/settings` | `PENDING` | OPNsense 26.1 default for DHCP4+DHCP6+RA. Managers tracked under epic [#65](https://github.com/by-openclaw/lib-opnsense/issues/65). Was `SKIPPED` ("Replaced by Kea + Unbound") before 26.1 flipped the default — needs full coverage |
+| radvd-* (2 domains) | — | `radvd/settings`, `radvd/service` | `PENDING` | Required when running Kea (no built-in RA) or for dynamic IPv6 clients. Epic [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) |
+
+### Base patterns unlocked by epic #65 (foundation for ~30 ABSENT singleton/service managers)
+
+| Component | Status | Notes |
+|---|---|---|
+| `core/base_singleton.py` — `BaseSingletonManager` | `IMPLEMENTED` | Fetch/diff/set pattern for singleton config objects (`settings/get` + `settings/set`). Needed for dnsmasq, radvd, ids, syslog, routing, wg-general, kea*-global, ub-settings, monit, trust, ts, cron, dhcrelay, etc. |
+| `core/base_service.py` — `BaseServiceManager` | `IMPLEMENTED` | Idempotent service control (`service/{status,start,stop,restart,reconfigure}`). Needed for dnsmasq-service, radvd-service, kea-service, ub-service, ids-service, wg-service, ipsec-service, syslog-service, cp-service |
 
 ## Core / System
 
