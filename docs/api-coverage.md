@@ -207,7 +207,8 @@
 | Domain | Manager | Endpoints | Status | Notes |
 |---|---|---|---|---|
 | dnsmasq-* (6 domains) | — | `dnsmasq/settings` | `PENDING` | OPNsense 26.1 default for DHCP4+DHCP6+RA. Managers tracked under epic [#65](https://github.com/by-openclaw/lib-opnsense/issues/65). Was `SKIPPED` ("Replaced by Kea + Unbound") before 26.1 flipped the default — needs full coverage |
-| radvd-* (2 domains) | — | `radvd/settings`, `radvd/service` | `PENDING` | Required when running Kea (no built-in RA) or for dynamic IPv6 clients. Epic [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) |
+| radvd-entry | `RadvdEntryManager` | `radvd/settings/{search,get,add,set,del}Entry` | `IMPLEMENTED` | Per-interface IPv6 Router Advertisement config. Match key: `interface`. Body wrapper is plural (`entries`) even though URL suffix is singular (`Entry`). `list()` overrides base — radvd's search filters on `%interface` display value not slot id. |
+| radvd-service | `RadvdServiceManager` | `radvd/service/{status,start,stop,restart,reconfigure}` | `IMPLEMENTED` | Uses `BaseServiceManager`. Required when running Kea (which doesn't emit RAs). |
 
 ### Base patterns unlocked by epic #65 (foundation for ~30 ABSENT singleton/service managers)
 
