@@ -208,7 +208,8 @@
 |---|---|---|---|---|
 | dnsmasq-settings | `DnsmasqSettingsManager` | `dnsmasq/settings/{get,set}` | `IMPLEMENTED` | Global config singleton. Multi-select `interface` / `dhcp` accept list or CSV string (manager normalises). Sub-resources (host/range/domain/option/boot/tag) tracked separately under epic [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) |
 | dnsmasq-service | `DnsmasqServiceManager` | `dnsmasq/service/{status,start,stop,restart,reconfigure}` | `IMPLEMENTED` | Uses `BaseServiceManager`. Coexistence with Kea: dnsmasq must be stopped to free 67/547 when Kea is running |
-| dnsmasq sub-resources (host, range, domain, option, boot, tag) | — | `dnsmasq/settings/{search,add,set,del,toggle}*` | `PENDING` | Tracked under epic [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) — Phases 4–7 |
+| dnsmasq-host | `DnsmasqHostManager` | `dnsmasq/settings/{search,get,add,set,del,toggle}Host` | `IMPLEMENTED` | DNS A/AAAA + DHCP reservations. Composite match keys: `host` + `domain`. Server permits duplicates, so `AmbiguousMatchError` is tested live |
+| dnsmasq sub-resources (range, domain, option, boot, tag) | — | `dnsmasq/settings/{search,add,set,del,toggle}*` | `PENDING` | Tracked under epic [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) — Phases 5–7 |
 | radvd-entry | `RadvdEntryManager` | `radvd/settings/{search,get,add,set,del}Entry` | `IMPLEMENTED` | Per-interface IPv6 Router Advertisement config. Match key: `interface`. Body wrapper is plural (`entries`) even though URL suffix is singular (`Entry`). `list()` overrides base — radvd's search filters on `%interface` display value not slot id. |
 | radvd-service | `RadvdServiceManager` | `radvd/service/{status,start,stop,restart,reconfigure}` | `IMPLEMENTED` | Uses `BaseServiceManager`. Required when running Kea (which doesn't emit RAs). |
 
