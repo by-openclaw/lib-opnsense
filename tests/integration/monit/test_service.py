@@ -38,15 +38,17 @@ import pytest
 from opnsense.client import OpnsenseClient
 from opnsense.managers.monit.service import MonitServiceManager
 from opnsense.managers.monit.test import MonitTestManager
+from tests.integration.monit import SAFE_EXEC_PATH, assert_monit_healthy
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 
+# single-token exec — a multi-word command breaks monitrc parsing (crash-loop).
 HELPER_TEST = {
     "name": "inttest-svctest",
     "type": "Custom",
     "condition": "does not exist for 2 cycles",
     "action": "exec",
-    "path": "/usr/local/sbin/configctl netflow aggregate start",
+    "path": SAFE_EXEC_PATH,
 }
 
 
@@ -81,6 +83,8 @@ class TestMonitServiceCRUD:
         assert r.changed is True
         assert r.action == "created"
         assert r.uuid
+        # service reconfigure regenerated monitrc — verify monit stayed up.
+        await assert_monit_healthy(opn_client)
 
     async def test_03_idempotent(self, opn_client: OpnsenseClient) -> None:
         """Re-ensure the same service -> noop."""
@@ -109,6 +113,7 @@ class TestMonitServiceCRUD:
         r = await mgr.ensure("absent", {"name": "inttest-svc"})
         assert r.changed is True
         assert r.action == "deleted"
+        await assert_monit_healthy(opn_client)
 
     async def test_05_delete_idempotent(self, opn_client: OpnsenseClient) -> None:
         mgr = MonitServiceManager(opn_client)

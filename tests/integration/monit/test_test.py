@@ -37,15 +37,19 @@ import pytest
 
 from opnsense.client import OpnsenseClient
 from opnsense.managers.monit.test import MonitTestManager
+from tests.integration.monit import SAFE_EXEC_PATH, assert_monit_healthy
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 
+# exec path is single-token on purpose: a multi-word command breaks monitrc
+# parsing and crash-loops the daemon. Real multi-arg heals use a seed-owned
+# wrapper script; see SAFE_EXEC_PATH docstring.
 MONIT_TEST = {
     "name": "inttest-heal",
     "type": "Custom",
     "condition": "does not exist for 2 cycles",
     "action": "exec",
-    "path": "/usr/local/sbin/configctl netflow aggregate start",
+    "path": SAFE_EXEC_PATH,
 }
 
 
@@ -58,6 +62,9 @@ class TestMonitTestCRUD:
         assert r.changed is True
         assert r.action == "created"
         assert r.uuid
+        # reconfigure regenerated monitrc + restarted the daemon — verify it
+        # survived (a bad exec would crash-loop monit, invisible to the API).
+        await assert_monit_healthy(opn_client)
 
     async def test_02_idempotent(self, opn_client: OpnsenseClient) -> None:
         mgr = MonitTestManager(opn_client)
@@ -70,6 +77,7 @@ class TestMonitTestCRUD:
         r = await mgr.ensure("absent", {"name": "inttest-heal"})
         assert r.changed is True
         assert r.action == "deleted"
+        await assert_monit_healthy(opn_client)
 
     async def test_04_delete_idempotent(self, opn_client: OpnsenseClient) -> None:
         mgr = MonitTestManager(opn_client)
