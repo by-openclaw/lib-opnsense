@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.2.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.1.0...v1.2.0) (2026-06-05)
+
+
+### Features
+
+* **core:** add BaseSingletonManager + BaseServiceManager base patterns ([8dc4b2f](https://github.com/by-openclaw/lib-opnsense/commit/8dc4b2faa1a5c7eb445e3e58dd7db8fc7978f0b2))
+* **core:** BaseSingletonManager + BaseServiceManager — Phase 1 of [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) ([b2969ee](https://github.com/by-openclaw/lib-opnsense/commit/b2969eef6e73df407b6f9fa824f8f4e14711e65c))
+* **monit:** add Monit managers (settings/alert/test/service) ([63fa21f](https://github.com/by-openclaw/lib-opnsense/commit/63fa21f1e578ff1089e8cb4a81fd4778612f5090))
+* **monit:** add Monit managers (settings/alert/test/service) ([d7ade83](https://github.com/by-openclaw/lib-opnsense/commit/d7ade83de5da844c206871173e7a4fccfbfbcc32)), closes [#83](https://github.com/by-openclaw/lib-opnsense/issues/83)
+* **services:** DnsmasqBoot + DnsmasqOption + DnsmasqTag managers ([c15f93b](https://github.com/by-openclaw/lib-opnsense/commit/c15f93b2c54251d822d019ba35f5a1d10d71001e))
+* **services:** DnsmasqBoot + Option + Tag — Phase 7 of [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) (closes dnsmasq surface) ([be2578e](https://github.com/by-openclaw/lib-opnsense/commit/be2578e1ace576744f9b28c0e7ae0c0632ebc13c))
+* **services:** DnsmasqDomainManager — per-domain DNS forwarders ([c360b88](https://github.com/by-openclaw/lib-opnsense/commit/c360b888f49f5d99589d35898f2724fc04f2e530))
+* **services:** DnsmasqDomainManager — Phase 6 of [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) ([bbff236](https://github.com/by-openclaw/lib-opnsense/commit/bbff236bcd7b63a0bae532b0646c62b7722a65ab))
+* **services:** DnsmasqHostManager — DNS + DHCP host entries ([c2a405d](https://github.com/by-openclaw/lib-opnsense/commit/c2a405d457d9b0cdebf785db5986bb5cb4f25802))
+* **services:** DnsmasqHostManager — Phase 4 of [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) ([a3ede17](https://github.com/by-openclaw/lib-opnsense/commit/a3ede17f48d194c50bef5d3f1d11056cb32c7a86))
+* **services:** DnsmasqRangeManager — DHCP4 / DHCP6 pools ([6a35d74](https://github.com/by-openclaw/lib-opnsense/commit/6a35d741c39efb08f1227beda4e4acbfe99a4fd4))
+* **services:** DnsmasqRangeManager — Phase 5 of [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) ([8bf402b](https://github.com/by-openclaw/lib-opnsense/commit/8bf402b9854db2ee2a3073aeeecadf77ee357fa5))
+* **services:** DnsmasqServiceManager + DnsmasqSettingsManager ([5905e55](https://github.com/by-openclaw/lib-opnsense/commit/5905e55b88071dda578deee015f1c3b1450e2474))
+* **services:** DnsmasqServiceManager + DnsmasqSettingsManager — Phase 3 of [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) ([59739ea](https://github.com/by-openclaw/lib-opnsense/commit/59739eaeca3d1e01c73d3eb8d024cdd0ef8d7f70))
+* **services:** RadvdEntryManager + RadvdServiceManager ([2501b41](https://github.com/by-openclaw/lib-opnsense/commit/2501b4114166a12b461db95e83f9d5658c2b2b84))
+* **services:** RadvdEntryManager + RadvdServiceManager — Phase 2 of [#65](https://github.com/by-openclaw/lib-opnsense/issues/65) ([3e5b551](https://github.com/by-openclaw/lib-opnsense/commit/3e5b551343386033165924610a3b3da82c1bd708))
+
+
+### Bug Fixes
+
+* **agents:** link to doc-platform-core for agent contract files ([7fbcfc9](https://github.com/by-openclaw/lib-opnsense/commit/7fbcfc955f6242ee02222cec32bb08257deed858))
+* **agents:** remove unreachable OPERATING-STANDARD.md link ([dea079b](https://github.com/by-openclaw/lib-opnsense/commit/dea079b8a0dbfc721e62510edd97c276f7860812))
+* **agents:** restore OPERATING-STANDARD reference as plain text ([1a3c3ee](https://github.com/by-openclaw/lib-opnsense/commit/1a3c3ee0fbcd39c94cb4f1805f1d2d9779251f8d))
+
 ## [1.1.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.0.0...v1.1.0) (2026-04-12)
 
 
