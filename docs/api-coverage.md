@@ -200,7 +200,10 @@
 
 | Domain | Manager | Endpoints | Status | Notes |
 |---|---|---|---|---|
-| monit-* (3 domains) | — | `monit/settings` | `SKIPPED` | Use Prometheus + node_exporter instead for monitoring |
+| monit-settings | `MonitSettingsManager` | `monit/settings/get` + `set` | `UNIT_TEST_PASSED` | Singleton (`BaseSingletonManager`). Manages the `general` daemon block (unwrapped on get, re-nested on set). Redacts password/username/httpdPassword/httpdUsername/mmonitUrl. Apply `monit/service/reconfigure`. |
+| monit-alert | `MonitAlertManager` | `monit/settings/{search,get,add,set,del}Alert` | `UNIT_TEST_PASSED` | CRUD. Match key `recipient` (redacted PII). `events` multi-select normalised to CSV. Apply `monit/service/reconfigure`. |
+| monit-test | `MonitTestManager` | `monit/settings/{search,get,add,set,del}Test` | `UNIT_TEST_PASSED` | CRUD. Match key `name`. `type`/`action` enums per schema (note: schema spells `Permisssion` with triple-s). Apply `monit/service/reconfigure`. |
+| monit-service | `MonitServiceManager` | `monit/settings/{search,get,add,set,del}Service` | `UNIT_TEST_PASSED` | CRUD. Match key `name`. `tests`/`depends` multi-selects (UUID refs) normalised to CSV. Apply `monit/service/reconfigure`. |
 
 ## Dnsmasq
 
@@ -312,7 +315,7 @@
 | kea-ctrl-agent | `KeaCtrlAgentManager` | `GET /api/kea/ctrl_agent/get` | `ABSENT` |
 | kea4-global | `Kea4GlobalManager` | `GET /api/kea/dhcpv4/get` | `ABSENT` |
 | kea6-global | `Kea6GlobalManager` | `GET /api/kea/dhcpv6/get` | `ABSENT` |
-| monit-settings | `MonitSettingsManager` | `GET /api/monit/settings/get` | `ABSENT` |
+| monit-settings | `MonitSettingsManager` | `GET /api/monit/settings/get` | `UNIT_TEST_PASSED` |
 | routing-settings | `RoutingSettingsManager` | `GET /api/routing/settings/get` | `ABSENT` |
 | syslog-settings | `SyslogSettingsManager` | `GET /api/syslog/settings/get` | `ABSENT` |
 | trust-settings | `TrustSettingsManager` | `GET /api/trust/settings/get` | `ABSENT` |
