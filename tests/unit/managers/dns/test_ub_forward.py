@@ -230,13 +230,20 @@ class TestErrorHandling:
 class TestFieldValidation:
     """FieldValidationError raised before API call for bad params."""
 
-    async def test_missing_required_domain_raises_before_api_call(
-        self, mock_client: AsyncMock
-    ) -> None:
+    async def test_empty_domain_allowed_catch_all(self, mock_client: AsyncMock) -> None:
+        """Empty domain is VALID (#81): catch-all root forward-zone '.' → create."""
+        mock_client.search.return_value = []
+        mock_client.create.return_value = "uuid-catchall"
+        mock_client.reconfigure.return_value = {"status": "ok"}
+
         mgr = UbForwardManager(mock_client)
-        with pytest.raises(FieldValidationError):
-            await mgr.ensure("present", params={"server": "10.0.0.53"})
-        mock_client.create.assert_not_awaited()
+        result = await mgr.ensure(
+            "present", params={"domain": "", "server": "127.0.0.1", "port": "53531"}
+        )
+
+        assert result.changed is True
+        assert result.action == "created"
+        mock_client.create.assert_awaited_once()
 
     async def test_invalid_type_enum_raises_before_api_call(self, mock_client: AsyncMock) -> None:
         mgr = UbForwardManager(mock_client)

@@ -42,7 +42,8 @@ class UbForwardManager(BaseManager):
             })
 
     Input (ensure present):
-        domain:                Forwarding domain name, max 255 (required)
+        domain:                Forwarding domain name, max 255 (optional; empty =
+                               catch-all root forward-zone "." → forward ALL queries)
         server:                Upstream DNS server address, max 255 (optional)
         type:                  Forward type — forward, stub (optional)
         port:                  Server port (optional)
@@ -70,7 +71,10 @@ class UbForwardManager(BaseManager):
     REDACT_FIELDS: set[str] = set()
 
     _validators = {
-        "domain": {"type": "str", "required": True, "max_length": 255},
+        # Empty/omitted domain is VALID: it means the catch-all root forward-zone
+        # "." (forward ALL queries to `server`). OPNsense accepts this; requiring a
+        # non-empty domain wrongly rejected the dnscrypt-proxy chain entries (#81).
+        "domain": {"type": "str", "max_length": 255},
         "server": {"type": "str", "max_length": 255},
         "type": {"type": "enum", "values": ["forward", "dot"]},
         "port": {"type": "str"},
