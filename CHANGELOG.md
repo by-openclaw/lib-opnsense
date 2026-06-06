@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/by-openclaw/lib-opnsense/compare/v1.2.0...v1.2.1) (2026-06-06)
+
+
+### Bug Fixes
+
+* **dns:** UbForwardManager accepts empty domain (catch-all forward-zone) ([61aa3ef](https://github.com/by-openclaw/lib-opnsense/commit/61aa3ef708018893d42615715e056a44f430fbd4))
+* **dns:** UbForwardManager accepts empty domain (catch-all forward-zone) ([9fa2a23](https://github.com/by-openclaw/lib-opnsense/commit/9fa2a23a7c83fa0197415ca989d315dac0d39e94)), closes [#81](https://github.com/by-openclaw/lib-opnsense/issues/81)
+
 ## [1.2.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.1.0...v1.2.0) (2026-06-05)
 
 
