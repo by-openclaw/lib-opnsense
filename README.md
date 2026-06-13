@@ -228,7 +228,7 @@ Private keys never leave the device. Store server privkey in Vault KV.
 pytest tests/unit/ -q
 ```
 
-### Integration tests (~360 tests, 49 files across 10 scopes, live OPNsense device)
+### Integration tests (~380 tests, 54 files across 11 scopes, live OPNsense device)
 
 ```bash
 # Set credentials in .env or environment

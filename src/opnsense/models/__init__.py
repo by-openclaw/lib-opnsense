@@ -3,6 +3,11 @@
 # Repo: https://github.com/by-openclaw/lib-opnsense
 """OPNsense data models — one typed frozen dataclass per API entity."""
 
+from opnsense.models.acme.account import AcmeAccount
+from opnsense.models.acme.action import AcmeAction
+from opnsense.models.acme.certificate import AcmeCertificate
+from opnsense.models.acme.settings import AcmeSettings
+from opnsense.models.acme.validation import AcmeValidation
 from opnsense.models.auth.group import AuthGroup
 from opnsense.models.auth.user import AuthUser
 from opnsense.models.base import EnsureResult
@@ -57,6 +62,11 @@ from opnsense.models.vpn.wg_client import WgClient
 from opnsense.models.vpn.wg_server import WgServer
 
 __all__ = [
+    "AcmeAccount",
+    "AcmeAction",
+    "AcmeCertificate",
+    "AcmeSettings",
+    "AcmeValidation",
     "AuthGroup",
     "AuthUser",
     "CpZone",
