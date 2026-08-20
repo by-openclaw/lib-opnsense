@@ -200,6 +200,13 @@
 
 | Domain | Manager | Endpoints | Status | Notes |
 |---|---|---|---|---|
+| crowdsec-general | `CrowdSecSettingsManager` | `crowdsec/general/get` + `set` | `UNIT_TEST_PASSED` | Singleton (`BaseSingletonManager`), payload key `general`. Controller extends `ApiMutableModelControllerBase`, so every field is writable. **Redacts `enroll_key`** (live console credential, returned in plaintext by GET). `lapi_manual_configuration` is the switch that points the firewall bouncer at a REMOTE LAPI — a default install enables its own LAPI on 127.0.0.1 and looks healthy while enforcing nothing from a central LAPI. Apply `crowdsec/service/reconfigure`. |
+| crowdsec-service | `CrowdSecServiceManager` | `crowdsec/service/{status,start,stop,restart,reconfigure}` | `UNIT_TEST_PASSED` | `BaseServiceManager`. `service/status` is authoritative — reading the daemon over SSH as non-root reports "not running" because the pidfile is unreadable (false negative). |
+| crowdsec-bouncers | — | `crowdsec/bouncers/search` | `ABSENT` | Read-only listing (`ApiControllerBase`, search only). Probed 26.1.9; no manager yet. |
+| crowdsec-machines | — | `crowdsec/machines/search` | `ABSENT` | Read-only listing. Probed 26.1.9; no manager yet. |
+| crowdsec-collections | — | `crowdsec/collections/search` | `ABSENT` | Read-only listing. Probed 26.1.9; no manager yet. |
+| crowdsec-decisions | — | `crowdsec/decisions/{search,del}` | `ABSENT` | Search + delete. `del` is destructive (drops an active ban) — never exercised in integration tests. |
+| crowdsec-version | — | `crowdsec/version/get` | `ABSENT` | **Returns PLAIN TEXT**, not JSON (raw `cscli version` output), so it is excluded from the JSON probe registry. A manager must parse it as text. |
 | monit-settings | `MonitSettingsManager` | `monit/settings/get` + `set` | `UNIT_TEST_PASSED` | Singleton (`BaseSingletonManager`). Manages the `general` daemon block (unwrapped on get, re-nested on set). Redacts password/username/httpdPassword/httpdUsername/mmonitUrl. Apply `monit/service/reconfigure`. |
 | monit-alert | `MonitAlertManager` | `monit/settings/{search,get,add,set,del}Alert` | `UNIT_TEST_PASSED` | CRUD. Match key `recipient` (redacted PII). `events` multi-select normalised to CSV. Apply `monit/service/reconfigure`. |
 | monit-test | `MonitTestManager` | `monit/settings/{search,get,add,set,del}Test` | `UNIT_TEST_PASSED` | CRUD. Match key `name`. `type`/`action` enums per schema (note: schema spells `Permisssion` with triple-s). Apply `monit/service/reconfigure`. |
