@@ -1,0 +1,1 @@
+{"total":1,"rowCount":1,"current":1,"rows":[{"name":"cs-firewall-bouncer-1780446940","type":"crowdsec-firewall-bouncer","version":"v0.0.34_2-freebsd-41445554","created":"2026-06-03T00:35:41.097565443Z","valid":true,"ip_address":"127.0.0.1","last_seen":"2026-08-20T23:07:01.738916436Z","os":"FreeBSD\/14.3-RELEASE-p14"}]}

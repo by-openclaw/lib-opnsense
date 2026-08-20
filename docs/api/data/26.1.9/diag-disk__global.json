@@ -1,1 +1,1 @@
-{"devices":[{"device":"\/dev\/ufs\/OPNsense_Nano","type":"ufs","blocks":"19G","used":"3.0G","available":"14G","used_pct":18,"mountpoint":"\/"}]}
+{"devices":[{"device":"\/dev\/ufs\/OPNsense_Nano","type":"ufs","blocks":"19G","used":"5.1G","available":"12G","used_pct":29,"mountpoint":"\/"}]}
