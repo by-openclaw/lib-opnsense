@@ -12,6 +12,7 @@ from __future__ import annotations
 from unittest.mock import AsyncMock
 
 import pytest
+
 from opnsense.exceptions import FieldValidationError
 from opnsense.managers.crowdsec.settings import CrowdSecSettingsManager
 

@@ -8,6 +8,7 @@ from __future__ import annotations
 from unittest.mock import AsyncMock
 
 import pytest
+
 from opnsense.managers.crowdsec.service import CrowdSecServiceManager
 
 

@@ -24,6 +24,7 @@ from __future__ import annotations
 import os
 
 import pytest
+
 from opnsense.client import OpnsenseClient
 from opnsense.managers.crowdsec.service import CrowdSecServiceManager
 from opnsense.managers.crowdsec.settings import CrowdSecSettingsManager

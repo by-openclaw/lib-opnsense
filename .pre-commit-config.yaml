@@ -26,8 +26,11 @@ repos:
       - id: check-json
 
   # Python linting + formatting (same as CI)
+  # Must track the ruff version CI installs (pyproject: ruff>=0.4 -> latest).
+  # A pinned older rev disagrees with CI on isort ordering, so the hook and the
+  # pipeline each "fix" what the other undoes and the commit can never settle.
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.4
+    rev: v0.15.8
     hooks:
       - id: ruff
         args: ["--fix"]
