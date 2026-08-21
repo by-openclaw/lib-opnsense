@@ -1,1 +1,25 @@
-{"rows":[{"uuid":"a91cd1f9-03c3-4268-886a-24493227182f","enabled":"1","name":"wg-byresearch-01","instance":"0","pubkey":"+DcJq9J6S01sa2eLqqDD0cnPC3Ub5owQg3PUwT\/XRHE=","privkey":"mGSfrk3HHoCZHPd4y\/g30ISd2TgG45RKD94+PzxPh2M=","port":"51820","mtu":"1420","dns":"","tunneladdress":"10.99.0.1\/24","disableroutes":"0","gateway":"","carp_depend_on":"None","peers":"","endpoint":"","peer_dns":""}],"rowCount":1,"total":1,"current":1}
+{
+  "rows": [
+    {
+      "uuid": "a91cd1f9-03c3-4268-886a-24493227182f",
+      "enabled": "1",
+      "name": "wg-byresearch-01",
+      "instance": "0",
+      "pubkey": "+DcJq9J6S01sa2eLqqDD0cnPC3Ub5owQg3PUwT/XRHE=",
+      "privkey": "<REDACTED:privkey>",
+      "port": "51820",
+      "mtu": "1420",
+      "dns": "",
+      "tunneladdress": "10.99.0.1/24",
+      "disableroutes": "0",
+      "gateway": "",
+      "carp_depend_on": "None",
+      "peers": "",
+      "endpoint": "",
+      "peer_dns": ""
+    }
+  ],
+  "rowCount": 1,
+  "total": 1,
+  "current": 1
+}

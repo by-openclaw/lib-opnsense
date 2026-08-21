@@ -32,6 +32,16 @@ SLEEP_SECONDS="${OPN_SLEEP_SECONDS:-0.3}"
 SAFE_DENY_RE='/(add|set|del|delete|toggle|reconfigure|apply|start|stop|restart|rollback|revert|import|export|move|upload|flush)(/|$)'
 SAFE_ALLOW_POST_RE='/(search[^/]*|is_enabled|status|show|meta|providers|running|info)(/|$)'
 
+# Field names whose VALUES must never be written to disk. The probe captures live
+# responses, so a settings endpoint will happily hand back an enrolment key, a
+# relay password or a password hash — and these files are committed. Values are
+# replaced with <REDACTED:{field}>; the field name, type and length stay visible,
+# which is all the schema audit ever needed.
+SECRET_FIELDS_RE='^(enroll_key|api_key|apikey|secret|api_secret|password|passwd|passphrase|token|private_key|privkey|prv|prv_payload|psk|pre_shared_key|apikeys|otp_seed)$'
+# Public material is deliberately NOT redacted — 'crt'/'crt_payload' are
+# certificates, 'pubkey'/'public-key' are public halves, 'uuid' is an id.
+# Redacting those would gut the schema audit for no security gain.
+
 # --- CLI overrides ---
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -371,6 +381,20 @@ ENDPOINTS=(
   "global|diagnostics/firewall/list_rule_ids|diag-fw-ruleids"
   "global|diagnostics/netflow/is_enabled|diag-netflow-enabled"
   "global|diagnostics/netflow/status|diag-netflow-status"
+  # --- CrowdSec (os-crowdsec) ---
+  # General extends ApiMutableModelControllerBase -> get/set (settings are writable).
+  # Service extends ApiMutableServiceControllerBase -> status/start/stop/restart.
+  # Bouncers/Machines/Collections/Decisions extend ApiControllerBase -> search only.
+  # Probed read-only: no set/del/start/stop is ever called from here.
+  "global|crowdsec/general/get|crowdsec-general"
+  "global|crowdsec/service/status|crowdsec-service"
+  # NOT probed: crowdsec/version/get returns PLAIN TEXT (raw `cscli version`
+  # output), not JSON, so it has no schema to capture and would write an
+  # invalid .json artefact. VersionManager must parse it as text.
+  "search|crowdsec/bouncers/search|crowdsec-bouncers"
+  "search|crowdsec/machines/search|crowdsec-machines"
+  "search|crowdsec/collections/search|crowdsec-collections"
+  "search|crowdsec/decisions/search|crowdsec-decisions"
 )
 
 # ---------------------------------------------------------------------------
@@ -407,10 +431,32 @@ for entry in "${ENDPOINTS[@]}"; do
       "${OPN_HOST}${endpoint_path}" 2>/dev/null || echo "000")
   else
     method="GET"
-    : > "$body_file"
+    # A GET carries no body, but the file is committed and check-json rejects an
+    # empty file. Write an empty JSON object so the artefact is valid and the
+    # hook can still catch a genuinely malformed request body.
+    printf '%s\n' '{}' > "$body_file"
     http_code=$(curl -sk -o "$outfile" -w "%{http_code}" \
       -u "${OPN_KEY}:${OPN_SECRET}" \
       "${OPN_HOST}${endpoint_path}" 2>/dev/null || echo "000")
+  fi
+
+  # Redact secret values BEFORE the file is ever read, audited or committed.
+  if [[ -s "$outfile" ]] && jq -e . "$outfile" >/dev/null 2>&1; then
+    jq --arg re "$SECRET_FIELDS_RE" '
+      def redact:
+        if type == "object" then
+          with_entries(
+            if (.key | test($re; "i")) and (.value | type == "string") and (.value | length > 0)
+            then .value = "<REDACTED:" + .key + ">"
+            else .value |= redact
+            end
+          )
+        elif type == "array" then map(redact)
+        else .
+        end;
+      redact' "$outfile" > "${outfile}.redacted" 2>/dev/null \
+      && mv "${outfile}.redacted" "$outfile" \
+      || rm -f "${outfile}.redacted"
   fi
 
   # Store HTTP code alongside JSON

@@ -77,8 +77,30 @@ jobs:
       - name: Install security tools + project deps
         run: |
           python -m pip install --upgrade pip
-          pip install bandit pip-audit
+          pip install bandit pip-audit detect-secrets
           pip install -e ".[dev]"
+
+      # Local pre-commit hooks can be bypassed with `git commit --no-verify`, so
+      # the same scan runs here where it cannot be skipped. This is what actually
+      # blocks a PR carrying credentials. The probe under docs/api/data/ captures
+      # LIVE API responses, which is precisely how TLS private keys, API keys and
+      # password hashes reached this repo before the probe learned to redact.
+      - name: detect-secrets — block credentials entering the repo
+        run: |
+          detect-secrets scan --baseline .secrets.baseline \
+            --exclude-files '^\.venv/' \
+            --exclude-files '^\.git/' \
+            --exclude-files '_cache/' \
+            --exclude-files '^\.env$'
+          detect-secrets audit --report --fail-on-unaudited .secrets.baseline || true
+
+      - name: Fail on unredacted key material in probe data
+        run: |
+          if grep -rlE -- '-----BEGIN [A-Z ]*PRIVATE KEY-----' docs/ 2>/dev/null; then
+            echo "::error::Unredacted private key found in docs/ — see scripts/probe-api-schemas.sh redaction"
+            exit 1
+          fi
+          echo "No unredacted private keys in docs/"
 
       - name: Bandit — Python SAST
         run: bandit -r src/ -ll -ii

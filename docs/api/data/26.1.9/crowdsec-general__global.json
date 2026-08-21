@@ -1,0 +1,15 @@
+{
+  "general": {
+    "agent_enabled": "1",
+    "lapi_enabled": "1",
+    "firewall_bouncer_enabled": "1",
+    "lapi_manual_configuration": "0",
+    "lapi_listen_address": "127.0.0.1",
+    "lapi_listen_port": "8080",
+    "rules_enabled": "1",
+    "rules_log": "1",
+    "rules_tag": "",
+    "enroll_key": "<REDACTED:enroll_key>",
+    "crowdsec_firewall_verbose": "0"
+  }
+}
