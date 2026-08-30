@@ -24,6 +24,9 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: check-json
+        # docs/api/data = raw probe captures (immutable records; some are
+        # empty/non-JSON responses by design) — never validated as JSON.
+        exclude: ^docs/api/data/
 
   # Python linting + formatting (same as CI)
   # Must track the ruff version CI installs (pyproject: ruff>=0.4 -> latest).

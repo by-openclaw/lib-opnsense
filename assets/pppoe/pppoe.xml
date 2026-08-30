@@ -151,7 +151,7 @@
       <vlanif>vlan01</vlanif>
     </vlan>
   </vlans>
-  
+
   <ppps>
     <ppp>
       <ptpid>0</ptpid>
@@ -167,4 +167,3 @@
       <mrru/>
     </ppp>
   </ppps>
-
