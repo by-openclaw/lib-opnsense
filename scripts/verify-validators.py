@@ -135,6 +135,7 @@ def load_manager(module_path: str, class_name: str) -> Any:
 
 
 def main() -> None:
+    """Compare pylib validators against the probed API schemas and report gaps."""
     parser = argparse.ArgumentParser(description="Verify pylib validators vs API schemas")
     parser.add_argument("--schema-dir", default="docs/api/data/26.1.5")
     args = parser.parse_args()
@@ -212,9 +213,11 @@ def main() -> None:
                 continue
             if field not in validators:
                 alt = field.replace("-", "_")
-                if alt not in validators:
-                    if classify_schema_field(field, schema[field]) == "ENUM_STATIC":
-                        total_missing_pylib += 1
+                if (
+                    alt not in validators
+                    and classify_schema_field(field, schema[field]) == "ENUM_STATIC"
+                ):
+                    total_missing_pylib += 1
 
     print(f"\n{'=' * 60}")
     print(
