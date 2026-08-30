@@ -335,10 +335,10 @@ async def ensure(self, state: str, params: dict, check_mode: bool = False) -> En
     params: dict of desired field values
     check_mode: True = dry-run, no mutation
     """
-    
+
     # 1. SEARCH — find existing item by match key
     existing = await self._client.search(self._endpoint, match_key=params.get('name'))
-    
+
     # 2. STATE = ABSENT
     if state == 'absent':
         if not existing:
@@ -350,7 +350,7 @@ async def ensure(self, state: str, params: dict, check_mode: bool = False) -> En
         await self._client.reconfigure(self._apply_endpoint)
         return EnsureResult(changed=True, action='deleted', uuid=existing['uuid'],
                             before=existing, after=None)
-    
+
     # 3. STATE = PRESENT, item missing -> CREATE
     if not existing:
         if check_mode:
@@ -360,19 +360,19 @@ async def ensure(self, state: str, params: dict, check_mode: bool = False) -> En
         await self._client.reconfigure(self._apply_endpoint)
         return EnsureResult(changed=True, action='created', uuid=uuid,
                             before=None, after=params)
-    
+
     # 4. STATE = PRESENT, item exists -> COMPARE + UPDATE if different
     current = await self._client.get(self._endpoint, existing['uuid'])
     diff = self._compute_diff(current, params)
-    
+
     if not diff:
         return EnsureResult(changed=False, action='noop', uuid=existing['uuid'],
                             before=current, after=current)
-    
+
     if check_mode:
         return EnsureResult(changed=True, action='updated', uuid=existing['uuid'],
                             before=current, after=params)
-    
+
     await self._client.update(self._endpoint, existing['uuid'], self._payload_key, params)
     await self._client.reconfigure(self._apply_endpoint)
     return EnsureResult(changed=True, action='updated', uuid=existing['uuid'],
@@ -491,7 +491,7 @@ OPNsense returns a job UUID; the lib uses `async/await` to wait without blocking
 async def wait_for_ready(self, check_endpoint: str, timeout: float | None = None,
                          interval: float = 3.0) -> dict:
     """Wait for a long-running operation to complete.
-    
+
     Uses asyncio.wait_for() — hard deadline, raises TimeoutError.
     Uses asyncio.sleep() — non-blocking, frees event loop.
     No infinite loop possible.

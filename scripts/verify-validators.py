@@ -26,7 +26,6 @@ from __future__ import annotations
 import argparse
 import importlib
 import json
-import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -87,20 +86,32 @@ MANAGER_MAP = {
 
 # Fields that are device-state dependent (not static enums)
 DYNAMIC_FIELDS = {
-    "interface", "gateway", "categories", "members", "peers",
-    "connection", "certificate", "ca", "caref", "authservers",
-    "group_memberships", "priv", "language", "content", "sched",
-    "shaper1", "shaper2", "overload", "replyto",
+    "interface",
+    "gateway",
+    "categories",
+    "members",
+    "peers",
+    "connection",
+    "certificate",
+    "ca",
+    "caref",
+    "authservers",
+    "group_memberships",
+    "priv",
+    "language",
+    "content",
+    "sched",
+    "shaper1",
+    "shaper2",
+    "overload",
+    "replyto",
 }
 
 
 def classify_schema_field(key: str, value: Any) -> str:
     """Classify a schema field as ENUM_STATIC, ENUM_DYNAMIC, STR, or BCRYPT."""
     if isinstance(value, dict):
-        has_selected = any(
-            isinstance(v, dict) and "selected" in v
-            for v in value.values()
-        )
+        has_selected = any(isinstance(v, dict) and "selected" in v for v in value.values())
         if has_selected:
             if key in DYNAMIC_FIELDS:
                 return "ENUM_DYNAMIC"
@@ -114,10 +125,7 @@ def classify_schema_field(key: str, value: Any) -> str:
 
 def get_enum_keys(value: dict) -> list[str]:
     """Extract enum option keys from an OPNsense schema enum dict."""
-    return [
-        k for k, v in value.items()
-        if isinstance(v, dict) and "selected" in v
-    ]
+    return [k for k, v in value.items() if isinstance(v, dict) and "selected" in v]
 
 
 def load_manager(module_path: str, class_name: str) -> Any:
@@ -208,10 +216,12 @@ def main() -> None:
                     if classify_schema_field(field, schema[field]) == "ENUM_STATIC":
                         total_missing_pylib += 1
 
-    print(f"\n{'='*60}")
-    print(f"SUMMARY: {total_ok} OK | {total_mismatch} enum mismatches | "
-          f"{total_missing_pylib} static enums missing from pylib | "
-          f"{total_missing_schema} pylib fields missing from schema")
+    print(f"\n{'=' * 60}")
+    print(
+        f"SUMMARY: {total_ok} OK | {total_mismatch} enum mismatches | "
+        f"{total_missing_pylib} static enums missing from pylib | "
+        f"{total_missing_schema} pylib fields missing from schema"
+    )
 
     if total_mismatch > 0:
         sys.exit(1)
