@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.2.1...v1.3.0) (2026-08-30)
+
+
+### Features
+
+* **acme:** implement os-acme-client managers (settings/service/accounts/validations/certificates/actions) ([32b2403](https://github.com/by-openclaw/lib-opnsense/commit/32b24038f56df611ea9b30b171bd7731e601dceb))
+* **acme:** implement os-acme-client managers (settings/service/accounts/validations/certificates/actions) ([1f841dc](https://github.com/by-openclaw/lib-opnsense/commit/1f841dc915c7379709d7d093b1a889d8db46dcb8)), closes [#89](https://github.com/by-openclaw/lib-opnsense/issues/89)
+* **crowdsec:** os-crowdsec settings + service managers ([56216de](https://github.com/by-openclaw/lib-opnsense/commit/56216de7e6b270bc17467c0dcee0b390e25d057f)), closes [#91](https://github.com/by-openclaw/lib-opnsense/issues/91)
+
+
+### Bug Fixes
+
+* **crowdsec,ci:** align pre-commit ruff with CI; sort imports ([0a6ecd8](https://github.com/by-openclaw/lib-opnsense/commit/0a6ecd8785827514188c4a53e81650d4f5de257c))
+* **probe:** redact secrets at capture + feat(crowdsec): os-crowdsec managers ([c89f5d7](https://github.com/by-openclaw/lib-opnsense/commit/c89f5d7764009f02682a0b2a387bc8b2faaa9624))
+* **probe:** redact secrets before capture; block credentials at commit and CI ([3b24576](https://github.com/by-openclaw/lib-opnsense/commit/3b24576ae9411d14db990c86a5a2424ceace5a18))
+
 ## [1.2.1](https://github.com/by-openclaw/lib-opnsense/compare/v1.2.0...v1.2.1) (2026-06-06)
 
 
