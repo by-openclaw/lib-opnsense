@@ -100,7 +100,7 @@ class FwDnatManager(BaseManager):
         # Redirect target: an IP OR a host alias name (OPNsense accepts both; the
         # platform catalog mandates aliases — naming/0003 §3). Validated by the FW.
         "target": {"type": "str", "required": True, "max_length": 255},
-        "local-port": {"type": "port"},
+        "local-port": {"type": "port_or_alias"},  # number, range or port alias (catalog: aliases)
         "protocol": {"type": "str"},
         "ipprotocol": {"type": "enum", "values": ["", "inet", "inet6", "inet46"]},
         "disabled": {"type": "bool_str"},
