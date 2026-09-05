@@ -97,7 +97,9 @@ class FwDnatManager(BaseManager):
     _validators = {
         "descr": {"type": "str", "required": True, "max_length": 255},
         "interface": {"type": "str", "required": True},
-        "target": {"type": "ip", "required": True},
+        # Redirect target: an IP OR a host alias name (OPNsense accepts both; the
+        # platform catalog mandates aliases — naming/0003 §3). Validated by the FW.
+        "target": {"type": "str", "required": True, "max_length": 255},
         "local-port": {"type": "port"},
         "protocol": {"type": "str"},
         "ipprotocol": {"type": "enum", "values": ["", "inet", "inet6", "inet46"]},
