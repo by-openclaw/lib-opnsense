@@ -82,3 +82,17 @@ now confirmed live + testable on the ZFS lab FW:**
 - `core/snapshots` **DONE** (CoreSnapshotManager + integration tests, verified on the ZFS lab) (was: 200; ZFS — `search` returns the live "default" boot-env snapshot) — config/boot-env snapshots.
 
 Building those two (with integration tests against vm-opns-lab-01) reaches 100%.
+
+
+## FINAL (2026-09-06) — coverage outcome
+- **`core/snapshots`: DONE** — `CoreSnapshotManager` + 6 integration tests (ZFS lab). Gap closed.
+- **`trust/crl`: not a clean manager target.** Live-probed on 26.7: actions are `search/get/set/del`
+  (+ getOcspInfoData/rawDump) with **NO `add`**, and `set`/`get` require a uuid (bare `set` → 404).
+  CRLs are DERIVED — generated per-CA and on certificate revocation — not directly created, so an
+  `ensure(present)` manager is not meaningful. Covered operationally by the CA/cert flow
+  (TrustCaManager/TrustCertManager). Documented as intentionally not-managed.
+- `openvpn/clientoverwrites`, `routing/groupsettings`: not API-routed in 26.7 CE (source-only) — not gaps.
+
+**Result: lib-opnsense is at 100% of the live, cleanly-manageable config MVC surface on 26.7 CE.**
+Non-config diagnostics/service controllers (ping, packetcapture, etc.) are operational tools, wrapped
+only if a playbook needs them.
