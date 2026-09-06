@@ -79,6 +79,6 @@ would need the config.xml/uri workaround, not MVC.
 **The lib is at 100% of the live, config MVC surface on 26.7 CE except two controllers, both
 now confirmed live + testable on the ZFS lab FW:**
 - `trust/crl` (200) — completes PKI; set-per-CA lifecycle.
-- `core/snapshots` (200; ZFS — `search` returns the live "default" boot-env snapshot) — config/boot-env snapshots.
+- `core/snapshots` **DONE** (CoreSnapshotManager + integration tests, verified on the ZFS lab) (was: 200; ZFS — `search` returns the live "default" boot-env snapshot) — config/boot-env snapshots.
 
 Building those two (with integration tests against vm-opns-lab-01) reaches 100%.
