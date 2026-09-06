@@ -38,3 +38,30 @@ are operational tools, not config — wrap only if a playbook needs them.
 Route discovery (no writes): enumerate controllers/actions on the FW. Schema probe
 (read-only): `scripts/probe-api-schemas.sh` → `data/26.7/`. See
 [`discovery-methodology.md`](discovery-methodology.md).
+
+
+## Live verification (2026-09-06, against the 26.7 CE test FW)
+The crude name-diff over-counted the gap. Accurate mapping (f-string endpoints
+included): **lib covers 53 controllers**; the true CONFIG gap is small, and each
+was probed LIVE:
+
+| Controller | Live status | Verdict |
+|---|---|---|
+| `trust/ca`, `trust/cert` | 200 | already covered (TrustCa/TrustCertManager) |
+| `ipsec/connections,vti,pool,...` | — | already covered (vpn/ipsec_* managers) |
+| `openvpn/instances` | 200 | already covered (OvpnInstanceManager) |
+| **`trust/crl`** | **200** | **GAP — buildable now (completes PKI); set-per-CA lifecycle** |
+| **`core/snapshots`** | 200 (ZFS-gated; `isSupported`=400 on this UFS nano) | GAP — needs a ZFS FW to integration-test |
+| `openvpn/clientoverwrites` | **404** | source exists, route NOT live on 26.7 nano — cannot integration-test |
+| `routing/groupsettings` (gateway groups) | **404** | source exists, route NOT live — blocks the multi-WAN failover manager |
+| `ipsec/manualspd`, `ipsec/tunnel` | — | legacy (superseded by connections) — skip |
+| `firewall/aliasutil`, `diagnostics/*` | — | runtime/diagnostic helpers, not config managers |
+
+**Route-404 finding:** `clientoverwrites` and `groupsettings` controllers exist in
+`/usr/local/opnsense/mvc/app/controllers/.../Api/` but `/api/.../search` returns 404
+on this 26.7 CE **nano** build. Needs verifying on a full (DVD) install before their
+managers can be integration-tested and merged (lib rule: no merge without integration tests).
+
+**Net:** lib is at/near 100% of the *live, config* MVC surface on 26.7. Remaining real
+work: `trust/crl` (buildable), `core/snapshots` (needs ZFS), and confirming the two
+route-404 controllers on a full install.
