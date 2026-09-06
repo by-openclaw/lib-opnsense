@@ -65,3 +65,20 @@ managers can be integration-tested and merged (lib rule: no merge without integr
 **Net:** lib is at/near 100% of the *live, config* MVC surface on 26.7. Remaining real
 work: `trust/crl` (buildable), `core/snapshots` (needs ZFS), and confirming the two
 route-404 controllers on a full install.
+
+
+## DEFINITIVE (2026-09-06, full ZFS 26.7 CE install — vm-opns-lab-01)
+Rebuilt a **fresh full DVD/serial install of 26.7 CE on ZFS** (not nano) to settle the
+route-404 controllers. Result: `openvpn/clientoverwrites/search` and
+`routing/groupsettings/search` **STILL 404 on the full install** — these controllers exist
+in the PHP source but are **not API-routed in 26.7 CE** (GUI-only / not wired). They are
+therefore NOT part of the live MVC surface and NOT lib gaps. Gateway groups have no MVC API
+in 26.7 CE (only `routing/settings/*Gateway*` for gateways) — a lib gateway-group manager
+would need the config.xml/uri workaround, not MVC.
+
+**The lib is at 100% of the live, config MVC surface on 26.7 CE except two controllers, both
+now confirmed live + testable on the ZFS lab FW:**
+- `trust/crl` (200) — completes PKI; set-per-CA lifecycle.
+- `core/snapshots` (200; ZFS — `search` returns the live "default" boot-env snapshot) — config/boot-env snapshots.
+
+Building those two (with integration tests against vm-opns-lab-01) reaches 100%.
