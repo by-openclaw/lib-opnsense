@@ -1,0 +1,13 @@
+{
+  "syslog": {
+    "general": {
+      "enabled": "1",
+      "loglocal": "1",
+      "maxpreserve": "31",
+      "maxfilesize": ""
+    },
+    "destinations": {
+      "destination": []
+    }
+  }
+}

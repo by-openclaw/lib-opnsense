@@ -1,0 +1,137 @@
+{
+  "total": 2,
+  "rowCount": 2,
+  "current": 1,
+  "rows": [
+    {
+      "uuid": "automatic_isakmp_wan",
+      "enabled": "1",
+      "nonat": "0",
+      "nosync": "0",
+      "sequence": "1",
+      "interface": "wan",
+      "%interface": "WAN",
+      "ipprotocol": "inet",
+      "%ipprotocol": "IPv4",
+      "protocol": "any",
+      "%protocol": "*",
+      "source_net": "lan,lo0",
+      "source_not": "0",
+      "source_port": "",
+      "destination_net": "any",
+      "destination_not": "0",
+      "destination_port": "500",
+      "target": "wanip",
+      "target_port": "",
+      "staticnatport": "1",
+      "log": "0",
+      "categories": "",
+      "tag": "",
+      "tagged": "",
+      "description": "Auto created rule for ISAKMP",
+      "is_automatic": true,
+      "sort_order": "500000.0000001",
+      "prio_group": "500000",
+      "category_colors": [],
+      "alias_meta_source_net": [
+        {
+          "value": "lan",
+          "%value": "LAN network",
+          "isAlias": false,
+          "description": ""
+        },
+        {
+          "value": "lo0",
+          "%value": "Loopback network",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination_net": [
+        {
+          "value": "any",
+          "%value": "any",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination_port": [
+        {
+          "value": "500",
+          "%value": "500",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_target": [
+        {
+          "value": "wanip",
+          "%value": "WAN address",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "uuid": "automatic_wan",
+      "enabled": "1",
+      "nonat": "0",
+      "nosync": "0",
+      "sequence": "2",
+      "interface": "wan",
+      "%interface": "WAN",
+      "ipprotocol": "inet",
+      "%ipprotocol": "IPv4",
+      "protocol": "any",
+      "%protocol": "*",
+      "source_net": "lan,lo0",
+      "source_not": "0",
+      "source_port": "",
+      "destination_net": "any",
+      "destination_not": "0",
+      "destination_port": "",
+      "target": "wanip",
+      "target_port": "",
+      "staticnatport": "0",
+      "log": "0",
+      "categories": "",
+      "tag": "",
+      "tagged": "",
+      "description": "Auto created rule",
+      "is_automatic": true,
+      "sort_order": "500000.0000002",
+      "prio_group": "500000",
+      "category_colors": [],
+      "alias_meta_source_net": [
+        {
+          "value": "lan",
+          "%value": "LAN network",
+          "isAlias": false,
+          "description": ""
+        },
+        {
+          "value": "lo0",
+          "%value": "Loopback network",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination_net": [
+        {
+          "value": "any",
+          "%value": "any",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_target": [
+        {
+          "value": "wanip",
+          "%value": "WAN address",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

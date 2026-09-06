@@ -1,0 +1,127 @@
+{
+  "subnet4": {
+    "subnet": "",
+    "valid_lifetime": "",
+    "next_server": "",
+    "option_data_autocollect": "1",
+    "option_data": {
+      "domain_name_servers": {
+        "": {
+          "value": "",
+          "selected": 1
+        }
+      },
+      "domain_search": {
+        "": {
+          "value": "",
+          "selected": 1
+        }
+      },
+      "routers": {
+        "": {
+          "value": "",
+          "selected": 1
+        }
+      },
+      "static_routes": "",
+      "classless_static_route": "",
+      "domain_name": "",
+      "ntp_servers": {
+        "": {
+          "value": "",
+          "selected": 1
+        }
+      },
+      "time_servers": {
+        "": {
+          "value": "",
+          "selected": 1
+        }
+      },
+      "tftp_server_name": "",
+      "boot_file_name": "",
+      "v6_only_preferred": "",
+      "v4_dnr": ""
+    },
+    "option": [],
+    "match-client-id": "1",
+    "allocator": {
+      "": {
+        "value": "Default",
+        "selected": 1
+      },
+      "iterative": {
+        "value": "Iterative",
+        "selected": 0
+      },
+      "random": {
+        "value": "Random",
+        "selected": 0
+      },
+      "flq": {
+        "value": "Free Lease Queue",
+        "selected": 0
+      }
+    },
+    "pools": "",
+    "ddns_forward_zone": "",
+    "ddns_reverse_zone": "",
+    "ddns_qualifying_suffix": "",
+    "ddns_dns_server": "",
+    "ddns_dns_port": "",
+    "ddns_domain_key_name": "",
+    "ddns_domain_key_secret": "",
+    "ddns_domain_key_algorithm": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "hmac-md5": {
+        "value": "hmac-md5",
+        "selected": 0
+      },
+      "hmac-sha1": {
+        "value": "hmac-sha1",
+        "selected": 0
+      },
+      "hmac-sha224": {
+        "value": "hmac-sha224",
+        "selected": 0
+      },
+      "hmac-sha256": {
+        "value": "hmac-sha256",
+        "selected": 0
+      },
+      "hmac-sha384": {
+        "value": "hmac-sha384",
+        "selected": 0
+      },
+      "hmac-sha512": {
+        "value": "hmac-sha512",
+        "selected": 0
+      }
+    },
+    "ddns_override_no_update": "0",
+    "ddns_override_client_update": "0",
+    "ddns_update_on_renew": "0",
+    "ddns_conflict_resolution_mode": {
+      "": {
+        "value": "check-with-dhcid (default)",
+        "selected": 1
+      },
+      "no-check-with-dhcid": {
+        "value": "no-check-with-dhcid",
+        "selected": 0
+      },
+      "check-exists-with-dhcid": {
+        "value": "check-exists-with-dhcid",
+        "selected": 0
+      },
+      "no-check-without-dhcid": {
+        "value": "no-check-without-dhcid",
+        "selected": 0
+      }
+    },
+    "description": ""
+  }
+}

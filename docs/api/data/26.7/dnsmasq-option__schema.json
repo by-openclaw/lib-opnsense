@@ -1,0 +1,2074 @@
+{
+  "option": {
+    "type": {
+      "set": {
+        "value": "Set",
+        "selected": 1
+      },
+      "match": {
+        "value": "Match",
+        "selected": 0
+      }
+    },
+    "option": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "1": {
+        "optgroup": "Common",
+        "value": "netmask [1]",
+        "selected": 0
+      },
+      "2": {
+        "optgroup": "Common",
+        "value": "time-offset [2]",
+        "selected": 0
+      },
+      "3": {
+        "optgroup": "Common",
+        "value": "router [3]",
+        "selected": 0
+      },
+      "4": {
+        "optgroup": "Assigned",
+        "value": "time server [4]",
+        "selected": 0
+      },
+      "5": {
+        "optgroup": "Assigned",
+        "value": "name server [5]",
+        "selected": 0
+      },
+      "6": {
+        "optgroup": "Common",
+        "value": "dns-server [6]",
+        "selected": 0
+      },
+      "7": {
+        "optgroup": "Common",
+        "value": "log-server [7]",
+        "selected": 0
+      },
+      "8": {
+        "optgroup": "Assigned",
+        "value": "quotes server [8]",
+        "selected": 0
+      },
+      "9": {
+        "optgroup": "Common",
+        "value": "lpr-server [9]",
+        "selected": 0
+      },
+      "10": {
+        "optgroup": "Assigned",
+        "value": "impress server [10]",
+        "selected": 0
+      },
+      "11": {
+        "optgroup": "Assigned",
+        "value": "rlp server [11]",
+        "selected": 0
+      },
+      "12": {
+        "optgroup": "Assigned",
+        "value": "hostname [12]",
+        "selected": 0
+      },
+      "13": {
+        "optgroup": "Common",
+        "value": "boot-file-size [13]",
+        "selected": 0
+      },
+      "14": {
+        "optgroup": "Assigned",
+        "value": "merit dump file [14]",
+        "selected": 0
+      },
+      "15": {
+        "optgroup": "Common",
+        "value": "domain-name [15]",
+        "selected": 0
+      },
+      "16": {
+        "optgroup": "Common",
+        "value": "swap-server [16]",
+        "selected": 0
+      },
+      "17": {
+        "optgroup": "Common",
+        "value": "root-path [17]",
+        "selected": 0
+      },
+      "18": {
+        "optgroup": "Common",
+        "value": "extension-path [18]",
+        "selected": 0
+      },
+      "19": {
+        "optgroup": "Common",
+        "value": "ip-forward-enable [19]",
+        "selected": 0
+      },
+      "20": {
+        "optgroup": "Common",
+        "value": "non-local-source-routing [20]",
+        "selected": 0
+      },
+      "21": {
+        "optgroup": "Common",
+        "value": "policy-filter [21]",
+        "selected": 0
+      },
+      "22": {
+        "optgroup": "Common",
+        "value": "max-datagram-reassembly [22]",
+        "selected": 0
+      },
+      "23": {
+        "optgroup": "Common",
+        "value": "default-ttl [23]",
+        "selected": 0
+      },
+      "24": {
+        "optgroup": "Assigned",
+        "value": "mtu timeout [24]",
+        "selected": 0
+      },
+      "25": {
+        "optgroup": "Assigned",
+        "value": "mtu plateau [25]",
+        "selected": 0
+      },
+      "26": {
+        "optgroup": "Common",
+        "value": "mtu [26]",
+        "selected": 0
+      },
+      "27": {
+        "optgroup": "Common",
+        "value": "all-subnets-local [27]",
+        "selected": 0
+      },
+      "28": {
+        "optgroup": "Assigned",
+        "value": "broadcast address [28]",
+        "selected": 0
+      },
+      "29": {
+        "optgroup": "Assigned",
+        "value": "mask discovery [29]",
+        "selected": 0
+      },
+      "30": {
+        "optgroup": "Assigned",
+        "value": "mask supplier [30]",
+        "selected": 0
+      },
+      "31": {
+        "optgroup": "Common",
+        "value": "router-discovery [31]",
+        "selected": 0
+      },
+      "32": {
+        "optgroup": "Common",
+        "value": "router-solicitation [32]",
+        "selected": 0
+      },
+      "33": {
+        "optgroup": "Common",
+        "value": "static-route [33]",
+        "selected": 0
+      },
+      "34": {
+        "optgroup": "Common",
+        "value": "trailer-encapsulation [34]",
+        "selected": 0
+      },
+      "35": {
+        "optgroup": "Common",
+        "value": "arp-timeout [35]",
+        "selected": 0
+      },
+      "36": {
+        "optgroup": "Common",
+        "value": "ethernet-encap [36]",
+        "selected": 0
+      },
+      "37": {
+        "optgroup": "Common",
+        "value": "tcp-ttl [37]",
+        "selected": 0
+      },
+      "38": {
+        "optgroup": "Common",
+        "value": "tcp-keepalive [38]",
+        "selected": 0
+      },
+      "39": {
+        "optgroup": "Assigned",
+        "value": "keepalive data [39]",
+        "selected": 0
+      },
+      "40": {
+        "optgroup": "Common",
+        "value": "nis-domain [40]",
+        "selected": 0
+      },
+      "41": {
+        "optgroup": "Common",
+        "value": "nis-server [41]",
+        "selected": 0
+      },
+      "42": {
+        "optgroup": "Common",
+        "value": "ntp-server [42]",
+        "selected": 0
+      },
+      "43": {
+        "optgroup": "Assigned",
+        "value": "vendor specific [43]",
+        "selected": 0
+      },
+      "44": {
+        "optgroup": "Common",
+        "value": "netbios-ns [44]",
+        "selected": 0
+      },
+      "45": {
+        "optgroup": "Common",
+        "value": "netbios-dd [45]",
+        "selected": 0
+      },
+      "46": {
+        "optgroup": "Common",
+        "value": "netbios-nodetype [46]",
+        "selected": 0
+      },
+      "47": {
+        "optgroup": "Common",
+        "value": "netbios-scope [47]",
+        "selected": 0
+      },
+      "48": {
+        "optgroup": "Common",
+        "value": "x-windows-fs [48]",
+        "selected": 0
+      },
+      "49": {
+        "optgroup": "Common",
+        "value": "x-windows-dm [49]",
+        "selected": 0
+      },
+      "50": {
+        "optgroup": "Assigned",
+        "value": "address request [50]",
+        "selected": 0
+      },
+      "51": {
+        "optgroup": "Assigned",
+        "value": "address time [51]",
+        "selected": 0
+      },
+      "52": {
+        "optgroup": "Assigned",
+        "value": "overload [52]",
+        "selected": 0
+      },
+      "53": {
+        "optgroup": "Assigned",
+        "value": "dhcp msg type [53]",
+        "selected": 0
+      },
+      "54": {
+        "optgroup": "Assigned",
+        "value": "dhcp server id [54]",
+        "selected": 0
+      },
+      "55": {
+        "optgroup": "Assigned",
+        "value": "parameter list [55]",
+        "selected": 0
+      },
+      "56": {
+        "optgroup": "Assigned",
+        "value": "dhcp message [56]",
+        "selected": 0
+      },
+      "57": {
+        "optgroup": "Assigned",
+        "value": "dhcp max msg size [57]",
+        "selected": 0
+      },
+      "58": {
+        "optgroup": "Common",
+        "value": "T1 [58]",
+        "selected": 0
+      },
+      "59": {
+        "optgroup": "Common",
+        "value": "T2 [59]",
+        "selected": 0
+      },
+      "60": {
+        "optgroup": "Common",
+        "value": "vendor-class [60]",
+        "selected": 0
+      },
+      "61": {
+        "optgroup": "Assigned",
+        "value": "client id [61]",
+        "selected": 0
+      },
+      "62": {
+        "optgroup": "Assigned",
+        "value": "netware/ip domain [62]",
+        "selected": 0
+      },
+      "63": {
+        "optgroup": "Assigned",
+        "value": "netware/ip option [63]",
+        "selected": 0
+      },
+      "64": {
+        "optgroup": "Common",
+        "value": "nis+-domain [64]",
+        "selected": 0
+      },
+      "65": {
+        "optgroup": "Common",
+        "value": "nis+-server [65]",
+        "selected": 0
+      },
+      "66": {
+        "optgroup": "Common",
+        "value": "tftp-server [66]",
+        "selected": 0
+      },
+      "67": {
+        "optgroup": "Common",
+        "value": "bootfile-name [67]",
+        "selected": 0
+      },
+      "68": {
+        "optgroup": "Common",
+        "value": "mobile-ip-home [68]",
+        "selected": 0
+      },
+      "69": {
+        "optgroup": "Common",
+        "value": "smtp-server [69]",
+        "selected": 0
+      },
+      "70": {
+        "optgroup": "Common",
+        "value": "pop3-server [70]",
+        "selected": 0
+      },
+      "71": {
+        "optgroup": "Common",
+        "value": "nntp-server [71]",
+        "selected": 0
+      },
+      "72": {
+        "optgroup": "Assigned",
+        "value": "www-server [72]",
+        "selected": 0
+      },
+      "73": {
+        "optgroup": "Assigned",
+        "value": "finger-server [73]",
+        "selected": 0
+      },
+      "74": {
+        "optgroup": "Common",
+        "value": "irc-server [74]",
+        "selected": 0
+      },
+      "75": {
+        "optgroup": "Assigned",
+        "value": "streettalk-server [75]",
+        "selected": 0
+      },
+      "76": {
+        "optgroup": "Assigned",
+        "value": "stda-server [76]",
+        "selected": 0
+      },
+      "77": {
+        "optgroup": "Common",
+        "value": "user-class [77]",
+        "selected": 0
+      },
+      "78": {
+        "optgroup": "Assigned",
+        "value": "directory agent [78]",
+        "selected": 0
+      },
+      "79": {
+        "optgroup": "Assigned",
+        "value": "service scope [79]",
+        "selected": 0
+      },
+      "80": {
+        "optgroup": "Common",
+        "value": "rapid-commit [80]",
+        "selected": 0
+      },
+      "81": {
+        "optgroup": "Assigned",
+        "value": "client fqdn [81]",
+        "selected": 0
+      },
+      "82": {
+        "optgroup": "Assigned",
+        "value": "relay agent information [82]",
+        "selected": 0
+      },
+      "83": {
+        "optgroup": "Assigned",
+        "value": "isns [83]",
+        "selected": 0
+      },
+      "84": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [84]",
+        "selected": 0
+      },
+      "85": {
+        "optgroup": "Assigned",
+        "value": "nds servers [85]",
+        "selected": 0
+      },
+      "86": {
+        "optgroup": "Assigned",
+        "value": "nds tree name [86]",
+        "selected": 0
+      },
+      "87": {
+        "optgroup": "Assigned",
+        "value": "nds context [87]",
+        "selected": 0
+      },
+      "88": {
+        "optgroup": "Assigned",
+        "value": "bcmcs controller domain name list [88]",
+        "selected": 0
+      },
+      "89": {
+        "optgroup": "Assigned",
+        "value": "bcmcs controller ipv4 address option [89]",
+        "selected": 0
+      },
+      "90": {
+        "optgroup": "Assigned",
+        "value": "authentication [90]",
+        "selected": 0
+      },
+      "91": {
+        "optgroup": "Common",
+        "value": "last-transaction [91]",
+        "selected": 0
+      },
+      "92": {
+        "optgroup": "Common",
+        "value": "associated-ip [92]",
+        "selected": 0
+      },
+      "93": {
+        "optgroup": "Common",
+        "value": "client-arch [93]",
+        "selected": 0
+      },
+      "94": {
+        "optgroup": "Common",
+        "value": "client-interface-id [94]",
+        "selected": 0
+      },
+      "95": {
+        "optgroup": "Assigned",
+        "value": "ldap [95]",
+        "selected": 0
+      },
+      "96": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [96]",
+        "selected": 0
+      },
+      "97": {
+        "optgroup": "Common",
+        "value": "client-machine-id [97]",
+        "selected": 0
+      },
+      "98": {
+        "optgroup": "Assigned",
+        "value": "user-auth [98]",
+        "selected": 0
+      },
+      "99": {
+        "optgroup": "Assigned",
+        "value": "geoconf_civic [99]",
+        "selected": 0
+      },
+      "100": {
+        "optgroup": "Common",
+        "value": "posix-timezone [100]",
+        "selected": 0
+      },
+      "101": {
+        "optgroup": "Common",
+        "value": "tzdb-timezone [101]",
+        "selected": 0
+      },
+      "102": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [102]",
+        "selected": 0
+      },
+      "103": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [103]",
+        "selected": 0
+      },
+      "104": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [104]",
+        "selected": 0
+      },
+      "105": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [105]",
+        "selected": 0
+      },
+      "106": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [106]",
+        "selected": 0
+      },
+      "107": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [107]",
+        "selected": 0
+      },
+      "108": {
+        "optgroup": "Common",
+        "value": "ipv6-only [108]",
+        "selected": 0
+      },
+      "109": {
+        "optgroup": "Assigned",
+        "value": "option_dhcp4o6_s46_saddr [109]",
+        "selected": 0
+      },
+      "110": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [110]",
+        "selected": 0
+      },
+      "111": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [111]",
+        "selected": 0
+      },
+      "112": {
+        "optgroup": "Assigned",
+        "value": "netinfo address [112]",
+        "selected": 0
+      },
+      "113": {
+        "optgroup": "Assigned",
+        "value": "netinfo tag [113]",
+        "selected": 0
+      },
+      "114": {
+        "optgroup": "Common",
+        "value": "captive-portal [114]",
+        "selected": 0
+      },
+      "115": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [115]",
+        "selected": 0
+      },
+      "116": {
+        "optgroup": "Assigned",
+        "value": "auto-config [116]",
+        "selected": 0
+      },
+      "117": {
+        "optgroup": "Assigned",
+        "value": "name service search [117]",
+        "selected": 0
+      },
+      "118": {
+        "optgroup": "Assigned",
+        "value": "subnet selection option [118]",
+        "selected": 0
+      },
+      "119": {
+        "optgroup": "Common",
+        "value": "domain-search [119]",
+        "selected": 0
+      },
+      "120": {
+        "optgroup": "Common",
+        "value": "sip-server [120]",
+        "selected": 0
+      },
+      "121": {
+        "optgroup": "Common",
+        "value": "classless-static-route [121]",
+        "selected": 0
+      },
+      "122": {
+        "optgroup": "Assigned",
+        "value": "ccc [122]",
+        "selected": 0
+      },
+      "123": {
+        "optgroup": "Assigned",
+        "value": "geoconf option [123]",
+        "selected": 0
+      },
+      "124": {
+        "optgroup": "Assigned",
+        "value": "v-i vendor class [124]",
+        "selected": 0
+      },
+      "125": {
+        "optgroup": "Common",
+        "value": "vendor-id-encap [125]",
+        "selected": 0
+      },
+      "126": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [126]",
+        "selected": 0
+      },
+      "127": {
+        "optgroup": "Unassigned",
+        "value": "removed/unassigned [127]",
+        "selected": 0
+      },
+      "128": {
+        "optgroup": "Assigned",
+        "value": "tftp server ip address (for ip phone software load) [128]",
+        "selected": 0
+      },
+      "129": {
+        "optgroup": "Assigned",
+        "value": "call server ip address [129]",
+        "selected": 0
+      },
+      "130": {
+        "optgroup": "Assigned",
+        "value": "discrimination string (to identify vendor) [130]",
+        "selected": 0
+      },
+      "131": {
+        "optgroup": "Assigned",
+        "value": "remote statistics server ip address [131]",
+        "selected": 0
+      },
+      "132": {
+        "optgroup": "Assigned",
+        "value": "ieee 802.1q vlan id [132]",
+        "selected": 0
+      },
+      "133": {
+        "optgroup": "Assigned",
+        "value": "ieee 802.1d/p layer 2 priority [133]",
+        "selected": 0
+      },
+      "134": {
+        "optgroup": "Assigned",
+        "value": "diffserv code point (dscp) for voip signalling and media streams [134]",
+        "selected": 0
+      },
+      "135": {
+        "optgroup": "Assigned",
+        "value": "http proxy for phone-specific applications [135]",
+        "selected": 0
+      },
+      "136": {
+        "optgroup": "Assigned",
+        "value": "option_pana_agent [136]",
+        "selected": 0
+      },
+      "137": {
+        "optgroup": "Assigned",
+        "value": "option_v4_lost [137]",
+        "selected": 0
+      },
+      "138": {
+        "optgroup": "Assigned",
+        "value": "option_capwap_ac_v4 [138]",
+        "selected": 0
+      },
+      "139": {
+        "optgroup": "Assigned",
+        "value": "option-ipv4_address-mos [139]",
+        "selected": 0
+      },
+      "140": {
+        "optgroup": "Assigned",
+        "value": "option-ipv4_fqdn-mos [140]",
+        "selected": 0
+      },
+      "141": {
+        "optgroup": "Assigned",
+        "value": "sip ua configuration service domains [141]",
+        "selected": 0
+      },
+      "142": {
+        "optgroup": "Assigned",
+        "value": "option-ipv4_address-andsf [142]",
+        "selected": 0
+      },
+      "143": {
+        "optgroup": "Assigned",
+        "value": "option_v4_sztp_redirect [143]",
+        "selected": 0
+      },
+      "144": {
+        "optgroup": "Assigned",
+        "value": "geoloc [144]",
+        "selected": 0
+      },
+      "145": {
+        "optgroup": "Assigned",
+        "value": "forcerenew_nonce_capable [145]",
+        "selected": 0
+      },
+      "146": {
+        "optgroup": "Assigned",
+        "value": "rdnss selection [146]",
+        "selected": 0
+      },
+      "147": {
+        "optgroup": "Assigned",
+        "value": "option_v4_dots_ri [147]",
+        "selected": 0
+      },
+      "148": {
+        "optgroup": "Assigned",
+        "value": "option_v4_dots_address [148]",
+        "selected": 0
+      },
+      "149": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [149]",
+        "selected": 0
+      },
+      "150": {
+        "optgroup": "Common",
+        "value": "tftp-server-address [150]",
+        "selected": 0
+      },
+      "151": {
+        "optgroup": "Assigned",
+        "value": "status-code [151]",
+        "selected": 0
+      },
+      "152": {
+        "optgroup": "Assigned",
+        "value": "base-time [152]",
+        "selected": 0
+      },
+      "153": {
+        "optgroup": "Assigned",
+        "value": "start-time-of-state [153]",
+        "selected": 0
+      },
+      "154": {
+        "optgroup": "Assigned",
+        "value": "query-start-time [154]",
+        "selected": 0
+      },
+      "155": {
+        "optgroup": "Assigned",
+        "value": "query-end-time [155]",
+        "selected": 0
+      },
+      "156": {
+        "optgroup": "Assigned",
+        "value": "dhcp-state [156]",
+        "selected": 0
+      },
+      "157": {
+        "optgroup": "Assigned",
+        "value": "data-source [157]",
+        "selected": 0
+      },
+      "158": {
+        "optgroup": "Assigned",
+        "value": "option_v4_pcp_server [158]",
+        "selected": 0
+      },
+      "159": {
+        "optgroup": "Assigned",
+        "value": "option_v4_portparams [159]",
+        "selected": 0
+      },
+      "160": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [160]",
+        "selected": 0
+      },
+      "161": {
+        "optgroup": "Assigned",
+        "value": "option_mud_url_v4 [161]",
+        "selected": 0
+      },
+      "162": {
+        "optgroup": "Assigned",
+        "value": "option_v4_dnr [162]",
+        "selected": 0
+      },
+      "163": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [163]",
+        "selected": 0
+      },
+      "164": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [164]",
+        "selected": 0
+      },
+      "165": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [165]",
+        "selected": 0
+      },
+      "166": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [166]",
+        "selected": 0
+      },
+      "167": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [167]",
+        "selected": 0
+      },
+      "168": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [168]",
+        "selected": 0
+      },
+      "169": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [169]",
+        "selected": 0
+      },
+      "170": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [170]",
+        "selected": 0
+      },
+      "171": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [171]",
+        "selected": 0
+      },
+      "172": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [172]",
+        "selected": 0
+      },
+      "173": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [173]",
+        "selected": 0
+      },
+      "174": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [174]",
+        "selected": 0
+      },
+      "175": {
+        "optgroup": "Assigned",
+        "value": "etherboot (tentatively assigned - 2005-06-23) [175]",
+        "selected": 0
+      },
+      "176": {
+        "optgroup": "Assigned",
+        "value": "ip telephone (tentatively assigned - 2005-06-23) [176]",
+        "selected": 0
+      },
+      "177": {
+        "optgroup": "Assigned",
+        "value": "packetcable and cablehome (replaced by 122) [177]",
+        "selected": 0
+      },
+      "178": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [178]",
+        "selected": 0
+      },
+      "179": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [179]",
+        "selected": 0
+      },
+      "180": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [180]",
+        "selected": 0
+      },
+      "181": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [181]",
+        "selected": 0
+      },
+      "182": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [182]",
+        "selected": 0
+      },
+      "183": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [183]",
+        "selected": 0
+      },
+      "184": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [184]",
+        "selected": 0
+      },
+      "185": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [185]",
+        "selected": 0
+      },
+      "186": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [186]",
+        "selected": 0
+      },
+      "187": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [187]",
+        "selected": 0
+      },
+      "188": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [188]",
+        "selected": 0
+      },
+      "189": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [189]",
+        "selected": 0
+      },
+      "190": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [190]",
+        "selected": 0
+      },
+      "191": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [191]",
+        "selected": 0
+      },
+      "192": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [192]",
+        "selected": 0
+      },
+      "193": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [193]",
+        "selected": 0
+      },
+      "194": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [194]",
+        "selected": 0
+      },
+      "195": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [195]",
+        "selected": 0
+      },
+      "196": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [196]",
+        "selected": 0
+      },
+      "197": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [197]",
+        "selected": 0
+      },
+      "198": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [198]",
+        "selected": 0
+      },
+      "199": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [199]",
+        "selected": 0
+      },
+      "200": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [200]",
+        "selected": 0
+      },
+      "201": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [201]",
+        "selected": 0
+      },
+      "202": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [202]",
+        "selected": 0
+      },
+      "203": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [203]",
+        "selected": 0
+      },
+      "204": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [204]",
+        "selected": 0
+      },
+      "205": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [205]",
+        "selected": 0
+      },
+      "206": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [206]",
+        "selected": 0
+      },
+      "207": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [207]",
+        "selected": 0
+      },
+      "208": {
+        "optgroup": "Assigned",
+        "value": "pxelinux magic [208]",
+        "selected": 0
+      },
+      "209": {
+        "optgroup": "Assigned",
+        "value": "configuration file [209]",
+        "selected": 0
+      },
+      "210": {
+        "optgroup": "Assigned",
+        "value": "path prefix [210]",
+        "selected": 0
+      },
+      "211": {
+        "optgroup": "Assigned",
+        "value": "reboot time [211]",
+        "selected": 0
+      },
+      "212": {
+        "optgroup": "Assigned",
+        "value": "option_6rd [212]",
+        "selected": 0
+      },
+      "213": {
+        "optgroup": "Assigned",
+        "value": "option_v4_access_domain [213]",
+        "selected": 0
+      },
+      "214": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [214]",
+        "selected": 0
+      },
+      "215": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [215]",
+        "selected": 0
+      },
+      "216": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [216]",
+        "selected": 0
+      },
+      "217": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [217]",
+        "selected": 0
+      },
+      "218": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [218]",
+        "selected": 0
+      },
+      "219": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [219]",
+        "selected": 0
+      },
+      "220": {
+        "optgroup": "Assigned",
+        "value": "subnet allocation option [220]",
+        "selected": 0
+      },
+      "221": {
+        "optgroup": "Assigned",
+        "value": "virtual subnet selection (vss) option [221]",
+        "selected": 0
+      },
+      "222": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [222]",
+        "selected": 0
+      },
+      "223": {
+        "optgroup": "Unassigned",
+        "value": "unassigned [223]",
+        "selected": 0
+      },
+      "224": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [224]",
+        "selected": 0
+      },
+      "225": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [225]",
+        "selected": 0
+      },
+      "226": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [226]",
+        "selected": 0
+      },
+      "227": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [227]",
+        "selected": 0
+      },
+      "228": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [228]",
+        "selected": 0
+      },
+      "229": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [229]",
+        "selected": 0
+      },
+      "230": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [230]",
+        "selected": 0
+      },
+      "231": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [231]",
+        "selected": 0
+      },
+      "232": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [232]",
+        "selected": 0
+      },
+      "233": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [233]",
+        "selected": 0
+      },
+      "234": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [234]",
+        "selected": 0
+      },
+      "235": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [235]",
+        "selected": 0
+      },
+      "236": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [236]",
+        "selected": 0
+      },
+      "237": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [237]",
+        "selected": 0
+      },
+      "238": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [238]",
+        "selected": 0
+      },
+      "239": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [239]",
+        "selected": 0
+      },
+      "240": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [240]",
+        "selected": 0
+      },
+      "241": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [241]",
+        "selected": 0
+      },
+      "242": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [242]",
+        "selected": 0
+      },
+      "243": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [243]",
+        "selected": 0
+      },
+      "244": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [244]",
+        "selected": 0
+      },
+      "245": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [245]",
+        "selected": 0
+      },
+      "246": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [246]",
+        "selected": 0
+      },
+      "247": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [247]",
+        "selected": 0
+      },
+      "248": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [248]",
+        "selected": 0
+      },
+      "249": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [249]",
+        "selected": 0
+      },
+      "250": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [250]",
+        "selected": 0
+      },
+      "251": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [251]",
+        "selected": 0
+      },
+      "252": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [252]",
+        "selected": 0
+      },
+      "253": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [253]",
+        "selected": 0
+      },
+      "254": {
+        "optgroup": "Assigned",
+        "value": "reserved (private use) [254]",
+        "selected": 0
+      },
+      "255": {
+        "optgroup": "Common",
+        "value": "server-ip-address [255]",
+        "selected": 0
+      }
+    },
+    "option6": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "0": {
+        "optgroup": "Assigned",
+        "value": "reserved [0]",
+        "selected": 0
+      },
+      "1": {
+        "optgroup": "Assigned",
+        "value": "option_clientid [1]",
+        "selected": 0
+      },
+      "2": {
+        "optgroup": "Assigned",
+        "value": "option_serverid [2]",
+        "selected": 0
+      },
+      "3": {
+        "optgroup": "Assigned",
+        "value": "option_ia_na [3]",
+        "selected": 0
+      },
+      "4": {
+        "optgroup": "Assigned",
+        "value": "option_ia_ta [4]",
+        "selected": 0
+      },
+      "5": {
+        "optgroup": "Assigned",
+        "value": "option_iaaddr [5]",
+        "selected": 0
+      },
+      "6": {
+        "optgroup": "Assigned",
+        "value": "option_oro [6]",
+        "selected": 0
+      },
+      "7": {
+        "optgroup": "Assigned",
+        "value": "option_preference [7]",
+        "selected": 0
+      },
+      "8": {
+        "optgroup": "Assigned",
+        "value": "option_elapsed_time [8]",
+        "selected": 0
+      },
+      "9": {
+        "optgroup": "Assigned",
+        "value": "option_relay_msg [9]",
+        "selected": 0
+      },
+      "11": {
+        "optgroup": "Assigned",
+        "value": "option_auth [11]",
+        "selected": 0
+      },
+      "12": {
+        "optgroup": "Assigned",
+        "value": "option_unicast [12]",
+        "selected": 0
+      },
+      "13": {
+        "optgroup": "Assigned",
+        "value": "option_status_code [13]",
+        "selected": 0
+      },
+      "14": {
+        "optgroup": "Assigned",
+        "value": "option_rapid_commit [14]",
+        "selected": 0
+      },
+      "15": {
+        "optgroup": "Assigned",
+        "value": "option_user_class [15]",
+        "selected": 0
+      },
+      "16": {
+        "optgroup": "Assigned",
+        "value": "option_vendor_class [16]",
+        "selected": 0
+      },
+      "17": {
+        "optgroup": "Assigned",
+        "value": "option_vendor_opts [17]",
+        "selected": 0
+      },
+      "18": {
+        "optgroup": "Assigned",
+        "value": "option_interface_id [18]",
+        "selected": 0
+      },
+      "19": {
+        "optgroup": "Assigned",
+        "value": "option_reconf_msg [19]",
+        "selected": 0
+      },
+      "20": {
+        "optgroup": "Assigned",
+        "value": "option_reconf_accept [20]",
+        "selected": 0
+      },
+      "21": {
+        "optgroup": "Common",
+        "value": "sip-server-domain [21]",
+        "selected": 0
+      },
+      "22": {
+        "optgroup": "Common",
+        "value": "sip-server [22]",
+        "selected": 0
+      },
+      "23": {
+        "optgroup": "Common",
+        "value": "dns-server [23]",
+        "selected": 0
+      },
+      "24": {
+        "optgroup": "Common",
+        "value": "domain-search [24]",
+        "selected": 0
+      },
+      "25": {
+        "optgroup": "Assigned",
+        "value": "option_ia_pd [25]",
+        "selected": 0
+      },
+      "26": {
+        "optgroup": "Assigned",
+        "value": "option_iaprefix [26]",
+        "selected": 0
+      },
+      "27": {
+        "optgroup": "Common",
+        "value": "nis-server [27]",
+        "selected": 0
+      },
+      "28": {
+        "optgroup": "Common",
+        "value": "nis+-server [28]",
+        "selected": 0
+      },
+      "29": {
+        "optgroup": "Common",
+        "value": "nis-domain [29]",
+        "selected": 0
+      },
+      "30": {
+        "optgroup": "Common",
+        "value": "nis+-domain [30]",
+        "selected": 0
+      },
+      "31": {
+        "optgroup": "Common",
+        "value": "sntp-server [31]",
+        "selected": 0
+      },
+      "32": {
+        "optgroup": "Common",
+        "value": "information-refresh-time [32]",
+        "selected": 0
+      },
+      "33": {
+        "optgroup": "Assigned",
+        "value": "option_bcmcs_server_d [33]",
+        "selected": 0
+      },
+      "34": {
+        "optgroup": "Assigned",
+        "value": "option_bcmcs_server_a [34]",
+        "selected": 0
+      },
+      "36": {
+        "optgroup": "Assigned",
+        "value": "option_geoconf_civic [36]",
+        "selected": 0
+      },
+      "37": {
+        "optgroup": "Assigned",
+        "value": "option_remote_id [37]",
+        "selected": 0
+      },
+      "38": {
+        "optgroup": "Assigned",
+        "value": "option_subscriber_id [38]",
+        "selected": 0
+      },
+      "39": {
+        "optgroup": "Assigned",
+        "value": "option_client_fqdn [39]",
+        "selected": 0
+      },
+      "40": {
+        "optgroup": "Assigned",
+        "value": "option_pana_agent [40]",
+        "selected": 0
+      },
+      "41": {
+        "optgroup": "Common",
+        "value": "posix-timezone [41]",
+        "selected": 0
+      },
+      "42": {
+        "optgroup": "Common",
+        "value": "tzdb-timezone [42]",
+        "selected": 0
+      },
+      "43": {
+        "optgroup": "Assigned",
+        "value": "option_ero [43]",
+        "selected": 0
+      },
+      "44": {
+        "optgroup": "Assigned",
+        "value": "option_lq_query [44]",
+        "selected": 0
+      },
+      "45": {
+        "optgroup": "Assigned",
+        "value": "option_client_data [45]",
+        "selected": 0
+      },
+      "46": {
+        "optgroup": "Assigned",
+        "value": "option_clt_time [46]",
+        "selected": 0
+      },
+      "47": {
+        "optgroup": "Assigned",
+        "value": "option_lq_relay_data [47]",
+        "selected": 0
+      },
+      "48": {
+        "optgroup": "Assigned",
+        "value": "option_lq_client_link [48]",
+        "selected": 0
+      },
+      "49": {
+        "optgroup": "Assigned",
+        "value": "option_mip6_hnidf [49]",
+        "selected": 0
+      },
+      "50": {
+        "optgroup": "Assigned",
+        "value": "option_mip6_vdinf [50]",
+        "selected": 0
+      },
+      "51": {
+        "optgroup": "Assigned",
+        "value": "option_v6_lost [51]",
+        "selected": 0
+      },
+      "52": {
+        "optgroup": "Assigned",
+        "value": "option_capwap_ac_v6 [52]",
+        "selected": 0
+      },
+      "53": {
+        "optgroup": "Assigned",
+        "value": "option_relay_id [53]",
+        "selected": 0
+      },
+      "54": {
+        "optgroup": "Assigned",
+        "value": "option-ipv6_address-mos [54]",
+        "selected": 0
+      },
+      "55": {
+        "optgroup": "Assigned",
+        "value": "option-ipv6_fqdn-mos [55]",
+        "selected": 0
+      },
+      "56": {
+        "optgroup": "Common",
+        "value": "ntp-server [56]",
+        "selected": 0
+      },
+      "57": {
+        "optgroup": "Assigned",
+        "value": "option_v6_access_domain [57]",
+        "selected": 0
+      },
+      "58": {
+        "optgroup": "Assigned",
+        "value": "option_sip_ua_cs_list [58]",
+        "selected": 0
+      },
+      "59": {
+        "optgroup": "Common",
+        "value": "bootfile-url [59]",
+        "selected": 0
+      },
+      "60": {
+        "optgroup": "Common",
+        "value": "bootfile-param [60]",
+        "selected": 0
+      },
+      "61": {
+        "optgroup": "Assigned",
+        "value": "option_client_arch_type [61]",
+        "selected": 0
+      },
+      "62": {
+        "optgroup": "Assigned",
+        "value": "option_nii [62]",
+        "selected": 0
+      },
+      "63": {
+        "optgroup": "Assigned",
+        "value": "option_geolocation [63]",
+        "selected": 0
+      },
+      "64": {
+        "optgroup": "Assigned",
+        "value": "option_aftr_name [64]",
+        "selected": 0
+      },
+      "65": {
+        "optgroup": "Assigned",
+        "value": "option_erp_local_domain_name [65]",
+        "selected": 0
+      },
+      "66": {
+        "optgroup": "Assigned",
+        "value": "option_rsoo [66]",
+        "selected": 0
+      },
+      "67": {
+        "optgroup": "Assigned",
+        "value": "option_pd_exclude [67]",
+        "selected": 0
+      },
+      "68": {
+        "optgroup": "Assigned",
+        "value": "option_vss [68]",
+        "selected": 0
+      },
+      "69": {
+        "optgroup": "Assigned",
+        "value": "option_mip6_idinf [69]",
+        "selected": 0
+      },
+      "70": {
+        "optgroup": "Assigned",
+        "value": "option_mip6_udinf [70]",
+        "selected": 0
+      },
+      "71": {
+        "optgroup": "Assigned",
+        "value": "option_mip6_hnp [71]",
+        "selected": 0
+      },
+      "72": {
+        "optgroup": "Assigned",
+        "value": "option_mip6_haa [72]",
+        "selected": 0
+      },
+      "73": {
+        "optgroup": "Assigned",
+        "value": "option_mip6_haf [73]",
+        "selected": 0
+      },
+      "74": {
+        "optgroup": "Assigned",
+        "value": "option_rdnss_selection [74]",
+        "selected": 0
+      },
+      "75": {
+        "optgroup": "Assigned",
+        "value": "option_krb_principal_name [75]",
+        "selected": 0
+      },
+      "76": {
+        "optgroup": "Assigned",
+        "value": "option_krb_realm_name [76]",
+        "selected": 0
+      },
+      "77": {
+        "optgroup": "Assigned",
+        "value": "option_krb_default_realm_name [77]",
+        "selected": 0
+      },
+      "78": {
+        "optgroup": "Assigned",
+        "value": "option_krb_kdc [78]",
+        "selected": 0
+      },
+      "79": {
+        "optgroup": "Assigned",
+        "value": "option_client_linklayer_addr [79]",
+        "selected": 0
+      },
+      "80": {
+        "optgroup": "Assigned",
+        "value": "option_link_address [80]",
+        "selected": 0
+      },
+      "81": {
+        "optgroup": "Assigned",
+        "value": "option_radius [81]",
+        "selected": 0
+      },
+      "82": {
+        "optgroup": "Assigned",
+        "value": "option_sol_max_rt [82]",
+        "selected": 0
+      },
+      "83": {
+        "optgroup": "Assigned",
+        "value": "option_inf_max_rt [83]",
+        "selected": 0
+      },
+      "84": {
+        "optgroup": "Assigned",
+        "value": "option_addrsel [84]",
+        "selected": 0
+      },
+      "85": {
+        "optgroup": "Assigned",
+        "value": "option_addrsel_table [85]",
+        "selected": 0
+      },
+      "86": {
+        "optgroup": "Assigned",
+        "value": "option_v6_pcp_server [86]",
+        "selected": 0
+      },
+      "87": {
+        "optgroup": "Assigned",
+        "value": "option_dhcpv4_msg [87]",
+        "selected": 0
+      },
+      "88": {
+        "optgroup": "Assigned",
+        "value": "option_dhcp4_o_dhcp6_server [88]",
+        "selected": 0
+      },
+      "89": {
+        "optgroup": "Assigned",
+        "value": "option_s46_rule [89]",
+        "selected": 0
+      },
+      "90": {
+        "optgroup": "Assigned",
+        "value": "option_s46_br [90]",
+        "selected": 0
+      },
+      "91": {
+        "optgroup": "Assigned",
+        "value": "option_s46_dmr [91]",
+        "selected": 0
+      },
+      "92": {
+        "optgroup": "Assigned",
+        "value": "option_s46_v4v6bind [92]",
+        "selected": 0
+      },
+      "93": {
+        "optgroup": "Assigned",
+        "value": "option_s46_portparams [93]",
+        "selected": 0
+      },
+      "94": {
+        "optgroup": "Assigned",
+        "value": "option_s46_cont_mape [94]",
+        "selected": 0
+      },
+      "95": {
+        "optgroup": "Assigned",
+        "value": "option_s46_cont_mapt [95]",
+        "selected": 0
+      },
+      "96": {
+        "optgroup": "Assigned",
+        "value": "option_s46_cont_lw [96]",
+        "selected": 0
+      },
+      "97": {
+        "optgroup": "Assigned",
+        "value": "option_4rd [97]",
+        "selected": 0
+      },
+      "98": {
+        "optgroup": "Assigned",
+        "value": "option_4rd_map_rule [98]",
+        "selected": 0
+      },
+      "99": {
+        "optgroup": "Assigned",
+        "value": "option_4rd_non_map_rule [99]",
+        "selected": 0
+      },
+      "100": {
+        "optgroup": "Assigned",
+        "value": "option_lq_base_time [100]",
+        "selected": 0
+      },
+      "101": {
+        "optgroup": "Assigned",
+        "value": "option_lq_start_time [101]",
+        "selected": 0
+      },
+      "102": {
+        "optgroup": "Assigned",
+        "value": "option_lq_end_time [102]",
+        "selected": 0
+      },
+      "103": {
+        "optgroup": "Common",
+        "value": "captive-portal [103]",
+        "selected": 0
+      },
+      "104": {
+        "optgroup": "Assigned",
+        "value": "option_mpl_parameters [104]",
+        "selected": 0
+      },
+      "105": {
+        "optgroup": "Assigned",
+        "value": "option_ani_att [105]",
+        "selected": 0
+      },
+      "106": {
+        "optgroup": "Assigned",
+        "value": "option_ani_network_name [106]",
+        "selected": 0
+      },
+      "107": {
+        "optgroup": "Assigned",
+        "value": "option_ani_ap_name [107]",
+        "selected": 0
+      },
+      "108": {
+        "optgroup": "Assigned",
+        "value": "option_ani_ap_bssid [108]",
+        "selected": 0
+      },
+      "109": {
+        "optgroup": "Assigned",
+        "value": "option_ani_operator_id [109]",
+        "selected": 0
+      },
+      "110": {
+        "optgroup": "Assigned",
+        "value": "option_ani_operator_realm [110]",
+        "selected": 0
+      },
+      "111": {
+        "optgroup": "Assigned",
+        "value": "option_s46_priority [111]",
+        "selected": 0
+      },
+      "112": {
+        "optgroup": "Assigned",
+        "value": "option_mud_url_v6 [112]",
+        "selected": 0
+      },
+      "113": {
+        "optgroup": "Assigned",
+        "value": "option_v6_prefix64 [113]",
+        "selected": 0
+      },
+      "114": {
+        "optgroup": "Assigned",
+        "value": "option_f_binding_status [114]",
+        "selected": 0
+      },
+      "115": {
+        "optgroup": "Assigned",
+        "value": "option_f_connect_flags [115]",
+        "selected": 0
+      },
+      "116": {
+        "optgroup": "Assigned",
+        "value": "option_f_dns_removal_info [116]",
+        "selected": 0
+      },
+      "117": {
+        "optgroup": "Assigned",
+        "value": "option_f_dns_host_name [117]",
+        "selected": 0
+      },
+      "118": {
+        "optgroup": "Assigned",
+        "value": "option_f_dns_zone_name [118]",
+        "selected": 0
+      },
+      "119": {
+        "optgroup": "Assigned",
+        "value": "option_f_dns_flags [119]",
+        "selected": 0
+      },
+      "120": {
+        "optgroup": "Assigned",
+        "value": "option_f_expiration_time [120]",
+        "selected": 0
+      },
+      "121": {
+        "optgroup": "Assigned",
+        "value": "option_f_max_unacked_bndupd [121]",
+        "selected": 0
+      },
+      "122": {
+        "optgroup": "Assigned",
+        "value": "option_f_mclt [122]",
+        "selected": 0
+      },
+      "123": {
+        "optgroup": "Assigned",
+        "value": "option_f_partner_lifetime [123]",
+        "selected": 0
+      },
+      "124": {
+        "optgroup": "Assigned",
+        "value": "option_f_partner_lifetime_sent [124]",
+        "selected": 0
+      },
+      "125": {
+        "optgroup": "Assigned",
+        "value": "option_f_partner_down_time [125]",
+        "selected": 0
+      },
+      "126": {
+        "optgroup": "Assigned",
+        "value": "option_f_partner_raw_clt_time [126]",
+        "selected": 0
+      },
+      "127": {
+        "optgroup": "Assigned",
+        "value": "option_f_protocol_version [127]",
+        "selected": 0
+      },
+      "128": {
+        "optgroup": "Assigned",
+        "value": "option_f_keepalive_time [128]",
+        "selected": 0
+      },
+      "129": {
+        "optgroup": "Assigned",
+        "value": "option_f_reconfigure_data [129]",
+        "selected": 0
+      },
+      "130": {
+        "optgroup": "Assigned",
+        "value": "option_f_relationship_name [130]",
+        "selected": 0
+      },
+      "131": {
+        "optgroup": "Assigned",
+        "value": "option_f_server_flags [131]",
+        "selected": 0
+      },
+      "132": {
+        "optgroup": "Assigned",
+        "value": "option_f_server_state [132]",
+        "selected": 0
+      },
+      "133": {
+        "optgroup": "Assigned",
+        "value": "option_f_start_time_of_state [133]",
+        "selected": 0
+      },
+      "134": {
+        "optgroup": "Assigned",
+        "value": "option_f_state_expiration_time [134]",
+        "selected": 0
+      },
+      "135": {
+        "optgroup": "Assigned",
+        "value": "option_relay_port [135]",
+        "selected": 0
+      },
+      "136": {
+        "optgroup": "Assigned",
+        "value": "option_v6_sztp_redirect [136]",
+        "selected": 0
+      },
+      "137": {
+        "optgroup": "Assigned",
+        "value": "option_s46_bind_ipv6_prefix [137]",
+        "selected": 0
+      },
+      "138": {
+        "optgroup": "Assigned",
+        "value": "option_ia_ll [138]",
+        "selected": 0
+      },
+      "139": {
+        "optgroup": "Assigned",
+        "value": "option_lladdr [139]",
+        "selected": 0
+      },
+      "140": {
+        "optgroup": "Assigned",
+        "value": "option_slap_quad [140]",
+        "selected": 0
+      },
+      "141": {
+        "optgroup": "Assigned",
+        "value": "option_v6_dots_ri [141]",
+        "selected": 0
+      },
+      "142": {
+        "optgroup": "Assigned",
+        "value": "option_v6_dots_address [142]",
+        "selected": 0
+      },
+      "143": {
+        "optgroup": "Assigned",
+        "value": "option-ipv6_address-andsf [143]",
+        "selected": 0
+      },
+      "144": {
+        "optgroup": "Assigned",
+        "value": "option_v6_dnr [144]",
+        "selected": 0
+      },
+      "145": {
+        "optgroup": "Assigned",
+        "value": "option_registered_domain [145]",
+        "selected": 0
+      },
+      "146": {
+        "optgroup": "Assigned",
+        "value": "option_forward_dist_manager [146]",
+        "selected": 0
+      },
+      "147": {
+        "optgroup": "Assigned",
+        "value": "option_reverse_dist_manager [147]",
+        "selected": 0
+      },
+      "148": {
+        "optgroup": "Assigned",
+        "value": "option_addr_reg_enable [148]",
+        "selected": 0
+      },
+      "149": {
+        "optgroup": "Assigned",
+        "value": "option_ia_srv6_locator (temporary - registered 2024-06-14, extension registered 2025-04-16, expires 2026-06-14) [149]",
+        "selected": 0
+      },
+      "150": {
+        "optgroup": "Assigned",
+        "value": "option_ialocator (temporary - registered 2024-06-14, extension registered 2025-04-16, expires 2026-06-14) [150]",
+        "selected": 0
+      }
+    },
+    "interface": {
+      "": {
+        "value": "Any",
+        "selected": 1
+      },
+      "lan": {
+        "value": "LAN",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "OPT1",
+        "selected": 0
+      },
+      "wan": {
+        "value": "WAN",
+        "selected": 0
+      }
+    },
+    "tag": [],
+    "set_tag": {
+      "": {
+        "value": "None",
+        "selected": 1
+      }
+    },
+    "value": "",
+    "force": "0",
+    "description": ""
+  }
+}

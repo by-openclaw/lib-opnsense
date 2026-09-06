@@ -1,0 +1,351 @@
+{
+  "vtnet0": {
+    "flags": [
+      "up",
+      "broadcast",
+      "running",
+      "simplex",
+      "multicast",
+      "lower_up"
+    ],
+    "capabilities": [
+      "vlan_mtu",
+      "vlan_hwfilter",
+      "linkstate",
+      "netmap",
+      "hwstats"
+    ],
+    "options": [
+      "vlan_mtu",
+      "linkstate",
+      "hwstats"
+    ],
+    "macaddr": "bc:24:11:ed:1e:7f",
+    "ipv4": [
+      {
+        "ipaddr": "192.168.1.1",
+        "subnetbits": 24,
+        "tunnel": false
+      }
+    ],
+    "ipv6": [
+      {
+        "autoconf": false,
+        "deprecated": false,
+        "detached": false,
+        "ipaddr": "fe80::be24:11ff:feed:1e7f",
+        "link-local": true,
+        "pltime": "0",
+        "tentative": false,
+        "tunnel": false,
+        "vltime": "0",
+        "subnetbits": 64
+      }
+    ],
+    "supported_media": [
+      "autoselect"
+    ],
+    "is_physical": true,
+    "device": "vtnet0",
+    "mtu": "1500",
+    "macaddr_hw": "bc:24:11:ed:1e:7f",
+    "media": "10Gbase-T <full-duplex>",
+    "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
+    "status": "active",
+    "nd6": {
+      "flags": [
+        "performnud",
+        "auto_linklocal"
+      ]
+    }
+  },
+  "vtnet1": {
+    "flags": [
+      "up",
+      "broadcast",
+      "running",
+      "simplex",
+      "multicast",
+      "lower_up"
+    ],
+    "capabilities": [
+      "vlan_mtu",
+      "vlan_hwfilter",
+      "linkstate",
+      "netmap",
+      "hwstats"
+    ],
+    "options": [
+      "vlan_mtu",
+      "linkstate",
+      "hwstats"
+    ],
+    "macaddr": "bc:24:11:3d:58:c2",
+    "ipv4": [
+      {
+        "ipaddr": "10.6.239.129",
+        "subnetbits": 20,
+        "tunnel": false
+      }
+    ],
+    "ipv6": [
+      {
+        "autoconf": false,
+        "deprecated": false,
+        "detached": false,
+        "ipaddr": "fe80::be24:11ff:fe3d:58c2",
+        "link-local": true,
+        "pltime": "0",
+        "tentative": false,
+        "tunnel": false,
+        "vltime": "0",
+        "subnetbits": 64
+      }
+    ],
+    "supported_media": [
+      "autoselect"
+    ],
+    "is_physical": true,
+    "device": "vtnet1",
+    "mtu": "1500",
+    "macaddr_hw": "bc:24:11:3d:58:c2",
+    "media": "10Gbase-T <full-duplex>",
+    "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
+    "status": "active",
+    "nd6": {
+      "flags": [
+        "performnud",
+        "auto_linklocal"
+      ]
+    }
+  },
+  "vtnet2": {
+    "flags": [
+      "up",
+      "broadcast",
+      "running",
+      "simplex",
+      "multicast"
+    ],
+    "capabilities": [
+      "vlan_mtu",
+      "vlan_hwfilter",
+      "linkstate",
+      "netmap",
+      "hwstats"
+    ],
+    "options": [
+      "vlan_mtu",
+      "linkstate",
+      "hwstats"
+    ],
+    "macaddr": "bc:24:11:da:6b:34",
+    "ipv4": [],
+    "ipv6": [
+      {
+        "autoconf": false,
+        "deprecated": false,
+        "detached": false,
+        "ipaddr": "fe80::be24:11ff:feda:6b34",
+        "link-local": true,
+        "pltime": "0",
+        "tentative": false,
+        "tunnel": false,
+        "vltime": "0",
+        "subnetbits": 64
+      }
+    ],
+    "supported_media": [
+      "autoselect"
+    ],
+    "is_physical": true,
+    "device": "vtnet2",
+    "mtu": "1500",
+    "macaddr_hw": "bc:24:11:da:6b:34",
+    "media": "none",
+    "media_raw": "Ethernet autoselect (none)",
+    "status": "no carrier",
+    "nd6": {
+      "flags": [
+        "performnud",
+        "accept_rtadv",
+        "auto_linklocal"
+      ]
+    }
+  },
+  "vtnet3": {
+    "flags": [
+      "up",
+      "broadcast",
+      "running",
+      "simplex",
+      "multicast"
+    ],
+    "capabilities": [
+      "vlan_mtu",
+      "vlan_hwfilter",
+      "linkstate",
+      "netmap",
+      "hwstats"
+    ],
+    "options": [
+      "vlan_mtu",
+      "linkstate",
+      "hwstats"
+    ],
+    "macaddr": "bc:24:11:94:c3:e5",
+    "ipv4": [],
+    "ipv6": [],
+    "supported_media": [
+      "autoselect"
+    ],
+    "is_physical": true,
+    "device": "vtnet3",
+    "mtu": "1500",
+    "macaddr_hw": "bc:24:11:94:c3:e5",
+    "media": "none",
+    "media_raw": "Ethernet autoselect (none)",
+    "status": "no carrier",
+    "nd6": {
+      "flags": [
+        "performnud",
+        "ifdisabled",
+        "auto_linklocal"
+      ]
+    }
+  },
+  "lo0": {
+    "flags": [
+      "up",
+      "loopback",
+      "running",
+      "multicast",
+      "lower_up"
+    ],
+    "capabilities": [
+      "rxcsum",
+      "txcsum",
+      "linkstate",
+      "rxcsum_ipv6",
+      "txcsum_ipv6"
+    ],
+    "options": [
+      "rxcsum",
+      "txcsum",
+      "linkstate",
+      "rxcsum_ipv6",
+      "txcsum_ipv6"
+    ],
+    "macaddr": "00:00:00:00:00:00",
+    "ipv4": [
+      {
+        "ipaddr": "127.0.0.1",
+        "subnetbits": 8,
+        "tunnel": false
+      }
+    ],
+    "ipv6": [
+      {
+        "autoconf": false,
+        "deprecated": false,
+        "detached": false,
+        "ipaddr": "::1",
+        "link-local": false,
+        "pltime": "0",
+        "tentative": false,
+        "tunnel": false,
+        "vltime": "0",
+        "subnetbits": 128
+      },
+      {
+        "autoconf": false,
+        "deprecated": false,
+        "detached": false,
+        "ipaddr": "fe80::1",
+        "link-local": true,
+        "pltime": "0",
+        "tentative": false,
+        "tunnel": false,
+        "vltime": "0",
+        "subnetbits": 64
+      }
+    ],
+    "supported_media": [],
+    "is_physical": false,
+    "device": "lo0",
+    "mtu": "16384",
+    "groups": [
+      "lo"
+    ],
+    "nd6": {
+      "flags": [
+        "performnud",
+        "auto_linklocal"
+      ]
+    }
+  },
+  "enc0": {
+    "flags": [],
+    "capabilities": [
+      "capabilities="
+    ],
+    "options": [
+      "options="
+    ],
+    "macaddr": "00:00:00:00:00:00",
+    "ipv4": [],
+    "ipv6": [],
+    "supported_media": [],
+    "is_physical": false,
+    "device": "enc0",
+    "mtu": "1536",
+    "groups": [
+      "enc"
+    ],
+    "nd6": {
+      "flags": [
+        "performnud",
+        "ifdisabled",
+        "auto_linklocal"
+      ]
+    }
+  },
+  "pflog0": {
+    "flags": [],
+    "capabilities": [
+      "capabilities="
+    ],
+    "options": [
+      "options="
+    ],
+    "macaddr": "00:00:00:00:00:00",
+    "ipv4": [],
+    "ipv6": [],
+    "supported_media": [],
+    "is_physical": false,
+    "device": "pflog0",
+    "mtu": "33152",
+    "groups": [
+      "pflog"
+    ]
+  },
+  "pfsync0": {
+    "flags": [],
+    "capabilities": [
+      "capabilities="
+    ],
+    "options": [
+      "options="
+    ],
+    "macaddr": "00:00:00:00:00:00",
+    "ipv4": [],
+    "ipv6": [],
+    "supported_media": [],
+    "is_physical": false,
+    "device": "pfsync0",
+    "mtu": "1500",
+    "groups": [
+      "pfsync"
+    ]
+  }
+}

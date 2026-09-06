@@ -1,0 +1,69 @@
+{
+  "dhcpv4": {
+    "general": {
+      "enabled": "0",
+      "manual_config": "0",
+      "interfaces": {
+        "lan": {
+          "value": "LAN",
+          "selected": 0
+        },
+        "opt1": {
+          "value": "OPT1",
+          "selected": 0
+        },
+        "wan": {
+          "value": "WAN",
+          "selected": 0
+        }
+      },
+      "service_sockets_max_retries": "",
+      "service_sockets_retry_wait_time": "",
+      "valid_lifetime": "4000",
+      "decline_probation_period": "",
+      "fwrules": "1",
+      "dhcp_socket_type": {
+        "udp": {
+          "value": "udp",
+          "selected": 0
+        },
+        "raw": {
+          "value": "raw",
+          "selected": 1
+        }
+      },
+      "compatibility": {
+        "exclude-first-last-24": {
+          "value": "exclude-first-last-24",
+          "selected": 0
+        },
+        "ignore-dhcp-server-identifier": {
+          "value": "ignore-dhcp-server-identifier",
+          "selected": 0
+        },
+        "ignore-rai-link-selection": {
+          "value": "ignore-rai-link-selection",
+          "selected": 0
+        },
+        "lenient-option-parsing": {
+          "value": "lenient-option-parsing",
+          "selected": 0
+        }
+      }
+    },
+    "lexpire": {
+      "hold_reclaimed_time": "",
+      "reclaim_timer_wait_time": "",
+      "flush_reclaimed_timer_wait_time": "",
+      "max_reclaim_time": "",
+      "max_reclaim_leases": "",
+      "unwarned_reclaim_cycles": ""
+    },
+    "ha": {
+      "enabled": "0",
+      "this_server_name": "",
+      "max_unacked_clients": "2",
+      "%this_server_name": "OPNsense"
+    }
+  }
+}

@@ -11,12 +11,12 @@
 
 | Property | Value |
 |----------|-------|
-| **OPNsense Version** | `26.1.9` |
+| **OPNsense Version** | `26.7` |
 | **Product** | OPNsense (amd64) |
-| **Probe timestamp** | 2026-08-20T23:05:00Z |
-| **Audit generated** | 2026-08-20T23:20:24Z |
-| **Endpoints probed** | 207 |
-| **Source JSONs** | `docs/api/data/26.1.9/` |
+| **Probe timestamp** | 2026-09-06T13:49:57Z |
+| **Audit generated** | 2026-09-06T13:51:35Z |
+| **Endpoints probed** | 206 |
+| **Source JSONs** | `docs/api/data/26.7/` |
 
 ## API Type Conventions
 
@@ -40,16 +40,22 @@
 
 **Endpoint:** `GET /api/auth/group/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `group`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `gid` | `"2001"` | `int-like string` |
+| `gid` | `"2000"` | `int-like string` |
 | `name` | `""` | `string` |
 | `scope` | `"user"` | `string` |
 | `description` | `""` | `string` |
-| `priv` | enum | `enum`: page-all, page-user-crowdsec, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-firewall-nat-outbound, page-firewall-nat-outbound-edit, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-rules-edit, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-acmeclient, page-services-captiveportal, page-services-chrony, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-dnscryptproxy-config, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-dyndns, page-services-ids, page-services-lldpd, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-qemuguestagent, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-groupmanager, page-system-usermanager-addprivs, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-system-camanager, page-system-certmanager, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, page-system-crlmanager, user-config-readonly, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-gateways-editgatewaygroups, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-services-monit, page-xmlrpclibrary |
-| `member` | enum | `enum`: 0, 2000, 2001, 2002 |
+| `priv` | enum | `enum`: page-all, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-firewall-nat-outbound, page-firewall-nat-outbound-edit, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-rules-edit, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-captiveportal, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-ids, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-system-camanager, page-system-certmanager, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, page-system-crlmanager, user-config-readonly, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-services-monit, page-xmlrpclibrary |
+| `member` | [] | `list` |
 | `source_networks` | enum | `enum`: ** |
 
 > 7 fields discovered
@@ -64,7 +70,7 @@
 
 ```
 
-**Rows returned:** 3 (total: 3)
+**Rows returned:** 1 (total: 1)
 
 **Row keys:**
 ```
@@ -83,15 +89,15 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "f18c26a6-094e-4f91-b784-dc4d0bc55884",
+  "uuid": "2989209e-a21e-4128-a225-80c97b964940",
   "gid": "1999",
   "name": "admins",
   "scope": "system",
   "description": "System Administrators",
   "priv": "page-all",
   "%priv": "All pages",
-  "member": "0,2000,2002",
-  "%member": "root, by-rune, adm_yboujraf",
+  "member": "0",
+  "%member": "root",
   "source_networks": ""
 }
 ```
@@ -104,6 +110,12 @@ uuid
 
 **Endpoint:** `GET /api/auth/priv/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 priv
@@ -114,34 +126,14 @@ priv
 {
   "priv": {
     "users": {
-      "c7cb8dc4-4cd6-4a71-8e54-621429036187": {
-        "value": "adm_yboujraf",
-        "selected": 0
-      },
-      "ff747b04-b09d-440d-b6ca-28c17db3712f": {
-        "value": "by-rune",
-        "selected": 0
-      },
-      "eca574ce-6de4-4a2e-8c37-4e2c6a838ece": {
-        "value": "oob-admin",
-        "selected": 0
-      },
-      "22c2bfb8-0734-4439-b2b9-7816f7017363": {
+      "9123cd03-c04b-4789-af49-c0e72b94f5b3": {
         "value": "root",
         "selected": 0
       }
     },
     "groups": {
-      "f18c26a6-094e-4f91-b784-dc4d0bc55884": {
+      "2989209e-a21e-4128-a225-80c97b964940": {
         "value": "admins",
-        "selected": 0
-      },
-      "0d55cc3b-2e09-4f20-918d-cef9472be407": {
-        "value": "oob-admins",
-        "selected": 0
-      },
-      "29b2f153-85c0-4e46-aba4-b4533ccef15c": {
-        "value": "platform-admins",
         "selected": 0
       }
     }
@@ -149,7 +141,7 @@ priv
 }
 ```
 
-> Response size: 550 bytes
+> Response size: 272 bytes
 
 ---
 
@@ -159,11 +151,17 @@ priv
 
 **Endpoint:** `GET /api/auth/user/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `user`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `uid` | `"2003"` | `int-like string` |
+| `uid` | `"2000"` | `int-like string` |
 | `name` | `""` | `string` |
 | `disabled` | `"0"` | `string-bool` |
 | `scope` | `"user"` | `string` |
@@ -178,9 +176,9 @@ priv
 | `comment` | `""` | `string` |
 | `email` | `""` | `string` |
 | `apikeys` | `""` | `string` |
-| `priv` | enum | `enum`: page-all, page-user-crowdsec, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-firewall-nat-outbound, page-firewall-nat-outbound-edit, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-rules-edit, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-acmeclient, page-services-captiveportal, page-services-chrony, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-dnscryptproxy-config, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-dyndns, page-services-ids, page-services-lldpd, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-qemuguestagent, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-groupmanager, page-system-usermanager-addprivs, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-system-camanager, page-system-certmanager, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, page-system-crlmanager, user-config-readonly, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-gateways-editgatewaygroups, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-services-monit, page-xmlrpclibrary |
+| `priv` | enum | `enum`: page-all, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-firewall-nat-outbound, page-firewall-nat-outbound-edit, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-rules-edit, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-captiveportal, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-ids, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-system-camanager, page-system-certmanager, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, page-system-crlmanager, user-config-readonly, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-services-monit, page-xmlrpclibrary |
 | `language` | enum | `enum`: **, cs_CZ, de_DE, el_GR, en_US, es_ES, fa_IR, fr_FR, it_IT, ja_JP, ko_KR, no_NO, pl_PL, pt_BR, pt_PT, ru_RU, tr_TR, uk_UA, zh_CN, zh_TW |
-| `group_memberships` | enum | `enum`: 1999, 2000 |
+| `group_memberships` | enum | `enum`: 1999 |
 | `descr` | `""` | `string` |
 | `dashboard` | `""` | `string` |
 | `otp_uri` | `""` | `string` |
@@ -197,10 +195,11 @@ priv
 
 ```
 
-**Rows returned:** 4 (total: 4)
+**Rows returned:** 1 (total: 1)
 
 **Row keys:**
 ```
+%apikeys
 %group_memberships
 %password
 apikeys
@@ -231,7 +230,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "22c2bfb8-0734-4439-b2b9-7816f7017363",
+  "uuid": "9123cd03-c04b-4789-af49-c0e72b94f5b3",
   "uid": "0",
   "name": "root",
   "disabled": "0",
@@ -247,13 +246,14 @@ uuid
   "landing_page": "",
   "comment": "",
   "email": "",
-  "apikeys": "",
+  "apikeys": "<REDACTED:apikeys>",
+  "%apikeys": "",
   "priv": "",
   "language": "",
   "group_memberships": "1999",
   "%group_memberships": "admins",
   "descr": "System Administrator",
-  "dashboard": "eyJvcHRpb25zIjpbXSwid2lkZ2V0cyI6W3siaWQiOiJzeXN0ZW1pbmZvcm1hdGlvbiIsIm1pblciOjIsIngiOjAsInkiOjAsImgiOjUxMiwid2lkZ2V0IjpbXX0seyJpZCI6ImdhdGV3YXlzIiwibWluVyI6MiwieCI6MiwieSI6MCwic2l6ZVRvQ29udGVudCI6MzU4LCJoIjozNTgsIndpZGdldCI6eyJnYXRld2F5cyI6WyI2N2UwYTg0NS0yZjE3LTQ2NTctYTY2NC1lMWUzZDVlYmQxZDEiLCJhZmI0YzBmYi01YTdjLTRkZjctODU1Ny1kMzZjZDY2ZWI4ZjQiLCI2M2QwNWRjMC02NWJlLTRjZTItYTljZS1jNjAxNTJlZmU4ZjYiLCIyMTA1MjkwYi1mYjhiLTRlZDMtYjUwMy00YTFmZjIyNzM3NjQiXX19LHsiaWQiOiJpbnRlcmZhY2VzdGF0aXN0aWNzIiwibWluVyI6MiwieCI6NCwieSI6MCwidyI6NCwiaCI6MzE0LCJ3aWRnZXQiOltdfSx7ImlkIjoidHJhZmZpYyIsIm1pblciOjIsIngiOjgsInkiOjAsInciOjQsImgiOjQ0Niwid2lkZ2V0Ijp7ImludGVyZmFjZXMiOlsibGFuIl19fSx7ImlkIjoiZmlyZXdhbGwiLCJtaW5XIjoyLCJ4Ijo0LCJ5IjozMTQsInciOjQsImgiOjMxNCwid2lkZ2V0Ijp7ImNvbG9yc2NoZW1lIjoiY29udHJhc3QifX0seyJpZCI6Im1vbml0IiwibWluVyI6MiwieCI6MiwieSI6MzU4LCJoIjoxMjgsIndpZGdldCI6W119LHsiaWQiOiJmaXJld2FsbHN0YXRlcyIsIm1pblciOjEsIngiOjgsInkiOjQ0NiwiaCI6MTM4LCJ3aWRnZXQiOltdfSx7ImlkIjoibWVtb3J5IiwibWluVyI6MSwieCI6MiwieSI6NDg2LCJoIjoxMjAsIndpZGdldCI6W119LHsiaWQiOiJkaXNrIiwibWluVyI6MSwieCI6MywieSI6NDg2LCJoIjoxMjAsIndpZGdldCI6W119LHsiaWQiOiJjcHUiLCJtaW5XIjoyLCJ4IjowLCJ5Ijo1MTIsImgiOjE3OCwid2lkZ2V0Ijp7ImdyYXBocyI6WyJ0b3RhbCJdfX1dLCJsYXlvdXRzIjp7IjEyIjp7InN5c3RlbWluZm9ybWF0aW9uIjp7ImlkIjoic3lzdGVtaW5mb3JtYXRpb24iLCJ4IjowLCJ5IjowLCJ3IjoyLCJoIjo1MTJ9LCJnYXRld2F5cyI6eyJpZCI6ImdhdGV3YXlzIiwieCI6MiwieSI6MCwidyI6MiwiaCI6MzU4fSwiaW50ZXJmYWNlc3RhdGlzdGljcyI6eyJpZCI6ImludGVyZmFjZXN0YXRpc3RpY3MiLCJ4Ijo0LCJ5IjowLCJ3Ijo0LCJoIjozMTR9LCJmaXJld2FsbCI6eyJpZCI6ImZpcmV3YWxsIiwieCI6NCwieSI6MzE0LCJ3Ijo0LCJoIjozMTR9LCJtb25pdCI6eyJpZCI6Im1vbml0IiwieCI6MiwieSI6MzU4LCJ3IjoyLCJoIjoxMjh9LCJmaXJld2FsbHN0YXRlcyI6eyJpZCI6ImZpcmV3YWxsc3RhdGVzIiwieCI6OCwieSI6NDQ2LCJ3IjpudWxsLCJoIjoxMzh9LCJtZW1vcnkiOnsiaWQiOiJtZW1vcnkiLCJ4IjoyLCJ5Ijo0ODYsInciOm51bGwsImgiOjEyMH0sImRpc2siOnsiaWQiOiJkaXNrIiwieCI6MywieSI6NDg2LCJ3IjpudWxsLCJoIjoxMjB9LCJjcHUiOnsiaWQiOiJjcHUiLCJ4IjowLCJ5Ijo1MTIsInciOjIsImgiOjE3OH0sInRyYWZmaWMiOnsiaWQiOiJ0cmFmZmljIiwieCI6OCwieSI6MCwidyI6NCwiaCI6NDQ2fX19fQ==",
+  "dashboard": "",
   "is_admin": "1",
   "shell_warning": "0"
 }
@@ -263,89 +263,33 @@ uuid
 
 ## 4. chrony-general
 
-### global — HTTP 200
+### global — HTTP 404
 
 **Endpoint:** `GET /api/chrony/general/get`
 
-**Top-level keys:**
-```
-general
-```
-
-**Response sample:**
+**Request JSON:**
 ```json
-{
-  "general": {
-    "enabled": "1",
-    "port": "123",
-    "ntsclient": "0",
-    "ntsnocert": "0",
-    "peers": {
-      "0.be.pool.ntp.org": {
-        "value": "0.be.pool.ntp.org",
-        "selected": 1
-      },
-      "1.be.pool.ntp.org": {
-        "value": "1.be.pool.ntp.org",
-        "selected": 1
-      },
-      "2.be.pool.ntp.org": {
-        "value": "2.be.pool.ntp.org",
-        "selected": 1
-      },
-      "3.be.pool.ntp.org": {
-        "value": "3.be.pool.ntp.org",
-        "selected": 1
-      }
-    },
-    "fallbackpeers": "",
-    "allowednetworks": {
-      "10.1.0.0/16": {
-        "value": "10.1.0.0/16",
-        "selected": 1
-      },
-      "fd01::/32": {
-        "value": "fd01::/32",
-        "selected": 1
-      },
-      "10.6.224.0/20": {
-        "value": "10.6.224.0/20",
-        "selected": 1
-      }
-    }
-  }
-}
+{}
+
 ```
 
-> Response size: 532 bytes
+> **Probe failed:** HTTP 404
 
 ---
 
 ## 5. chrony-service
 
-### global — HTTP 200
+### global — HTTP 404
 
 **Endpoint:** `GET /api/chrony/service/status`
 
-**Top-level keys:**
-```
-status
-widget
-```
-
-**Response sample:**
+**Request JSON:**
 ```json
-{
-  "status": "running",
-  "widget": {
-    "caption_restart": "Restart",
-    "caption_start": "Start",
-    "caption_stop": "Stop"
-  }
-}
+{}
+
 ```
 
-> Response size: 105 bytes
+> **Probe failed:** HTTP 404
 
 ---
 
@@ -354,6 +298,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/backup/providers`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -372,7 +322,7 @@ items
 }
 ```
 
-> Response size: 77 bytes
+> Response size: 111 bytes
 
 ---
 
@@ -381,6 +331,12 @@ items
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/firmware/info`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -396,43 +352,43 @@ product_version
 ```json
 {
   "product_id": "opnsense",
-  "product_version": "26.1.9",
+  "product_version": "26.7",
   "package": [
     {
       "name": "abseil",
       "version": "20250127.1_1",
       "comment": "Abseil Common Libraries (C++)",
-      "flatsize": "5.56MiB",
+      "flatsize": "5.52MiB",
       "locked": "N/A",
-      "automatic": "1",
+      "automatic": "N/A",
       "license": "APACHE20",
       "repository": "OPNsense",
       "origin": "devel/abseil",
       "provided": "1",
-      "installed": "1",
+      "installed": "0",
       "path": "OPNsense/devel/abseil",
-      "configured": "1"
+      "configured": "0"
     },
     {
       "name": "acme.sh",
-      "version": "3.1.3_1",
+      "version": "3.1.4",
       "comment": "ACME protocol client written in shell",
-      "flatsize": "1.59MiB",
+      "flatsize": "1.79MiB",
       "locked": "N/A",
-      "automatic": "1",
+      "automatic": "N/A",
       "license": "GPLv3+",
       "repository": "OPNsense",
       "origin": "security/acme.sh",
       "provided": "1",
-      "installed": "1",
+      "installed": "0",
       "path": "OPNsense/security/acme.sh",
-      "configured": "1"
+      "configured": "0"
     },
     {
       "name": "addrwatch",
       "version": "1.0.2_2",
       "comment": "Supports IP/Ethernet pairing for IPv4 and IPv6",
-      "flatsize": "80.8KiB",
+      "flatsize": "78.7KiB",
       "locked": "N/A",
       "automatic": "N/A",
       "license": "GPLv3",
@@ -445,9 +401,9 @@ product_version
     },
     {
       "name": "amazon-ssm-agent",
-      "version": "3.3.4177.0_2",
+      "version": "3.3.4177.0_5",
       "comment": "Amazon Simple Systems Manager Agent",
-      "flatsize": "110MiB",
+      "flatsize": "123MiB",
       "locked": "N/A",
       "automatic": "N/A",
       "license": "APACHE20",
@@ -462,7 +418,7 @@ product_version
       "name": "ap24-mod_auth_openidc",
       "version": "2.4.19.1",
       "comment": "OpenID Connect Relying Party and OAuth 2.0 Resource Server for Apache",
-      "flatsize": "689KiB",
+      "flatsize": "688KiB",
       "locked": "N/A",
       "automatic": "N/A",
       "license": "APACHE20",
@@ -477,7 +433,7 @@ product_version
 (parse error)
 ```
 
-> Response size: 343688 bytes
+> Response size: 449600 bytes
 
 ---
 
@@ -486,6 +442,12 @@ product_version
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/firmware/running`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -499,7 +461,7 @@ status
 }
 ```
 
-> Response size: 18 bytes
+> Response size: 24 bytes
 
 ---
 
@@ -508,6 +470,12 @@ status
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/firmware/status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -520,32 +488,32 @@ status_msg
 ```json
 {
   "product": {
-    "CORE_ABI": "26.1",
+    "CORE_ABI": "26.7",
     "CORE_ARCH": "amd64",
-    "CORE_COMMIT": "26.1.9 0 b11d6b340",
+    "CORE_COMMIT": "26.7 0 821598263",
     "CORE_CONFLICTS": "os-firewall os-firewall-devel os-wireguard os-wireguard-devel os-wireguard-go os-wireguard-go-devel",
     "CORE_COPYRIGHT_HOLDER": "Deciso B.V.",
     "CORE_COPYRIGHT_WWW": "https://www.deciso.com/",
     "CORE_COPYRIGHT_YEARS": "2014-2026",
     "CORE_GID": "789",
     "CORE_GROUP": "wwwonly",
-    "CORE_HASH": "b11d6b340",
+    "CORE_HASH": "821598263",
     "CORE_MAINTAINER": "project@opnsense.org",
     "CORE_NAME": "opnsense",
-    "CORE_NEXT": "26.7",
-    "CORE_NICKNAME": "Witty Woodpecker",
+    "CORE_NEXT": "27.1",
+    "CORE_NICKNAME": "Xenial Xenops",
     "CORE_PACKAGESITE": "https://pkg.opnsense.org",
-    "CORE_PKGVERSION": "26.1.9",
+    "CORE_PKGVERSION": "26.7",
     "CORE_PRODUCT": "OPNsense",
     "CORE_PYTHON_DOT": "3.13",
-    "CORE_SERIES": "26.1",
-    "CORE_SERIES_FW": "26.1 ",
-    "CORE_SYSLOGNG": "4.11",
+    "CORE_SERIES": "26.7",
+    "CORE_SERIES_FW": "26.7 ",
+    "CORE_SYSLOGNG": "4.12",
     "CORE_UID": "789",
     "CORE_USER": "wwwonly",
-    "CORE_VERSION": "26.1.9",
+    "CORE_VERSION": "26.7",
     "CORE_WWW": "https://opnsense.org/",
-    "product_abi": "26.1",
+    "product_abi": "26.7",
     "product_arch": "amd64",
     "product_check": null,
     "product_conflicts": "os-firewall os-firewall-devel os-wireguard os-wireguard-devel os-wireguard-go os-wireguard-go-devel",
@@ -553,19 +521,19 @@ status_msg
     "product_copyright_url": "https://www.deciso.com/",
     "product_copyright_years": "2014-2026",
     "product_email": "project@opnsense.org",
-    "product_hash": "b11d6b340",
+    "product_hash": "821598263",
     "product_id": "opnsense",
-    "product_latest": "26.1.11",
+    "product_latest": "26.7",
     "product_license": [],
     "product_log": 0,
-    "product_mirror": "https://pkg.opnsense.org/FreeBSD:14:amd64/26.1",
+    "product_mirror": "https://pkg.opnsense.org/FreeBSD:15:amd64/26.7",
     "product_name": "OPNsense",
-    "product_nickname": "Witty Woodpecker",
+    "product_nickname": "Xenial Xenops",
     "product_repos": "OPNsense (Priority: 11)",
-    "product_series": "26.1",
+    "product_series": "26.7",
     "product_tier": "1",
-    "product_time": "Wed Jun 3 02:09:26 CEST 2026",
-    "product_version": "26.1.9",
+    "product_time": "Mon Jul 13 15:01:42 UTC 2026",
+    "product_version": "26.7",
     "product_website": "https://opnsense.org/"
   },
   "status_msg": "Firmware status requires to check for update first to provide more information.",
@@ -573,7 +541,7 @@ status_msg
 }
 ```
 
-> Response size: 1727 bytes
+> Response size: 1990 bytes
 
 ---
 
@@ -582,6 +550,12 @@ status_msg
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/hasync/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -599,60 +573,16 @@ hasync
         "value": "Disabled",
         "selected": 1
       },
-      "opt11": {
-        "value": "CCTV",
-        "selected": 0
-      },
-      "opt3": {
-        "value": "DMZ",
-        "selected": 0
-      },
-      "opt10": {
-        "value": "GAMING",
-        "selected": 0
-      },
-      "opt6": {
-        "value": "IoT",
+      "lan": {
+        "value": "LAN",
         "selected": 0
       },
       "opt1": {
-        "value": "LAN_TRUNK",
+        "value": "OPT1",
         "selected": 0
       },
-      "opt9": {
-        "value": "Media",
-        "selected": 0
-      },
-      "opt2": {
-        "value": "MGMT",
-        "selected": 0
-      },
-      "lan": {
-        "value": "OOB",
-        "selected": 0
-      },
-      "opt8": {
-        "value": "Storage",
-        "selected": 0
-      },
-      "opt4": {
-        "value": "SVC",
-        "selected": 0
-      },
-      "opt7": {
-        "value": "VoIP",
-        "selected": 0
-      },
-      "opt5": {
-        "value": "VPN",
-        "selected": 0
-      },
-      "opt12": {
-        "value": "WAN_PROXIMUS",
-        "selected": 0
-      },
-      "opt13": {
-        "value": "WAN_TELENET",
+      "wan": {
+        "value": "WAN",
         "selected": 0
       }
     },
@@ -670,10 +600,53 @@ hasync
     "pfsyncdefer": "0",
     "synchronizetoip": "",
     "verifypeer": "0",
-(parse error)
+    "username": "",
+    "password": "",
+    "syncitems": {
+      "aliases": {
+        "value": "Aliases",
+        "selected": 0
+      },
+      "authservers": {
+        "value": "Authentication Servers",
+        "selected": 0
+      },
+      "captiveportal": {
+        "value": "Captive Portal",
+        "selected": 0
+      },
+      "certs": {
+        "value": "Certificates and Authorities",
+        "selected": 0
+      },
+      "cron": {
+        "value": "Cron",
+        "selected": 0
+      },
+      "dhcrelay": {
+        "value": "DHCRelay",
+        "selected": 0
+      },
+      "dnsforwarder": {
+        "value": "Dnsmasq DNS/DHCP",
+        "selected": 0
+      },
+      "categories": {
+        "value": "Firewall Categories",
+        "selected": 0
+      },
+      "ifgroups": {
+        "value": "Firewall Groups",
+        "selected": 0
+      },
+      "lvtemplate": {
+        "value": "Firewall Log Templates",
+        "selected": 0
+      },
+      "rules": {
 ```
 
-> Response size: 2641 bytes
+> Response size: 3554 bytes
 
 ---
 
@@ -682,6 +655,12 @@ hasync
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/service/search`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -694,29 +673,15 @@ total
 **Response sample:**
 ```json
 {
-  "total": 30,
-  "rowCount": 30,
+  "total": 12,
+  "rowCount": 12,
   "current": 1,
   "rows": [
-    {
-      "id": "acme",
-      "locked": 0,
-      "running": 1,
-      "description": "ACME client",
-      "name": "acme"
-    },
-    {
-      "id": "chronyd",
-      "locked": 0,
-      "running": 1,
-      "description": "chrony daemon",
-      "name": "chronyd"
-    },
     {
       "id": "configd",
       "locked": 1,
       "running": 1,
-      "description": "System Configuration Daemon",
+      "description": "Configd",
       "name": "configd"
     },
     {
@@ -727,55 +692,69 @@ total
       "name": "cron"
     },
     {
-      "id": "crowdsec",
+      "id": "dnsmasq",
       "locked": 0,
       "running": 1,
-      "description": "CrowdSec",
-      "name": "crowdsec"
+      "description": "Dnsmasq DNS/DHCP",
+      "name": "dnsmasq"
     },
     {
-      "id": "ddclient",
+      "id": "hostwatch",
       "locked": 0,
       "running": 1,
-      "description": "ddclient",
-      "name": "ddclient"
+      "description": "Hostwatch",
+      "name": "hostwatch"
     },
     {
-      "id": "dnscrypt-proxy",
-      "locked": 0,
-      "running": 1,
-      "description": "DNSCrypt-Proxy",
-      "name": "dnscrypt-proxy"
-    },
-    {
-      "id": "dpinger/:watcher:",
+      "id": "login",
       "locked": 1,
       "running": 1,
-      "description": "Gateway monitor watcher",
-      "name": "dpinger"
+      "description": "Users and Groups",
+      "name": "login"
     },
     {
-      "id": "dpinger/WAN_PROXIMUS_DHCP6",
+      "id": "ntpd",
       "locked": 0,
       "running": 1,
-      "description": "Gateway monitor (WAN_PROXIMUS_DHCP6)",
-      "name": "dpinger"
+      "description": "Ntpd",
+      "name": "ntpd"
     },
     {
-      "id": "dpinger/WAN_PROXIMUS_PPPOE",
-      "locked": 0,
+      "id": "pf",
+      "locked": 1,
       "running": 1,
-      "description": "Gateway monitor (WAN_PROXIMUS_PPPOE)",
-      "name": "dpinger"
+      "description": "Packet Filter",
+      "name": "pf"
     },
     {
-      "id": "dpinger/WAN_TELENET_GWv6",
+      "id": "routing",
+      "locked": 1,
+      "running": 1,
+      "description": "System routing",
+      "name": "routing"
+    },
+    {
+      "id": "sysctl",
+      "locked": 1,
+      "running": 1,
+      "description": "System tunables",
+      "name": "sysctl"
+    },
+    {
+      "id": "syslog-ng",
       "locked": 0,
       "running": 1,
-      "description": "Gateway monitor (WAN_TELENET_GWv6)",
+      "description": "Syslog-ng",
+      "name": "syslog-ng"
+    },
+    {
+      "id": "unbound",
+      "locked": 0,
+      "running": 1,
+      "description": "Unbound",
 ```
 
-> Response size: 2906 bytes
+> Response size: 1655 bytes
 
 ---
 
@@ -791,8 +770,31 @@ total
 
 ```
 
-**Rows returned:** 0 (total: 0)
+**Rows returned:** 1 (total: 1)
 
+**Row keys:**
+```
+active
+created
+created_str
+mountpoint
+name
+size
+uuid
+```
+
+**First row sample:**
+```json
+{
+  "uuid": "e8873782-69d7-37cf-93f2-81fd850947cd",
+  "name": "default",
+  "active": "NR",
+  "mountpoint": "/",
+  "size": "1.07G",
+  "created_str": "2026-09-06 11:30",
+  "created": 1788694200
+}
+```
 
 ---
 
@@ -801,6 +803,12 @@ total
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/system/status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -825,7 +833,7 @@ metadata
 }
 ```
 
-> Response size: 176 bytes
+> Response size: 253 bytes
 
 ---
 
@@ -834,6 +842,12 @@ metadata
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/core/tunables/get_item`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `sysctl`
 
@@ -888,6 +902,12 @@ value
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/core/tunables/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -950,7 +970,7 @@ sysctl
       },
       "cd44e6bf780a7e206237d510b1a8cad0": {
         "tunable": "kern.randompid",
-        "value": "512",
+        "value": "232",
         "descr": "Random PID modulus. Special values: 0: disable, 1: choose random value",
         "default_value": "1",
         "type": "w"
@@ -979,7 +999,7 @@ sysctl
 (parse error)
 ```
 
-> Response size: 9871 bytes
+> Response size: 13763 bytes
 
 ---
 
@@ -989,6 +1009,12 @@ sysctl
 
 **Endpoint:** `GET /api/core/snapshots/is_supported`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 supported
@@ -997,11 +1023,11 @@ supported
 **Response sample:**
 ```json
 {
-  "supported": false
+  "supported": true
 }
 ```
 
-> Response size: 19 bytes
+> Response size: 24 bytes
 
 ---
 
@@ -1010,6 +1036,12 @@ supported
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/captiveportal/service/status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -1029,7 +1061,7 @@ widget
 }
 ```
 
-> Response size: 106 bytes
+> Response size: 137 bytes
 
 ---
 
@@ -1038,6 +1070,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/captiveportal/session/zones`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -1048,7 +1086,7 @@ widget
 []
 ```
 
-> Response size: 2 bytes
+> Response size: 3 bytes
 
 ---
 
@@ -1058,22 +1096,28 @@ widget
 
 **Endpoint:** `GET /api/captiveportal/settings/get_zone`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `zone`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
 | `zoneid` | `"0"` | `string-bool` |
-| `interfaces` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, *lan*, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interfaces` | enum | `enum`: *lan*, opt1 |
 | `disableRules` | `"0"` | `string-bool` |
-| `authservers` | enum | `enum`: Authentik LDAP, Local Database |
+| `authservers` | enum | `enum`: Local Database |
 | `roaming` | `"1"` | `string-bool` |
 | `alwaysSendAccountingReqs` | `"0"` | `string-bool` |
-| `authEnforceGroup` | enum | `enum`: **, 1999, 2000 |
+| `authEnforceGroup` | enum | `enum`: **, 1999 |
 | `idletimeout` | `"0"` | `string-bool` |
 | `hardtimeout` | `"0"` | `string-bool` |
 | `concurrentlogins` | `"1"` | `string-bool` |
-| `certificate` | enum | `enum`: **, 6a2dc151ced24, 6a0e4c5113246 |
+| `certificate` | enum | `enum`: **, 6a9d4cdae404a |
 | `servername` | `""` | `string` |
 | `allowedAddresses` | enum | `enum`: ** |
 | `allowedMACAddresses` | enum | `enum`: ** |
@@ -1104,6 +1148,12 @@ widget
 
 **Endpoint:** `GET /api/cron/settings/get_job`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `job`
 
 | Field | Default | Type (inferred) |
@@ -1116,7 +1166,7 @@ widget
 | `months` | `"*"` | `string` |
 | `weekdays` | `"*"` | `string` |
 | `who` | `"root"` | `string` |
-| `command` | enum | `enum`: firmware auto-update, dnscryptproxy dnsblcron, firmware changelog cron, firmware poll, ddclient force, system halt, system ha_reconfigure_backup, interface routes alarm, interface reconfigure, system reboot, ids reload, ipsec reload, dns reload, system remote backup, acmeclient cron-auto-renew, wireguard renew, captiveportal restart, cron restart, ddclient restart, dnsmasq restart, hostwatch restart, ids restart, ipsec restart, kea restart, monit restart, netflow restart, openssh restart, openvpn restart, radvd restart, syslog restart, unbound restart, webgui restart, wireguard restart, syslog archive, filter refresh_aliases, ids update, filter update bogons, filter update geoip, unbound dnsbl, zfs scrub, zfs trim |
+| `command` | enum | `enum`: firmware auto-update, firmware changelog cron, firmware poll, system halt, system ha_reconfigure_backup, interface routes alarm, interface reconfigure, system reboot, ids reload, ipsec reload, dns reload, system remote backup, wireguard renew, captiveportal restart, cron restart, dnsmasq restart, hostwatch restart, ids restart, ipsec restart, kea restart, monit restart, netflow restart, openssh restart, openvpn restart, radvd restart, syslog restart, unbound restart, webgui restart, wireguard restart, syslog archive, filter refresh_aliases, ids update, filter update bogons, filter update geoip, unbound dnsbl, zfs scrub, zfs trim |
 | `parameters` | `""` | `string` |
 | `description` | `""` | `string` |
 
@@ -1143,6 +1193,12 @@ widget
 
 **Endpoint:** `GET /api/cron/settings/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 job
@@ -1159,13 +1215,13 @@ job
 }
 ```
 
-> Response size: 27 bytes
+> Response size: 55 bytes
 
 ---
 
 ## 22. crowdsec-bouncers
 
-### search — HTTP 200
+### search — HTTP 404
 
 **Endpoint:** `POST /api/crowdsec/bouncers/search`
 
@@ -1175,39 +1231,13 @@ job
 
 ```
 
-**Rows returned:** 1 (total: 1)
-
-**Row keys:**
-```
-created
-ip_address
-last_seen
-name
-os
-type
-valid
-version
-```
-
-**First row sample:**
-```json
-{
-  "name": "cs-firewall-bouncer-1780446940",
-  "type": "crowdsec-firewall-bouncer",
-  "version": "v0.0.34_2-freebsd-41445554",
-  "created": "2026-06-03T00:35:41.097565443Z",
-  "valid": true,
-  "ip_address": "127.0.0.1",
-  "last_seen": "2026-08-20T23:07:01.738916436Z",
-  "os": "FreeBSD/14.3-RELEASE-p14"
-}
-```
+> **Probe failed:** HTTP 404
 
 ---
 
 ## 23. crowdsec-collections
 
-### search — HTTP 200
+### search — HTTP 404
 
 **Endpoint:** `POST /api/crowdsec/collections/search`
 
@@ -1217,33 +1247,13 @@ version
 
 ```
 
-**Rows returned:** 5 (total: 6)
-
-**Row keys:**
-```
-description
-local_path
-local_version
-name
-status
-```
-
-**First row sample:**
-```json
-{
-  "name": "crowdsecurity/freebsd",
-  "status": "enabled",
-  "local_version": "0.5",
-  "local_path": "collections/freebsd.yaml",
-  "description": "core freebsd support : syslog+geoip+ssh"
-}
-```
+> **Probe failed:** HTTP 404
 
 ---
 
 ## 24. crowdsec-decisions
 
-### search — HTTP 200
+### search — HTTP 404
 
 **Endpoint:** `POST /api/crowdsec/decisions/search`
 
@@ -1253,43 +1263,13 @@ status
 
 ```
 
-**Rows returned:** 1 (total: 1)
-
-**Row keys:**
-```
-action
-alert_id
-as
-country
-events_count
-expiration
-id
-reason
-scope_value
-source
-```
-
-**First row sample:**
-```json
-{
-  "id": 9191554,
-  "source": "crowdsec",
-  "scope_value": "Ip:82.147.85.62",
-  "reason": "firewallservices/pf-scan-multi_ports",
-  "action": "ban",
-  "country": "RU",
-  "as": "Nerushenko Vyacheslav Nikolaevich",
-  "events_count": 40,
-  "expiration": "2h39m33s",
-  "alert_id": 7649
-}
-```
+> **Probe failed:** HTTP 404
 
 ---
 
 ## 25. crowdsec-general
 
-### global — HTTP 200
+### global — HTTP 404
 
 **Endpoint:** `GET /api/crowdsec/general/get`
 
@@ -1299,37 +1279,13 @@ source
 
 ```
 
-**Top-level keys:**
-```
-general
-```
-
-**Response sample:**
-```json
-{
-  "general": {
-    "agent_enabled": "1",
-    "lapi_enabled": "1",
-    "firewall_bouncer_enabled": "1",
-    "lapi_manual_configuration": "0",
-    "lapi_listen_address": "127.0.0.1",
-    "lapi_listen_port": "8080",
-    "rules_enabled": "1",
-    "rules_log": "1",
-    "rules_tag": "",
-    "enroll_key": "<REDACTED:enroll_key>",
-    "crowdsec_firewall_verbose": "0"
-  }
-}
-```
-
-> Response size: 370 bytes
+> **Probe failed:** HTTP 404
 
 ---
 
 ## 26. crowdsec-machines
 
-### search — HTTP 200
+### search — HTTP 404
 
 **Endpoint:** `POST /api/crowdsec/machines/search`
 
@@ -1339,37 +1295,13 @@ general
 
 ```
 
-**Rows returned:** 1 (total: 1)
-
-**Row keys:**
-```
-created
-ip_address
-last_seen
-name
-os
-validated
-version
-```
-
-**First row sample:**
-```json
-{
-  "name": "localhost",
-  "ip_address": "127.0.0.1",
-  "version": "v1.7.8-6322745",
-  "validated": true,
-  "created": "2026-06-03T00:35:39.399253716Z",
-  "last_seen": "2026-08-20T23:06:35.35099753Z",
-  "os": "freebsd/14.3-release-p14"
-}
-```
+> **Probe failed:** HTTP 404
 
 ---
 
 ## 27. crowdsec-service
 
-### global — HTTP 200
+### global — HTTP 404
 
 **Endpoint:** `GET /api/crowdsec/service/status`
 
@@ -1379,25 +1311,7 @@ version
 
 ```
 
-**Top-level keys:**
-```
-status
-widget
-```
-
-**Response sample:**
-```json
-{
-  "status": "running",
-  "widget": {
-    "caption_restart": "Restart",
-    "caption_start": "Start",
-    "caption_stop": "Stop"
-  }
-}
-```
-
-> Response size: 106 bytes
+> **Probe failed:** HTTP 404
 
 ---
 
@@ -1406,6 +1320,12 @@ widget
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/dhcrelay/settings/get_dest`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `destination`
 
@@ -1437,12 +1357,18 @@ widget
 
 **Endpoint:** `GET /api/dhcrelay/settings/get_relay`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `relay`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"0"` | `string-bool` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: lan, opt1, wan |
 | `destination` | [] | `list` |
 | `agent_info` | `"0"` | `string-bool` |
 | `carp_depend_on` | enum | `enum`: ** |
@@ -1470,6 +1396,12 @@ widget
 
 **Endpoint:** `GET /api/dhcrelay/settings/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 dhcrelay
@@ -1485,7 +1417,7 @@ dhcrelay
 }
 ```
 
-> Response size: 44 bytes
+> Response size: 65 bytes
 
 ---
 
@@ -1495,6 +1427,12 @@ dhcrelay
 
 **Endpoint:** `GET /api/diagnostics/interface/get_arp`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 0
@@ -1502,34 +1440,14 @@ dhcrelay
 2
 3
 4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
 ```
 
 **Response sample:**
 ```json
 [
   {
-    "mac": "bc:24:11:0a:0e:9c",
-    "ip": "10.1.1.1",
+    "mac": "bc:24:11:ed:1e:7f",
+    "ip": "192.168.1.1",
     "intf": "vtnet0",
     "expired": false,
     "expires": -1,
@@ -1537,23 +1455,11 @@ dhcrelay
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "LAN_TRUNK"
+    "intf_description": "OPT1"
   },
   {
-    "mac": "18:1d:ea:af:d4:3a",
-    "ip": "10.6.239.103",
-    "intf": "vtnet1",
-    "expired": false,
-    "expires": 1162,
-    "permanent": false,
-    "type": "ethernet",
-    "manufacturer": "Intel Corporate",
-    "hostname": "",
-    "intf_description": "OOB"
-  },
-  {
-    "mac": "bc:24:11:b2:25:bf",
-    "ip": "10.6.239.196",
+    "mac": "bc:24:11:3d:58:c2",
+    "ip": "10.6.239.129",
     "intf": "vtnet1",
     "expired": false,
     "expires": -1,
@@ -1561,55 +1467,48 @@ dhcrelay
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "OOB"
+    "intf_description": "LAN"
   },
   {
     "mac": "bc:24:11:4f:61:a7",
     "ip": "10.6.224.1",
     "intf": "vtnet1",
     "expired": false,
-    "expires": 854,
+    "expires": 872,
     "permanent": false,
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "OOB"
+    "intf_description": "LAN"
   },
   {
     "mac": "d0:7e:28:1a:d8:01",
     "ip": "10.6.224.24",
     "intf": "vtnet1",
     "expired": false,
-    "expires": 805,
+    "expires": 272,
     "permanent": false,
     "type": "ethernet",
     "manufacturer": "Hewlett Packard",
     "hostname": "",
-    "intf_description": "OOB"
+    "intf_description": "LAN"
   },
   {
     "mac": "bc:24:11:cc:3e:51",
     "ip": "10.6.239.120",
     "intf": "vtnet1",
     "expired": false,
-    "expires": 1083,
+    "expires": 379,
     "permanent": false,
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "OOB"
-  },
-  {
-    "mac": "bc:24:11:de:51:29",
-    "ip": "213.214.47.222",
-    "intf": "vtnet3",
-    "expired": false,
-    "expires": -1,
-    "permanent": true,
-(parse error)
+    "intf_description": "LAN"
+  }
+]
 ```
 
-> Response size: 5302 bytes
+> Response size: 1392 bytes
 
 ---
 
@@ -1618,6 +1517,12 @@ dhcrelay
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/system/system_disk`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -1629,19 +1534,86 @@ devices
 {
   "devices": [
     {
-      "device": "/dev/ufs/OPNsense_Nano",
-      "type": "ufs",
-      "blocks": "19G",
-      "used": "5.1G",
-      "available": "12G",
-      "used_pct": 29,
+      "device": "zroot/ROOT/default",
+      "type": "zfs",
+      "blocks": "21G",
+      "used": "1.1G",
+      "available": "20G",
+      "used_pct": 5,
       "mountpoint": "/"
-    }
-  ]
-}
+    },
+    {
+      "device": "/dev/gpt/efiboot0",
+      "type": "msdosfs",
+      "blocks": "256M",
+      "used": "512B",
+      "available": "256M",
+      "used_pct": 0,
+      "mountpoint": "/boot/efi"
+    },
+    {
+      "device": "zroot/home",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/home"
+    },
+    {
+      "device": "zroot/usr/src",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/usr/src"
+    },
+    {
+      "device": "zroot",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/zroot"
+    },
+    {
+      "device": "zroot/tmp",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "252K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/tmp"
+    },
+    {
+      "device": "zroot/var/log",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "224K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/var/log"
+    },
+    {
+      "device": "zroot/var/tmp",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/var/tmp"
+    },
+    {
+      "device": "zroot/usr/ports",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
 ```
 
-> Response size: 145 bytes
+> Response size: 2293 bytes
 
 ---
 
@@ -1650,6 +1622,12 @@ devices
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/firewall/list_rule_ids`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -1661,87 +1639,86 @@ items
 {
   "items": [
     {
-      "id": "6c8343c0-ddae-422a-9d7c-d980dbd016d1",
-      "descr": "BLOCK CCTV→any default"
+      "id": "b7cd97a164650b538506fb551a0369e7",
+      "descr": "Block bogon IPv4 networks from WAN"
     },
     {
-      "id": "e7651f29-d417-43bb-a6cc-d998bd68b65f",
-      "descr": "BLOCK CCTV→any default (v6)"
+      "id": "f140a48ddade668b9d6f5259669a1d5c",
+      "descr": "Block bogon IPv6 networks from WAN"
     },
     {
-      "id": "02c1dbb1-5821-4570-8e62-11e9b5a3ecf4",
-      "descr": "BLOCK DMZ→internal default"
+      "id": "3d399f8f89b68d684701badb48eab085",
+      "descr": "Block private networks from WAN"
     },
     {
-      "id": "53e2fa79-d032-491b-a4de-bcf24e41d834",
-      "descr": "BLOCK DMZ→internal default (v6)"
+      "id": "6b231f0e90865b14cd918a141750d96a",
+      "descr": "Block private networks from WAN"
     },
     {
-      "id": "b86aa6fb-0239-4cd0-858b-b02d0e2f7143",
-      "descr": "BLOCK GAMING→internal default"
+      "id": "41545e8f-6d72-4abe-b3dd-d480dad1b592",
+      "descr": "Default allow LAN IPv6 to any rule"
     },
     {
-      "id": "a8d5ed9c-227f-40df-a8fe-2f09c41fc72b",
-      "descr": "BLOCK GAMING→internal default (v6)"
+      "id": "4104ef71-35de-47cd-a328-b712689f3e5a",
+      "descr": "Default allow LAN to any rule"
     },
     {
-      "id": "7f95adbe-893c-4fbf-9698-0366fe6ff58f",
-      "descr": "BLOCK IoT→internal default"
+      "id": "02f4bab031b57d1e30553ce08e0ec131",
+      "descr": "Default deny / state violation rule"
     },
     {
-      "id": "3c2db39f-d1c9-45c3-a9aa-9d3f972c3a69",
-      "descr": "BLOCK IoT→internal default (v6)"
+      "id": "7355b5da99f40893221b6c4140de1006",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
     },
     {
-      "id": "dc3c99b4-1972-40e7-92b6-b0cbaf9bedae",
-      "descr": "BLOCK MGMT→internal default"
+      "id": "80f90f0d4c5aba0c28d1c539e1e35766",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
     },
     {
-      "id": "9c56775b-1b47-4018-afd4-169b953af5ba",
-      "descr": "BLOCK MGMT→internal default (v6)"
+      "id": "8fa5de02f1ff8cdd29bedb63b24cc7e0",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
     },
     {
-      "id": "ad1f58f2-d79f-4601-885d-87319b348d13",
-      "descr": "BLOCK Media→internal default"
+      "id": "e29b1b607bd6cd916cf6b598c41805d3",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
     },
     {
-      "id": "c2cbe75e-7291-4803-b028-934cad78e498",
-      "descr": "BLOCK Media→internal default (v6)"
+      "id": "b242f2d3f6b4756fa468cfd0daa78cd4",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
     },
     {
-      "id": "f58085b8-5873-4ba9-b31c-652d7d10591f",
-      "descr": "BLOCK SVC→internal default"
+      "id": "f994f615e00b8be0042263f86c79913f",
+      "descr": "allow DHCP client on WAN"
     },
     {
-      "id": "9d2f3499-4c81-4803-9b67-21c949937177",
-      "descr": "BLOCK SVC→internal default (v6)"
+      "id": "5cf7ab808da1fcbca1ddb9ba9b46b669",
+      "descr": "allow DHCP client on WAN"
     },
     {
-      "id": "da009c0f-50eb-4d80-a96e-e5b01fbed64e",
-      "descr": "BLOCK Storage→any default"
+      "id": "c6e8fd0e915a27c129dc70c00a278a98",
+      "descr": "allow dhcpv6 client in WAN"
     },
     {
-      "id": "f029942d-7b96-4f9b-a15c-364bda02d376",
-      "descr": "BLOCK Storage→any default (v6)"
+      "id": "2f2c37025cd02b5cd29fd330f8e48954",
+      "descr": "allow dhcpv6 client out WAN"
     },
     {
-      "id": "4f5a4f24-0640-43c7-b854-7f6c324fee0c",
-      "descr": "BLOCK VPN→internal default"
+      "id": "01e83daa25c4483dee217a7ecd7c9a88",
+      "descr": "anti-lockout rule"
     },
     {
-      "id": "0ab2b6c2-50b1-48b4-8b58-5cfe177c374d",
-      "descr": "BLOCK VPN→internal default (v6)"
+      "id": "3345e04986bd5750d23b77cbbb21271f",
+      "descr": "anti-lockout rule"
     },
     {
-      "id": "bafa8216-b192-444a-9cfe-94864e3d8b93",
-      "descr": "BLOCK VoIP→internal default"
+      "id": "b477ac1c8f5237a59ee416b9d819ce58",
+      "descr": "block all targeting port 0"
     },
     {
-      "id": "e6207ba8-529f-4ff1-961c-1abeb68851c2",
-(parse error)
+      "id": "b454844853f2346167ad77449b79ad8e",
 ```
 
-> Response size: 14279 bytes
+> Response size: 2717 bytes
 
 ---
 
@@ -1751,72 +1728,38 @@ items
 
 **Endpoint:** `GET /api/diagnostics/firewall/stats`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 0
 1
 2
-3
-4
-5
-6
-7
-8
-9
-10
 ```
 
 **Response sample:**
 ```json
 [
   {
-    "label": "WAN_TELENET",
-    "value": 2052
+    "label": "lan",
+    "value": 378
   },
   {
-    "label": "WAN_PROXIMUS",
-    "value": 1448
+    "label": "wan",
+    "value": 9
   },
   {
-    "label": "DMZ",
-    "value": 791
-  },
-  {
-    "label": "OOB",
-    "value": 524
-  },
-  {
-    "label": "SVC",
-    "value": 139
-  },
-  {
-    "label": "Media",
-    "value": 8
-  },
-  {
-    "label": "GAMING",
-    "value": 8
-  },
-  {
-    "label": "Storage",
-    "value": 7
-  },
-  {
-    "label": "CCTV",
-    "value": 7
-  },
-  {
-    "label": "VoIP",
+    "label": "opt1",
     "value": 6
-  },
-  {
-    "label": "other",
-    "value": 10
   }
 ]
 ```
 
-> Response size: 331 bytes
+> Response size: 138 bytes
 
 ---
 
@@ -1826,23 +1769,18 @@ items
 
 **Endpoint:** `GET /api/diagnostics/interface/get_interface_config`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 enc0
 lo0
 pflog0
 pfsync0
-pppoe0
-vlan1010
-vlan1020
-vlan1030
-vlan1040
-vlan1100
-vlan1110
-vlan1200
-vlan1300
-vlan1320
-vlan1400
 vtnet0
 vtnet1
 vtnet2
@@ -1873,10 +1811,10 @@ vtnet3
       "linkstate",
       "hwstats"
     ],
-    "macaddr": "bc:24:11:0a:0e:9c",
+    "macaddr": "bc:24:11:ed:1e:7f",
     "ipv4": [
       {
-        "ipaddr": "10.1.1.1",
+        "ipaddr": "192.168.1.1",
         "subnetbits": 24,
         "tunnel": false
       }
@@ -1886,19 +1824,7 @@ vtnet3
         "autoconf": false,
         "deprecated": false,
         "detached": false,
-        "ipaddr": "fd01:1::1",
-        "link-local": false,
-        "pltime": "0",
-        "tentative": false,
-        "tunnel": false,
-        "vltime": "0",
-        "subnetbits": 64
-      },
-      {
-        "autoconf": false,
-        "deprecated": false,
-        "detached": false,
-        "ipaddr": "fe80::be24:11ff:fe0a:e9c",
+        "ipaddr": "fe80::be24:11ff:feed:1e7f",
         "link-local": true,
         "pltime": "0",
         "tentative": false,
@@ -1913,15 +1839,14 @@ vtnet3
     "is_physical": true,
     "device": "vtnet0",
     "mtu": "1500",
-    "macaddr_hw": "bc:24:11:0a:0e:9c",
+    "macaddr_hw": "bc:24:11:ed:1e:7f",
     "media": "10Gbase-T <full-duplex>",
     "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
     "status": "active",
     "nd6": {
       "flags": [
         "performnud",
-        "auto_linklocal",
-        "no_dad"
+        "auto_linklocal"
       ]
     }
   },
@@ -1931,10 +1856,23 @@ vtnet3
       "broadcast",
       "running",
       "simplex",
+      "multicast",
+      "lower_up"
+    ],
+    "capabilities": [
+      "vlan_mtu",
+      "vlan_hwfilter",
+      "linkstate",
+      "netmap",
+      "hwstats"
+    ],
+    "options": [
+      "vlan_mtu",
+      "linkstate",
 (parse error)
 ```
 
-> Response size: 14992 bytes
+> Response size: 6617 bytes
 
 ---
 
@@ -1944,47 +1882,31 @@ vtnet3
 
 **Endpoint:** `GET /api/diagnostics/interface/get_interface_names`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 lo0
-pppoe0
-vlan1010
-vlan1020
-vlan1030
-vlan1040
-vlan1100
-vlan1110
-vlan1200
-vlan1300
-vlan1320
-vlan1400
 vtnet0
 vtnet1
-vtnet3
+vtnet2
 ```
 
 **Response sample:**
 ```json
 {
-  "vlan1400": "CCTV",
-  "vlan1020": "DMZ",
-  "vlan1320": "GAMING",
-  "vlan1100": "IoT",
-  "vtnet0": "LAN_TRUNK",
+  "vtnet1": "LAN",
   "lo0": "Loopback",
-  "vlan1300": "Media",
-  "vlan1010": "MGMT",
-  "vtnet1": "OOB",
-  "vlan1200": "Storage",
-  "vlan1030": "SVC",
-  "vlan1110": "VoIP",
-  "vlan1040": "VPN",
-  "pppoe0": "WAN_PROXIMUS",
-  "vtnet3": "WAN_TELENET"
+  "vtnet0": "OPT1",
+  "vtnet2": "WAN"
 }
 ```
 
-> Response size: 283 bytes
+> Response size: 82 bytes
 
 ---
 
@@ -1993,6 +1915,12 @@ vtnet3
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/interface/get_interface_statistics`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2003,88 +1931,88 @@ statistics
 ```json
 {
   "statistics": {
-    "[LAN_TRUNK] (vtnet0) / bc:24:11:0a:0e:9c": {
+    "[OPT1] (vtnet0) / bc:24:11:ed:1e:7f": {
       "name": "vtnet0",
       "flags": "0x8843",
       "mtu": 1500,
       "network": "<Link#1>",
-      "address": "bc:24:11:0a:0e:9c",
-      "received-packets": 4208468,
+      "address": "bc:24:11:ed:1e:7f",
+      "received-packets": 852,
       "received-errors": 0,
       "dropped-packets": 0,
-      "received-bytes": 1308623381,
-      "sent-packets": 8833327,
+      "received-bytes": 94588,
+      "sent-packets": 7,
       "send-errors": 0,
-      "sent-bytes": 9799649411,
+      "sent-bytes": 738,
       "collisions": 0
     },
-    "[LAN_TRUNK] (vtnet0) / 10.1.1.1": {
+    "[OPT1] (vtnet0) / 192.168.1.1": {
       "name": "vtnet0",
       "flags": "0x8843",
-      "network": "10.1.1.0/24",
-      "address": "10.1.1.1",
+      "network": "192.168.1.0/24",
+      "address": "192.168.1.1",
       "received-packets": 0,
       "received-bytes": 0,
       "sent-packets": 0,
       "sent-bytes": 0
     },
-    "[LAN_TRUNK] (vtnet0) / fd01:1::1": {
-      "name": "vtnet0",
-      "flags": "0x8843",
-      "network": "fd01:1::/64",
-      "address": "fd01:1::1",
-      "received-packets": 0,
-      "received-bytes": 0,
-      "sent-packets": 0,
-      "sent-bytes": 0
-    },
-    "[LAN_TRUNK] (vtnet0) / fe80::be24:11ff:fe0a:e9c%vtnet0": {
+    "[OPT1] (vtnet0) / fe80::be24:11ff:feed:1e7f%vtnet0": {
       "name": "vtnet0",
       "flags": "0x8843",
       "network": "fe80::%vtnet0/64",
-      "address": "fe80::be24:11ff:fe0a:e9c%vtnet0",
+      "address": "fe80::be24:11ff:feed:1e7f%vtnet0",
       "received-packets": 0,
       "received-bytes": 0,
-      "sent-packets": 3,
-      "sent-bytes": 328
+      "sent-packets": 5,
+      "sent-bytes": 540
     },
-    "[OOB] (vtnet1) / bc:24:11:b2:25:bf": {
+    "[LAN] (vtnet1) / bc:24:11:3d:58:c2": {
       "name": "vtnet1",
       "flags": "0x8843",
       "mtu": 1500,
       "network": "<Link#2>",
-      "address": "bc:24:11:b2:25:bf",
-      "received-packets": 1266027,
+      "address": "bc:24:11:3d:58:c2",
+      "received-packets": 18066,
       "received-errors": 0,
       "dropped-packets": 0,
-      "received-bytes": 665609093,
-      "sent-packets": 725047,
+      "received-bytes": 2574863,
+      "sent-packets": 6984,
       "send-errors": 0,
-      "sent-bytes": 153063296,
+      "sent-bytes": 2724337,
       "collisions": 0
     },
-    "[OOB] (vtnet1) / 10.6.239.196": {
+    "[LAN] (vtnet1) / fe80::be24:11ff:fe3d:58c2%vtnet1": {
+      "name": "vtnet1",
+      "flags": "0x8843",
+      "network": "fe80::%vtnet1/64",
+      "address": "fe80::be24:11ff:fe3d:58c2%vtnet1",
+      "received-packets": 3,
+      "received-bytes": 216,
+      "sent-packets": 34,
+      "sent-bytes": 2996
+    },
+    "[LAN] (vtnet1) / 10.6.239.129": {
       "name": "vtnet1",
       "flags": "0x8843",
       "network": "10.6.224.0/20",
-      "address": "10.6.239.196",
-      "received-packets": 570735,
-      "received-bytes": 570599763,
-      "sent-packets": 708625,
-      "sent-bytes": 128639759
+      "address": "10.6.239.129",
+      "received-packets": 5204,
+      "received-bytes": 984473,
+      "sent-packets": 6701,
+      "sent-bytes": 2607253
     },
-    "[OOB] (vtnet1) / fd06:224::1": {
-      "name": "vtnet1",
+    "[WAN] (vtnet2) / bc:24:11:da:6b:34": {
+      "name": "vtnet2",
       "flags": "0x8843",
-      "network": "fd06:224::/64",
-      "address": "fd06:224::1",
+      "mtu": 1500,
+      "network": "<Link#3>",
+      "address": "bc:24:11:da:6b:34",
       "received-packets": 0,
-      "received-bytes": 0,
-      "sent-packets": 0,
+      "received-errors": 0,
 (parse error)
 ```
 
-> Response size: 14869 bytes
+> Response size: 5349 bytes
 
 ---
 
@@ -2093,6 +2021,12 @@ statistics
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/system/memory`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2111,7 +2045,7 @@ vmstat
           "type": "CAM periph",
           "in-use": 2,
           "memory-use": 384,
-          "requests": 20,
+          "requests": 18,
           "size": [
             16,
             32,
@@ -2122,38 +2056,39 @@ vmstat
         },
         {
           "type": "CAM queue",
-          "in-use": 14,
-          "memory-use": 7280,
-          "requests": 53,
+          "in-use": 6,
+          "memory-use": 3120,
+          "requests": 39,
           "size": [
             16,
             32,
+            64,
             1024
           ]
         },
         {
           "type": "CAM dev queue",
-          "in-use": 7,
-          "memory-use": 448,
-          "requests": 7,
+          "in-use": 3,
+          "memory-use": 192,
+          "requests": 3,
           "size": [
             64
           ]
         },
         {
           "type": "CAM SIM",
-          "in-use": 7,
-          "memory-use": 896,
-          "requests": 7,
+          "in-use": 3,
+          "memory-use": 384,
+          "requests": 3,
           "size": [
             128
           ]
         },
         {
           "type": "CAM XPT",
-          "in-use": 23,
-          "memory-use": 2080,
-          "requests": 48,
+          "in-use": 15,
+          "memory-use": 1056,
+          "requests": 28,
           "size": [
             32,
             128,
@@ -2163,9 +2098,9 @@ vmstat
         },
         {
           "type": "CAM DEV",
-          "in-use": 7,
-          "memory-use": 14336,
-          "requests": 20,
+          "in-use": 3,
+          "memory-use": 6144,
+          "requests": 14,
           "size": [
             2048
           ]
@@ -2174,18 +2109,17 @@ vmstat
           "type": "CAM CCB",
           "in-use": 0,
           "memory-use": 0,
-          "requests": 48,
+          "requests": 26,
           "size": [
             2048
           ]
         },
         {
           "type": "CAM path",
-          "in-use": 7,
 (parse error)
 ```
 
-> Response size: 39049 bytes
+> Response size: 91141 bytes
 
 ---
 
@@ -2195,6 +2129,12 @@ vmstat
 
 **Endpoint:** `GET /api/diagnostics/interface/get_ndp`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 0
@@ -2202,119 +2142,50 @@ vmstat
 2
 3
 4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
 ```
 
 **Response sample:**
 ```json
 [
   {
-    "mac": "bc:24:11:0a:0e:9c",
-    "ip": "fd01:1::1",
+    "mac": "bc:24:11:ed:1e:7f",
+    "ip": "fe80::be24:11ff:feed:1e7f%vtnet0",
     "intf": "vtnet0",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "LAN_TRUNK"
+    "intf_description": "OPT1"
   },
   {
-    "mac": "bc:24:11:0a:0e:9c",
-    "ip": "fe80::be24:11ff:fe0a:e9c%vtnet0",
-    "intf": "vtnet0",
-    "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "LAN_TRUNK"
+    "mac": "9c:b6:54:b2:0f:32",
+    "ip": "fe80::9eb6:54ff:feb2:f32%vtnet1",
+    "intf": "vtnet1",
+    "manufacturer": "Hewlett Packard",
+    "intf_description": "LAN"
   },
   {
-    "mac": "bc:24:11:b2:25:bf",
-    "ip": "fd06:224::1",
+    "mac": "bc:24:11:3d:58:c2",
+    "ip": "fe80::be24:11ff:fe3d:58c2%vtnet1",
     "intf": "vtnet1",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "OOB"
+    "intf_description": "LAN"
   },
   {
-    "mac": "bc:24:11:b2:25:bf",
-    "ip": "fe80::be24:11ff:feb2:25bf%vtnet1",
+    "mac": "bc:24:11:cc:3e:51",
+    "ip": "fe80::be24:11ff:fecc:3e51%vtnet1",
     "intf": "vtnet1",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "OOB"
+    "intf_description": "LAN"
   },
   {
-    "mac": "4c:ae:a3:db:bd:65",
-    "ip": "2a02:1802:21::1",
-    "intf": "vtnet3",
-    "manufacturer": "Hewlett Packard Enterprise ",
-    "intf_description": "WAN_TELENET"
-  },
-  {
-    "mac": "bc:24:11:de:51:29",
-    "ip": "2a02:1802:21::5",
-    "intf": "vtnet3",
+    "mac": "bc:24:11:da:6b:34",
+    "ip": "fe80::be24:11ff:feda:6b34%vtnet2",
+    "intf": "vtnet2",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "WAN_TELENET"
-  },
-  {
-    "mac": "40:a8:f0:28:b4:15",
-    "ip": "fe80::42a8:f0ff:fe28:b415%vtnet3",
-    "intf": "vtnet3",
-    "manufacturer": "Hewlett Packard",
-    "intf_description": "WAN_TELENET"
-  },
-  {
-    "mac": "40:a8:f0:28:b4:15",
-    "ip": "2a02:1802:21:0:42a8:f0ff:fe28:b415",
-    "intf": "vtnet3",
-    "manufacturer": "Hewlett Packard",
-    "intf_description": "WAN_TELENET"
-  },
-  {
-    "mac": "bc:24:11:de:51:29",
-    "ip": "fe80::be24:11ff:fede:5129%vtnet3",
-    "intf": "vtnet3",
-    "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "WAN_TELENET"
-  },
-  {
-    "mac": "4c:ae:a3:db:bd:65",
-    "ip": "fe80::4eae:a3ff:fedb:bd65%vtnet3",
-    "intf": "vtnet3",
-    "manufacturer": "Hewlett Packard Enterprise ",
-    "intf_description": "WAN_TELENET"
-  },
-  {
-    "mac": "bc:24:11:0a:0e:9c",
-    "ip": "fd01:2::1",
-    "intf": "vlan1020",
-    "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "DMZ"
-  },
-  {
-    "mac": "bc:24:11:0a:0e:9c",
-(parse error)
+    "intf_description": "WAN"
+  }
+]
 ```
 
-> Response size: 5825 bytes
+> Response size: 949 bytes
 
 ---
 
@@ -2323,6 +2194,12 @@ vmstat
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/netflow/is_enabled`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2333,12 +2210,12 @@ netflow
 **Response sample:**
 ```json
 {
-  "netflow": 1,
-  "local": 1
+  "netflow": 0,
+  "local": 0
 }
 ```
 
-> Response size: 23 bytes
+> Response size: 33 bytes
 
 ---
 
@@ -2348,21 +2225,25 @@ netflow
 
 **Endpoint:** `GET /api/diagnostics/netflow/status`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
-collectors
 status
 ```
 
 **Response sample:**
 ```json
 {
-  "status": "active",
-  "collectors": "28"
+  "status": "inactive"
 }
 ```
 
-> Response size: 38 bytes
+> Response size: 27 bytes
 
 ---
 
@@ -2371,6 +2252,12 @@ status
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/interface/get_protocol_statistics`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2382,87 +2269,87 @@ statistics
 {
   "statistics": {
     "tcp": {
-      "sent-packets": 2604859,
-      "sent-data-packets": 1164561,
-      "sent-data-bytes": 788010981,
-      "sent-retransmitted-packets": 98,
-      "sent-retransmitted-bytes": 34011,
+      "sent-packets": 6043,
+      "sent-data-packets": 3451,
+      "sent-data-bytes": 2352751,
+      "sent-retransmitted-packets": 25,
+      "sent-retransmitted-bytes": 600,
       "sent-unnecessary-retransmitted-packets": 0,
       "sent-resends-by-mtu-discovery": 0,
-      "sent-ack-only-packets": 1268679,
+      "sent-ack-only-packets": 2503,
       "sent-packets-delayed": 0,
       "sent-urg-only-packets": 0,
       "sent-window-probe-packets": 0,
-      "sent-window-update-packets": 476,
-      "sent-control-packets": 171045,
-      "received-packets": 1931649,
-      "received-ack-packets": 766781,
-      "received-ack-bytes": 787629600,
-      "received-duplicate-acks": 62679,
+      "sent-window-update-packets": 1,
+      "sent-control-packets": 63,
+      "received-packets": 4297,
+      "received-ack-packets": 1712,
+      "received-ack-bytes": 2312048,
+      "received-duplicate-acks": 0,
       "received-udp-tunneled-pkts": 0,
       "received-bad-udp-tunneled-pkts": 0,
       "received-acks-for-data-not-yet-sent": 0,
       "received-acks-for-data-never-been-sent": 0,
       "received-acks-for-data-being-too-old": 0,
-      "received-in-sequence-packets": 1114868,
-      "received-in-sequence-bytes": 795684887,
-      "received-completely-duplicate-packets": 24100,
-      "received-completely-duplicate-bytes": 6337,
-      "received-old-duplicate-packets": 42,
+      "received-in-sequence-packets": 2221,
+      "received-in-sequence-bytes": 779407,
+      "received-completely-duplicate-packets": 1,
+      "received-completely-duplicate-bytes": 260,
+      "received-old-duplicate-packets": 0,
       "received-some-duplicate-packets": 0,
       "received-some-duplicate-bytes": 0,
-      "received-out-of-order": 2,
-      "received-out-of-order-bytes": 579,
+      "received-out-of-order": 0,
+      "received-out-of-order-bytes": 0,
       "received-after-window-packets": 0,
       "received-after-window-bytes": 0,
       "received-window-probes": 0,
-      "receive-window-update-packets": 663,
-      "received-with-dsack-packets": 1,
-      "received-with-dsack-bytes": 266,
+      "receive-window-update-packets": 3,
+      "received-with-dsack-packets": 0,
+      "received-with-dsack-bytes": 0,
       "received-with-dsack-bytes-tlp": 0,
-      "received-after-close-packets": 41729,
+      "received-after-close-packets": 10,
       "discard-bad-checksum": 0,
       "discard-bad-header-offset": 0,
       "discard-too-short": 0,
       "discard-reassembly-queue-full": 0,
-      "connection-requests": 57588,
-      "connections-accepts": 35860,
-      "bad-connection-attempts": 3,
+      "connection-requests": 19,
+      "connections-accepts": 262,
+      "bad-connection-attempts": 0,
       "listen-queue-overflows": 0,
-      "ignored-in-window-resets": 7184,
-      "connections-established": 93206,
-      "connections-hostcache-rtt": 92155,
-      "connections-hostcache-rttvar": 92155,
-      "connections-hostcache-ssthresh": 3360,
-      "connections-closed": 116048,
-      "connection-drops": 36327,
-      "connections-updated-rtt-on-close": 61927,
-      "connections-updated-variance-on-close": 61927,
-      "connections-updated-ssthresh-on-close": 2564,
-      "embryonic-connections-dropped": 216,
-      "segments-updated-rtt": 766781,
-      "segment-update-attempts": 696718,
-      "retransmit-timeouts": 180,
+      "ignored-in-window-resets": 6,
+      "connections-established": 281,
+      "connections-hostcache-rtt": 266,
+      "connections-hostcache-rttvar": 266,
+      "connections-hostcache-ssthresh": 204,
+      "connections-closed": 768,
+      "connection-drops": 250,
+      "connections-updated-rtt-on-close": 239,
+      "connections-updated-variance-on-close": 239,
+      "connections-updated-ssthresh-on-close": 201,
+      "embryonic-connections-dropped": 0,
+      "segments-updated-rtt": 1712,
+      "segment-update-attempts": 1511,
+      "retransmit-timeouts": 25,
       "connections-dropped-by-retransmit-timeout": 0,
       "persist-timeout": 0,
       "connections-dropped-by-persist-timeout": 0,
       "connections-dropped-by-finwait2-timeout": 0,
-      "keepalive-timeout": 57467,
-      "keepalive-probes": 36464,
+      "keepalive-timeout": 0,
+      "keepalive-probes": 0,
       "connections-dropped-by-keepalives": 0,
       "connections-dropped-due-to-progress-time": 0,
-      "ack-header-predictions": 230609,
-      "data-packet-header-predictions": 845630,
+      "ack-header-predictions": 426,
+      "data-packet-header-predictions": 1725,
       "syncache": {
-        "entries-added": 35860,
+        "entries-added": 262,
         "retransmitted": 0,
         "duplicates": 0,
         "dropped": 0,
-        "completed": 35860,
+        "completed": 262,
 (parse error)
 ```
 
-> Response size: 11589 bytes
+> Response size: 15981 bytes
 
 ---
 
@@ -2471,6 +2358,12 @@ statistics
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/system/system_resources`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2481,15 +2374,18 @@ memory
 ```json
 {
   "memory": {
-    "total": "3180789760",
-    "total_frmt": "3033",
-    "used": 1427434893,
-    "used_frmt": "1361"
+    "total": "4241977344",
+    "total_frmt": "4045",
+    "used": 519452955,
+    "used_frmt": "495",
+    "arc": "207293392",
+    "arc_frmt": "197",
+    "arc_txt": "ARC size 197 MB"
   }
 }
 ```
 
-> Response size: 91 bytes
+> Response size: 202 bytes
 
 ---
 
@@ -2498,6 +2394,12 @@ memory
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/interface/get_routes`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2516,21 +2418,6 @@ memory
 12
 13
 14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
 ```
 
 **Response sample:**
@@ -2539,86 +2426,85 @@ memory
   {
     "proto": "ipv4",
     "destination": "default",
-    "gateway": "10.24.1.5",
+    "gateway": "10.6.224.1",
     "flags": "UGS",
-    "nhop#": "28",
-    "mtu": "1492",
-    "netif": "pppoe0",
+    "nhop#": "5",
+    "mtu": "1500",
+    "netif": "vtnet1",
     "expire": "",
-    "intf_description": "WAN_PROXIMUS",
-    "id": "default,10.24.1.5"
+    "intf_description": "LAN",
+    "id": "default,10.6.224.1"
   },
   {
     "proto": "ipv4",
-    "destination": "9.9.9.9",
-    "gateway": "10.24.1.5",
-    "flags": "UGHS",
-    "nhop#": "29",
-    "mtu": "1492",
-    "netif": "pppoe0",
+    "destination": "10.6.224.0/20",
+    "gateway": "link#2",
+    "flags": "U",
+    "nhop#": "2",
+    "mtu": "1500",
+    "netif": "vtnet1",
     "expire": "",
-    "intf_description": "WAN_PROXIMUS",
-    "id": "9.9.9.9,10.24.1.5"
+    "intf_description": "LAN",
+    "id": "10.6.224.0/20,link#2"
   },
   {
     "proto": "ipv4",
-    "destination": "10.1.1.0/24",
+    "destination": "10.6.239.129",
+    "gateway": "link#5",
+    "flags": "UHS",
+    "nhop#": "4",
+    "mtu": "16384",
+    "netif": "lo0",
+    "expire": "",
+    "intf_description": "Loopback",
+    "id": "10.6.239.129,link#5"
+  },
+  {
+    "proto": "ipv4",
+    "destination": "127.0.0.1",
+    "gateway": "link#5",
+    "flags": "UH",
+    "nhop#": "7",
+    "mtu": "16384",
+    "netif": "lo0",
+    "expire": "",
+    "intf_description": "Loopback",
+    "id": "127.0.0.1,link#5"
+  },
+  {
+    "proto": "ipv4",
+    "destination": "192.168.1.0/24",
     "gateway": "link#1",
     "flags": "U",
-    "nhop#": "10",
+    "nhop#": "1",
     "mtu": "1500",
     "netif": "vtnet0",
     "expire": "",
-    "intf_description": "LAN_TRUNK",
-    "id": "10.1.1.0/24,link#1"
+    "intf_description": "OPT1",
+    "id": "192.168.1.0/24,link#1"
   },
   {
     "proto": "ipv4",
-    "destination": "10.1.1.1",
+    "destination": "192.168.1.1",
     "gateway": "link#5",
     "flags": "UHS",
-    "nhop#": "11",
+    "nhop#": "3",
     "mtu": "16384",
     "netif": "lo0",
     "expire": "",
     "intf_description": "Loopback",
-    "id": "10.1.1.1,link#5"
+    "id": "192.168.1.1,link#5"
   },
   {
-    "proto": "ipv4",
-    "destination": "10.1.2.0/24",
-    "gateway": "link#10",
-    "flags": "U",
-    "nhop#": "4",
-    "mtu": "1500",
-    "netif": "vlan1020",
-    "expire": "",
-    "intf_description": "DMZ",
-    "id": "10.1.2.0/24,link#10"
-  },
-  {
-    "proto": "ipv4",
-    "destination": "10.1.2.1",
+    "proto": "ipv6",
+    "destination": "::1",
     "gateway": "link#5",
     "flags": "UHS",
-    "nhop#": "5",
+    "nhop#": "1",
     "mtu": "16384",
-    "netif": "lo0",
-    "expire": "",
-    "intf_description": "Loopback",
-    "id": "10.1.2.1,link#5"
-  },
-  {
-    "proto": "ipv4",
-    "destination": "10.1.3.0/24",
-    "gateway": "link#11",
-    "flags": "U",
-    "nhop#": "16",
-    "mtu": "1500",
-(parse error)
 ```
 
-> Response size: 17186 bytes
+> Response size: 3888 bytes
 
 ---
 
@@ -2627,6 +2513,12 @@ memory
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/system/system_information`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2638,17 +2530,17 @@ versions
 **Response sample:**
 ```json
 {
-  "name": "vm-opns-01.by-research.be",
+  "name": "OPNsense.internal",
   "versions": [
-    "OPNsense 26.1.9-amd64",
-    "FreeBSD 14.3-RELEASE-p14",
-    "OpenSSL 3.0.20"
+    "OPNsense 26.7-amd64",
+    "FreeBSD 15.1-RELEASE-p1",
+    "OpenSSL 3.5.7"
   ],
-  "updates": "Click to view pending updates."
+  "updates": "Click to check for updates."
 }
 ```
 
-> Response size: 161 bytes
+> Response size: 177 bytes
 
 ---
 
@@ -2657,6 +2549,12 @@ versions
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/system/system_temperature`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2667,7 +2565,7 @@ versions
 []
 ```
 
-> Response size: 2 bytes
+> Response size: 3 bytes
 
 ---
 
@@ -2676,6 +2574,12 @@ versions
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/system/system_time`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2689,15 +2593,15 @@ uptime
 **Response sample:**
 ```json
 {
-  "uptime": "5 days, 04:41:05",
-  "datetime": "Fri Aug 21 1:06:52 CEST 2026",
-  "boottime": "Sat Aug 15 20:25:47 CEST 2026",
-  "config": "Fri Aug 21 0:07:32 CEST 2026",
-  "loadavg": "1.32, 0.90, 0.69"
+  "uptime": "02:15:43",
+  "datetime": "Sun Sep 6 13:51:24 UTC 2026",
+  "boottime": "Sun Sep 6 11:35:41 UTC 2026",
+  "config": "Sun Sep 6 11:45:14 UTC 2026",
+  "loadavg": "0.69, 0.39, 0.29"
 }
 ```
 
-> Response size: 184 bytes
+> Response size: 193 bytes
 
 ---
 
@@ -2706,6 +2610,12 @@ uptime
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/diagnostics/interface/get_vip_status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -2732,7 +2642,7 @@ total
 }
 ```
 
-> Response size: 167 bytes
+> Response size: 216 bytes
 
 ---
 
@@ -2742,11 +2652,17 @@ total
 
 **Endpoint:** `GET /api/dnsmasq/settings/get_boot`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `boot`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `interface` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: **, lan, opt1, wan |
 | `tag` | [] | `list` |
 | `filename` | `""` | `string` |
 | `servername` | `""` | `string` |
@@ -2776,13 +2692,19 @@ total
 
 **Endpoint:** `GET /api/dnsmasq/settings/get_domain`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `domainoverride`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `sequence` | `"1"` | `string-bool` |
 | `domain` | `""` | `string` |
-| `ipset` | enum | `enum`: **, 232e14fd-6f35-4bd5-b62e-a7ad51c3f126, 3d2d2037-014b-4033-b9dc-bee301778590 |
+| `ipset` | enum | `enum`: ** |
 | `srcip` | `""` | `string` |
 | `port` | `""` | `string` |
 | `ip` | `""` | `string` |
@@ -2810,6 +2732,12 @@ total
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/dnsmasq/settings/get_host`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `host`
 
@@ -2852,6 +2780,12 @@ total
 
 **Endpoint:** `GET /api/dnsmasq/settings/get_option`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `option`
 
 | Field | Default | Type (inferred) |
@@ -2859,7 +2793,7 @@ total
 | `type` | enum | `enum`: *set*, match |
 | `option` | enum | `enum`: **, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255 |
 | `option6` | enum | `enum`: **, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150 |
-| `interface` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: **, lan, opt1, wan |
 | `tag` | [] | `list` |
 | `set_tag` | enum | `enum`: ** |
 | `value` | `""` | `string` |
@@ -2878,43 +2812,8 @@ total
 
 ```
 
-**Rows returned:** 5 (total: 30)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-%interface
-%option
-%type
-description
-force
-interface
-option
-option6
-set_tag
-tag
-type
-uuid
-value
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "9510509b-0614-494f-925a-1656c67c27ec",
-  "type": "set",
-  "%type": "Set",
-  "option": "3",
-  "%option": "router [3]",
-  "option6": "",
-  "interface": "opt2",
-  "%interface": "MGMT",
-  "tag": "",
-  "set_tag": "",
-  "value": "10.1.1.1",
-  "force": "0",
-  "description": "mgmt gateway"
-}
-```
 
 ---
 
@@ -2924,16 +2823,22 @@ value
 
 **Endpoint:** `GET /api/dnsmasq/settings/get_range`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `range`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `interface` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: **, lan, opt1, wan |
 | `set_tag` | enum | `enum`: ** |
 | `start_addr` | `""` | `string` |
 | `end_addr` | `""` | `string` |
 | `subnet_mask` | `""` | `string` |
-| `constructor` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `constructor` | enum | `enum`: **, lan, opt1, wan |
 | `mode` | enum | `enum`: static |
 | `prefix_len` | `""` | `string` |
 | `lease_time` | `""` | `string` |
@@ -2959,59 +2864,8 @@ value
 
 ```
 
-**Rows returned:** 5 (total: 20)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-%domain_type
-%interface
-constructor
-description
-domain
-domain_type
-end_addr
-interface
-lease_time
-mode
-nosync
-prefix_len
-ra_interval
-ra_mode
-ra_mtu
-ra_priority
-ra_router_lifetime
-set_tag
-start_addr
-subnet_mask
-uuid
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "1e2b0fa3-ebfd-4e77-89f3-7a4831fa9d02",
-  "interface": "opt2",
-  "%interface": "MGMT",
-  "set_tag": "",
-  "start_addr": "10.1.1.50",
-  "end_addr": "10.1.1.99",
-  "subnet_mask": "255.255.255.0",
-  "constructor": "",
-  "mode": "",
-  "prefix_len": "",
-  "lease_time": "7200",
-  "domain_type": "range",
-  "%domain_type": "Range",
-  "domain": "",
-  "nosync": "0",
-  "ra_mode": "",
-  "ra_priority": "",
-  "ra_mtu": "",
-  "ra_interval": "",
-  "ra_router_lifetime": "",
-  "description": "mgmt DHCPv4 pool"
-}
-```
 
 ---
 
@@ -3020,6 +2874,12 @@ uuid
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/dnsmasq/service/status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -3030,7 +2890,7 @@ widget
 **Response sample:**
 ```json
 {
-  "status": "disabled",
+  "status": "running",
   "widget": {
     "caption_restart": "Restart",
     "caption_start": "Start",
@@ -3039,7 +2899,7 @@ widget
 }
 ```
 
-> Response size: 106 bytes
+> Response size: 136 bytes
 
 ---
 
@@ -3048,6 +2908,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/dnsmasq/settings/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -3058,7 +2924,7 @@ dnsmasq
 ```json
 {
   "dnsmasq": {
-    "enable": "0",
+    "enable": "1",
     "regdhcp": "0",
     "regdhcpstatic": "0",
     "dhcpfirst": "0",
@@ -3068,64 +2934,20 @@ dnsmasq
     "no_resolv": "0",
     "log_queries": "0",
     "no_hosts": "0",
-    "strictbind": "1",
+    "strictbind": "0",
     "dnssec": "0",
     "regdhcpdomain": "",
     "interface": {
-      "opt11": {
-        "value": "CCTV",
-        "selected": 1
-      },
-      "opt3": {
-        "value": "DMZ",
-        "selected": 1
-      },
-      "opt10": {
-        "value": "GAMING",
-        "selected": 1
-      },
-      "opt6": {
-        "value": "IoT",
+      "lan": {
+        "value": "LAN",
         "selected": 1
       },
       "opt1": {
-        "value": "LAN_TRUNK",
+        "value": "OPT1",
         "selected": 0
       },
-      "opt9": {
-        "value": "Media",
-        "selected": 1
-      },
-      "opt2": {
-        "value": "MGMT",
-        "selected": 1
-      },
-      "lan": {
-        "value": "OOB",
-        "selected": 0
-      },
-      "opt8": {
-        "value": "Storage",
-        "selected": 1
-      },
-      "opt4": {
-        "value": "SVC",
-        "selected": 1
-      },
-      "opt7": {
-        "value": "VoIP",
-        "selected": 1
-      },
-      "opt5": {
-        "value": "VPN",
-        "selected": 1
-      },
-      "opt12": {
-        "value": "WAN_PROXIMUS",
-        "selected": 0
-      },
-      "opt13": {
-        "value": "WAN_TELENET",
+      "wan": {
+        "value": "WAN",
         "selected": 0
       }
     },
@@ -3136,10 +2958,53 @@ dnsmasq
     "local_ttl": "",
     "add_mac": {
       "": {
-(parse error)
+        "value": "None",
+        "selected": 1
+      },
+      "standard": {
+        "value": "standard",
+        "selected": 0
+      },
+      "base64": {
+        "value": "base64",
+        "selected": 0
+      },
+      "text": {
+        "value": "text",
+        "selected": 0
+      }
+    },
+    "add_subnet": "0",
+    "strip_subnet": "0",
+    "dhcp": {
+      "no_interface": {
+        "lan": {
+          "value": "LAN",
+          "selected": 0
+        },
+        "opt1": {
+          "value": "OPT1",
+          "selected": 0
+        },
+        "wan": {
+          "value": "WAN",
+          "selected": 0
+        }
+      },
+      "fqdn": "1",
+      "domain": "",
+      "local": "1",
+      "lease_max": "",
+      "authoritative": "0",
+      "default_fw_rules": "1",
+      "reply_delay": "",
+      "enable_ra": "1",
+      "host_ping": "1",
+      "nosync": "0",
+      "log_dhcp": "0",
 ```
 
-> Response size: 990175 bytes
+> Response size: 1798 bytes
 
 ---
 
@@ -3148,6 +3013,12 @@ dnsmasq
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/dnsmasq/settings/get_tag`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `tag`
 
@@ -3178,6 +3049,12 @@ dnsmasq
 
 **Endpoint:** `GET /api/firewall/one_to_one/get_rule`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `rule`
 
 | Field | Default | Type (inferred) |
@@ -3185,7 +3062,9 @@ dnsmasq
 | `enabled` | `"1"` | `string-bool` |
 | `log` | `"0"` | `string-bool` |
 | `sequence` | `"100"` | `int-like string` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `sort_order` | `""` | `string` |
+| `prio_group` | `""` | `string` |
+| `interface` | enum | `enum`: lan, opt1, *wan* |
 | `type` | enum | `enum`: *binat*, nat |
 | `source_net` | `""` | `string` |
 | `source_not` | `"0"` | `string-bool` |
@@ -3196,7 +3075,7 @@ dnsmasq
 | `categories` | [] | `list` |
 | `description` | `""` | `string` |
 
-> 13 fields discovered
+> 15 fields discovered
 
 ### search — HTTP 200
 
@@ -3219,6 +3098,12 @@ dnsmasq
 
 **Endpoint:** `GET /api/firewall/alias/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `alias`
 
 | Field | Default | Type (inferred) |
@@ -3228,10 +3113,10 @@ dnsmasq
 | `type` | enum | `enum`: host, network, port, url, urltable, urljson, geoip, networkgroup, mac, asn, dynipv6host, authgroup, internal, external |
 | `path_expression` | `""` | `string` |
 | `proto` | enum | `enum`: IPv4, IPv6 |
-| `interface` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: **, lan, opt1, wan |
 | `counters` | `"0"` | `string-bool` |
 | `updatefreq` | `""` | `string` |
-| `content` | enum | `enum`: **, port_ssh, port_https, port_http, port_dns, port_ntp, port_mdns, port_wg, port_sip, port_rtp_range, host_internet_request, net4_mgmt, net4_dmz, net4_svc, net4_vpn, net4_iot, net4_voip, net4_storage, net4_media, net4_gaming, net4_cctv, net4_oob, grp_net4_internal, host4_probe_mgmt, host4_probe_dmz, host4_probe_svc, host4_probe_vpn, host4_probe_iot, host4_probe_voip, host4_probe_storage, host4_probe_media, host4_probe_gaming, host4_probe_cctv, host6_probe_mgmt, host6_probe_dmz, host6_probe_svc, host6_probe_vpn, host6_probe_iot, host6_probe_voip, host6_probe_storage, host6_probe_media, host6_probe_gaming, host6_probe_cctv, net6_mgmt, net6_dmz, net6_svc, net6_vpn, net6_iot, net6_voip, net6_storage, net6_media, net6_gaming, net6_cctv, grp_net6_internal, host4_fw_gateways, host6_fw_gateways, port_dot, crowdsec_blocklists, crowdsec6_blocklists, host_public_resolvers, host4_traefik, host6_traefik, host4_pgsql, host6_pgsql, host4_redis, host6_redis, port_web, port_pgsql, port_redis, port_pgadmin, host4_pgadmin, host6_pgadmin, port_authentik, host4_authentik, host6_authentik, port_vault, host4_vault, host6_vault, port_netbox, host4_netbox, host6_netbox, port_vaultwarden, host4_vaultwarden, host6_vaultwarden, port_nextcloud, host4_nextcloud, host6_nextcloud, wg_admins, wg_devs, host4_defguard, host6_defguard, wg6_admins, wg6_devs, host4_wan_pub, host6_wan_pub, host4_bydesk03, port_netbird, port_stun, host4_netbird, host6_netbird, port_crowdsec_lapi, host4_crowdsec, host4_mailcow, __lan_network, __opt1_network, __opt2_network, __opt3_network, __opt4_network, __opt5_network, __opt6_network, __opt7_network, __opt8_network, __opt9_network, __opt10_network, __opt11_network, __lo0_network, __opt12_network, __opt13_network, bogons, bogonsv6, virusprot, sshlockout |
+| `content` | enum | `enum`: **, __wan_network, __lan_network, __lo0_network, __opt1_network, bogons, bogonsv6, virusprot, sshlockout |
 | `password` | `""` | `string` |
 | `username` | `""` | `string` |
 | `authtype` | enum | `enum`: **, Basic, Bearer, Header |
@@ -3263,7 +3148,7 @@ dnsmasq
 
 ```
 
-**Rows returned:** 5 (total: 121)
+**Rows returned:** 5 (total: 8)
 
 **Row keys:**
 ```
@@ -3318,9 +3203,9 @@ uuid
   "authtype": "",
   "expire": "",
   "categories": "",
-  "current_items": "3009",
+  "current_items": "1",
   "last_updated": "",
-  "eval_nomatch": "266883",
+  "eval_nomatch": "70",
   "eval_match": "0",
   "in_block_p": "0",
   "in_block_b": "0",
@@ -3342,6 +3227,12 @@ uuid
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/firewall/category/get_item`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `category`
 
@@ -3374,14 +3265,20 @@ uuid
 
 **Endpoint:** `GET /api/firewall/d_nat/get_rule`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `rule`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `sequence` | `"2000"` | `int-like string` |
+| `sequence` | `"200"` | `int-like string` |
 | `disabled` | `"0"` | `string-bool` |
 | `nordr` | `"0"` | `string-bool` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: lan, opt1, wan |
 | `ipprotocol` | enum | `enum`: **, inet, inet6, inet46 |
 | `protocol` | enum | `enum`: **, tcp, udp, tcp/udp, icmp, esp, ah, gre, igmp, pim, ospf, 3pc, a/n, argus, aris, ax.25, bbn-rcc, bna, br-sat-mon, carp, cbt, cftp, chaos, compaq-peer, cphb, cpnx, crtp, crudp, dccp, dcn, ddp, ddx, dgp, divert, dsr, egp, eigrp, emcon, encap, etherip, fc, ggp, gmtp, hip, hmp, i-nlsp, iatp, idpr, idpr-cmtp, idrp, ifmp, igp, il, ipcomp, ipcv, ipencap, ipip, ippc, ipv6, ipv6-icmp, ipx-in-ip, irtp, isis, iso-ip, iso-tp4, kryptolan, l2tp, larp, leaf-1, leaf-2, manet, merit-inp, mfe-nsp, micp, mobile, mpls-in-ip, mtp, mux, narp, netblt, nsfnet-igp, nvp, pfsync, pgm, pipe, pnni, prm, ptp, pup, pvp, qnx, rdp, rohc, rsvp, rsvp-e2e-ignore, rvd, sat-expak, sat-mon, scc-sp, scps, sctp, sdrp, secure-vmtp, shim6, skip, sm, smp, snp, sprite-rpc, sps, srp, st2, stp, sun-nd, swipe, tcf, tlsp, tp++, trunk-1, trunk-2, ttp, udplite, uti, vines, visa, vmtp, wb-expak, wb-mon, wesp, wsn, xnet, xns-idp, xtp |
 | `source` | (object) | `object`: {"network":"","address":"","port":"","not":"0"} |
@@ -3414,7 +3311,7 @@ uuid
 
 ```
 
-**Rows returned:** 8 (total: 12)
+**Rows returned:** 2 (total: 0)
 
 **Row keys:**
 ```
@@ -3422,22 +3319,24 @@ uuid
 %protocol
 alias_meta_destination.network
 alias_meta_destination.port
-category
 descr
 destination.network
 destination.port
 disabled
 interface
 ipprotocol
+is_automatic
 nordr
+prio_group
 protocol
+sort_order
 uuid
 ```
 
 **First row sample:**
 ```json
 {
-  "uuid": "lockout_2",
+  "uuid": "lockout_1",
   "ipprotocol": "",
   "protocol": "tcp",
   "%protocol": "TCP",
@@ -3458,13 +3357,15 @@ uuid
   "alias_meta_destination.network": [
     {
       "value": "lanip",
-      "%value": "OOB address",
+      "%value": "LAN address",
       "isAlias": false,
       "description": ""
     }
   ],
   "descr": "Anti-Lockout Rule",
-  "category": "Automatically generated rules"
+  "is_automatic": true,
+  "sort_order": "100000.0000001",
+  "prio_group": "100000"
 }
 ```
 
@@ -3476,6 +3377,12 @@ uuid
 
 **Endpoint:** `GET /api/firewall/filter/get_rule`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `rule`
 
 | Field | Default | Type (inferred) |
@@ -3483,13 +3390,13 @@ uuid
 | `enabled` | `"1"` | `string-bool` |
 | `statetype` | enum | `enum`: *keep*, sloppy, modulate, synproxy, none |
 | `state-policy` | enum | `enum`: **, if-bound, floating |
-| `sequence` | `"10800"` | `int-like string` |
+| `sequence` | `"111"` | `int-like string` |
 | `sort_order` | `""` | `string` |
 | `prio_group` | `""` | `string` |
 | `action` | enum | `enum`: *pass*, block, reject |
 | `quick` | `"1"` | `string-bool` |
 | `interfacenot` | `"0"` | `string-bool` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: lan, opt1, wan |
 | `direction` | enum | `enum`: *in*, out, any |
 | `ipprotocol` | enum | `enum`: *inet*, inet6, inet46 |
 | `protocol` | enum | `enum`: *any*, TCP, UDP, TCP/UDP, ICMP, ESP, AH, GRE, IGMP, PIM, OSPF, 3PC, A/N, ARGUS, ARIS, AX.25, BBN-RCC, BNA, BR-SAT-MON, CARP, CBT, CFTP, CHAOS, COMPAQ-PEER, CPHB, CPNX, CRTP, CRUDP, DCCP, DCN, DDP, DDX, DGP, DIVERT, DSR, EGP, EIGRP, EMCON, ENCAP, ETHERIP, FC, GGP, GMTP, HIP, HMP, I-NLSP, IATP, IDPR, IDPR-CMTP, IDRP, IFMP, IGP, IL, IPCOMP, IPCV, IPENCAP, IPIP, IPPC, IPV6, IPV6-ICMP, IPX-IN-IP, IRTP, ISIS, ISO-IP, ISO-TP4, KRYPTOLAN, L2TP, LARP, LEAF-1, LEAF-2, MANET, MERIT-INP, MFE-NSP, MICP, MOBILE, MPLS-IN-IP, MTP, MUX, NARP, NETBLT, NSFNET-IGP, NVP, PFSYNC, PGM, PIPE, PNNI, PRM, PTP, PUP, PVP, QNX, RDP, ROHC, RSVP, RSVP-E2E-IGNORE, RVD, SAT-EXPAK, SAT-MON, SCC-SP, SCPS, SCTP, SDRP, SECURE-VMTP, SHIM6, SKIP, SM, SMP, SNP, SPRITE-RPC, SPS, SRP, ST2, STP, SUN-ND, SWIPE, TCF, TLSP, TP++, TRUNK-1, TRUNK-2, TTP, UDPLITE, UTI, VINES, VISA, VMTP, WB-EXPAK, WB-MON, WESP, WSN, XNET, XNS-IDP, XTP |
@@ -3502,8 +3409,8 @@ uuid
 | `destination_not` | `"0"` | `string-bool` |
 | `destination_port` | `""` | `string` |
 | `divert-to` | enum | `enum`: **, 8000 |
-| `gateway` | enum | `enum`: **, Null4, Null6, WAN_PROXIMUS_DHCP6, WAN_PROXIMUS_PPPOE, WAN_TELENET_GW, WAN_TELENET_GWv6 |
-| `replyto` | enum | `enum`: **, Null4, Null6, WAN_PROXIMUS_DHCP6, WAN_PROXIMUS_PPPOE, WAN_TELENET_GW, WAN_TELENET_GWv6 |
+| `gateway` | enum | `enum`: **, LAN_GW, Null4, Null6, WAN_DHCP6 |
+| `replyto` | enum | `enum`: **, LAN_GW, Null4, Null6, WAN_DHCP6 |
 | `disablereplyto` | `"0"` | `string-bool` |
 | `log` | `"0"` | `string-bool` |
 | `allowopts` | `"0"` | `string-bool` |
@@ -3519,7 +3426,7 @@ uuid
 | `max` | `""` | `string` |
 | `max-src-conn-rate` | `""` | `string` |
 | `max-src-conn-rates` | `""` | `string` |
-| `overload` | enum | `enum`: **, bogons, bogonsv6, 232e14fd-6f35-4bd5-b62e-a7ad51c3f126, 3d2d2037-014b-4033-b9dc-bee301778590, 03224d3b-1da6-4144-a245-3ee1bb3bf742, bc590391-6e05-42ef-928e-94f7da57fdb0, 850c702d-a296-487a-aa98-c0b1176bd47c, 05208b57-a32b-49c9-9b69-6b60d39e2652, f9a86833-9ccb-4d2c-8f66-ed12230130c9, b3d5aff2-c585-4195-ba1d-d734191a2ae8, 84cf41bf-3991-4300-91ed-f0c9ffb130d1, 5a38127d-aff0-4efc-b7bc-4a128726e307, b2997a06-87e0-4e86-9615-bdad17e46717, f80d92c3-aa66-4ae5-9f11-c15c702aa985, 3bc2dd29-1001-4194-a5a1-95c14cb61998, 8084b1c7-b084-4d5f-a78a-65960a927219, e6b6536e-f8aa-40f2-97e1-c014a889edef, ee0f95a5-9920-49af-a3b3-711980b6ccc3, daa2c91b-317c-4d25-ad52-1911e71eea59, 53613546-b903-4fd2-aee5-d3e8fee612d8, 3e8b1854-f0e7-4a20-aa81-9e39a159053d, 52423b17-fcb0-408c-badf-67a166a338c3, aa516f27-72d7-4394-bb1e-ea22576e8a49, d92080c6-3785-447b-917b-d01711473284, 0a848aff-41e3-4494-aca1-ca4ca5e49930, d4b09ce2-94f1-4fa5-b7d1-ec0c27f7e8aa, fb417922-d4c6-4dd0-993f-1b0e01ce13da, 7d27e54b-c439-42d0-9f8c-71d72dcd244a, bf0b8728-b6b9-40e8-bf7a-a080d7209d85, d5cf697a-3b10-4835-967d-e0ceae2f92da, f8d9f301-9fb3-45bc-9bf2-7c9d3ca64857, 22a9de58-5b73-4e83-a714-427ba1049a2e, b407f0ea-7190-4f81-8e0c-9cd90edc60d6, 4d55f638-e688-441e-8960-b8530820e5ee, f1863ad5-9013-4d21-99d9-35d6f9a4c96a, 43d878a6-1bbf-4202-84d7-af3d0ff810bd, 4851ba2b-4e24-4437-b3bf-bea8f2fc262e, faa5b600-aac7-4d3c-a450-02e0b9fb5dff, 4ac3f3a7-b5d3-4f7a-a02d-bdd174bca75c, e80c2e91-8de8-437e-88cf-b43c79d894f5, 280a1ba6-b3ea-46e1-8e40-d7a15454a69a, 4039411b-43ab-455c-99b5-f6f8382b5f6b, bdfab459-8e43-415b-b7f3-6aac82332fa2, 6a1f9bd1-5920-4df5-a4ba-c80ff672b2c3, 1dda79e4-a7c6-4e06-9122-09760c8a0e88, f71c47f0-46af-42b2-b883-fa326567f946, d9705549-9aa3-4221-9b6d-1553bda2c1ec, a23728ca-850c-4913-bf9c-717f33de3490, e856ebb4-d2a3-4ad7-8dca-f478342b4c25, a188f9b0-9452-4213-8948-a951327a0358, e8726bf6-3392-468b-9d5e-84a9e5970c02, 77e094df-19b9-4e36-88a5-462e68bd354f, 9af199b6-4d2c-4d3b-8b5e-91c66f220f10, ee239447-3e47-4ba8-bb9e-efaa5d9be5b7, 35f6b54f-7e2d-4b0e-82cf-3232b9ca1317, aa928701-4abf-4ef9-9739-3b2a881dc5a9, 8280c240-7fa3-46ad-b566-eebfd93a5eb1, e398d26b-aec1-4678-86eb-0c36ad3c432d, e6d449d4-a084-498b-82f3-6a13aec43ff7, c2570a82-87d0-4e7c-9254-4f242a2b7b1e, 273e7fe9-a65d-4b37-aa11-84dfeb4914cf, 70c70f49-b005-45e5-8906-c510f282f3ef, 27ed3dbd-d460-4187-8023-be299c732207, 61ea16e8-a334-4553-9daf-33f6058c4ef2, 3b2cabff-8590-4601-9537-7787f9360ece, b84810f0-1694-4126-ab23-a1c876f94419, 2cb4429f-88fc-4820-8bbd-dd0230663557, 9e9a5c59-3c55-49f9-882d-ebe8aca171d3, 6c453cf6-2196-460a-b699-2bc1058999f8, 2a184b08-32e2-47bc-9754-0f48c3388cb5, e280976f-5155-4457-af9e-1b2490570052, ea2f2e22-1df6-4cae-af3f-59a81a160a4d, db57313c-b0e2-4515-8054-9b62c12da15f, b9a62d3c-fb04-4c6f-b0b4-e6d7ab198b66, 8883797f-1dd5-49ed-ad85-8090ad3126b7, eaced2ea-9033-4843-8dc1-37b76a3c046e, 6edb0057-b393-40fb-a0d6-7f00750a8804, e7203877-66bd-4e9d-820b-41a18152398c, sshlockout, virusprot, c0130500-cbbc-4b4b-bcd2-1ebf5fda62ed, a6503b6e-9579-4d7c-932d-de1defb47a7f, 6f3bf776-d89c-4380-8800-1faf4072371b, 0825d4c2-006d-4b56-8b8e-e0bb35c92335, __lan_network, __lo0_network, __opt1_network, __opt2_network, __opt3_network, __opt4_network, __opt5_network, __opt6_network, __opt7_network, __opt8_network, __opt9_network, __opt10_network, __opt11_network, __opt12_network, __opt13_network |
+| `overload` | enum | `enum`: **, bogons, bogonsv6, sshlockout, virusprot, __lan_network, __lo0_network, __opt1_network, __wan_network |
 | `adaptivestart` | `""` | `string` |
 | `adaptiveend` | `""` | `string` |
 | `prio` | enum | `enum`: **, 1, 0, 2, 3, 4, 5, 6, 7 |
@@ -3549,171 +3456,65 @@ uuid
 
 ```
 
-**Rows returned:** 5 (total: 122)
+**Rows returned:** 5 (total: 25)
 
 **Row keys:**
 ```
+#priority
 %action
 %direction
-%interface
 %ipprotocol
-%statetype
+%protocol
 action
-adaptiveend
-adaptivestart
-alias_meta_destination_net
-alias_meta_destination_port
-alias_meta_source_net
-allowopts
-categories
 category_colors
 description
 destination_net
-destination_not
 destination_port
 direction
 disablereplyto
-divert-to
 enabled
-gateway
-icmp6type
-icmptype
-interface
-interfacenot
 ipprotocol
+is_automatic
+legacy
 log
-max
-max-src-conn
-max-src-conn-rate
-max-src-conn-rates
-max-src-nodes
-max-src-states
-nopfsync
-nosync
-overload
-prio
-prio_group
 protocol
 quick
+ref
 replyto
-sched
-sequence
-set-prio
-set-prio-low
-shaper1
-shaper2
 sort_order
 source_net
-source_not
 source_port
-state-policy
-statetimeout
-statetype
-tag
-tagged
-tcpflags1
-tcpflags2
-tcpflags_any
-tos
-udp-first
-udp-multiple
-udp-single
 uuid
 ```
 
 **First row sample:**
 ```json
 {
-  "uuid": "cfdc2cf0-7e05-461a-8e51-4e549833cd9d",
+  "log": true,
+  "disablereplyto": 1,
+  "ipprotocol": "inet46",
+  "quick": false,
+  "#priority": 1,
   "enabled": "1",
-  "statetype": "keep",
-  "%statetype": "keep state",
-  "state-policy": "",
-  "sequence": "8500",
-  "sort_order": "200000.0008500",
-  "prio_group": "200000",
   "action": "block",
-  "%action": "Block",
-  "quick": "1",
-  "interfacenot": "0",
-  "interface": "opt2,opt3,opt4,opt5,opt6,opt7,opt8,opt9,opt10,opt11",
-  "%interface": "MGMT, DMZ, SVC, VPN, IoT, VoIP, Storage, Media, GAMING, CCTV",
+  "replyto": "",
+  "description": "Default deny / state violation rule",
+  "source_net": "",
+  "source_port": "",
+  "destination_net": "",
+  "destination_port": "",
+  "ref": "",
+  "uuid": "02f4bab031b57d1e30553ce08e0ec131",
   "direction": "in",
   "%direction": "In",
-  "ipprotocol": "inet",
-  "%ipprotocol": "IPv4",
-  "protocol": "TCP/UDP",
-  "icmptype": "",
-  "icmp6type": "",
-  "source_net": "grp_net4_internal",
-  "source_not": "0",
-  "source_port": "",
-  "destination_net": "host4_fw_gateways",
-  "destination_not": "1",
-  "destination_port": "port_dns",
-  "divert-to": "",
-  "gateway": "",
-  "replyto": "",
-  "disablereplyto": "0",
-  "log": "0",
-  "allowopts": "0",
-  "nosync": "0",
-  "nopfsync": "0",
-  "statetimeout": "",
-  "udp-first": "",
-  "udp-multiple": "",
-  "udp-single": "",
-  "max-src-nodes": "",
-  "max-src-states": "",
-  "max-src-conn": "",
-  "max": "",
-  "max-src-conn-rate": "",
-  "max-src-conn-rates": "",
-  "overload": "",
-  "adaptivestart": "",
-  "adaptiveend": "",
-  "prio": "",
-  "set-prio": "",
-  "set-prio-low": "",
-  "tag": "",
-  "tagged": "",
-  "tcpflags1": "",
-  "tcpflags2": "",
-  "tcpflags_any": "0",
-  "categories": "",
-  "sched": "",
-  "tos": "",
-  "shaper1": "",
-  "shaper2": "",
-  "description": "BLOCK internal→non-FW port 53 (force plain DNS through Unbound) v4",
-  "category_colors": [],
-  "alias_meta_source_net": [
-    {
-      "summary": "<strong>All internal zones — semantic group: 'internal trust boundary' (Suricata HOME_NET; inter-VLAN deny baseline)</strong><br/>net4_cctv<br/>net4_dmz<br/>net4_gaming<br/>net4_iot<br/>net4_media<br/>net4_mgmt<br/>net4_storage<br/>net4_svc<br/>net4_voip<br/>net4_vpn",
-      "description": "All internal zones — semantic group: 'internal trust boundary' (Suricata HOME_NET; inter-VLAN deny baseline)",
-      "value": "grp_net4_internal",
-      "%value": "grp_net4_internal",
-      "isAlias": true
-    }
-  ],
-  "alias_meta_destination_net": [
-    {
-      "summary": "<strong>FW IPv4 gateway IPs on the 10 internal VLANs</strong><br/>10.1.1.1<br/>10.1.2.1<br/>10.1.3.1<br/>10.1.4.1<br/>10.1.10.1<br/>10.1.11.1<br/>10.1.20.1<br/>10.1.30.1<br/>10.1.32.1<br/>10.1.40.1",
-      "description": "FW IPv4 gateway IPs on the 10 internal VLANs",
-      "value": "host4_fw_gateways",
-      "%value": "host4_fw_gateways",
-      "isAlias": true
-    }
-  ],
-  "alias_meta_destination_port": [
-    {
-      "summary": "<strong>DNS (TCP+UDP)</strong><br/>53",
-      "description": "DNS (TCP+UDP)",
-      "value": "port_dns",
-      "%value": "port_dns",
-      "isAlias": true
-    }
-  ]
+  "%action": "Block",
+  "%ipprotocol": "",
+  "protocol": "",
+  "%protocol": "",
+  "sort_order": "000001.1000001",
+  "legacy": true,
+  "is_automatic": true,
+  "category_colors": []
 }
 ```
 
@@ -3725,12 +3526,18 @@ uuid
 
 **Endpoint:** `GET /api/firewall/group/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `group`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `ifname` | `""` | `string` |
-| `members` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, lo0, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `members` | enum | `enum`: lan, lo0, opt1, wan |
 | `nogroup` | `"0"` | `string-bool` |
 | `sequence` | `"0"` | `string-bool` |
 | `descr` | `""` | `string` |
@@ -3767,7 +3574,7 @@ uuid
   "members": "",
   "nogroup": "",
   "sequence": "10",
-  "descr": "IPsec"
+  "descr": "IPsec encapsulation"
 }
 ```
 
@@ -3779,6 +3586,12 @@ uuid
 
 **Endpoint:** `GET /api/firewall/npt/get_rule`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `rule`
 
 | Field | Default | Type (inferred) |
@@ -3786,14 +3599,16 @@ uuid
 | `enabled` | `"1"` | `string-bool` |
 | `log` | `"0"` | `string-bool` |
 | `sequence` | `"100"` | `int-like string` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, *lan*, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `sort_order` | `""` | `string` |
+| `prio_group` | `""` | `string` |
+| `interface` | enum | `enum`: *lan*, opt1, wan |
 | `source_net` | `""` | `string` |
 | `destination_net` | `""` | `string` |
-| `trackif` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `trackif` | enum | `enum`: **, lan, opt1, wan |
 | `categories` | [] | `list` |
 | `description` | `""` | `string` |
 
-> 9 fields discovered
+> 11 fields discovered
 
 ### search — HTTP 200
 
@@ -3816,14 +3631,23 @@ uuid
 
 **Endpoint:** `GET /api/firewall/source_nat/get_rule`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `rule`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
 | `nonat` | `"0"` | `string-bool` |
+| `nosync` | `"0"` | `string-bool` |
 | `sequence` | `"100"` | `int-like string` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, *lan*, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `sort_order` | `""` | `string` |
+| `prio_group` | `""` | `string` |
+| `interface` | enum | `enum`: *lan*, opt1, wan |
 | `ipprotocol` | enum | `enum`: *inet*, inet6 |
 | `protocol` | enum | `enum`: *any*, TCP, UDP, TCP/UDP, ICMP, ESP, AH, GRE, IGMP, PIM, OSPF, 3PC, A/N, ARGUS, ARIS, AX.25, BBN-RCC, BNA, BR-SAT-MON, CARP, CBT, CFTP, CHAOS, COMPAQ-PEER, CPHB, CPNX, CRTP, CRUDP, DCCP, DCN, DDP, DDX, DGP, DIVERT, DSR, EGP, EIGRP, EMCON, ENCAP, ETHERIP, FC, GGP, GMTP, HIP, HMP, I-NLSP, IATP, IDPR, IDPR-CMTP, IDRP, IFMP, IGP, IL, IPCOMP, IPCV, IPENCAP, IPIP, IPPC, IPV6, IPV6-ICMP, IPX-IN-IP, IRTP, ISIS, ISO-IP, ISO-TP4, KRYPTOLAN, L2TP, LARP, LEAF-1, LEAF-2, MANET, MERIT-INP, MFE-NSP, MICP, MOBILE, MPLS-IN-IP, MTP, MUX, NARP, NETBLT, NSFNET-IGP, NVP, PFSYNC, PGM, PIPE, PNNI, PRM, PTP, PUP, PVP, QNX, RDP, ROHC, RSVP, RSVP-E2E-IGNORE, RVD, SAT-EXPAK, SAT-MON, SCC-SP, SCPS, SCTP, SDRP, SECURE-VMTP, SHIM6, SKIP, SM, SMP, SNP, SPRITE-RPC, SPS, SRP, ST2, STP, SUN-ND, SWIPE, TCF, TLSP, TP++, TRUNK-1, TRUNK-2, TTP, UDPLITE, UTI, VINES, VISA, VMTP, WB-EXPAK, WB-MON, WESP, WSN, XNET, XNS-IDP, XTP |
 | `source_net` | `"any"` | `string` |
@@ -3832,15 +3656,16 @@ uuid
 | `destination_net` | `"any"` | `string` |
 | `destination_not` | `"0"` | `string-bool` |
 | `destination_port` | `""` | `string` |
-| `target` | `"wanip"` | `string` |
+| `target` | `""` | `string` |
 | `target_port` | `""` | `string` |
 | `staticnatport` | `"0"` | `string-bool` |
 | `log` | `"0"` | `string-bool` |
 | `categories` | [] | `list` |
+| `tag` | `""` | `string` |
 | `tagged` | `""` | `string` |
 | `description` | `""` | `string` |
 
-> 19 fields discovered
+> 23 fields discovered
 
 ### search — HTTP 200
 
@@ -3852,8 +3677,117 @@ uuid
 
 ```
 
-**Rows returned:** 0 (total: 0)
+**Rows returned:** 2 (total: 2)
 
+**Row keys:**
+```
+%interface
+%ipprotocol
+%protocol
+alias_meta_destination_net
+alias_meta_destination_port
+alias_meta_source_net
+alias_meta_target
+categories
+category_colors
+description
+destination_net
+destination_not
+destination_port
+enabled
+interface
+ipprotocol
+is_automatic
+log
+nonat
+nosync
+prio_group
+protocol
+sequence
+sort_order
+source_net
+source_not
+source_port
+staticnatport
+tag
+tagged
+target
+target_port
+uuid
+```
+
+**First row sample:**
+```json
+{
+  "uuid": "automatic_isakmp_wan",
+  "enabled": "1",
+  "nonat": "0",
+  "nosync": "0",
+  "sequence": "1",
+  "interface": "wan",
+  "%interface": "WAN",
+  "ipprotocol": "inet",
+  "%ipprotocol": "IPv4",
+  "protocol": "any",
+  "%protocol": "*",
+  "source_net": "lan,lo0",
+  "source_not": "0",
+  "source_port": "",
+  "destination_net": "any",
+  "destination_not": "0",
+  "destination_port": "500",
+  "target": "wanip",
+  "target_port": "",
+  "staticnatport": "1",
+  "log": "0",
+  "categories": "",
+  "tag": "",
+  "tagged": "",
+  "description": "Auto created rule for ISAKMP",
+  "is_automatic": true,
+  "sort_order": "500000.0000001",
+  "prio_group": "500000",
+  "category_colors": [],
+  "alias_meta_source_net": [
+    {
+      "value": "lan",
+      "%value": "LAN network",
+      "isAlias": false,
+      "description": ""
+    },
+    {
+      "value": "lo0",
+      "%value": "Loopback network",
+      "isAlias": false,
+      "description": ""
+    }
+  ],
+  "alias_meta_destination_net": [
+    {
+      "value": "any",
+      "%value": "any",
+      "isAlias": false,
+      "description": ""
+    }
+  ],
+  "alias_meta_destination_port": [
+    {
+      "value": "500",
+      "%value": "500",
+      "isAlias": false,
+      "description": ""
+    }
+  ],
+  "alias_meta_target": [
+    {
+      "value": "wanip",
+      "%value": "WAN address",
+      "isAlias": false,
+      "description": ""
+    }
+  ]
+}
+```
 
 ---
 
@@ -3862,6 +3796,12 @@ uuid
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/routes/gateway/status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -3874,43 +3814,23 @@ status
 {
   "items": [
     {
-      "name": "WAN_PROXIMUS_DHCP6",
-      "address": "fe80::22e0:9cff:fe60:4c01",
+      "name": "LAN_GW",
+      "address": "10.6.224.1",
       "status": "none",
-      "loss": "0.0 %",
-      "delay": "5.0 ms",
-      "stddev": "0.4 ms",
-      "monitor": "2001:4860:4860::8888",
+      "loss": "~",
+      "delay": "~",
+      "stddev": "~",
+      "monitor": "~",
       "status_translated": "Online"
     },
     {
-      "name": "WAN_PROXIMUS_PPPOE",
-      "address": "10.24.1.5",
+      "name": "WAN_DHCP6",
+      "address": "~",
       "status": "none",
-      "loss": "0.0 %",
-      "delay": "7.6 ms",
-      "stddev": "0.4 ms",
-      "monitor": "9.9.9.9",
-      "status_translated": "Online"
-    },
-    {
-      "name": "WAN_TELENET_GWv6",
-      "address": "2a02:1802:21::1",
-      "status": "none",
-      "loss": "0.0 %",
-      "delay": "1.0 ms",
-      "stddev": "1.4 ms",
-      "monitor": "2a02:1802:21::1",
-      "status_translated": "Online"
-    },
-    {
-      "name": "WAN_TELENET_GW",
-      "address": "213.214.47.217",
-      "status": "none",
-      "loss": "0.0 %",
-      "delay": "0.8 ms",
-      "stddev": "0.1 ms",
-      "monitor": "213.214.47.217",
+      "loss": "~",
+      "delay": "~",
+      "stddev": "~",
+      "monitor": "~",
       "status_translated": "Online"
     }
   ],
@@ -3918,7 +3838,7 @@ status
 }
 ```
 
-> Response size: 743 bytes
+> Response size: 452 bytes
 
 ---
 
@@ -3927,6 +3847,12 @@ status
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ids/settings/get_policy_rule`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `rule`
 
@@ -3960,6 +3886,12 @@ status
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ids/settings/get_policy`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `policy`
 
@@ -3996,6 +3928,12 @@ status
 
 **Endpoint:** `GET /api/ids/service/status`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 status
@@ -4014,7 +3952,7 @@ widget
 }
 ```
 
-> Response size: 106 bytes
+> Response size: 137 bytes
 
 ---
 
@@ -4023,6 +3961,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/ids/settings/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -4052,69 +3996,69 @@ ids
       "divert_listeners": "1",
       "promisc": "0",
       "interfaces": {
-        "opt11": {
-          "value": "CCTV",
-          "selected": 0
-        },
-        "opt3": {
-          "value": "DMZ",
-          "selected": 0
-        },
-        "opt10": {
-          "value": "GAMING",
-          "selected": 0
-        },
-        "opt6": {
-          "value": "IoT",
+        "lan": {
+          "value": "LAN",
           "selected": 0
         },
         "opt1": {
-          "value": "LAN_TRUNK",
+          "value": "OPT1",
           "selected": 0
         },
-        "opt9": {
-          "value": "Media",
-          "selected": 0
-        },
-        "opt2": {
-          "value": "MGMT",
-          "selected": 0
-        },
-        "lan": {
-          "value": "OOB",
-          "selected": 0
-        },
-        "opt8": {
-          "value": "Storage",
-          "selected": 0
-        },
-        "opt4": {
-          "value": "SVC",
-          "selected": 0
-        },
-        "opt7": {
-          "value": "VoIP",
-          "selected": 0
-        },
-        "opt5": {
-          "value": "VPN",
-          "selected": 0
-        },
-        "opt12": {
-          "value": "WAN_PROXIMUS",
-          "selected": 0
-        },
-        "opt13": {
-          "value": "WAN_TELENET",
-          "selected": 0
+        "wan": {
+          "value": "WAN",
+          "selected": 1
         }
       },
       "homenet": {
         "192.168.0.0/16": {
+          "value": "192.168.0.0/16",
+          "selected": 1
+        },
+        "10.0.0.0/8": {
+          "value": "10.0.0.0/8",
+          "selected": 1
+        },
+        "172.16.0.0/12": {
+          "value": "172.16.0.0/12",
+          "selected": 1
+        }
+      },
+      "defaultPacketSize": "",
+      "UpdateCron": {
+        "": {
+          "value": "None",
+          "selected": 1
+        }
+      },
+      "AlertLogrotate": {
+        "W0D23": {
+          "value": "Weekly",
+          "selected": 1
+        },
+        "D0": {
+          "value": "Daily",
+          "selected": 0
+        }
+      },
+      "AlertSaveLogs": "4",
+      "MPMAlgo": {
+        "": {
+          "value": "Default",
+          "selected": 1
+        },
+        "ac": {
+          "value": "Aho-Corasick",
+          "selected": 0
+        },
+        "ac-ks": {
+          "value": "Aho-Corasick, \"Ken Steele\" variant",
+          "selected": 0
+        },
+        "hs": {
 (parse error)
 ```
 
-> Response size: 2770 bytes
+> Response size: 4951 bytes
 
 ---
 
@@ -4123,6 +4067,12 @@ ids
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ids/settings/get_user_rule`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `rule`
 
@@ -4159,28 +4109,34 @@ ids
 
 **Endpoint:** `GET /api/interfaces/bridge_settings/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `bridge`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `bridgeif` | `""` | `string` |
-| `members` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
+| `members` | enum | `enum`: wan, lan, opt1 |
 | `linklocal` | `"0"` | `string-bool` |
 | `enablestp` | `"0"` | `string-bool` |
 | `proto` | enum | `enum`: *rstp*, stp |
-| `stp` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
+| `stp` | enum | `enum`: wan, lan, opt1 |
 | `maxage` | `""` | `string` |
 | `fwdelay` | `""` | `string` |
 | `holdcnt` | `""` | `string` |
 | `maxaddr` | `""` | `string` |
 | `timeout` | `""` | `string` |
-| `span` | enum | `enum`: **, lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
-| `edge` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
-| `autoedge` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
-| `ptp` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
-| `autoptp` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
-| `static` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
-| `private` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, opt12, opt13 |
+| `span` | enum | `enum`: **, wan, lan, opt1 |
+| `edge` | enum | `enum`: wan, lan, opt1 |
+| `autoedge` | enum | `enum`: wan, lan, opt1 |
+| `ptp` | enum | `enum`: wan, lan, opt1 |
+| `autoptp` | enum | `enum`: wan, lan, opt1 |
+| `static` | enum | `enum`: wan, lan, opt1 |
+| `private` | enum | `enum`: wan, lan, opt1 |
 | `descr` | `""` | `string` |
 
 > 19 fields discovered
@@ -4205,6 +4161,12 @@ ids
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/interfaces/gif_settings/get_item`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `gif`
 
@@ -4245,6 +4207,12 @@ ids
 
 **Endpoint:** `GET /api/interfaces/gre_settings/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `gre`
 
 | Field | Default | Type (inferred) |
@@ -4282,13 +4250,19 @@ ids
 
 **Endpoint:** `GET /api/interfaces/lagg_settings/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `lagg`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `laggif` | `""` | `string` |
-| `members` | enum | `enum`: vtnet2 |
-| `primary_member` | enum | `enum`: **, vtnet2 |
+| `members` | enum | `enum`: vtnet3 |
+| `primary_member` | enum | `enum`: **, vtnet3 |
 | `proto` | enum | `enum`: none, *lacp*, failover, fec, loadbalance, roundrobin |
 | `lacp_fast_timeout` | `"0"` | `string-bool` |
 | `use_flowid` | enum | `enum`: **, 1, 0 |
@@ -4320,6 +4294,12 @@ ids
 
 **Endpoint:** `GET /api/interfaces/loopback_settings/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `loopback`
 
 | Field | Default | Type (inferred) |
@@ -4349,6 +4329,12 @@ ids
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/interfaces/neighbor_settings/get_item`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `neighbor`
 
@@ -4382,6 +4368,12 @@ ids
 
 **Endpoint:** `GET /api/interfaces/overview/interfaces_info`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 current
@@ -4393,8 +4385,8 @@ total
 **Response sample:**
 ```json
 {
-  "total": 18,
-  "rowCount": 18,
+  "total": 7,
+  "rowCount": 7,
   "current": 1,
   "rows": [
     {
@@ -4418,64 +4410,64 @@ total
         "linkstate",
         "hwstats"
       ],
-      "macaddr": "bc:24:11:0a:0e:9c",
+      "macaddr": "bc:24:11:ed:1e:7f",
       "supported_media": [
         "autoselect"
       ],
       "is_physical": true,
       "device": "vtnet0",
       "mtu": "1500",
-      "macaddr_hw": "bc:24:11:0a:0e:9c",
+      "macaddr_hw": "bc:24:11:ed:1e:7f",
       "media": "10Gbase-T <full-duplex>",
       "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
       "status": "up",
       "nd6": {
         "flags": [
           "performnud",
-          "auto_linklocal",
-          "no_dad"
+          "auto_linklocal"
         ]
       },
       "routes": [
-        "10.1.1.0/24",
-        "fd01:1::/64",
+        "192.168.1.0/24",
         "fe80::%vtnet0/64"
       ],
       "config": {
         "if": "vtnet0",
-        "descr": "LAN_TRUNK",
         "enable": "1",
-        "ipaddr": "10.1.1.1",
-        "subnet": "24",
-        "ipaddrv6": "fd01:1::1",
-        "subnetv6": "64",
         "identifier": "opt1"
       },
       "identifier": "opt1",
-      "description": "LAN_TRUNK",
+      "description": "OPT1",
       "enabled": true,
-      "link_type": "static",
-      "addr4": "10.1.1.1/24",
-      "addr6": "fd01:1::1/64",
+      "link_type": "none",
+      "addr4": "192.168.1.1/24",
+      "addr6": "",
       "ipv4": [
         {
-          "ipaddr": "10.1.1.1/24"
+          "ipaddr": "192.168.1.1/24"
         }
       ],
       "ipv6": [
         {
-          "ipaddr": "fd01:1::1/64"
-        },
-        {
-          "ipaddr": "fe80::be24:11ff:fe0a:e9c/64"
+          "ipaddr": "fe80::be24:11ff:feed:1e7f/64"
         }
       ],
       "vlan_tag": null,
       "gateways": []
+    },
+    {
+      "flags": [
+        "up",
+        "broadcast",
+        "running",
+        "simplex",
+        "multicast",
+        "lower_up"
+      ],
 (parse error)
 ```
 
-> Response size: 18449 bytes
+> Response size: 8415 bytes
 
 ---
 
@@ -4484,6 +4476,12 @@ total
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/interfaces/settings/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -4519,17 +4517,17 @@ settings
     "dhcp6_ratimeout": "10"
   },
   "duids": {
-    "llt": "00:01:00:01:32:1A:44:B3:BC:24:11:CC:3E:51",
+    "llt": "00:01:00:01:32:30:2C:16:BC:24:11:CC:3E:51",
     "ll": "00:03:00:01:BC:24:11:CC:3E:51",
-    "uuid": "00:04:B8:F6:25:03:93:9D:76:3C:85:0A:CC:DB:4A:8B:AC:CF",
-    "en": "00:02:00:00:D2:6D:28:37:1A:E7:9C:CF:D2:AA",
-    "current": "00:01:00:01:31:B2:24:D5:BC:24:11:0A:0E:9C",
+    "uuid": "00:04:95:C3:B5:69:AB:57:67:C1:8A:C7:07:07:7E:E0:61:F0",
+    "en": "00:02:00:00:D2:6D:62:3E:D1:1E:73:11:42:A9",
+    "current": "00:01:00:01:32:30:09:63:BC:24:11:ED:1E:7F",
     "default": "XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX"
   }
 }
 ```
 
-> Response size: 709 bytes
+> Response size: 921 bytes
 
 ---
 
@@ -4539,11 +4537,17 @@ settings
 
 **Endpoint:** `GET /api/interfaces/vip_settings/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `vip`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `interface` | enum | `enum`: lan, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8, opt9, opt10, opt11, lo0, opt12, opt13 |
+| `interface` | enum | `enum`: wan, lan, lo0, opt1 |
 | `mode` | enum | `enum`: *ipalias*, carp, proxyarp |
 | `gateway` | `""` | `string` |
 | `noexpand` | `"0"` | `string-bool` |
@@ -4583,11 +4587,17 @@ settings
 
 **Endpoint:** `GET /api/interfaces/vlan_settings/get_item`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `vlan`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `if` | enum | `enum`: vtnet0, vtnet1, vtnet2, vtnet3, vlan1010, vlan1020, vlan1030, vlan1040, vlan1100, vlan1110, vlan1200, vlan1300, vlan1320, vlan1400 |
+| `if` | enum | `enum`: vtnet0, vtnet1, vtnet2, vtnet3 |
 | `tag` | `""` | `string` |
 | `pcp` | enum | `enum`: 1, *0*, 2, 3, 4, 5, 6, 7 |
 | `proto` | enum | `enum`: **, 802.1q, 802.1ad |
@@ -4606,35 +4616,8 @@ settings
 
 ```
 
-**Rows returned:** 5 (total: 10)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-%if
-%pcp
-descr
-if
-pcp
-proto
-tag
-uuid
-vlanif
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "c44970f3-b0bf-46e6-9632-7bff46f6e47a",
-  "if": "vtnet0",
-  "%if": "vtnet0 (bc:24:11:0a:0e:9c) [LAN_TRUNK]",
-  "tag": "1010",
-  "pcp": "6",
-  "%pcp": "Internetwork Control (6)",
-  "proto": "",
-  "descr": "OOB",
-  "vlanif": "vlan1010 [MGMT]"
-}
-```
 
 ---
 
@@ -4643,6 +4626,12 @@ vlanif
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/interfaces/vxlan_settings/get_item`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `vxlan`
 
@@ -4655,7 +4644,7 @@ vlanif
 | `vxlanremote` | `""` | `string` |
 | `vxlanremoteport` | `""` | `string` |
 | `vxlangroup` | `""` | `string` |
-| `vxlandev` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `vxlandev` | enum | `enum`: **, lan, opt1, wan |
 
 > 8 fields discovered
 
@@ -4679,6 +4668,12 @@ vlanif
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ipsec/connections/get_child`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `child`
 
@@ -4722,6 +4717,12 @@ vlanif
 
 **Endpoint:** `GET /api/ipsec/connections/get_connection`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `connection`
 
 | Field | Default | Type (inferred) |
@@ -4750,7 +4751,7 @@ vlanif
 | `local_ts` | `""` | `string` |
 | `remote_ts` | `""` | `string` |
 | `org_uuid` | `null` | `nullable` |
-| `uuid` | `"248cbc62-ca11-4c8f-a300-40eaaea10343"` | `string` |
+| `uuid` | `"9fb65ff3-e929-4515-a123-34dfb445f646"` | `string` |
 
 > 25 fields discovered
 
@@ -4775,6 +4776,12 @@ vlanif
 
 **Endpoint:** `GET /api/ipsec/connections/is_enabled`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 enabled
@@ -4787,7 +4794,7 @@ enabled
 }
 ```
 
-> Response size: 17 bytes
+> Response size: 23 bytes
 
 ---
 
@@ -4796,6 +4803,12 @@ enabled
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ipsec/key_pairs/get_item`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `keyPair`
 
@@ -4831,6 +4844,12 @@ enabled
 
 **Endpoint:** `GET /api/ipsec/connections/get_local`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `local`
 
 | Field | Default | Type (inferred) |
@@ -4841,7 +4860,7 @@ enabled
 | `auth` | enum | `enum`: *psk*, pubkey, eap-tls, eap-mschapv2, xauth-pam, eap-radius |
 | `id` | `""` | `string` |
 | `eap_id` | `""` | `string` |
-| `certs` | enum | `enum`: 6a2dc151ced24, 6a0e4c5113246 |
+| `certs` | enum | `enum`: 6a9d4cdae404a |
 | `pubkeys` | [] | `list` |
 | `description` | `""` | `string` |
 
@@ -4867,6 +4886,12 @@ enabled
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ipsec/pools/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `pool`
 
@@ -4899,6 +4924,12 @@ enabled
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ipsec/pre_shared_keys/get_item`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `preSharedKey`
 
@@ -4933,6 +4964,12 @@ enabled
 
 **Endpoint:** `GET /api/ipsec/connections/get_remote`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `remote`
 
 | Field | Default | Type (inferred) |
@@ -4943,9 +4980,9 @@ enabled
 | `auth` | enum | `enum`: *psk*, pubkey, eap-tls, eap-mschapv2, xauth-pam, eap-radius |
 | `id` | `""` | `string` |
 | `eap_id` | `""` | `string` |
-| `groups` | enum | `enum`: 1999, 2000 |
-| `certs` | enum | `enum`: 6a2dc151ced24, 6a0e4c5113246 |
-| `cacerts` | enum | `enum`: 6a2dc151ac187 |
+| `groups` | enum | `enum`: 1999 |
+| `certs` | enum | `enum`: 6a9d4cdae404a |
+| `cacerts` | [] | `list` |
 | `pubkeys` | [] | `list` |
 | `description` | `""` | `string` |
 
@@ -4972,6 +5009,12 @@ enabled
 
 **Endpoint:** `GET /api/ipsec/service/status`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 status
@@ -4990,7 +5033,7 @@ widget
 }
 ```
 
-> Response size: 106 bytes
+> Response size: 137 bytes
 
 ---
 
@@ -4999,6 +5042,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/ipsec/settings/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -5020,10 +5069,6 @@ ipsec
         }
       },
       "user_source": {
-        "Authentik LDAP": {
-          "value": "Authentik LDAP",
-          "selected": 0
-        },
         "Local Database": {
           "value": "Local Database",
           "selected": 0
@@ -5036,10 +5081,6 @@ ipsec
         },
         "1999": {
           "value": "admins",
-          "selected": 0
-        },
-        "2000": {
-          "value": "platform-admins",
           "selected": 0
         }
       }
@@ -5087,10 +5128,18 @@ ipsec
             },
             "4": {
               "value": "Also include sensitive material in dumps, e.g. keys",
+              "selected": 0
+            }
+          },
+          "asn": {
+            "-1": {
+              "value": "Absolutely silent",
+              "selected": 0
+            },
 (parse error)
 ```
 
-> Response size: 9544 bytes
+> Response size: 18320 bytes
 
 ---
 
@@ -5099,6 +5148,12 @@ ipsec
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/ipsec/vti/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `vti`
 
@@ -5139,6 +5194,12 @@ ipsec
 
 **Endpoint:** `GET /api/kea/dhcpv4/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 dhcpv4
@@ -5149,63 +5210,19 @@ dhcpv4
 {
   "dhcpv4": {
     "general": {
-      "enabled": "1",
+      "enabled": "0",
       "manual_config": "0",
       "interfaces": {
-        "opt11": {
-          "value": "CCTV",
-          "selected": 1
-        },
-        "opt3": {
-          "value": "DMZ",
-          "selected": 1
-        },
-        "opt10": {
-          "value": "GAMING",
-          "selected": 1
-        },
-        "opt6": {
-          "value": "IoT",
-          "selected": 1
+        "lan": {
+          "value": "LAN",
+          "selected": 0
         },
         "opt1": {
-          "value": "LAN_TRUNK",
+          "value": "OPT1",
           "selected": 0
         },
-        "opt9": {
-          "value": "Media",
-          "selected": 1
-        },
-        "opt2": {
-          "value": "MGMT",
-          "selected": 1
-        },
-        "lan": {
-          "value": "OOB",
-          "selected": 0
-        },
-        "opt8": {
-          "value": "Storage",
-          "selected": 1
-        },
-        "opt4": {
-          "value": "SVC",
-          "selected": 1
-        },
-        "opt7": {
-          "value": "VoIP",
-          "selected": 1
-        },
-        "opt5": {
-          "value": "VPN",
-          "selected": 1
-        },
-        "opt12": {
-          "value": "WAN_PROXIMUS",
-          "selected": 0
-        },
-        "opt13": {
-          "value": "WAN_TELENET",
+        "wan": {
+          "value": "WAN",
           "selected": 0
         }
       },
@@ -5213,7 +5230,7 @@ dhcpv4
       "service_sockets_retry_wait_time": "",
       "valid_lifetime": "4000",
       "decline_probation_period": "",
-      "fwrules": "0",
+      "fwrules": "1",
       "dhcp_socket_type": {
         "udp": {
           "value": "udp",
@@ -5226,9 +5243,42 @@ dhcpv4
       },
       "compatibility": {
         "exclude-first-last-24": {
+          "value": "exclude-first-last-24",
+          "selected": 0
+        },
+        "ignore-dhcp-server-identifier": {
+          "value": "ignore-dhcp-server-identifier",
+          "selected": 0
+        },
+        "ignore-rai-link-selection": {
+          "value": "ignore-rai-link-selection",
+          "selected": 0
+        },
+        "lenient-option-parsing": {
+          "value": "lenient-option-parsing",
+          "selected": 0
+        }
+      }
+    },
+    "lexpire": {
+      "hold_reclaimed_time": "",
+      "reclaim_timer_wait_time": "",
+      "flush_reclaimed_timer_wait_time": "",
+      "max_reclaim_time": "",
+      "max_reclaim_leases": "",
+      "unwarned_reclaim_cycles": ""
+    },
+    "ha": {
+      "enabled": "0",
+      "this_server_name": "",
+      "max_unacked_clients": "2",
+      "%this_server_name": "OPNsense"
+    }
+  }
+}
 ```
 
-> Response size: 1452 bytes
+> Response size: 1625 bytes
 
 ---
 
@@ -5237,6 +5287,12 @@ dhcpv4
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/kea/dhcpv4/get_peer`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `peer`
 
@@ -5269,11 +5325,17 @@ dhcpv4
 
 **Endpoint:** `GET /api/kea/dhcpv4/get_reservation`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `reservation`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `subnet` | enum | `enum`: 0e27e19f-33b8-485d-80b0-701700993cde, 31ee5bd6-51d9-42d2-879a-1efca75b5d26, 4654ee22-9c18-4a1d-b55a-3b08f4f6c30a, b825e1a6-d6b0-4b0a-b468-a4578ebf34b2, 05f41a5f-c754-4db4-a81a-6209539033d1, d0081161-1e2c-43c6-b3d3-d1ec4a68197b, ed0e2a6a-431f-4e33-a96e-f453e47b55ec, 2fc70c13-cf46-4110-a62e-651d2980d29c, f368506a-195b-4acf-a496-d9eab8214705, ae13b6a5-ed90-457f-a20e-a457da98a48a |
+| `subnet` | [] | `list` |
 | `ip_address` | `""` | `string` |
 | `hw_address` | `""` | `string` |
 | `client_id` | `""` | `string` |
@@ -5305,6 +5367,12 @@ dhcpv4
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/kea/dhcpv4/get_subnet`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `subnet4`
 
@@ -5345,85 +5413,8 @@ dhcpv4
 
 ```
 
-**Rows returned:** 5 (total: 10)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-allocator
-ddns_conflict_resolution_mode
-ddns_dns_port
-ddns_dns_server
-ddns_domain_key_algorithm
-ddns_domain_key_name
-ddns_domain_key_secret
-ddns_forward_zone
-ddns_override_client_update
-ddns_override_no_update
-ddns_qualifying_suffix
-ddns_reverse_zone
-ddns_update_on_renew
-description
-match-client-id
-next_server
-option
-option_data.boot_file_name
-option_data.classless_static_route
-option_data.domain_name
-option_data.domain_name_servers
-option_data.domain_search
-option_data.ntp_servers
-option_data.routers
-option_data.static_routes
-option_data.tftp_server_name
-option_data.time_servers
-option_data.v4_dnr
-option_data.v6_only_preferred
-option_data_autocollect
-pools
-subnet
-uuid
-valid_lifetime
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "0e27e19f-33b8-485d-80b0-701700993cde",
-  "subnet": "10.1.1.0/24",
-  "valid_lifetime": "",
-  "next_server": "",
-  "option_data_autocollect": "0",
-  "option_data.domain_name_servers": "10.1.3.101",
-  "option_data.domain_search": "by-research.be",
-  "option_data.routers": "10.1.1.1",
-  "option_data.static_routes": "",
-  "option_data.classless_static_route": "",
-  "option_data.domain_name": "by-research.be",
-  "option_data.ntp_servers": "10.1.1.1",
-  "option_data.time_servers": "",
-  "option_data.tftp_server_name": "",
-  "option_data.boot_file_name": "",
-  "option_data.v6_only_preferred": "",
-  "option_data.v4_dnr": "",
-  "option": "",
-  "match-client-id": "1",
-  "allocator": "",
-  "pools": "10.1.1.50-10.1.1.99",
-  "ddns_forward_zone": "",
-  "ddns_reverse_zone": "",
-  "ddns_qualifying_suffix": "",
-  "ddns_dns_server": "",
-  "ddns_dns_port": "",
-  "ddns_domain_key_name": "",
-  "ddns_domain_key_secret": "",
-  "ddns_domain_key_algorithm": "",
-  "ddns_override_no_update": "0",
-  "ddns_override_client_update": "0",
-  "ddns_update_on_renew": "0",
-  "ddns_conflict_resolution_mode": "",
-  "description": "mgmt DHCPv4 pool"
-}
-```
 
 ---
 
@@ -5432,6 +5423,12 @@ valid_lifetime
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/kea/dhcpv6/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -5443,63 +5440,19 @@ dhcpv6
 {
   "dhcpv6": {
     "general": {
-      "enabled": "1",
+      "enabled": "0",
       "manual_config": "0",
       "interfaces": {
-        "opt11": {
-          "value": "CCTV",
-          "selected": 1
-        },
-        "opt3": {
-          "value": "DMZ",
-          "selected": 1
-        },
-        "opt10": {
-          "value": "GAMING",
-          "selected": 1
-        },
-        "opt6": {
-          "value": "IoT",
-          "selected": 1
+        "lan": {
+          "value": "LAN",
+          "selected": 0
         },
         "opt1": {
-          "value": "LAN_TRUNK",
+          "value": "OPT1",
           "selected": 0
         },
-        "opt9": {
-          "value": "Media",
-          "selected": 1
-        },
-        "opt2": {
-          "value": "MGMT",
-          "selected": 1
-        },
-        "lan": {
-          "value": "OOB",
-          "selected": 0
-        },
-        "opt8": {
-          "value": "Storage",
-          "selected": 1
-        },
-        "opt4": {
-          "value": "SVC",
-          "selected": 1
-        },
-        "opt7": {
-          "value": "VoIP",
-          "selected": 1
-        },
-        "opt5": {
-          "value": "VPN",
-          "selected": 1
-        },
-        "opt12": {
-          "value": "WAN_PROXIMUS",
-          "selected": 0
-        },
-        "opt13": {
-          "value": "WAN_TELENET",
+        "wan": {
+          "value": "WAN",
           "selected": 0
         }
       },
@@ -5520,9 +5473,40 @@ dhcpv6
           "value": "client-link-addr-option",
           "selected": 0
         },
+        "remote-id": {
+          "value": "remote-id",
+          "selected": 0
+        },
+        "docsis-cmts": {
+          "value": "docsis-cmts",
+          "selected": 0
+        },
+        "docsis-modem": {
+          "value": "docsis-modem",
+          "selected": 0
+        }
+      },
+      "fwrules": "1"
+    },
+    "lexpire": {
+      "hold_reclaimed_time": "",
+      "reclaim_timer_wait_time": "",
+      "flush_reclaimed_timer_wait_time": "",
+      "max_reclaim_time": "",
+      "max_reclaim_leases": "",
+      "unwarned_reclaim_cycles": ""
+    },
+    "ha": {
+      "enabled": "0",
+      "this_server_name": "",
+      "max_unacked_clients": "2",
+      "%this_server_name": "OPNsense"
+    }
+  }
+}
 ```
 
-> Response size: 1371 bytes
+> Response size: 1529 bytes
 
 ---
 
@@ -5532,11 +5516,17 @@ dhcpv6
 
 **Endpoint:** `GET /api/kea/dhcpv6/get_reservation`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `reservation`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `subnet` | enum | `enum`: 2b2c9c24-d3ae-4615-928b-a4dfe26421e7, 209ce902-df07-4173-9102-6f100df7467b, 26c86640-d693-46bf-8243-b0719b7794dc, 2ba5466d-ab53-4269-8b1b-c1eeb4935302, f8620d52-3fff-4983-aa85-491fec4d56bb, ba94c47b-893e-4587-b0e7-626e19c590b5, 07ec7c26-ceb5-4766-8267-cf5069fa6a59, 33ca6986-fe62-49a7-94ac-d85c6cc09438, 7168648c-d8c5-4353-8f4e-d5a4f4c48e6d, cc4c7da7-fbc1-4e88-b462-7ea450d658e7 |
+| `subnet` | [] | `list` |
 | `ip_address` | `""` | `string` |
 | `prefix` | `""` | `string` |
 | `duid` | `""` | `string` |
@@ -5569,6 +5559,12 @@ dhcpv6
 
 **Endpoint:** `GET /api/kea/dhcpv6/get_subnet`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `subnet6`
 
 | Field | Default | Type (inferred) |
@@ -5581,7 +5577,7 @@ dhcpv6
 | `option_data` | (object) | `object`: {"dns_servers":{"":{"value":"","selected":1}},"domain_search |
 | `option` | [] | `list` |
 | `pools` | `""` | `string` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: lan, opt1, wan |
 | `dynamic_prefix` | `"0"` | `string-bool` |
 | `ddns_forward_zone` | `""` | `string` |
 | `ddns_reverse_zone` | `""` | `string` |
@@ -5609,71 +5605,8 @@ dhcpv6
 
 ```
 
-**Rows returned:** 5 (total: 10)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-%interface
-allocator
-ddns_conflict_resolution_mode
-ddns_dns_port
-ddns_dns_server
-ddns_domain_key_algorithm
-ddns_domain_key_name
-ddns_domain_key_secret
-ddns_forward_zone
-ddns_override_client_update
-ddns_override_no_update
-ddns_qualifying_suffix
-ddns_reverse_zone
-ddns_update_on_renew
-description
-dynamic_prefix
-interface
-option
-option_data.dns_servers
-option_data.domain_search
-option_data.v6_dnr
-option_data_autocollect
-pd-allocator
-pools
-subnet
-uuid
-valid_lifetime
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "ba94c47b-893e-4587-b0e7-626e19c590b5",
-  "subnet": "fd01:1::/64",
-  "valid_lifetime": "",
-  "allocator": "",
-  "pd-allocator": "",
-  "option_data_autocollect": "0",
-  "option_data.dns_servers": "",
-  "option_data.domain_search": "",
-  "option_data.v6_dnr": "",
-  "option": "",
-  "pools": "",
-  "interface": "opt2",
-  "%interface": "MGMT",
-  "dynamic_prefix": "0",
-  "ddns_forward_zone": "",
-  "ddns_reverse_zone": "",
-  "ddns_qualifying_suffix": "",
-  "ddns_dns_server": "",
-  "ddns_dns_port": "",
-  "ddns_domain_key_name": "",
-  "ddns_domain_key_secret": "",
-  "ddns_domain_key_algorithm": "",
-  "ddns_override_no_update": "0",
-  "ddns_override_client_update": "0",
-  "ddns_update_on_renew": "0",
-  "ddns_conflict_resolution_mode": "",
-  "description": "mgmt IPv6 subnet (SLAAC)"
-}
-```
 
 ---
 
@@ -5682,6 +5615,12 @@ valid_lifetime
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/kea/ctrl_agent/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -5701,7 +5640,7 @@ ctrlagent
 }
 ```
 
-> Response size: 84 bytes
+> Response size: 128 bytes
 
 ---
 
@@ -5711,6 +5650,12 @@ ctrlagent
 
 **Endpoint:** `GET /api/kea/service/status`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 status
@@ -5720,7 +5665,7 @@ widget
 **Response sample:**
 ```json
 {
-  "status": "running",
+  "status": "disabled",
   "widget": {
     "caption_restart": "Restart",
     "caption_start": "Start",
@@ -5729,65 +5674,39 @@ widget
 }
 ```
 
-> Response size: 105 bytes
+> Response size: 137 bytes
 
 ---
 
 ## 102. lldpd-general
 
-### global — HTTP 200
+### global — HTTP 404
 
 **Endpoint:** `GET /api/lldpd/general/get`
 
-**Top-level keys:**
-```
-general
-```
-
-**Response sample:**
+**Request JSON:**
 ```json
-{
-  "general": {
-    "enabled": "1",
-    "cdp": "0",
-    "fdp": "0",
-    "edp": "0",
-    "sonmp": "0",
-    "agentx": "0",
-    "interface": "lan,opt1,opt2,opt3,opt4,opt5,opt6,opt7,opt8,opt9,opt10,opt11"
-  }
-}
+{}
+
 ```
 
-> Response size: 157 bytes
+> **Probe failed:** HTTP 404
 
 ---
 
 ## 103. lldpd-service
 
-### global — HTTP 200
+### global — HTTP 404
 
 **Endpoint:** `GET /api/lldpd/service/status`
 
-**Top-level keys:**
-```
-status
-widget
-```
-
-**Response sample:**
+**Request JSON:**
 ```json
-{
-  "status": "running",
-  "widget": {
-    "caption_restart": "Restart",
-    "caption_start": "Start",
-    "caption_stop": "Stop"
-  }
-}
+{}
+
 ```
 
-> Response size: 105 bytes
+> **Probe failed:** HTTP 404
 
 ---
 
@@ -5796,6 +5715,12 @@ widget
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/monit/settings/get_alert`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `alert`
 
@@ -5838,13 +5763,13 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "238e9a17-8c98-4e1d-ab08-f5e8d265701b",
-  "enabled": "1",
-  "recipient": "tech-support@by-systems.be",
+  "uuid": "cb52977c-69b4-41f3-832c-2fec26bc6c2c",
+  "enabled": "0",
+  "recipient": "root@localhost.local",
   "noton": "0",
   "events": "",
-  "format": "from: no_reply@resend.by-systems.be\nsubject: [vm-opns-01] $SERVICE $EVENT\nmessage: Monit on $HOST: $SERVICE $EVENT at $DATE -- $DESCRIPTION",
-  "reminder": "0",
+  "format": "",
+  "reminder": "",
   "description": ""
 }
 ```
@@ -5856,6 +5781,12 @@ uuid
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/monit/settings/get_service`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `service`
 
@@ -5871,11 +5802,11 @@ uuid
 | `timeout` | `"300"` | `int-like string` |
 | `starttimeout` | `"30"` | `int-like string` |
 | `address` | `""` | `string` |
-| `interface` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: **, lan, opt1 |
 | `start` | `""` | `string` |
 | `stop` | `""` | `string` |
-| `tests` | enum | `enum`: 3c7a972a-5319-4962-81b6-03d180381b94, 1726e7a4-2d6b-4812-b240-b0e7b7140dd4, 59c46dc3-ba42-4c42-854f-229a23a6154b, 34d10974-507c-49e4-9eef-ad1f2388fc55, 92e05688-fee6-4207-8dd4-bd8a23162590, 869981a5-72d6-4943-b3f5-39f397c9d5b2, b1819fd4-d660-4e26-8623-e36c1d3aa7f9, c802f9f5-588c-483b-aeba-3fcd2be97788, 527da9dc-99c3-4f6c-8bbc-ae5ef8c6cead, 5f2a479f-cf4e-46d2-9a9d-4b41842292b0, b165d98f-5171-4721-b55c-fb7471ed576a, f732977d-9c5f-4ff7-ad26-8aeb94a72528, 07e46b13-7368-4f50-8784-b01eab726713 |
-| `depends` | enum | `enum`: a3685570-0d73-46d2-965d-21b37aa730a0, 86d8a3ab-d2dd-4810-b53c-9a76cdef6d28, 380a4e9b-a6b3-4535-9329-69ca3bd5a3c1, 9f010590-7663-43ba-824f-cda1d0d0df8a, 9450bab7-3138-4c64-b2a2-528307cd9b71, e4518266-1c69-4b31-a206-a1d93219bf1c, e32d03fe-2073-4984-bb61-87f5580eea83, 4d90319b-90a1-4268-af4f-3dbae1ad767c, c83573ed-cf5d-4411-8938-36b2241a78a2, 537220d0-8615-4b82-8012-8bbd083121fc, 45fa41cb-57e5-47c3-990e-6d02ec9bf54d |
+| `tests` | enum | `enum`: 02bf0086-30d0-4069-a1b9-3d6456316b30, 6a22332f-250b-4221-b40f-6b09858c86d9, b5b17fc6-2464-45eb-8c7b-d9dad0019f69, 83bfa0f1-6868-462d-ba09-861e896d1558, 1a56e95f-90c0-42f3-b071-d923834ca4cd, 2fc6d09f-bba0-4449-aa06-bcc1fef913f6, f21e5fac-af6c-4ff2-a907-9dbb71c543c5, 82e7c5e2-4bec-429e-b633-d56780149da8, bbd64222-5484-4381-9a5a-dfe51d210996, 39eff58e-b238-440e-a434-04194feb8a70, 0eb3b13a-4329-47fe-8998-ecfb5256faff |
+| `depends` | enum | `enum`: 7abe9271-c5fc-4ba8-80e4-072b6d5a2da9, b1f8aff7-262b-4fbb-9f8c-50168b557d87, f60e6373-61d7-43e6-baa8-f464fc7375e2, a4c1f24d-60a0-40e2-a725-0a44f5d89dad |
 | `polltime` | `""` | `string` |
 
 > 16 fields discovered
@@ -5890,7 +5821,7 @@ uuid
 
 ```
 
-**Rows returned:** 5 (total: 11)
+**Rows returned:** 4 (total: 4)
 
 **Row keys:**
 ```
@@ -5918,7 +5849,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "a3685570-0d73-46d2-965d-21b37aa730a0",
+  "uuid": "7abe9271-c5fc-4ba8-80e4-072b6d5a2da9",
   "enabled": "1",
   "name": "$HOST",
   "description": "",
@@ -5933,7 +5864,7 @@ uuid
   "interface": "",
   "start": "",
   "stop": "",
-  "tests": "b1819fd4-d660-4e26-8623-e36c1d3aa7f9,1726e7a4-2d6b-4812-b240-b0e7b7140dd4,34d10974-507c-49e4-9eef-ad1f2388fc55,92e05688-fee6-4207-8dd4-bd8a23162590",
+  "tests": "2fc6d09f-bba0-4449-aa06-bcc1fef913f6,6a22332f-250b-4221-b40f-6b09858c86d9,b5b17fc6-2464-45eb-8c7b-d9dad0019f69,83bfa0f1-6868-462d-ba09-861e896d1558",
   "%tests": "MemoryUsage, CPUUsage, LoadAvg1, LoadAvg5",
   "depends": "",
   "polltime": ""
@@ -5948,6 +5879,12 @@ uuid
 
 **Endpoint:** `GET /api/monit/settings/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 monit
@@ -5958,19 +5895,19 @@ monit
 {
   "monit": {
     "general": {
-      "enabled": "1",
+      "enabled": "0",
       "interval": "120",
       "startdelay": "120",
       "mailserver": {
-        "smtp.resend.com": {
-          "value": "smtp.resend.com",
+        "127.0.0.1": {
+          "value": "127.0.0.1",
           "selected": 1
         }
       },
-      "port": "465",
-      "username": "resend",
-      "password": "<REDACTED:password>",
-      "ssl": "1",
+      "port": "25",
+      "username": "",
+      "password": "",
+      "ssl": "0",
       "sslversion": {
         "auto": {
           "value": "AUTO",
@@ -6013,9 +5950,9 @@ monit
       "mmonitRegisterCredentials": "1"
     },
     "alert": {
-      "238e9a17-8c98-4e1d-ab08-f5e8d265701b": {
-        "enabled": "1",
-        "recipient": "tech-support@by-systems.be",
+      "cb52977c-69b4-41f3-832c-2fec26bc6c2c": {
+        "enabled": "0",
+        "recipient": "root@localhost.local",
         "noton": "0",
         "events": {
           "action": {
@@ -6038,7 +5975,7 @@ monit
 (parse error)
 ```
 
-> Response size: 107389 bytes
+> Response size: 51949 bytes
 
 ---
 
@@ -6047,6 +5984,12 @@ monit
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/monit/service/status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -6057,7 +6000,7 @@ widget
 **Response sample:**
 ```json
 {
-  "status": "running",
+  "status": "disabled",
   "widget": {
     "caption_restart": "Restart",
     "caption_start": "Start",
@@ -6066,7 +6009,7 @@ widget
 }
 ```
 
-> Response size: 105 bytes
+> Response size: 137 bytes
 
 ---
 
@@ -6075,6 +6018,12 @@ widget
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/monit/settings/get_test`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `test`
 
@@ -6098,12 +6047,11 @@ widget
 
 ```
 
-**Rows returned:** 5 (total: 13)
+**Rows returned:** 5 (total: 11)
 
 **Row keys:**
 ```
 %action
-%type
 action
 condition
 name
@@ -6115,10 +6063,9 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "3c7a972a-5319-4962-81b6-03d180381b94",
+  "uuid": "02bf0086-30d0-4069-a1b9-3d6456316b30",
   "name": "ChangedStatus",
   "type": "ProgramStatus",
-  "%type": "Program Status",
   "condition": "changed status",
   "action": "alert",
   "%action": "Alert",
@@ -6133,6 +6080,12 @@ uuid
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/openvpn/client_overwrites/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `cso`
 
@@ -6180,6 +6133,12 @@ uuid
 
 **Endpoint:** `GET /api/openvpn/instances/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `instance`
 
 | Field | Default | Type (inferred) |
@@ -6203,9 +6162,9 @@ uuid
 | `route` | enum | `enum`: ** |
 | `push_route` | enum | `enum`: ** |
 | `push_excluded_routes` | enum | `enum`: ** |
-| `cert` | enum | `enum`: **, 6a2dc151ced24, 6a0e4c5113246 |
+| `cert` | enum | `enum`: **, 6a9d4cdae404a |
 | `crl` | enum | `enum`: ** |
-| `ca` | enum | `enum`: **, 6a2dc151ac187 |
+| `ca` | enum | `enum`: ** |
 | `cert_depth` | enum | `enum`: **, 1, 2, 3, 4, 5 |
 | `remote_cert_tls` | `"0"` | `string-bool` |
 | `verify_client_cert` | enum | `enum`: none, *require* |
@@ -6214,8 +6173,8 @@ uuid
 | `data-ciphers` | enum | `enum`: AES-128-GCM, AES-192-GCM, AES-256-GCM, CHACHA20-POLY1305, AES-128-CBC, AES-192-CBC, AES-256-CBC, AES-128-CFB, AES-192-CFB, AES-256-CFB, AES-128-CFB1, AES-192-CFB1, AES-256-CFB1, AES-128-CFB8, AES-192-CFB8, AES-256-CFB8, AES-128-OFB, AES-192-OFB, AES-256-OFB |
 | `data-ciphers-fallback` | enum | `enum`: **, AES-128-GCM, AES-192-GCM, AES-256-GCM, CHACHA20-POLY1305, AES-128-CBC, AES-192-CBC, AES-256-CBC, AES-128-CFB, AES-192-CFB, AES-256-CFB, AES-128-CFB1, AES-192-CFB1, AES-256-CFB1, AES-128-CFB8, AES-192-CFB8, AES-256-CFB8, AES-128-OFB, AES-192-OFB, AES-256-OFB |
 | `tls_key` | enum | `enum`: ** |
-| `authmode` | enum | `enum`: Authentik LDAP, Local Database |
-| `local_group` | enum | `enum`: **, 1999, 2000 |
+| `authmode` | enum | `enum`: Local Database |
+| `local_group` | enum | `enum`: **, 1999 |
 | `various_flags` | enum | `enum`: block-ipv6, client-to-client, duplicate-cn, float, passtos, persist-remote-ip, remote-random, route-noexec, route-nopull, explicit-exit-notify, fast-io |
 | `various_push_flags` | enum | `enum`: block-ipv6, block-outside-dns, register-dns, explicit-exit-notify |
 | `push_inactive` | `""` | `string` |
@@ -6271,6 +6230,12 @@ uuid
 
 **Endpoint:** `GET /api/openvpn/service/search_routes`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 current
@@ -6289,7 +6254,7 @@ total
 }
 ```
 
-> Response size: 46 bytes
+> Response size: 64 bytes
 
 ---
 
@@ -6299,6 +6264,12 @@ total
 
 **Endpoint:** `GET /api/openvpn/service/search_sessions`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 current
@@ -6317,7 +6288,7 @@ total
 }
 ```
 
-> Response size: 46 bytes
+> Response size: 64 bytes
 
 ---
 
@@ -6327,14 +6298,20 @@ total
 
 **Endpoint:** `GET /api/routes/routes/getroute`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `route`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `network` | `""` | `string` |
-| `gateway` | enum | `enum`: Null4, Null6, WAN_PROXIMUS_DHCP6, WAN_PROXIMUS_PPPOE, WAN_TELENET_GW, WAN_TELENET_GWv6 |
+| `gateway` | enum | `enum`: LAN_GW, Null4, Null6, WAN_DHCP6 |
 | `descr` | `""` | `string` |
-| `disabled` | `"0"` | `string-bool` |
+| `enabled` | `"1"` | `string-bool` |
 
 > 4 fields discovered
 
@@ -6359,6 +6336,12 @@ total
 
 **Endpoint:** `GET /api/routing/settings/get_gateway`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `gateway_item`
 
 | Field | Default | Type (inferred) |
@@ -6366,7 +6349,7 @@ total
 | `disabled` | `"0"` | `string-bool` |
 | `name` | `""` | `string` |
 | `descr` | `""` | `string` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: lan, opt1, *wan* |
 | `ipprotocol` | enum | `enum`: *inet*, inet6 |
 | `gateway` | `""` | `string` |
 | `defaultgw` | `"0"` | `string-bool` |
@@ -6401,51 +6384,29 @@ total
 
 ```
 
-**Rows returned:** 4 (total: 4)
+**Rows returned:** 2 (total: 2)
 
 **Row keys:**
 ```
-attribute
-current_data_length
-current_interval
-current_latencyhigh
-current_latencylow
-current_loss_interval
-current_losshigh
-current_losslow
-current_time_period
-data_length
 defaultgw
 delay
 descr
 disabled
 dynamic
-fargw
-force_down
 gateway
+gateway_interface
 if
 interface
 interface_descr
-interval
 ipprotocol
 label_class
-latencyhigh
-latencylow
 loss
-loss_interval
-losshigh
-losslow
-monitor
 monitor_disable
-monitor_killstates
-monitor_killstates_priority
 monitor_noroute
 name
-nosync
 priority
 status
 stddev
-time_period
 upstream
 uuid
 virtual
@@ -6455,50 +6416,28 @@ weight
 **First row sample:**
 ```json
 {
-  "disabled": false,
-  "name": "WAN_PROXIMUS_DHCP6",
-  "descr": "ISP PROXIMUS FTTH 500/500 (IPv6-PD)",
-  "interface": "opt12",
-  "ipprotocol": "inet6",
-  "gateway": "fe80::22e0:9cff:fe60:4c01",
-  "defaultgw": true,
-  "fargw": "0",
-  "monitor_disable": "0",
-  "monitor_noroute": "0",
-  "monitor_killstates": "0",
-  "monitor_killstates_priority": "0",
-  "monitor": "2001:4860:4860::8888",
-  "force_down": "0",
-  "nosync": "0",
-  "priority": "255",
+  "interface": "lan",
   "weight": "1",
-  "latencylow": "",
-  "current_latencylow": "200",
-  "latencyhigh": "",
-  "current_latencyhigh": "500",
-  "losslow": "",
-  "current_losslow": "10",
-  "losshigh": "",
-  "current_losshigh": "20",
-  "interval": "",
-  "current_interval": "1",
-  "time_period": "",
-  "current_time_period": "60",
-  "loss_interval": "",
-  "current_loss_interval": "4",
-  "data_length": "",
-  "current_data_length": "1",
-  "uuid": "67e0a845-2f17-4657-a664-e1e3d5ebd1d1",
-  "if": "pppoe0",
-  "attribute": 1,
+  "ipprotocol": "inet",
+  "name": "LAN_GW",
+  "descr": "Interface LAN_GW Gateway",
+  "monitor_disable": "1",
+  "monitor_noroute": "0",
+  "gateway_interface": false,
+  "if": "vtnet1",
   "dynamic": true,
-  "virtual": false,
+  "virtual": true,
+  "priority": 254,
+  "gateway": "10.6.224.1",
+  "uuid": "LAN_GW",
+  "disabled": false,
   "upstream": false,
-  "interface_descr": "WAN_PROXIMUS",
+  "defaultgw": true,
+  "interface_descr": "LAN",
   "status": "Online",
-  "delay": "5.0 ms",
-  "stddev": "0.3 ms",
-  "loss": "0.0 %",
+  "delay": "~",
+  "stddev": "~",
+  "loss": "~",
   "label_class": "fa fa-plug text-success"
 }
 ```
@@ -6511,6 +6450,12 @@ weight
 
 **Endpoint:** `GET /api/routing/settings/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 gateways
@@ -6520,88 +6465,12 @@ gateways
 ```json
 {
   "gateways": {
-    "gateway_item": {
-      "afb4c0fb-5a7c-4df7-8557-d36cd66eb8f4": {
-        "disabled": "0",
-        "name": "WAN_PROXIMUS_PPPOE",
-        "descr": "ISP PROXIMUS FTTH 500/500",
-        "interface": {
-          "opt11": {
-            "value": "CCTV",
-            "selected": 0
-          },
-          "opt3": {
-            "value": "DMZ",
-            "selected": 0
-          },
-          "opt10": {
-            "value": "GAMING",
-            "selected": 0
-          },
-          "opt6": {
-            "value": "IoT",
-            "selected": 0
-          },
-          "opt1": {
-            "value": "LAN_TRUNK",
-            "selected": 0
-          },
-          "opt9": {
-            "value": "Media",
-            "selected": 0
-          },
-          "opt2": {
-            "value": "MGMT",
-            "selected": 0
-          },
-          "lan": {
-            "value": "OOB",
-            "selected": 0
-          },
-          "opt8": {
-            "value": "Storage",
-            "selected": 0
-          },
-          "opt4": {
-            "value": "SVC",
-            "selected": 0
-          },
-          "opt7": {
-            "value": "VoIP",
-            "selected": 0
-          },
-          "opt5": {
-            "value": "VPN",
-            "selected": 0
-          },
-          "opt12": {
-            "value": "WAN_PROXIMUS",
-            "selected": 1
-          },
-          "opt13": {
-            "value": "WAN_TELENET",
-            "selected": 0
-          }
-        },
-        "ipprotocol": {
-          "inet": {
-            "value": "IPv4",
-            "selected": 1
-          },
-          "inet6": {
-            "value": "IPv6",
-            "selected": 0
-          }
-        },
-        "gateway": "dynamic",
-        "defaultgw": "0",
-        "fargw": "0",
-        "monitor_disable": "0",
-        "monitor_noroute": "0",
-(parse error)
+    "gateway_item": []
+  }
+}
 ```
 
-> Response size: 4558 bytes
+> Response size: 47 bytes
 
 ---
 
@@ -6611,17 +6480,23 @@ gateways
 
 **Endpoint:** `GET /api/syslog/settings/get_destination`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `destination`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
 | `transport` | enum | `enum`: udp4, tcp4, udp6, tcp6, tls4, tls6 |
-| `program` | enum | `enum`: acme.sh, acmeclient, audit, configd.py, ddclient, dhcrelay, dnsmasq, filterlog, firewall, dpinger, hostwatch, charon, kea-ctrl-agent, kea-dhcp-ddns, kea-dhcp4, kea-dhcp6, kernel, lighttpd, monit, ntp, ntpd, ntpdate, openvpn, pkg, pkg-static, captiveportal, ppp, unbound, bgpd, olsrd, ospfd, routed, zebra, suricata, wireguard, hostapd |
+| `program` | enum | `enum`: audit, configd.py, dhcrelay, dnsmasq, filterlog, firewall, dpinger, hostwatch, charon, kea-ctrl-agent, kea-dhcp-ddns, kea-dhcp4, kea-dhcp6, kernel, lighttpd, monit, ntp, ntpd, ntpdate, openvpn, pkg, pkg-static, captiveportal, ppp, unbound, bgpd, olsrd, ospfd, routed, zebra, suricata, wireguard, hostapd |
 | `level` | enum | `enum`: debug, info, notice, warn, err, crit, alert, emerg |
 | `facility` | enum | `enum`: kern, user, mail, daemon, auth, syslog, lpr, news, uucp, cron, authpriv, ftp, ntp, security, console, local0, local1, local2, local3, local4, local5, local6, local7 |
 | `hostname` | `""` | `string` |
-| `certificate` | enum | `enum`: **, 6a2dc151ced24, 6a0e4c5113246 |
+| `certificate` | enum | `enum`: **, 6a9d4cdae404a |
 | `port` | `"514"` | `int-like string` |
 | `rfc5424` | `"0"` | `string-bool` |
 | `description` | `""` | `string` |
@@ -6649,6 +6524,12 @@ gateways
 
 **Endpoint:** `GET /api/syslog/service/status`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 status
@@ -6667,7 +6548,7 @@ widget
 }
 ```
 
-> Response size: 105 bytes
+> Response size: 136 bytes
 
 ---
 
@@ -6676,6 +6557,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/syslog/settings/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -6699,7 +6586,7 @@ syslog
 }
 ```
 
-> Response size: 123 bytes
+> Response size: 194 bytes
 
 ---
 
@@ -6708,6 +6595,12 @@ syslog
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/trust/ca/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `ca`
 
@@ -6718,7 +6611,7 @@ syslog
 | `crt` | `""` | `string` |
 | `prv` | `""` | `string` |
 | `serial` | `""` | `string` |
-| `caref` | enum | `enum`: **, 6a2dc151ac187 |
+| `caref` | enum | `enum`: ** |
 | `action` | enum | `enum`: existing, *internal*, ocsp |
 | `key_type` | enum | `enum`: 512, 1024, *2048*, 3072, 4096, 8192, prime256v1, secp384r1, secp521r1 |
 | `digest` | enum | `enum`: sha1, sha224, *sha256*, sha384, sha512 |
@@ -6750,75 +6643,8 @@ syslog
 
 ```
 
-**Rows returned:** 1 (total: 1)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-%action
-%country
-%digest
-%key_type
-action
-caref
-city
-commonname
-country
-crt
-crt_payload
-descr
-digest
-email
-key_type
-lifetime
-name
-ocsp_uri
-organization
-organizationalunit
-prv
-prv_payload
-refcount
-refid
-serial
-state
-uuid
-valid_from
-valid_to
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "5acf2e25-6b7f-4474-8453-6e53a02199ce",
-  "refid": "6a2dc151ac187",
-  "descr": "YR1 (ACME Client)",
-  "crt": "Ci0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFMnpDQ0FzT2dBd0lCQWdJUkFLSUNVL0ZmSnBIQVhjSE9FN204eWs0d0RRWUpLb1pJaHZjTkFRRUxCUUF3CkxqRUxNQWtHQTFVRUJoTUNWVk14RFRBTEJnTlZCQW9UQkVsVFVrY3hFREFPQmdOVkJBTVRCMUp2YjNRZ1dWSXcKSGhjTk1qVXdPVEF6TURBd01EQXdXaGNOTWpnd09UQXlNak0xT1RVNVdqQXpNUXN3Q1FZRFZRUUdFd0pWVXpFVwpNQlFHQTFVRUNoTU5UR1YwSjNNZ1JXNWpjbmx3ZERFTU1Bb0dBMVVFQXhNRFdWSXhNSUlCSWpBTkJna3Foa2lHCjl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFvVmk4WDJ4Q1lnTVh2SnhOUEtwL29GMTNVTWdtUEFCQjA3VkMKTE5EdG9YbXQ5bHVFWk5KU0JWMTBWeVQxUHo2TEQ4WnExZDJnYzQzV05sMUFkUnJqNHNFbmF6Yk9pejBuUHBtRwpCcDJodWk0OW9adERJWTZ3ZEtlWkFpNUJiTlUyMENINlJTQkJNTFNROWNYckg4ZHhkdjRQQUo0NXNzR01MNjhVClNFM0JzakMyYTZjQU45TDVDZ1hWSVFpNXRmTmlUUG9GWlozUzBPbFhxTG1tdGRWOTV1ZFdBYjViNmUvRjQ5RGkKQ3NIMFkwMEFnNzJCVkliMWh6eW5tS2UrWDBtRVJCVHRzYjNCd21wVjlpcGVCak1Mb1IvRDljSHhIUUNXb2k1bApUbVh3WTAxNUo1ckdlbHoxblpqSnV4YzJraW9hWDI5WEpCbmhNa1A1MzFyU2RHNXVNd0lEQVFBQm80SHVNSUhyCk1BNEdBMVVkRHdFQi93UUVBd0lCaGpBVEJnTlZIU1VFRERBS0JnZ3JCZ0VGQlFjREFUQVNCZ05WSFJNQkFmOEUKQ0RBR0FRSC9BZ0VBTUIwR0ExVWREZ1FXQkJRZkx6VytSaFNDelVDeHJua3NWWGo2OTlSbyt6QWZCZ05WSFNNRQpHREFXZ0JUZTUxdGcwQ0p0UUNoOVB3MEIvcVMxVXJSUmxEQXlCZ2dyQmdFRkJRY0JBUVFtTUNRd0lnWUlLd1lCCkJRVUhNQUtHRm1oMGRIQTZMeTk1Y2k1cExteGxibU55TG05eVp5OHdFd1lEVlIwZ0JBd3dDakFJQmdabmdRd0IKQWdFd0p3WURWUjBmQkNBd0hqQWNvQnFnR0lZV2FIUjBjRG92TDNseUxtTXViR1Z1WTNJdWIzSm5MekFOQmdrcQpoa2lHOXcwQkFRc0ZBQU9DQWdFQTArenZNcTNrSGlnMWRkVG1tbStSaWJUcjkvUnBYN2s0YnVhbk1NUnFiVi95Ckl2UDgyekFITjNtdmF3K2NBU3VWc2RwZDBpa2pocjRobmhKUUxRT3pPcDJjY0tyc2RHT0FnbzB2ZGRlSVNGQXEKRVdFVjRsbVVNM3ZGRjc5NnVwK2JTZ21KMXU2UnVwRENNeERnRjhNM2VMdkd1ajZMMGx1M3prUTBLdVFMbkt4TAp0QjBvUXFuMUlkZzVDdXVHcE12UXprMjlQYTNEL3FIdXJjMEVJTTlTeHVrUXVKcXE2M2x4c1l5UlFGVTh5TUJPCmhxMXc1TGJmYVdOUnJ6MXVrbE9mSS9wWWtBYjJFMk1UWnJBTVFrQklFMlM4SnQxRjhnUmM5Nm8veE9zcmd2U2sKYTg0QWlzWDZ4cTFsejFaN2pHdnJuWGM0VE1janhaVGppVGFpaGNZSTFKSVhaaUx0RU1TQ2E1bDNjdThZV2Q2egpkTFJRbHFSZGNsVmp1UWZOSGF3Uko2R1dsa0swUUpvc2l2VEt3ZEJ3M0t4RXR6R284eU1IRVJic3k1N2dQMVVYCkhPTWNtWllRQzBndHlSM1N4ZmVuSU0vTXhDM0lhMllwYWIva1EvQ1RubEluMktRNUpVQzZOWXJHQ2JoRk45YnAKNWxLSlN0RXdDVW5McG50Y3JYazVYVkRDTnYvNVJ5V3BSVGhrR09WN0dldEtrUTBxQVk4aEN6V0s2b3FuQWhEWgpjamxZVmRXZnFPdzNESU9YNkVETkJnQXFIYXJSVnh5RjlRWmRPYVhTeVBKMHVlRDJCWUpFQmdhQ0dROHJBYVUvClFjMTIzVjVMVFhEWlc0Q2NzUEJEeWh5NHYrYzhoQ2xBeXcvSWtKbGZCcXhCOUQrL3d2SU1IZ0VDWjRwdFA2bz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQoKLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUY5RENDQTl5Z0F3SUJBZ0lSQVBKTGJSZjUyYTE4c2NuK3A0ZUNhWjh3RFFZSktvWklodmNOQVFFTEJRQXcKVHpFTE1Ba0dBMVVFQmhNQ1ZWTXhLVEFuQmdOVkJBb1RJRWx1ZEdWeWJtVjBJRk5sWTNWeWFYUjVJRkpsYzJWaApjbU5vSUVkeWIzVndNUlV3RXdZRFZRUURFd3hKVTFKSElGSnZiM1FnV0RFd0hoY05Nall3TlRFek1EQXdNREF3CldoY05Nekl3T1RBeU1qTTFPVFU1V2pBdU1Rc3dDUVlEVlFRR0V3SlZVekVOTUFzR0ExVUVDaE1FU1ZOU1J6RVEKTUE0R0ExVUVBeE1IVW05dmRDQlpVakNDQWlJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dJUEFEQ0NBZ29DZ2dJQgpBTnZHSm5ONzhDVEpkV0wzK2VHZnNMTjVUck5CSnMrVkg5aFJYcVJid3h1OXNHTmlCMEJEMWZjT3hiU1VRQ0pJCk0xeEUxM0RiKzVDdzF3MHMwRUJZc3Z1SVAvNmpvRjB3OGN1SW1iZ1IxT0dnWWJTUTRPcHpJK0RHOFNHdVRsY0UKODczT0NTK2toM3NybG82dmw0M001T0pnNEFlbzFzZkhwNmtUSkRvSWlGQk5KQVkrT0tmWC9GVXZZS3VoalQrbgpvNDlsbXFtdXBTQkk1UGtCUWlxckVHdFdVNXV4VS9jUVdIR3U4alNqRkJ6blpxdmJOUExNWE1MRnhDYjNXVGZyCkpCWFhqcXZXRyt2NGJqenhqamVBdE9sVTdxYXJSRHZOT3lBdVFZTGxuOTA0TStmYUt4OGhuTENwSjE1WnFhRWcKY05sWSs5TU1XY0M1eXZMMkEyajNsOSsyYnVnZ1pYK2RPRTkxelltSWRhd1R2U1p1VnZsYlJyQWxMeElCNnB3TQpCam5lWENqWVE4KzNCQ0Nqc3NiU05wWlUzaFRjQkRkaGZBbEVEbFlyNnBFYXRuTWRtRFQ1QnFuS0M5MmJkMEVoCk0xZmJMSGlvTGNjTEN1aWV2VDhaa1BoWnJxN01paTdnTlhBY1VFQVI4K2x6WWFsKzl6VGc3QzVEQUx5Vk9lRy8KQ3FmUkFNbjFLU0hDUjBOU0E2UDh0bi9tR1JsbkNjdDVydFZDTG5WeVNWcFU2SDFxR2czRGdUT3Vza2Y4ZWFoVApNaVliSTVlelBKbU81ZXJ0YWxza1ExdXRwNzQrZUR5OTJQSTRmdEhLVGJxOUlXaEg0WVpLaDNXbkpFSXQrb1F2CmxZWmJZOHRwRXJvS3JGQjZQRkd6ckpJRFJ5dHM0SHF2dUg1MlJGajJ6di9CQWdNQkFBR2pnZXN3Z2Vnd0RnWUQKVlIwUEFRSC9CQVFEQWdFR01CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRkJ3TUJNQThHQTFVZEV3RUIvd1FGTUFNQgpBZjh3SFFZRFZSME9CQllFRk43blcyRFFJbTFBS0gwL0RRSCtwTFZTdEZHVU1COEdBMVVkSXdRWU1CYUFGSG0wCldlWjd0dVhrQVhPQUNJaklHbGoyNlp0dU1ESUdDQ3NHQVFVRkJ3RUJCQ1l3SkRBaUJnZ3JCZ0VGQlFjd0FvWVcKYUhSMGNEb3ZMM2d4TG1rdWJHVnVZM0l1YjNKbkx6QVRCZ05WSFNBRUREQUtNQWdHQm1lQkRBRUNBVEFuQmdOVgpIUjhFSURBZU1CeWdHcUFZaGhab2RIUndPaTh2ZURFdVl5NXNaVzVqY2k1dmNtY3ZNQTBHQ1NxR1NJYjNEUUVCCkN3VUFBNElDQVFBOHNwU0k5NUtLZm4yVzZHTW1EcEhCSlNQYUxic1MzVzkzY2lqSkNSQ1lBYzFmc0pnTDFGSUwKN0MwQzllY1BPZGN3QjJmaTBEazJwOTRqOWlUSkN4bXQ1Q0ZTS0xSV3duWFQyTU1TWGV4Vnhxb1ZCNzlCZFdQeApWWEVUa1ZtZS9xWVNBdUtWSGg1UHMrNUJpeGdtd1MxSmtqU0FjK01mclViTnNzVkVFbkgwYUVpQWgrcm90WEFWCkpTUC9ZZTdMSlBFd0Q5RFdHNzJ2VldiaEFjdU9mNU9Mano1N0N0azdNZ1FIeW5aNytQbEhKdGFqcm9DYUlidEMKcjZ0Y1paYUF3VVFtK2pReWVXZFYrMmh2OWRlT1lGbUtlUXlqamNTck41TmFkcncrTDlEWkpMYkExSHFlTnZMaApCZ3FwUDBmdkpxMk42RXRENTc0TjZlTUk3dU1zSlRuamkyVUR6OWVsNVhMU3Y5ZnFKTXVEUXRZVmIyb1ROb0twCm9VcWh4UFZDMGFxNGVHNU1FU2FJZG44YjVaR1NTZUFKTE1IWGxqRWRsTnphK25jZmt2aVhrMVBPTG5uRmR2eDgKL2drNk0zNzRXYkxXRlh3OE4xNDFCL1JsL3RJTkdmbDFUeE9JaXF0aU1Za0wwMlJTR2Ixa3EzNEJMOU5QUDI3egpSR011SEduelMzaEZJclJUZkt4cnpVWjlSelFXekVHM0s2ZkozcjJucVNsdGtleXRpczlESUJvRlk5Vm1WeWpMCk03MURNaSt5MStUUlNKVkNsRU13dkE0eUwrKzdxOVhaeDVyNXdCUldCNGtRVEtINXF5b1puRHc3aWl1aDFsSUQKeURGeDhyN2k5dklKVTVIUzNtb1pMa1lXQU9pbE1hVjlONTZBOUJnYjZkTmNIa3ZnM05vYVlBPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
-  "prv": "",
-  "serial": "",
-  "caref": "",
-  "action": "existing",
-  "%action": "Import an existing Certificate Authority",
-  "key_type": "2048",
-  "%key_type": "RSA-2048",
-  "digest": "sha256",
-  "%digest": "SHA256",
-  "lifetime": "825",
-  "city": "",
-  "state": "",
-  "organization": "Let's Encrypt",
-  "organizationalunit": "",
-  "country": "US",
-  "%country": "United States",
-  "email": "",
-  "commonname": "YR1",
-  "ocsp_uri": "",
-  "crt_payload": "\n-----BEGIN CERTIFICATE-----\nMIIE2zCCAsOgAwIBAgIRAKICU/FfJpHAXcHOE7m8yk4wDQYJKoZIhvcNAQELBQAw\nLjELMAkGA1UEBhMCVVMxDTALBgNVBAoTBElTUkcxEDAOBgNVBAMTB1Jvb3QgWVIw\nHhcNMjUwOTAzMDAwMDAwWhcNMjgwOTAyMjM1OTU5WjAzMQswCQYDVQQGEwJVUzEW\nMBQGA1UEChMNTGV0J3MgRW5jcnlwdDEMMAoGA1UEAxMDWVIxMIIBIjANBgkqhkiG\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoVi8X2xCYgMXvJxNPKp/oF13UMgmPABB07VC\nLNDtoXmt9luEZNJSBV10VyT1Pz6LD8Zq1d2gc43WNl1AdRrj4sEnazbOiz0nPpmG\nBp2hui49oZtDIY6wdKeZAi5BbNU20CH6RSBBMLSQ9cXrH8dxdv4PAJ45ssGML68U\nSE3BsjC2a6cAN9L5CgXVIQi5tfNiTPoFZZ3S0OlXqLmmtdV95udWAb5b6e/F49Di\nCsH0Y00Ag72BVIb1hzynmKe+X0mERBTtsb3BwmpV9ipeBjMLoR/D9cHxHQCWoi5l\nTmXwY015J5rGelz1nZjJuxc2kioaX29XJBnhMkP531rSdG5uMwIDAQABo4HuMIHr\nMA4GA1UdDwEB/wQEAwIBhjATBgNVHSUEDDAKBggrBgEFBQcDATASBgNVHRMBAf8E\nCDAGAQH/AgEAMB0GA1UdDgQWBBQfLzW+RhSCzUCxrnksVXj699Ro+zAfBgNVHSME\nGDAWgBTe51tg0CJtQCh9Pw0B/qS1UrRRlDAyBggrBgEFBQcBAQQmMCQwIgYIKwYB\nBQUHMAKGFmh0dHA6Ly95ci5pLmxlbmNyLm9yZy8wEwYDVR0gBAwwCjAIBgZngQwB\nAgEwJwYDVR0fBCAwHjAcoBqgGIYWaHR0cDovL3lyLmMubGVuY3Iub3JnLzANBgkq\nhkiG9w0BAQsFAAOCAgEA0+zvMq3kHig1ddTmmm+RibTr9/RpX7k4buanMMRqbV/y\nIvP82zAHN3mvaw+cASuVsdpd0ikjhr4hnhJQLQOzOp2ccKrsdGOAgo0vddeISFAq\nEWEV4lmUM3vFF796up+bSgmJ1u6RupDCMxDgF8M3eLvGuj6L0lu3zkQ0KuQLnKxL\ntB0oQqn1Idg5CuuGpMvQzk29Pa3D/qHurc0EIM9SxukQuJqq63lxsYyRQFU8yMBO\nhq1w5LbfaWNRrz1uklOfI/pYkAb2E2MTZrAMQkBIE2S8Jt1F8gRc96o/xOsrgvSk\na84AisX6xq1lz1Z7jGvrnXc4TMcjxZTjiTaihcYI1JIXZiLtEMSCa5l3cu8YWd6z\ndLRQlqRdclVjuQfNHawRJ6GWlkK0QJosivTKwdBw3KxEtzGo8yMHERbsy57gP1UX\nHOMcmZYQC0gtyR3SxfenIM/MxC3Ia2Ypab/kQ/CTnlIn2KQ5JUC6NYrGCbhFN9bp\n5lKJStEwCUnLpntcrXk5XVDCNv/5RyWpRThkGOV7GetKkQ0qAY8hCzWK6oqnAhDZ\ncjlYVdWfqOw3DIOX6EDNBgAqHarRVxyF9QZdOaXSyPJ0ueD2BYJEBgaCGQ8rAaU/\nQc123V5LTXDZW4CcsPBDyhy4v+c8hClAyw/IkJlfBqxB9D+/wvIMHgECZ4ptP6o=\n-----END CERTIFICATE-----\n\n-----BEGIN CERTIFICATE-----\nMIIF9DCCA9ygAwIBAgIRAPJLbRf52a18scn+p4eCaZ8wDQYJKoZIhvcNAQELBQAw\nTzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh\ncmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwHhcNMjYwNTEzMDAwMDAw\nWhcNMzIwOTAyMjM1OTU5WjAuMQswCQYDVQQGEwJVUzENMAsGA1UEChMESVNSRzEQ\nMA4GA1UEAxMHUm9vdCBZUjCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIB\nANvGJnN78CTJdWL3+eGfsLN5TrNBJs+VH9hRXqRbwxu9sGNiB0BD1fcOxbSUQCJI\nM1xE13Db+5Cw1w0s0EBYsvuIP/6joF0w8cuImbgR1OGgYbSQ4OpzI+DG8SGuTlcE\n873OCS+kh3srlo6vl43M5OJg4Aeo1sfHp6kTJDoIiFBNJAY+OKfX/FUvYKuhjT+n\no49lmqmupSBI5PkBQiqrEGtWU5uxU/cQWHGu8jSjFBznZqvbNPLMXMLFxCb3WTfr\nJBXXjqvWG+v4bjzxjjeAtOlU7qarRDvNOyAuQYLln904M+faKx8hnLCpJ15ZqaEg\ncNlY+9MMWcC5yvL2A2j3l9+2buggZX+dOE91zYmIdawTvSZuVvlbRrAlLxIB6pwM\nBjneXCjYQ8+3BCCjssbSNpZU3hTcBDdhfAlEDlYr6pEatnMdmDT5BqnKC92bd0Eh\nM1fbLHioLccLCuievT8ZkPhZrq7Mii7gNXAcUEAR8+lzYal+9zTg7C5DALyVOeG/\nCqfRAMn1KSHCR0NSA6P8tn/mGRlnCct5rtVCLnVySVpU6H1qGg3DgTOuskf8eahT\nMiYbI5ezPJmO5ertalskQ1utp74+eDy92PI4ftHKTbq9IWhH4YZKh3WnJEIt+oQv\nlYZbY8tpEroKrFB6PFGzrJIDRyts4HqvuH52RFj2zv/BAgMBAAGjgeswgegwDgYD\nVR0PAQH/BAQDAgEGMBMGA1UdJQQMMAoGCCsGAQUFBwMBMA8GA1UdEwEB/wQFMAMB\nAf8wHQYDVR0OBBYEFN7nW2DQIm1AKH0/DQH+pLVStFGUMB8GA1UdIwQYMBaAFHm0\nWeZ7tuXkAXOACIjIGlj26ZtuMDIGCCsGAQUFBwEBBCYwJDAiBggrBgEFBQcwAoYW\naHR0cDovL3gxLmkubGVuY3Iub3JnLzATBgNVHSAEDDAKMAgGBmeBDAECATAnBgNV\nHR8EIDAeMBygGqAYhhZodHRwOi8veDEuYy5sZW5jci5vcmcvMA0GCSqGSIb3DQEB\nCwUAA4ICAQA8spSI95KKfn2W6GMmDpHBJSPaLbsS3W93cijJCRCYAc1fsJgL1FIL\n7C0C9ecPOdcwB2fi0Dk2p94j9iTJCxmt5CFSKLRWwnXT2MMSXexVxqoVB79BdWPx\nVXETkVme/qYSAuKVHh5Ps+5BixgmwS1JkjSAc+MfrUbNssVEEnH0aEiAh+rotXAV\nJSP/Ye7LJPEwD9DWG72vVWbhAcuOf5OLjz57Ctk7MgQHynZ7+PlHJtajroCaIbtC\nr6tcZZaAwUQm+jQyeWdV+2hv9deOYFmKeQyjjcSrN5Nadrw+L9DZJLbA1HqeNvLh\nBgqpP0fvJq2N6EtD574N6eMI7uMsJTnji2UDz9el5XLSv9fqJMuDQtYVb2oTNoKp\noUqhxPVC0aq4eG5MESaIdn8b5ZGSSeAJLMHXljEdlNza+ncfkviXk1POLnnFdvx8\n/gk6M374WbLWFXw8N141B/Rl/tINGfl1TxOIiqtiMYkL02RSGb1kq34BL9NPP27z\nRGMuHGnzS3hFIrRTfKxrzUZ9RzQWzEG3K6fJ3r2nqSltkeytis9DIBoFY9VmVyjL\nM71DMi+y1+TRSJVClEMwvA4yL++7q9XZx5r5wBRWB4kQTKH5qyoZnDw7iiuh1lID\nyDFx8r7i9vIJU5HS3moZLkYWAOilMaV9N56A9Bgb6dNcHkvg3NoaYA==\n-----END CERTIFICATE-----\n",
-  "prv_payload": "",
-  "refcount": "1",
-  "name": "/C=US/O=Let's Encrypt/CN=YR1",
-  "valid_from": "1756857600",
-  "valid_to": "1851551999"
-}
-```
 
 ---
 
@@ -6828,13 +6654,19 @@ valid_to
 
 **Endpoint:** `GET /api/trust/cert/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `cert`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `refid` | `""` | `string` |
 | `descr` | `""` | `string` |
-| `caref` | enum | `enum`: **, 6a2dc151ac187 |
+| `caref` | enum | `enum`: ** |
 | `crt` | `""` | `string` |
 | `csr` | `""` | `string` |
 | `prv` | `""` | `string` |
@@ -6878,7 +6710,7 @@ valid_to
 
 ```
 
-**Rows returned:** 2 (total: 2)
+**Rows returned:** 1 (total: 1)
 
 **Row keys:**
 ```
@@ -6927,11 +6759,11 @@ valid_to
 **First row sample:**
 ```json
 {
-  "uuid": "0544bd48-8d81-4ae2-b7d4-802206949fc3",
-  "refid": "6a0e4c5113246",
+  "uuid": "2a246b54-98d5-4b9f-af8d-518641245381",
+  "refid": "6a9d4cdae404a",
   "descr": "Web GUI TLS certificate",
   "caref": "",
-  "crt": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUhFakNDQlBxZ0F3SUJBZ0lVV2FhblMzc2c1emc2cllCOTZSczAvcFVkQlBRd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZWXhHakFZQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVgpNQk1HQTFVRUNBd01XblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyCkJnTlZCQW9NSkU5UVRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWlRBZUZ3MHkKTmpBMU1qRXdNREExTlRGYUZ3MHlOekEyTWpJd01EQTFOVEZhTUlHR01Sb3dHQVlEVlFRRERCRlBVRTV6Wlc1egpaUzVwYm5SbGNtNWhiREVMTUFrR0ExVUVCaE1DVGt3eEZUQVRCZ05WQkFnTURGcDFhV1F0U0c5c2JHRnVaREVWCk1CTUdBMVVFQnd3TVRXbGtaR1ZzYUdGeWJtbHpNUzB3S3dZRFZRUUtEQ1JQVUU1elpXNXpaU0J6Wld4bUxYTnAKWjI1bFpDQjNaV0lnWTJWeWRHbG1hV05oZEdVd2dnSWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUNEd0F3Z2dJSwpBb0lDQVFDdElqWlRjYmlob2pDYmRmZjVWeThtYlBubTk4MG14RWxFUm9MYU9XWjVOcXVOSy9oZm5LTS8yYXhlCnpGM3FqNjVmWnFGdklVZ0N2M1hFUFc4dHNFTDlWbHZoNGVKUVNKY1RzUlpyMEsvNHlBK3hGbm81dDVPdG5JMDYKTGs2RWVsc0N3L28zZm1Sam8reEhXakNTVTJHekpRZU95c0xrVVJRd1dOYys1N0hYY2NkUlQ4cE5DcjZWYkVrMQpzanFONnAzb1JKQmZwM3VCWWdMNjZSSHhmNnJaRitxd3ZmMnhpMVh2dWhBVlZoVDlWUStJbnVTdXE4Ykd2T01SCjRIL1lvOFlxMVhyNGNxalIrcXdJREY0cG4rREJNK2dzaWFaeEdqRXdqMXJnZ01rbENDMDlkUWxNd0Y0ZG9wNHoKRk5zOU9NVnNpVm02a0dNdlBqUFBBSWtCVk5ZK3YwUkxQcmlmT25CWVFtNVBKd1J0QitMUEYwY3V4TjBNSXRDNgpHSXY2S25IYUNad3d2QUN1eE5OYlp0cllQcWZlOUV6L3lGL1pGM1k4R05kT3cwUm1peTJ3Ym1YUDYzRHB4UlpTCk1kT0xEbVFNcml5VUUxMFgzYUpiYmhVRXZySUVvQlZVRGRmY1Q4SkFVdUJ5cU5QaTRaTDVPdmx5WHVPblV0UXYKOGFTaEF1ZW0xTFV1WWV6UWFGRjIzcEg2OW5PYkM0dVhmdkc3L1dLekVPbGZVTmFqVFV0YUFMZFVHbGhwMEUzRgpSSU1nTnVOZGlHZ1ZyMElYSElBSjhEQjB4VWFEUURURFdaY2drM01ZMDhTV0lTdkt3ZFZyZ2pTdjhBM01PejdDClAzSHdmdWtCWU9GdEh0akxObDNFRkpoeWVMMzFtdHZ1TEoyZk5QdFdKT3BwVHAzRHZRSURBUUFCbzRJQmREQ0MKQVhBd0NRWURWUjBUQkFJd0FEQVJCZ2xnaGtnQmh2aENBUUVFQkFNQ0JrQXdOQVlKWUlaSUFZYjRRZ0VOQkNjVwpKVTlRVG5ObGJuTmxJRWRsYm1WeVlYUmxaQ0JUWlhKMlpYSWdRMlZ5ZEdsbWFXTmhkR1V3SFFZRFZSME9CQllFCkZQaHFvYXFHVG5PZ3BLMVRiOXpPNlpXcnhYbWhNSUd3QmdOVkhTTUVnYWd3Z2FXaGdZeWtnWWt3Z1lZeEdqQVkKQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVk1CTUdBMVVFQ0F3TQpXblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyQmdOVkJBb01KRTlRClRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWllJVVdhYW5TM3NnNXpnNnJZQjkKNlJzMC9wVWRCUFF3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQ0FJQ01Bc0dBMVVkRHdRRQpBd0lGb0RBY0JnTlZIUkVFRlRBVGdoRlBVRTV6Wlc1elpTNXBiblJsY201aGJEQU5CZ2txaGtpRzl3MEJBUXNGCkFBT0NBZ0VBV0FSVmRWTGl3MVdxTnVqVlBxZmkyeE5CYkMzdWVxTVJJL1M3YTZ4TzM5cXA1alA1N2Yrc3dkVE4KK1JhVUcva09sMmlEZ0hXMFBpZERzNmdLM2hYOFZ3VnBqVHMwc0loSkxoTUVUSHZlV0NHalMyZ3ppZDQ1dUY2agpPY1IyVGk2TkhHaTdBUEdtY0ZJckV1OTFod0pxK2tub3pjZE1NcmxkUlFQclVjdW5tM2FZSTVLY1p4TGJLSEVVCm5DelcyekFXdkJpa0pVVnh1MVJwQTd6WHBuSGNEMHRMQWhqK0RiS3dXV05kQnMwSFVkVmZERGVMdWN1SG4rUDIKbDBDMUk0T3MwQ1NOQzlwd0d3TGNRVXV6K2FOdTVFbW9kQ1oyVStXZW9MaXdCSEV0QzNwejI5S3JYSGs0dVd1WApYTGNmMWJDbkxLU0VWMmZuZUhWRVBzdVQwYnlwaG5IVmlFWTd0anhvTnpGNkRBNi96c0tsUjh2b3JqVzVxNjdCClpTY0xaL3hSMEE0ODZFMmVySW1YekJPT1ZnSzZqN0lhdEZEclZVOUdrUm1hQ0g0ZzFWQ3ZqaFo5eUlqNXFyVEcKNEdNMnMyaG9wNHB6OVRhUGp5UmlqWDUwKzVDSkhpdVhqbXJLYzBuVG1PTUIrRDlMbkFPbjVUMlY0enNvRVBhWQpSU25aWnhxTDRackRoRkkrcGltczFhNGs2SUVvQTZFc3crTVRtdE1nbFBzditOaktQNm52M1pETjdKTy93UUtWCmoxMmE0bWtiMzRhakRHTTV6U2JnTjhHZlcwZ3VWQ1llVERLYzl5MW4wZ2NCamZiSlhOajJ4SU9pbENycXV1T3UKSGQ1Q2xGdmFObzM2b2drcFVDZ1hpSDVvaVJzNW5zQmNtZHUxVGdDRytVQlFJYVlIaUVRPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+  "crt": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUhFakNDQlBxZ0F3SUJBZ0lVWEd0TkhkRlRVQzJnSUtiNUFZb2dwTWFDUE5Bd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZWXhHakFZQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVgpNQk1HQTFVRUNBd01XblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyCkJnTlZCQW9NSkU5UVRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWlRBZUZ3MHkKTmpBNU1EWXhNVEl5TUROYUZ3MHlOekV3TURneE1USXlNRE5hTUlHR01Sb3dHQVlEVlFRRERCRlBVRTV6Wlc1egpaUzVwYm5SbGNtNWhiREVMTUFrR0ExVUVCaE1DVGt3eEZUQVRCZ05WQkFnTURGcDFhV1F0U0c5c2JHRnVaREVWCk1CTUdBMVVFQnd3TVRXbGtaR1ZzYUdGeWJtbHpNUzB3S3dZRFZRUUtEQ1JQVUU1elpXNXpaU0J6Wld4bUxYTnAKWjI1bFpDQjNaV0lnWTJWeWRHbG1hV05oZEdVd2dnSWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUNEd0F3Z2dJSwpBb0lDQVFDYWFzdnZvQW52d1FKMnBvWkpWbnV3UjJCUnl3TUdGTjBoZENiaDVELzQwaEZ1TXlDZmhiQzRKS2hnClNaV1Rra3paNTd0WXY5VXowUW80NnZTZ3ptTHlYdzFKV1pkZW8yeGtKaEQzRmNuclJUMnZQWlZBWk04YXdzS3QKdUZoTUFxWjFzYSt0SVZ4d3Fick9LU2FxL2VkblU0RjI0UFQ1MXVYTjFzSVN5NGkvWTRBd24rdWhKUVRTdjBJbworcTJvcjhaVU1QWkMrcTlYSWY2bFFNbkgyak54blZQa0hDYzYvRHd5U01JWHZMci9SZ2x4SUJ4UzJReVdjZnhPClc5cHdPVzlCbHZqOW01Nm9NVDBmNXBxOENLanFobk12ajJ5U3VxQktrRHI1U2NQUmZJaytVQk45MHVTWWVmcXcKblVCVVNUQVg0dm9aZkoxWkV6R2tHZ0EwdmlxODBicVdpdnlWeWRoRHdBRjZKTVk4MmU3eXR4RGtkMlk4Y3FMQQpDT3VzUXRBQklzSVV0aHN2bGVGRm1EYkNsY2Y0K0NsMzRZRHN3UGJoZWtVYXFBUHl3RGlPQUJibWhGaHdBZitYCkdLeFR0SzZQZjhaWmlKTTFNanRxbEJNZGV2MkVoR0U4bDNiTzhETjlOa2JKeEREUFJtT2lXWFNWa05vNk1LdEIKelFEcHd4bjEra1pxTitIQ3l1OERrR2VTTCtJVEhrZmZGS3pWR1d5dkMxZFpoanhoQlMxUzNZUGgxZ0s5MFF6eQpJdHVvRzZUaTZFSHRoRk5ma1VIU0ZlRVlsRWxqZzdRajBHbEpwMmFoaXdaMEZGTUI0WVlKSlNRMzc5M0lmUFZ5CkJNaFo0V0QrUmd0RzFzNllDZG1iS21nODZnYlRSOWtJOGlaVkpXd3E0MFlmZ2xWSW93SURBUUFCbzRJQmREQ0MKQVhBd0NRWURWUjBUQkFJd0FEQVJCZ2xnaGtnQmh2aENBUUVFQkFNQ0JrQXdOQVlKWUlaSUFZYjRRZ0VOQkNjVwpKVTlRVG5ObGJuTmxJRWRsYm1WeVlYUmxaQ0JUWlhKMlpYSWdRMlZ5ZEdsbWFXTmhkR1V3SFFZRFZSME9CQllFCkZGQVlMeElUNHVhTGw2WXRyYUNyQXN2Y0NFeXdNSUd3QmdOVkhTTUVnYWd3Z2FXaGdZeWtnWWt3Z1lZeEdqQVkKQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVk1CTUdBMVVFQ0F3TQpXblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyQmdOVkJBb01KRTlRClRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWllJVVhHdE5IZEZUVUMyZ0lLYjUKQVlvZ3BNYUNQTkF3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQ0FJQ01Bc0dBMVVkRHdRRQpBd0lGb0RBY0JnTlZIUkVFRlRBVGdoRlBVRTV6Wlc1elpTNXBiblJsY201aGJEQU5CZ2txaGtpRzl3MEJBUXNGCkFBT0NBZ0VBTXBia2MrQ2NkOHg2UnlyUHc2eDhHSDNZRDhGdlJlK2FLZmUrcDdaUGdnRjBxMkY1MHYvU2N2VEwKWllBRlpiTXpyWG12NmZxZVBBZXgvMGd3MjZsa1orOE5ncU4vRGxIQkF4ZmJ4UFpESEdQbU16ek44Nk50b0crbQpXdDNRR0JUT0U3UzJwWm9IUEpRM1E4bTJJN0hHNWdPSnJnYk9VcGdOWkdVOVFIUVZGc0RyVGRjc292ajF0MXRBCmNpYllTMDBlUkxVOCtPUU43K3A5N2pVaHd1SWQwbm1KNG55aGJrMi9RUzFFTnpTdzlkNHI4bmVJSFhXMytrUHEKMkg3MXhSTUhyc2ZJWWpoQ3A0RUNTaGEyVDhZOWp4QXFRck9jZUhvL1hSNDIrYWF2NDZ0bjdZL1F4NllXUnhnKwpIamc5NUI3OU5wNFJZYThGVmt6cGd2WmtEU2h6Y0Z4cVBlVFUwYW1xaitJVExGS1NYZjR2M0g3N29FTTJvNUQ4ClVrQWJxUW5sZ2tiN01Qd1p5N3l5V2dqTm9Oa3YvcU1OT1N2YW56bXNNWDhvZ0FpKzM0dUpkbC9Zc2RjU0FsSXQKMUtTNXNnYVhhSlp1SCtROThMTVUwdEtHanROM2psTXFadEtiR3k5OWFBaUt1aWs0QTN5RFZwMGdRY2d4ZlZjLwpOWFNOckxzK2V1OXJxMm13QWxGSlEwRjV3dU92dE1jRUJ2RCtxMFhScEVvOGNJaEpLbjVwaGZid1pRL2dOQzhoCnlnYkgrVVRaU2JaRC9Ia3gxekg4b0NtYmNFb2Nzb1V4TGhRZ1V4cmFpQ2tET0pBR0swL3lxUkF4dWZ1L0RyWUIKR1l6NFVaY2o3VCtYSUhqUzQ3ZzdScWdnT0hGMjQreVIxeFFLRDNTNE1nd25MTlQ2SXFRPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
   "csr": "",
   "prv": "<REDACTED:prv>",
   "action": "reissue",
@@ -6958,15 +6790,15 @@ valid_to
   "altnames_ip": "",
   "altnames_uri": "",
   "altnames_email": "",
-  "crt_payload": "-----BEGIN CERTIFICATE-----\nMIIHEjCCBPqgAwIBAgIUWaanS3sg5zg6rYB96Rs0/pUdBPQwDQYJKoZIhvcNAQEL\nBQAwgYYxGjAYBgNVBAMMEU9QTnNlbnNlLmludGVybmFsMQswCQYDVQQGEwJOTDEV\nMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTAr\nBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBjZXJ0aWZpY2F0ZTAeFw0y\nNjA1MjEwMDA1NTFaFw0yNzA2MjIwMDA1NTFaMIGGMRowGAYDVQQDDBFPUE5zZW5z\nZS5pbnRlcm5hbDELMAkGA1UEBhMCTkwxFTATBgNVBAgMDFp1aWQtSG9sbGFuZDEV\nMBMGA1UEBwwMTWlkZGVsaGFybmlzMS0wKwYDVQQKDCRPUE5zZW5zZSBzZWxmLXNp\nZ25lZCB3ZWIgY2VydGlmaWNhdGUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK\nAoICAQCtIjZTcbihojCbdff5Vy8mbPnm980mxElERoLaOWZ5NquNK/hfnKM/2axe\nzF3qj65fZqFvIUgCv3XEPW8tsEL9Vlvh4eJQSJcTsRZr0K/4yA+xFno5t5OtnI06\nLk6EelsCw/o3fmRjo+xHWjCSU2GzJQeOysLkURQwWNc+57HXccdRT8pNCr6VbEk1\nsjqN6p3oRJBfp3uBYgL66RHxf6rZF+qwvf2xi1XvuhAVVhT9VQ+InuSuq8bGvOMR\n4H/Yo8Yq1Xr4cqjR+qwIDF4pn+DBM+gsiaZxGjEwj1rggMklCC09dQlMwF4dop4z\nFNs9OMVsiVm6kGMvPjPPAIkBVNY+v0RLPrifOnBYQm5PJwRtB+LPF0cuxN0MItC6\nGIv6KnHaCZwwvACuxNNbZtrYPqfe9Ez/yF/ZF3Y8GNdOw0Rmiy2wbmXP63DpxRZS\nMdOLDmQMriyUE10X3aJbbhUEvrIEoBVUDdfcT8JAUuByqNPi4ZL5OvlyXuOnUtQv\n8aShAuem1LUuYezQaFF23pH69nObC4uXfvG7/WKzEOlfUNajTUtaALdUGlhp0E3F\nRIMgNuNdiGgVr0IXHIAJ8DB0xUaDQDTDWZcgk3MY08SWISvKwdVrgjSv8A3MOz7C\nP3HwfukBYOFtHtjLNl3EFJhyeL31mtvuLJ2fNPtWJOppTp3DvQIDAQABo4IBdDCC\nAXAwCQYDVR0TBAIwADARBglghkgBhvhCAQEEBAMCBkAwNAYJYIZIAYb4QgENBCcW\nJU9QTnNlbnNlIEdlbmVyYXRlZCBTZXJ2ZXIgQ2VydGlmaWNhdGUwHQYDVR0OBBYE\nFPhqoaqGTnOgpK1Tb9zO6ZWrxXmhMIGwBgNVHSMEgagwgaWhgYykgYkwgYYxGjAY\nBgNVBAMMEU9QTnNlbnNlLmludGVybmFsMQswCQYDVQQGEwJOTDEVMBMGA1UECAwM\nWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTArBgNVBAoMJE9Q\nTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBjZXJ0aWZpY2F0ZYIUWaanS3sg5zg6rYB9\n6Rs0/pUdBPQwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFCAICMAsGA1UdDwQE\nAwIFoDAcBgNVHREEFTATghFPUE5zZW5zZS5pbnRlcm5hbDANBgkqhkiG9w0BAQsF\nAAOCAgEAWARVdVLiw1WqNujVPqfi2xNBbC3ueqMRI/S7a6xO39qp5jP57f+swdTN\n+RaUG/kOl2iDgHW0PidDs6gK3hX8VwVpjTs0sIhJLhMETHveWCGjS2gzid45uF6j\nOcR2Ti6NHGi7APGmcFIrEu91hwJq+knozcdMMrldRQPrUcunm3aYI5KcZxLbKHEU\nnCzW2zAWvBikJUVxu1RpA7zXpnHcD0tLAhj+DbKwWWNdBs0HUdVfDDeLucuHn+P2\nl0C1I4Os0CSNC9pwGwLcQUuz+aNu5EmodCZ2U+WeoLiwBHEtC3pz29KrXHk4uWuX\nXLcf1bCnLKSEV2fneHVEPsuT0byphnHViEY7tjxoNzF6DA6/zsKlR8vorjW5q67B\nZScLZ/xR0A486E2erImXzBOOVgK6j7IatFDrVU9GkRmaCH4g1VCvjhZ9yIj5qrTG\n4GM2s2hop4pz9TaPjyRijX50+5CJHiuXjmrKc0nTmOMB+D9LnAOn5T2V4zsoEPaY\nRSnZZxqL4ZrDhFI+pims1a4k6IEoA6Esw+MTmtMglPsv+NjKP6nv3ZDN7JO/wQKV\nj12a4mkb34ajDGM5zSbgN8GfW0guVCYeTDKc9y1n0gcBjfbJXNj2xIOilCrquuOu\nHd5ClFvaNo36ogkpUCgXiH5oiRs5nsBcmdu1TgCG+UBQIaYHiEQ=\n-----END CERTIFICATE-----\n",
+  "crt_payload": "-----BEGIN CERTIFICATE-----\nMIIHEjCCBPqgAwIBAgIUXGtNHdFTUC2gIKb5AYogpMaCPNAwDQYJKoZIhvcNAQEL\nBQAwgYYxGjAYBgNVBAMMEU9QTnNlbnNlLmludGVybmFsMQswCQYDVQQGEwJOTDEV\nMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTAr\nBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBjZXJ0aWZpY2F0ZTAeFw0y\nNjA5MDYxMTIyMDNaFw0yNzEwMDgxMTIyMDNaMIGGMRowGAYDVQQDDBFPUE5zZW5z\nZS5pbnRlcm5hbDELMAkGA1UEBhMCTkwxFTATBgNVBAgMDFp1aWQtSG9sbGFuZDEV\nMBMGA1UEBwwMTWlkZGVsaGFybmlzMS0wKwYDVQQKDCRPUE5zZW5zZSBzZWxmLXNp\nZ25lZCB3ZWIgY2VydGlmaWNhdGUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK\nAoICAQCaasvvoAnvwQJ2poZJVnuwR2BRywMGFN0hdCbh5D/40hFuMyCfhbC4JKhg\nSZWTkkzZ57tYv9Uz0Qo46vSgzmLyXw1JWZdeo2xkJhD3FcnrRT2vPZVAZM8awsKt\nuFhMAqZ1sa+tIVxwqbrOKSaq/ednU4F24PT51uXN1sISy4i/Y4Awn+uhJQTSv0Io\n+q2or8ZUMPZC+q9XIf6lQMnH2jNxnVPkHCc6/DwySMIXvLr/RglxIBxS2QyWcfxO\nW9pwOW9Blvj9m56oMT0f5pq8CKjqhnMvj2ySuqBKkDr5ScPRfIk+UBN90uSYefqw\nnUBUSTAX4voZfJ1ZEzGkGgA0viq80bqWivyVydhDwAF6JMY82e7ytxDkd2Y8cqLA\nCOusQtABIsIUthsvleFFmDbClcf4+Cl34YDswPbhekUaqAPywDiOABbmhFhwAf+X\nGKxTtK6Pf8ZZiJM1MjtqlBMdev2EhGE8l3bO8DN9NkbJxDDPRmOiWXSVkNo6MKtB\nzQDpwxn1+kZqN+HCyu8DkGeSL+ITHkffFKzVGWyvC1dZhjxhBS1S3YPh1gK90Qzy\nItuoG6Ti6EHthFNfkUHSFeEYlEljg7Qj0GlJp2ahiwZ0FFMB4YYJJSQ3793IfPVy\nBMhZ4WD+RgtG1s6YCdmbKmg86gbTR9kI8iZVJWwq40YfglVIowIDAQABo4IBdDCC\nAXAwCQYDVR0TBAIwADARBglghkgBhvhCAQEEBAMCBkAwNAYJYIZIAYb4QgENBCcW\nJU9QTnNlbnNlIEdlbmVyYXRlZCBTZXJ2ZXIgQ2VydGlmaWNhdGUwHQYDVR0OBBYE\nFFAYLxIT4uaLl6YtraCrAsvcCEywMIGwBgNVHSMEgagwgaWhgYykgYkwgYYxGjAY\nBgNVBAMMEU9QTnNlbnNlLmludGVybmFsMQswCQYDVQQGEwJOTDEVMBMGA1UECAwM\nWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTArBgNVBAoMJE9Q\nTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBjZXJ0aWZpY2F0ZYIUXGtNHdFTUC2gIKb5\nAYogpMaCPNAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFCAICMAsGA1UdDwQE\nAwIFoDAcBgNVHREEFTATghFPUE5zZW5zZS5pbnRlcm5hbDANBgkqhkiG9w0BAQsF\nAAOCAgEAMpbkc+Ccd8x6RyrPw6x8GH3YD8FvRe+aKfe+p7ZPggF0q2F50v/ScvTL\nZYAFZbMzrXmv6fqePAex/0gw26lkZ+8NgqN/DlHBAxfbxPZDHGPmMzzN86NtoG+m\nWt3QGBTOE7S2pZoHPJQ3Q8m2I7HG5gOJrgbOUpgNZGU9QHQVFsDrTdcsovj1t1tA\ncibYS00eRLU8+OQN7+p97jUhwuId0nmJ4nyhbk2/QS1ENzSw9d4r8neIHXW3+kPq\n2H71xRMHrsfIYjhCp4ECSha2T8Y9jxAqQrOceHo/XR42+aav46tn7Y/Qx6YWRxg+\nHjg95B79Np4RYa8FVkzpgvZkDShzcFxqPeTU0amqj+ITLFKSXf4v3H77oEM2o5D8\nUkAbqQnlgkb7MPwZy7yyWgjNoNkv/qMNOSvanzmsMX8ogAi+34uJdl/YsdcSAlIt\n1KS5sgaXaJZuH+Q98LMU0tKGjtN3jlMqZtKbGy99aAiKuik4A3yDVp0gQcgxfVc/\nNXSNrLs+eu9rq2mwAlFJQ0F5wuOvtMcEBvD+q0XRpEo8cIhJKn5phfbwZQ/gNC8h\nygbH+UTZSbZD/Hkx1zH8oCmbcEocsoUxLhQgUxraiCkDOJAGK0/yqRAxufu/DrYB\nGYz4UZcj7T+XIHjS47g7RqggOHF24+yR1xQKD3S4MgwnLNT6IqQ=\n-----END CERTIFICATE-----\n",
   "csr_payload": "",
   "prv_payload": "<REDACTED:prv_payload>",
   "rfc3280_purpose": "id-kp-serverAuth",
-  "in_use": "0",
+  "in_use": "1",
   "is_user": "0",
   "name": "/CN=OPNsense.internal/C=NL/ST=Zuid-Holland/L=Middelharnis/O=OPNsense self-signed web certificate",
-  "valid_from": "1779321951",
-  "valid_to": "1813622751"
+  "valid_from": "1788693723",
+  "valid_to": "1822994523"
 }
 ```
 
@@ -6977,6 +6809,12 @@ valid_to
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/trust/crl/search`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -6989,19 +6827,14 @@ total
 **Response sample:**
 ```json
 {
-  "total": 1,
-  "rowCount": 1,
+  "total": 0,
+  "rowCount": 0,
   "current": 1,
-  "rows": [
-    {
-      "descr": "YR1 (ACME Client)",
-      "refid": "6a2dc151ac187"
-    }
-  ]
+  "rows": []
 }
 ```
 
-> Response size: 100 bytes
+> Response size: 64 bytes
 
 ---
 
@@ -7010,6 +6843,12 @@ total
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/trust/settings/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -7101,7 +6940,7 @@ trust
 (parse error)
 ```
 
-> Response size: 11204 bytes
+> Response size: 17294 bytes
 
 ---
 
@@ -7110,6 +6949,12 @@ trust
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/trafficshaper/settings/get_pipe`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `pipe`
 
@@ -7158,6 +7003,12 @@ trust
 
 **Endpoint:** `GET /api/trafficshaper/settings/get_queue`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `queue`
 
 | Field | Default | Type (inferred) |
@@ -7199,14 +7050,20 @@ trust
 
 **Endpoint:** `GET /api/trafficshaper/settings/get_rule`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `rule`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
 | `sequence` | `"1"` | `string-bool` |
-| `interface` | enum | `enum`: opt11, opt3, opt10, opt6, opt1, lo0, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
-| `interface2` | enum | `enum`: **, opt11, opt3, opt10, opt6, opt1, lo0, opt9, opt2, lan, opt8, opt4, opt7, opt5, opt12, opt13 |
+| `interface` | enum | `enum`: lan, lo0, opt1, *wan* |
+| `interface2` | enum | `enum`: **, lan, lo0, opt1, wan |
 | `proto` | enum | `enum`: *ip*, ip4, ip6, udp, tcp, tcp_ack, tcp_ack_not, icmp, ipv6-icmp, igmp, esp, ah, gre |
 | `iplen` | `""` | `string` |
 | `source` | enum | `enum`: *any* |
@@ -7244,6 +7101,12 @@ trust
 
 **Endpoint:** `GET /api/trafficshaper/settings/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 ts
@@ -7266,7 +7129,7 @@ ts
 }
 ```
 
-> Response size: 70 bytes
+> Response size: 136 bytes
 
 ---
 
@@ -7275,6 +7138,12 @@ ts
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/trafficshaper/service/statistics`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -7290,7 +7159,7 @@ status
 }
 ```
 
-> Response size: 26 bytes
+> Response size: 36 bytes
 
 ---
 
@@ -7299,6 +7168,12 @@ status
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/unbound/settings/get_acl`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `acl`
 
@@ -7333,6 +7208,12 @@ status
 
 **Endpoint:** `GET /api/unbound/diagnostics/stats`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 data
@@ -7346,7 +7227,7 @@ status
   "data": {
     "thread0": {
       "num": {
-        "queries": "206654",
+        "queries": "6",
         "queries_ip_ratelimited": "0",
         "queries_cookie_valid": "0",
         "queries_cookie_client": "0",
@@ -7354,12 +7235,12 @@ status
         "queries_discard_timeout": "2",
         "queries_replyaddr_limit": "0",
         "queries_wait_limit": "0",
-        "cachehits": "175253",
-        "cachemiss": "31401",
+        "cachehits": "0",
+        "cachemiss": "6",
         "prefetch": "0",
         "queries_timed_out": "0",
         "expired": "0",
-        "recursivereplies": "31399",
+        "recursivereplies": "4",
         "dnscrypt": {
           "crypted": "0",
           "cert": "0",
@@ -7374,8 +7255,8 @@ status
         }
       },
       "requestlist": {
-        "avg": "0.880959",
-        "max": "26",
+        "avg": "0",
+        "max": "0",
         "overwritten": "0",
         "exceeded": "0",
         "current": {
@@ -7386,28 +7267,28 @@ status
       },
       "recursion": {
         "time": {
-          "avg": "0.058937",
-          "median": "0.0268068"
+          "avg": "0.003603",
+          "median": "0.00341333"
         }
       },
       "tcpusage": "0"
     },
     "thread1": {
       "num": {
-        "queries": "206133",
+        "queries": "14",
         "queries_ip_ratelimited": "0",
         "queries_cookie_valid": "0",
         "queries_cookie_client": "0",
         "queries_cookie_invalid": "0",
-        "queries_discard_timeout": "3",
+        "queries_discard_timeout": "1",
         "queries_replyaddr_limit": "0",
         "queries_wait_limit": "0",
-        "cachehits": "175140",
-        "cachemiss": "30993",
+        "cachehits": "0",
+        "cachemiss": "14",
         "prefetch": "0",
         "queries_timed_out": "0",
         "expired": "0",
-        "recursivereplies": "30990",
+        "recursivereplies": "13",
         "dnscrypt": {
           "crypted": "0",
           "cert": "0",
@@ -7421,9 +7302,10 @@ status
           "max": "0"
         }
       },
+(parse error)
 ```
 
-> Response size: 2175 bytes
+> Response size: 5803 bytes
 
 ---
 
@@ -7432,6 +7314,12 @@ status
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/unbound/settings/get_dnsbl`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `blocklist`
 
@@ -7472,6 +7360,12 @@ status
 
 **Endpoint:** `GET /api/unbound/settings/get_forward`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `dot`
 
 | Field | Default | Type (inferred) |
@@ -7498,39 +7392,8 @@ status
 
 ```
 
-**Rows returned:** 2 (total: 2)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-%type
-description
-domain
-enabled
-forward_first
-forward_tcp_upstream
-port
-server
-type
-uuid
-verify
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "242bf333-e434-47ef-be3b-5b01042fae47",
-  "enabled": "1",
-  "type": "forward",
-  "%type": "Forward",
-  "domain": "",
-  "server": "::1",
-  "port": "53531",
-  "verify": "",
-  "forward_tcp_upstream": "0",
-  "forward_first": "0",
-  "description": "Unbound → dnscrypt-proxy loopback v6"
-}
-```
 
 ---
 
@@ -7540,12 +7403,18 @@ verify
 
 **Endpoint:** `GET /api/unbound/settings/get_host_alias`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Payload key:** `alias`
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
-| `host` | enum | `enum`: 9a3e2958-920a-4bb0-b37e-dfa2a62f4a6d, 7a5c7cd5-d52d-4710-b71e-2c47166a5e85, f9b550e7-54a8-44f1-9234-8955c3473c63, abd3e250-a062-4668-8b59-c8e6fb0fef30, 6978158a-ded6-4167-bca8-15e20a5f6c70, 547a7c40-d09e-4b5b-877f-b184ad26d82b, c49a3fc7-2d48-494f-a6b2-2fb9ef0b8ba2, c230cab1-8c93-4123-a0b7-4a8fe488a0f2, 119c100f-ade9-488b-a8ad-3308f85bab85, 962545c1-5f60-4cf9-91ba-29c5cbf31fcd, b1ad512b-514a-4a16-862f-d5997d77cd40, 4c306acf-3203-4def-997c-6a1dc60ab259, 6021c2a0-4a7a-45cc-a237-f7d3bb9380ad, 78e6c240-8628-423c-84ba-f23a8fc0de7c, 12075134-07d2-44b2-ad5f-772e0412540b, 13200e26-051e-4c4b-b2fa-30ae18e67a90, b882fb4d-fbcf-4f08-aa92-13400b5e2684, 78c5826e-5d40-473a-953d-0c2e32e57006, 43d2f727-0162-469e-8883-dd35d791cb5c, c2909948-ca13-4b70-9c3a-36a39eea4a55, f2981329-fa04-49c2-85a3-9b8130623d97, e0115403-dcff-4b79-a2ff-9fe4fadae193, f766296b-9200-4e61-9910-5976ecbaf999, 52d45bf6-c477-4ca0-8a76-b294ea2ac9f7, abbe83d2-49ce-4b43-9d95-9ff6666007a8, 6b0b002f-e1fc-40fd-8572-577ef8a3c0c1, 356a907e-6feb-45e2-a6fc-158bc36f9267, 6d83f1b3-93f4-4598-84fc-7cb3f8993b38, 0c00241b-9e35-4098-b2e3-24ffe00f0c17, 7859de8c-624e-4d52-b687-305259b7dc40, 6f7b3413-5979-41dc-a179-caf653f2a202, b9e37800-5bc9-43ff-96a8-a91d897cb1d9, f3048f66-5897-46d4-8463-4d8234214572, ff512d74-2a31-44b3-813d-66f4d415668a, 131bfbc0-37e6-4752-b9db-4df63e04f46a, 9fca9395-f5f3-4894-a711-206f057eb0dd, a7e07d3c-c813-4410-8552-31834ae94bcb, 60014c43-bc1a-491d-8a05-8214571842ea, 739ad5e5-28bb-4998-b69b-09ad3778e2ee, f1bab9e3-a9d2-4625-870a-d7be811de809, 4cf40cff-885b-488d-a5d4-1b1c9a8caa07, 832882bb-fcb3-42f8-8b57-cd09a759e4a4 |
+| `host` | [] | `list` |
 | `hostname` | `""` | `string` |
 | `domain` | `""` | `string` |
 | `description` | `""` | `string` |
@@ -7572,6 +7441,12 @@ verify
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/unbound/settings/get_host_override`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `host`
 
@@ -7602,47 +7477,8 @@ verify
 
 ```
 
-**Rows returned:** 5 (total: 42)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-%rr
-addptr
-aliases
-description
-domain
-enabled
-hostname
-isAlias
-mx
-mxprio
-rr
-server
-ttl
-txtdata
-uuid
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "4cf40cff-885b-488d-a5d4-1b1c9a8caa07",
-  "enabled": "1",
-  "hostname": "vm-adguard-01",
-  "domain": "by-research.be",
-  "rr": "A",
-  "%rr": "A (IPv4 address)",
-  "mxprio": "",
-  "mx": "",
-  "ttl": "",
-  "server": "10.1.3.101",
-  "txtdata": "",
-  "addptr": "1",
-  "aliases": "",
-  "description": "",
-  "isAlias": false
-}
-```
 
 ---
 
@@ -7651,6 +7487,12 @@ uuid
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/unbound/service/status`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -7670,7 +7512,7 @@ widget
 }
 ```
 
-> Response size: 105 bytes
+> Response size: 136 bytes
 
 ---
 
@@ -7679,6 +7521,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/unbound/settings/get`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -7692,66 +7540,22 @@ unbound
     "general": {
       "enabled": "1",
       "port": "53",
-      "stats": "1",
+      "stats": "0",
       "active_interface": {
-        "opt11": {
-          "value": "CCTV",
-          "selected": 0
-        },
-        "opt3": {
-          "value": "DMZ",
-          "selected": 0
-        },
-        "opt10": {
-          "value": "GAMING",
-          "selected": 0
-        },
-        "opt6": {
-          "value": "IoT",
+        "lan": {
+          "value": "LAN",
           "selected": 0
         },
         "opt1": {
-          "value": "LAN_TRUNK",
+          "value": "OPT1",
           "selected": 0
         },
-        "opt9": {
-          "value": "Media",
-          "selected": 0
-        },
-        "opt2": {
-          "value": "MGMT",
-          "selected": 0
-        },
-        "lan": {
-          "value": "OOB",
-          "selected": 0
-        },
-        "opt8": {
-          "value": "Storage",
-          "selected": 0
-        },
-        "opt4": {
-          "value": "SVC",
-          "selected": 0
-        },
-        "opt7": {
-          "value": "VoIP",
-          "selected": 0
-        },
-        "opt5": {
-          "value": "VPN",
-          "selected": 0
-        },
-        "opt12": {
-          "value": "WAN_PROXIMUS",
-          "selected": 0
-        },
-        "opt13": {
-          "value": "WAN_TELENET",
+        "wan": {
+          "value": "WAN",
           "selected": 0
         }
       },
-      "dnssec": "1",
+      "dnssec": "0",
       "dns64": "0",
       "dns64prefix": "",
       "noarecords": "0",
@@ -7767,10 +7571,54 @@ unbound
         "transparent": {
           "value": "transparent",
           "selected": 1
+        },
+        "always_nxdomain": {
+          "value": "always_nxdomain",
+          "selected": 0
+        },
+        "always_refuse": {
+          "value": "always_refuse",
+          "selected": 0
+        },
+        "always_transparent": {
+          "value": "always_transparent",
+          "selected": 0
+        },
+        "deny": {
+          "value": "deny",
+          "selected": 0
+        },
+        "inform": {
+          "value": "inform",
+          "selected": 0
+        },
+        "inform_deny": {
+          "value": "inform_deny",
+          "selected": 0
+        },
+        "nodefault": {
+          "value": "nodefault",
+          "selected": 0
+        },
+        "refuse": {
+          "value": "refuse",
+          "selected": 0
+        },
+        "static": {
+          "value": "static",
+          "selected": 0
+        },
+        "typetransparent": {
+          "value": "typetransparent",
+          "selected": 0
+        }
+      },
+      "outgoing_interface": {
+        "lan": {
 (parse error)
 ```
 
-> Response size: 23236 bytes
+> Response size: 6093 bytes
 
 ---
 
@@ -7783,6 +7631,12 @@ unbound
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/wireguard/client/get_client`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `client`
 
@@ -7822,6 +7676,12 @@ unbound
 
 **Endpoint:** `GET /api/wireguard/general/get`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 general
@@ -7836,7 +7696,7 @@ general
 }
 ```
 
-> Response size: 27 bytes
+> Response size: 42 bytes
 
 ---
 
@@ -7845,6 +7705,12 @@ general
 ### schema — HTTP 200
 
 **Endpoint:** `GET /api/wireguard/server/get_server`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Payload key:** `server`
 
@@ -7893,6 +7759,12 @@ general
 
 **Endpoint:** `GET /api/wireguard/service/status`
 
+**Request JSON:**
+```json
+{}
+
+```
+
 **Top-level keys:**
 ```
 status
@@ -7911,7 +7783,7 @@ widget
 }
 ```
 
-> Response size: 106 bytes
+> Response size: 137 bytes
 
 ---
 
@@ -7920,6 +7792,12 @@ widget
 ### global — HTTP 200
 
 **Endpoint:** `GET /api/wireguard/service/show`
+
+**Request JSON:**
+```json
+{}
+
+```
 
 **Top-level keys:**
 ```
@@ -7939,7 +7817,7 @@ total
 }
 ```
 
-> Response size: 46 bytes
+> Response size: 64 bytes
 
 ---
 
@@ -7947,11 +7825,26 @@ total
 
 | Status | Count |
 |--------|-------|
-| OK (200) | 206 |
-| Failed | 0 |
+| OK (200) | 196 |
+| Failed | 10 |
 | Total | 206 |
+
+### Failed Endpoints
+
+| Endpoint | HTTP |
+|----------|------|
+| `chrony-general__global` | 404 |
+| `chrony-service__global` | 404 |
+| `crowdsec-bouncers__search` | 404 |
+| `crowdsec-collections__search` | 404 |
+| `crowdsec-decisions__search` | 404 |
+| `crowdsec-general__global` | 404 |
+| `crowdsec-machines__search` | 404 |
+| `crowdsec-service__global` | 404 |
+| `lldpd-general__global` | 404 |
+| `lldpd-service__global` | 404 |
 
 ---
 
-> Generated: 2026-08-20T23:20:24Z | OPNsense `26.1.9`
+> Generated: 2026-09-06T13:51:35Z | OPNsense `26.7`
 > Script: `tools/opnsense/scripts/build-api-schema-audit.sh`

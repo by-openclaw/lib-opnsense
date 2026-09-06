@@ -1,0 +1,41 @@
+{
+  "policy": {
+    "enabled": "1",
+    "prio": "0",
+    "action": {
+      "disable": {
+        "value": "Disabled",
+        "selected": 0
+      },
+      "alert": {
+        "value": "Alert",
+        "selected": 0
+      },
+      "drop": {
+        "value": "Drop",
+        "selected": 0
+      }
+    },
+    "rulesets": [],
+    "content": [],
+    "new_action": {
+      "default": {
+        "value": "Default",
+        "selected": 0
+      },
+      "alert": {
+        "value": "Alert",
+        "selected": 1
+      },
+      "drop": {
+        "value": "Drop",
+        "selected": 0
+      },
+      "disable": {
+        "value": "Disable",
+        "selected": 0
+      }
+    },
+    "description": ""
+  }
+}

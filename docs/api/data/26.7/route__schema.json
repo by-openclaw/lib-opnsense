@@ -1,0 +1,25 @@
+{
+  "route": {
+    "network": "",
+    "gateway": {
+      "LAN_GW": {
+        "value": "LAN_GW - 10.6.224.1",
+        "selected": 0
+      },
+      "Null4": {
+        "value": "Null4 - 127.0.0.1",
+        "selected": 0
+      },
+      "Null6": {
+        "value": "Null6 - ::1",
+        "selected": 0
+      },
+      "WAN_DHCP6": {
+        "value": "WAN_DHCP6 - inet6",
+        "selected": 0
+      }
+    },
+    "descr": "",
+    "enabled": "1"
+  }
+}

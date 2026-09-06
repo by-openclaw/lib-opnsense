@@ -1,0 +1,9 @@
+{
+  "name": "OPNsense.internal",
+  "versions": [
+    "OPNsense 26.7-amd64",
+    "FreeBSD 15.1-RELEASE-p1",
+    "OpenSSL 3.5.7"
+  ],
+  "updates": "Click to check for updates."
+}

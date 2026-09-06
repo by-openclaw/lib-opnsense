@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "id": "b7cd97a164650b538506fb551a0369e7",
+      "descr": "Block bogon IPv4 networks from WAN"
+    },
+    {
+      "id": "f140a48ddade668b9d6f5259669a1d5c",
+      "descr": "Block bogon IPv6 networks from WAN"
+    },
+    {
+      "id": "3d399f8f89b68d684701badb48eab085",
+      "descr": "Block private networks from WAN"
+    },
+    {
+      "id": "6b231f0e90865b14cd918a141750d96a",
+      "descr": "Block private networks from WAN"
+    },
+    {
+      "id": "41545e8f-6d72-4abe-b3dd-d480dad1b592",
+      "descr": "Default allow LAN IPv6 to any rule"
+    },
+    {
+      "id": "4104ef71-35de-47cd-a328-b712689f3e5a",
+      "descr": "Default allow LAN to any rule"
+    },
+    {
+      "id": "02f4bab031b57d1e30553ce08e0ec131",
+      "descr": "Default deny / state violation rule"
+    },
+    {
+      "id": "7355b5da99f40893221b6c4140de1006",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "80f90f0d4c5aba0c28d1c539e1e35766",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "8fa5de02f1ff8cdd29bedb63b24cc7e0",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "e29b1b607bd6cd916cf6b598c41805d3",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "b242f2d3f6b4756fa468cfd0daa78cd4",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "f994f615e00b8be0042263f86c79913f",
+      "descr": "allow DHCP client on WAN"
+    },
+    {
+      "id": "5cf7ab808da1fcbca1ddb9ba9b46b669",
+      "descr": "allow DHCP client on WAN"
+    },
+    {
+      "id": "c6e8fd0e915a27c129dc70c00a278a98",
+      "descr": "allow dhcpv6 client in WAN"
+    },
+    {
+      "id": "2f2c37025cd02b5cd29fd330f8e48954",
+      "descr": "allow dhcpv6 client out WAN"
+    },
+    {
+      "id": "01e83daa25c4483dee217a7ecd7c9a88",
+      "descr": "anti-lockout rule"
+    },
+    {
+      "id": "3345e04986bd5750d23b77cbbb21271f",
+      "descr": "anti-lockout rule"
+    },
+    {
+      "id": "b477ac1c8f5237a59ee416b9d819ce58",
+      "descr": "block all targeting port 0"
+    },
+    {
+      "id": "b454844853f2346167ad77449b79ad8e",
+      "descr": "block all targeting port 0"
+    },
+    {
+      "id": "fae559338f65e11c53669fc3642c93c2",
+      "descr": "let out anything from firewall host itself"
+    },
+    {
+      "id": "8b161e3ce2e6752ca7cb580a6c6a6c9b",
+      "descr": "let out anything from firewall host itself (force gw)"
+    },
+    {
+      "id": "8b59cf89872747f657c42f9e93dd52e0",
+      "descr": "sshlockout"
+    },
+    {
+      "id": "27ad7dee30c19305dc0187bf0e87cd4e",
+      "descr": "sshlockout"
+    },
+    {
+      "id": "add09fc915886757c300419fc2ecc1e6",
+      "descr": "virusprot overload table"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "mac": "bc:24:11:ed:1e:7f",
+    "ip": "192.168.1.1",
+    "intf": "vtnet0",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OPT1"
+  },
+  {
+    "mac": "bc:24:11:3d:58:c2",
+    "ip": "10.6.239.129",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "LAN"
+  },
+  {
+    "mac": "bc:24:11:4f:61:a7",
+    "ip": "10.6.224.1",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 872,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "LAN"
+  },
+  {
+    "mac": "d0:7e:28:1a:d8:01",
+    "ip": "10.6.224.24",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 272,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Hewlett Packard",
+    "hostname": "",
+    "intf_description": "LAN"
+  },
+  {
+    "mac": "bc:24:11:cc:3e:51",
+    "ip": "10.6.239.120",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 379,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "LAN"
+  }
+]

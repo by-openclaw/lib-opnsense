@@ -1,0 +1,71 @@
+{
+  "rows": [
+    {
+      "uuid": "lockout_1",
+      "ipprotocol": "",
+      "protocol": "tcp",
+      "%protocol": "TCP",
+      "disabled": "0",
+      "nordr": "1",
+      "interface": "lan",
+      "%interface": "LAN",
+      "destination.network": "lanip",
+      "destination.port": "443",
+      "alias_meta_destination.port": [
+        {
+          "value": "443",
+          "%value": "443",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination.network": [
+        {
+          "value": "lanip",
+          "%value": "LAN address",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "descr": "Anti-Lockout Rule",
+      "is_automatic": true,
+      "sort_order": "100000.0000001",
+      "prio_group": "100000"
+    },
+    {
+      "uuid": "lockout_0",
+      "ipprotocol": "",
+      "protocol": "tcp",
+      "%protocol": "TCP",
+      "disabled": "0",
+      "nordr": "1",
+      "interface": "lan",
+      "%interface": "LAN",
+      "destination.network": "lanip",
+      "destination.port": "80",
+      "alias_meta_destination.port": [
+        {
+          "value": "80",
+          "%value": "80",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination.network": [
+        {
+          "value": "lanip",
+          "%value": "LAN address",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "descr": "Anti-Lockout Rule",
+      "is_automatic": true,
+      "sort_order": "100000.0000000",
+      "prio_group": "100000"
+    }
+  ],
+  "rowCount": 0,
+  "total": 0,
+  "current": 1
+}

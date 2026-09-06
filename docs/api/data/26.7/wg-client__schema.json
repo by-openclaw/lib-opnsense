@@ -1,0 +1,19 @@
+{
+  "client": {
+    "enabled": "1",
+    "name": "",
+    "pubkey": "",
+    "psk": "",
+    "tunneladdress": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "serveraddress": "",
+    "serverport": "",
+    "endpoint": "",
+    "keepalive": "",
+    "servers": []
+  }
+}

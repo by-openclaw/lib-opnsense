@@ -1,0 +1,2086 @@
+{
+  "monit": {
+    "general": {
+      "enabled": "0",
+      "interval": "120",
+      "startdelay": "120",
+      "mailserver": {
+        "127.0.0.1": {
+          "value": "127.0.0.1",
+          "selected": 1
+        }
+      },
+      "port": "25",
+      "username": "",
+      "password": "",
+      "ssl": "0",
+      "sslversion": {
+        "auto": {
+          "value": "AUTO",
+          "selected": 1
+        },
+        "tlsv1": {
+          "value": "TLSV1",
+          "selected": 0
+        },
+        "tlsv11": {
+          "value": "TLSV11",
+          "selected": 0
+        },
+        "tlsv12": {
+          "value": "TLSV12",
+          "selected": 0
+        },
+        "tlsv13": {
+          "value": "TLSV13",
+          "selected": 0
+        }
+      },
+      "sslverify": "1",
+      "logfile": "",
+      "statefile": "",
+      "eventqueuePath": "",
+      "eventqueueSlots": "",
+      "httpdEnabled": "0",
+      "httpdUsername": "root",
+      "httpdPassword": "",
+      "httpdPort": "2812",
+      "httpdAllow": {
+        "": {
+          "value": "",
+          "selected": 1
+        }
+      },
+      "mmonitUrl": "",
+      "mmonitTimeout": "5",
+      "mmonitRegisterCredentials": "1"
+    },
+    "alert": {
+      "cb52977c-69b4-41f3-832c-2fec26bc6c2c": {
+        "enabled": "0",
+        "recipient": "root@localhost.local",
+        "noton": "0",
+        "events": {
+          "action": {
+            "value": "Action done",
+            "selected": 0
+          },
+          "checksum": {
+            "value": "Checksum failed",
+            "selected": 0
+          },
+          "bytein": {
+            "value": "Download bytes exceeded",
+            "selected": 0
+          },
+          "byteout": {
+            "value": "Upload bytes exceeded",
+            "selected": 0
+          },
+          "connection": {
+            "value": "Connection failed",
+            "selected": 0
+          },
+          "content": {
+            "value": "Content failed",
+            "selected": 0
+          },
+          "data": {
+            "value": "Data access error",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execution failed",
+            "selected": 0
+          },
+          "fsflags": {
+            "value": "Filesystem flags failed",
+            "selected": 0
+          },
+          "gid": {
+            "value": "GID failed",
+            "selected": 0
+          },
+          "icmp": {
+            "value": "Ping failed",
+            "selected": 0
+          },
+          "instance": {
+            "value": "Monit instance changed",
+            "selected": 0
+          },
+          "invalid": {
+            "value": "Invalid type",
+            "selected": 0
+          },
+          "link": {
+            "value": "Link down",
+            "selected": 0
+          },
+          "nonexist": {
+            "value": "Does not exist",
+            "selected": 0
+          },
+          "packetin": {
+            "value": "Download packets exceeded",
+            "selected": 0
+          },
+          "packetout": {
+            "value": "Upload packets exceeded",
+            "selected": 0
+          },
+          "permission": {
+            "value": "Permission failed",
+            "selected": 0
+          },
+          "pid": {
+            "value": "PID failed",
+            "selected": 0
+          },
+          "ppid": {
+            "value": "PPID failed",
+            "selected": 0
+          },
+          "resource": {
+            "value": "Resource limit matched",
+            "selected": 0
+          },
+          "saturation": {
+            "value": "Saturation exceeded",
+            "selected": 0
+          },
+          "size": {
+            "value": "Size failed",
+            "selected": 0
+          },
+          "speed": {
+            "value": "Speed failed",
+            "selected": 0
+          },
+          "status": {
+            "value": "Status failed",
+            "selected": 0
+          },
+          "timeout": {
+            "value": "Timeout",
+            "selected": 0
+          },
+          "timestamp": {
+            "value": "Timestamp failed",
+            "selected": 0
+          },
+          "uid": {
+            "value": "UID failed",
+            "selected": 0
+          },
+          "uptime": {
+            "value": "Uptime failed",
+            "selected": 0
+          }
+        },
+        "format": "",
+        "reminder": "",
+        "description": ""
+      }
+    },
+    "service": {
+      "7abe9271-c5fc-4ba8-80e4-072b6d5a2da9": {
+        "enabled": "1",
+        "name": "$HOST",
+        "description": "",
+        "type": {
+          "process": {
+            "value": "Process",
+            "selected": 0
+          },
+          "file": {
+            "value": "File",
+            "selected": 0
+          },
+          "fifo": {
+            "value": "Fifo",
+            "selected": 0
+          },
+          "filesystem": {
+            "value": "Filesystem",
+            "selected": 0
+          },
+          "directory": {
+            "value": "Directory",
+            "selected": 0
+          },
+          "host": {
+            "value": "Remote Host",
+            "selected": 0
+          },
+          "system": {
+            "value": "System",
+            "selected": 1
+          },
+          "custom": {
+            "value": "Custom",
+            "selected": 0
+          },
+          "network": {
+            "value": "Network",
+            "selected": 0
+          }
+        },
+        "pidfile": "",
+        "match": "",
+        "path": "",
+        "timeout": "300",
+        "starttimeout": "30",
+        "address": "",
+        "interface": {
+          "": {
+            "value": "None",
+            "selected": 1
+          },
+          "lan": {
+            "value": "LAN",
+            "selected": 0
+          },
+          "opt1": {
+            "value": "OPT1",
+            "selected": 0
+          }
+        },
+        "start": "",
+        "stop": "",
+        "tests": {
+          "02bf0086-30d0-4069-a1b9-3d6456316b30": {
+            "value": "ChangedStatus",
+            "selected": 0
+          },
+          "6a22332f-250b-4221-b40f-6b09858c86d9": {
+            "value": "CPUUsage",
+            "selected": 1
+          },
+          "b5b17fc6-2464-45eb-8c7b-d9dad0019f69": {
+            "value": "LoadAvg1",
+            "selected": 1
+          },
+          "83bfa0f1-6868-462d-ba09-861e896d1558": {
+            "value": "LoadAvg5",
+            "selected": 1
+          },
+          "1a56e95f-90c0-42f3-b071-d923834ca4cd": {
+            "value": "LoadAvg15",
+            "selected": 0
+          },
+          "2fc6d09f-bba0-4449-aa06-bcc1fef913f6": {
+            "value": "MemoryUsage",
+            "selected": 1
+          },
+          "f21e5fac-af6c-4ff2-a907-9dbb71c543c5": {
+            "value": "NetworkLink",
+            "selected": 0
+          },
+          "82e7c5e2-4bec-429e-b633-d56780149da8": {
+            "value": "NetworkSaturation",
+            "selected": 0
+          },
+          "bbd64222-5484-4381-9a5a-dfe51d210996": {
+            "value": "NonZeroStatus",
+            "selected": 0
+          },
+          "39eff58e-b238-440e-a434-04194feb8a70": {
+            "value": "Ping",
+            "selected": 0
+          },
+          "0eb3b13a-4329-47fe-8998-ecfb5256faff": {
+            "value": "SpaceUsage",
+            "selected": 0
+          }
+        },
+        "depends": {
+          "7abe9271-c5fc-4ba8-80e4-072b6d5a2da9": {
+            "value": "$HOST",
+            "selected": 0
+          },
+          "b1f8aff7-262b-4fbb-9f8c-50168b557d87": {
+            "value": "carp_status_change",
+            "selected": 0
+          },
+          "f60e6373-61d7-43e6-baa8-f464fc7375e2": {
+            "value": "gateway_alert",
+            "selected": 0
+          },
+          "a4c1f24d-60a0-40e2-a725-0a44f5d89dad": {
+            "value": "RootFs",
+            "selected": 0
+          }
+        },
+        "polltime": ""
+      },
+      "a4c1f24d-60a0-40e2-a725-0a44f5d89dad": {
+        "enabled": "1",
+        "name": "RootFs",
+        "description": "",
+        "type": {
+          "process": {
+            "value": "Process",
+            "selected": 0
+          },
+          "file": {
+            "value": "File",
+            "selected": 0
+          },
+          "fifo": {
+            "value": "Fifo",
+            "selected": 0
+          },
+          "filesystem": {
+            "value": "Filesystem",
+            "selected": 1
+          },
+          "directory": {
+            "value": "Directory",
+            "selected": 0
+          },
+          "host": {
+            "value": "Remote Host",
+            "selected": 0
+          },
+          "system": {
+            "value": "System",
+            "selected": 0
+          },
+          "custom": {
+            "value": "Custom",
+            "selected": 0
+          },
+          "network": {
+            "value": "Network",
+            "selected": 0
+          }
+        },
+        "pidfile": "",
+        "match": "",
+        "path": "/",
+        "timeout": "300",
+        "starttimeout": "30",
+        "address": "",
+        "interface": {
+          "": {
+            "value": "None",
+            "selected": 1
+          },
+          "lan": {
+            "value": "LAN",
+            "selected": 0
+          },
+          "opt1": {
+            "value": "OPT1",
+            "selected": 0
+          }
+        },
+        "start": "",
+        "stop": "",
+        "tests": {
+          "02bf0086-30d0-4069-a1b9-3d6456316b30": {
+            "value": "ChangedStatus",
+            "selected": 0
+          },
+          "6a22332f-250b-4221-b40f-6b09858c86d9": {
+            "value": "CPUUsage",
+            "selected": 0
+          },
+          "b5b17fc6-2464-45eb-8c7b-d9dad0019f69": {
+            "value": "LoadAvg1",
+            "selected": 0
+          },
+          "83bfa0f1-6868-462d-ba09-861e896d1558": {
+            "value": "LoadAvg5",
+            "selected": 0
+          },
+          "1a56e95f-90c0-42f3-b071-d923834ca4cd": {
+            "value": "LoadAvg15",
+            "selected": 0
+          },
+          "2fc6d09f-bba0-4449-aa06-bcc1fef913f6": {
+            "value": "MemoryUsage",
+            "selected": 0
+          },
+          "f21e5fac-af6c-4ff2-a907-9dbb71c543c5": {
+            "value": "NetworkLink",
+            "selected": 0
+          },
+          "82e7c5e2-4bec-429e-b633-d56780149da8": {
+            "value": "NetworkSaturation",
+            "selected": 0
+          },
+          "bbd64222-5484-4381-9a5a-dfe51d210996": {
+            "value": "NonZeroStatus",
+            "selected": 0
+          },
+          "39eff58e-b238-440e-a434-04194feb8a70": {
+            "value": "Ping",
+            "selected": 0
+          },
+          "0eb3b13a-4329-47fe-8998-ecfb5256faff": {
+            "value": "SpaceUsage",
+            "selected": 1
+          }
+        },
+        "depends": {
+          "7abe9271-c5fc-4ba8-80e4-072b6d5a2da9": {
+            "value": "$HOST",
+            "selected": 0
+          },
+          "b1f8aff7-262b-4fbb-9f8c-50168b557d87": {
+            "value": "carp_status_change",
+            "selected": 0
+          },
+          "f60e6373-61d7-43e6-baa8-f464fc7375e2": {
+            "value": "gateway_alert",
+            "selected": 0
+          },
+          "a4c1f24d-60a0-40e2-a725-0a44f5d89dad": {
+            "value": "RootFs",
+            "selected": 0
+          }
+        },
+        "polltime": ""
+      },
+      "b1f8aff7-262b-4fbb-9f8c-50168b557d87": {
+        "enabled": "0",
+        "name": "carp_status_change",
+        "description": "",
+        "type": {
+          "process": {
+            "value": "Process",
+            "selected": 0
+          },
+          "file": {
+            "value": "File",
+            "selected": 0
+          },
+          "fifo": {
+            "value": "Fifo",
+            "selected": 0
+          },
+          "filesystem": {
+            "value": "Filesystem",
+            "selected": 0
+          },
+          "directory": {
+            "value": "Directory",
+            "selected": 0
+          },
+          "host": {
+            "value": "Remote Host",
+            "selected": 0
+          },
+          "system": {
+            "value": "System",
+            "selected": 0
+          },
+          "custom": {
+            "value": "Custom",
+            "selected": 1
+          },
+          "network": {
+            "value": "Network",
+            "selected": 0
+          }
+        },
+        "pidfile": "",
+        "match": "",
+        "path": "/usr/local/opnsense/scripts/monit/carp_status.php",
+        "timeout": "300",
+        "starttimeout": "30",
+        "address": "",
+        "interface": {
+          "": {
+            "value": "None",
+            "selected": 1
+          },
+          "lan": {
+            "value": "LAN",
+            "selected": 0
+          },
+          "opt1": {
+            "value": "OPT1",
+            "selected": 0
+          }
+        },
+        "start": "",
+        "stop": "",
+        "tests": {
+          "02bf0086-30d0-4069-a1b9-3d6456316b30": {
+            "value": "ChangedStatus",
+            "selected": 1
+          },
+          "6a22332f-250b-4221-b40f-6b09858c86d9": {
+            "value": "CPUUsage",
+            "selected": 0
+          },
+          "b5b17fc6-2464-45eb-8c7b-d9dad0019f69": {
+            "value": "LoadAvg1",
+            "selected": 0
+          },
+          "83bfa0f1-6868-462d-ba09-861e896d1558": {
+            "value": "LoadAvg5",
+            "selected": 0
+          },
+          "1a56e95f-90c0-42f3-b071-d923834ca4cd": {
+            "value": "LoadAvg15",
+            "selected": 0
+          },
+          "2fc6d09f-bba0-4449-aa06-bcc1fef913f6": {
+            "value": "MemoryUsage",
+            "selected": 0
+          },
+          "f21e5fac-af6c-4ff2-a907-9dbb71c543c5": {
+            "value": "NetworkLink",
+            "selected": 0
+          },
+          "82e7c5e2-4bec-429e-b633-d56780149da8": {
+            "value": "NetworkSaturation",
+            "selected": 0
+          },
+          "bbd64222-5484-4381-9a5a-dfe51d210996": {
+            "value": "NonZeroStatus",
+            "selected": 0
+          },
+          "39eff58e-b238-440e-a434-04194feb8a70": {
+            "value": "Ping",
+            "selected": 0
+          },
+          "0eb3b13a-4329-47fe-8998-ecfb5256faff": {
+            "value": "SpaceUsage",
+            "selected": 0
+          }
+        },
+        "depends": {
+          "7abe9271-c5fc-4ba8-80e4-072b6d5a2da9": {
+            "value": "$HOST",
+            "selected": 0
+          },
+          "b1f8aff7-262b-4fbb-9f8c-50168b557d87": {
+            "value": "carp_status_change",
+            "selected": 0
+          },
+          "f60e6373-61d7-43e6-baa8-f464fc7375e2": {
+            "value": "gateway_alert",
+            "selected": 0
+          },
+          "a4c1f24d-60a0-40e2-a725-0a44f5d89dad": {
+            "value": "RootFs",
+            "selected": 0
+          }
+        },
+        "polltime": ""
+      },
+      "f60e6373-61d7-43e6-baa8-f464fc7375e2": {
+        "enabled": "0",
+        "name": "gateway_alert",
+        "description": "",
+        "type": {
+          "process": {
+            "value": "Process",
+            "selected": 0
+          },
+          "file": {
+            "value": "File",
+            "selected": 0
+          },
+          "fifo": {
+            "value": "Fifo",
+            "selected": 0
+          },
+          "filesystem": {
+            "value": "Filesystem",
+            "selected": 0
+          },
+          "directory": {
+            "value": "Directory",
+            "selected": 0
+          },
+          "host": {
+            "value": "Remote Host",
+            "selected": 0
+          },
+          "system": {
+            "value": "System",
+            "selected": 0
+          },
+          "custom": {
+            "value": "Custom",
+            "selected": 1
+          },
+          "network": {
+            "value": "Network",
+            "selected": 0
+          }
+        },
+        "pidfile": "",
+        "match": "",
+        "path": "/usr/local/opnsense/scripts/monit/gateway_alert.php",
+        "timeout": "300",
+        "starttimeout": "30",
+        "address": "",
+        "interface": {
+          "": {
+            "value": "None",
+            "selected": 1
+          },
+          "lan": {
+            "value": "LAN",
+            "selected": 0
+          },
+          "opt1": {
+            "value": "OPT1",
+            "selected": 0
+          }
+        },
+        "start": "",
+        "stop": "",
+        "tests": {
+          "02bf0086-30d0-4069-a1b9-3d6456316b30": {
+            "value": "ChangedStatus",
+            "selected": 0
+          },
+          "6a22332f-250b-4221-b40f-6b09858c86d9": {
+            "value": "CPUUsage",
+            "selected": 0
+          },
+          "b5b17fc6-2464-45eb-8c7b-d9dad0019f69": {
+            "value": "LoadAvg1",
+            "selected": 0
+          },
+          "83bfa0f1-6868-462d-ba09-861e896d1558": {
+            "value": "LoadAvg5",
+            "selected": 0
+          },
+          "1a56e95f-90c0-42f3-b071-d923834ca4cd": {
+            "value": "LoadAvg15",
+            "selected": 0
+          },
+          "2fc6d09f-bba0-4449-aa06-bcc1fef913f6": {
+            "value": "MemoryUsage",
+            "selected": 0
+          },
+          "f21e5fac-af6c-4ff2-a907-9dbb71c543c5": {
+            "value": "NetworkLink",
+            "selected": 0
+          },
+          "82e7c5e2-4bec-429e-b633-d56780149da8": {
+            "value": "NetworkSaturation",
+            "selected": 0
+          },
+          "bbd64222-5484-4381-9a5a-dfe51d210996": {
+            "value": "NonZeroStatus",
+            "selected": 1
+          },
+          "39eff58e-b238-440e-a434-04194feb8a70": {
+            "value": "Ping",
+            "selected": 0
+          },
+          "0eb3b13a-4329-47fe-8998-ecfb5256faff": {
+            "value": "SpaceUsage",
+            "selected": 0
+          }
+        },
+        "depends": {
+          "7abe9271-c5fc-4ba8-80e4-072b6d5a2da9": {
+            "value": "$HOST",
+            "selected": 0
+          },
+          "b1f8aff7-262b-4fbb-9f8c-50168b557d87": {
+            "value": "carp_status_change",
+            "selected": 0
+          },
+          "f60e6373-61d7-43e6-baa8-f464fc7375e2": {
+            "value": "gateway_alert",
+            "selected": 0
+          },
+          "a4c1f24d-60a0-40e2-a725-0a44f5d89dad": {
+            "value": "RootFs",
+            "selected": 0
+          }
+        },
+        "polltime": ""
+      }
+    },
+    "test": {
+      "39eff58e-b238-440e-a434-04194feb8a70": {
+        "name": "Ping",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 0
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 1
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "failed ping",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "f21e5fac-af6c-4ff2-a907-9dbb71c543c5": {
+        "name": "NetworkLink",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 0
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 1
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "failed link",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "82e7c5e2-4bec-429e-b633-d56780149da8": {
+        "name": "NetworkSaturation",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 0
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 1
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "saturation is greater than 75%",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "2fc6d09f-bba0-4449-aa06-bcc1fef913f6": {
+        "name": "MemoryUsage",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 1
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "memory usage is greater than 75%",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "6a22332f-250b-4221-b40f-6b09858c86d9": {
+        "name": "CPUUsage",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 1
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "cpu usage is greater than 75%",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "b5b17fc6-2464-45eb-8c7b-d9dad0019f69": {
+        "name": "LoadAvg1",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 1
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "loadavg (1min) is greater than 8",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "83bfa0f1-6868-462d-ba09-861e896d1558": {
+        "name": "LoadAvg5",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 1
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "loadavg (5min) is greater than 6",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "1a56e95f-90c0-42f3-b071-d923834ca4cd": {
+        "name": "LoadAvg15",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 1
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "loadavg (15min) is greater than 4",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "0eb3b13a-4329-47fe-8998-ecfb5256faff": {
+        "name": "SpaceUsage",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 0
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 1
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 0
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "space usage is greater than 75%",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "02bf0086-30d0-4069-a1b9-3d6456316b30": {
+        "name": "ChangedStatus",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 0
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 1
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "changed status",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      },
+      "bbd64222-5484-4381-9a5a-dfe51d210996": {
+        "name": "NonZeroStatus",
+        "type": {
+          "Existence": {
+            "value": "Existence",
+            "selected": 0
+          },
+          "SystemResource": {
+            "value": "SystemResource",
+            "selected": 0
+          },
+          "ProcessResource": {
+            "value": "ProcessResource",
+            "selected": 0
+          },
+          "ProcessDiskIO": {
+            "value": "ProcessDiskIO",
+            "selected": 0
+          },
+          "FileChecksum": {
+            "value": "FileChecksum",
+            "selected": 0
+          },
+          "Timestamp": {
+            "value": "Timestamp",
+            "selected": 0
+          },
+          "FileSize": {
+            "value": "FileSize",
+            "selected": 0
+          },
+          "FileContent": {
+            "value": "FileContent",
+            "selected": 0
+          },
+          "FilesystemMountFlags": {
+            "value": "FilesystemMountFlags",
+            "selected": 0
+          },
+          "SpaceUsage": {
+            "value": "SpaceUsage",
+            "selected": 0
+          },
+          "InodeUsage": {
+            "value": "InodeUsage",
+            "selected": 0
+          },
+          "DiskIO": {
+            "value": "DiskIO",
+            "selected": 0
+          },
+          "Permisssion": {
+            "value": "Permisssion",
+            "selected": 0
+          },
+          "UID": {
+            "value": "UID",
+            "selected": 0
+          },
+          "GID": {
+            "value": "GID",
+            "selected": 0
+          },
+          "PID": {
+            "value": "PID",
+            "selected": 0
+          },
+          "PPID": {
+            "value": "PPID",
+            "selected": 0
+          },
+          "Uptime": {
+            "value": "Uptime",
+            "selected": 0
+          },
+          "ProgramStatus": {
+            "value": "ProgramStatus",
+            "selected": 1
+          },
+          "NetworkInterface": {
+            "value": "NetworkInterface",
+            "selected": 0
+          },
+          "NetworkPing": {
+            "value": "NetworkPing",
+            "selected": 0
+          },
+          "Connection": {
+            "value": "Connection",
+            "selected": 0
+          },
+          "Custom": {
+            "value": "Custom",
+            "selected": 0
+          }
+        },
+        "condition": "status != 0",
+        "action": {
+          "alert": {
+            "value": "Alert",
+            "selected": 1
+          },
+          "restart": {
+            "value": "Restart",
+            "selected": 0
+          },
+          "start": {
+            "value": "Start",
+            "selected": 0
+          },
+          "stop": {
+            "value": "Stop",
+            "selected": 0
+          },
+          "exec": {
+            "value": "Execute",
+            "selected": 0
+          },
+          "unmonitor": {
+            "value": "Unmonitor",
+            "selected": 0
+          }
+        },
+        "path": ""
+      }
+    }
+  }
+}

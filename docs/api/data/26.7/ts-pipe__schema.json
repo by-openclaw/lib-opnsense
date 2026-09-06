@@ -1,0 +1,86 @@
+{
+  "pipe": {
+    "number": "",
+    "enabled": "1",
+    "bandwidth": "",
+    "bandwidthMetric": {
+      "bit": {
+        "value": "bit/s",
+        "selected": 0
+      },
+      "Kbit": {
+        "value": "kbit/s",
+        "selected": 1
+      },
+      "Mbit": {
+        "value": "Mbit/s",
+        "selected": 0
+      },
+      "Gbit": {
+        "value": "Gbit/s",
+        "selected": 0
+      }
+    },
+    "queue": "",
+    "mask": {
+      "none": {
+        "value": "(none)",
+        "selected": 1
+      },
+      "src-ip": {
+        "value": "source",
+        "selected": 0
+      },
+      "dst-ip": {
+        "value": "destination",
+        "selected": 0
+      },
+      "src-ip6": {
+        "value": "source (ip6)",
+        "selected": 0
+      },
+      "dst-ip6": {
+        "value": "destination (ip6)",
+        "selected": 0
+      }
+    },
+    "buckets": "",
+    "scheduler": {
+      "": {
+        "value": "Weighted Fair Queueing",
+        "selected": 1
+      },
+      "fifo": {
+        "value": "FIFO",
+        "selected": 0
+      },
+      "rr": {
+        "value": "Deficit Round Robin",
+        "selected": 0
+      },
+      "qfq": {
+        "value": "QFQ",
+        "selected": 0
+      },
+      "fq_codel": {
+        "value": "FlowQueue-CoDel",
+        "selected": 0
+      },
+      "fq_pie": {
+        "value": "FlowQueue-PIE",
+        "selected": 0
+      }
+    },
+    "codel_enable": "0",
+    "codel_target": "",
+    "codel_interval": "",
+    "codel_ecn_enable": "0",
+    "pie_enable": "0",
+    "fqcodel_quantum": "",
+    "fqcodel_limit": "",
+    "fqcodel_flows": "",
+    "origin": "",
+    "delay": "",
+    "description": ""
+  }
+}

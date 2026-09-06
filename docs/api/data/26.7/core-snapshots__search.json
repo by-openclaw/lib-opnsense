@@ -1,0 +1,16 @@
+{
+  "total": 1,
+  "rowCount": 1,
+  "current": 1,
+  "rows": [
+    {
+      "uuid": "e8873782-69d7-37cf-93f2-81fd850947cd",
+      "name": "default",
+      "active": "NR",
+      "mountpoint": "/",
+      "size": "1.07G",
+      "created_str": "2026-09-06 11:30",
+      "created": 1788694200
+    }
+  ]
+}

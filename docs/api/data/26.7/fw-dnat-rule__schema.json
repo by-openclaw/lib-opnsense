@@ -1,0 +1,663 @@
+{
+  "rule": {
+    "sequence": "200",
+    "disabled": "0",
+    "nordr": "0",
+    "interface": {
+      "lan": {
+        "value": "LAN",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "OPT1",
+        "selected": 0
+      },
+      "wan": {
+        "value": "WAN",
+        "selected": 0
+      }
+    },
+    "ipprotocol": {
+      "": {
+        "value": "any",
+        "selected": 1
+      },
+      "inet": {
+        "value": "IPv4",
+        "selected": 0
+      },
+      "inet6": {
+        "value": "IPv6",
+        "selected": 0
+      },
+      "inet46": {
+        "value": "IPv4+IPv6",
+        "selected": 0
+      }
+    },
+    "protocol": {
+      "": {
+        "value": "any",
+        "selected": 1
+      },
+      "tcp": {
+        "value": "TCP",
+        "selected": 0
+      },
+      "udp": {
+        "value": "UDP",
+        "selected": 0
+      },
+      "tcp/udp": {
+        "value": "TCP/UDP",
+        "selected": 0
+      },
+      "icmp": {
+        "value": "ICMP",
+        "selected": 0
+      },
+      "esp": {
+        "value": "ESP",
+        "selected": 0
+      },
+      "ah": {
+        "value": "AH",
+        "selected": 0
+      },
+      "gre": {
+        "value": "GRE",
+        "selected": 0
+      },
+      "igmp": {
+        "value": "IGMP",
+        "selected": 0
+      },
+      "pim": {
+        "value": "PIM",
+        "selected": 0
+      },
+      "ospf": {
+        "value": "OSPF",
+        "selected": 0
+      },
+      "3pc": {
+        "value": "3PC",
+        "selected": 0
+      },
+      "a/n": {
+        "value": "A/N",
+        "selected": 0
+      },
+      "argus": {
+        "value": "ARGUS",
+        "selected": 0
+      },
+      "aris": {
+        "value": "ARIS",
+        "selected": 0
+      },
+      "ax.25": {
+        "value": "AX.25",
+        "selected": 0
+      },
+      "bbn-rcc": {
+        "value": "BBN-RCC",
+        "selected": 0
+      },
+      "bna": {
+        "value": "BNA",
+        "selected": 0
+      },
+      "br-sat-mon": {
+        "value": "BR-SAT-MON",
+        "selected": 0
+      },
+      "carp": {
+        "value": "CARP",
+        "selected": 0
+      },
+      "cbt": {
+        "value": "CBT",
+        "selected": 0
+      },
+      "cftp": {
+        "value": "CFTP",
+        "selected": 0
+      },
+      "chaos": {
+        "value": "CHAOS",
+        "selected": 0
+      },
+      "compaq-peer": {
+        "value": "COMPAQ-PEER",
+        "selected": 0
+      },
+      "cphb": {
+        "value": "CPHB",
+        "selected": 0
+      },
+      "cpnx": {
+        "value": "CPNX",
+        "selected": 0
+      },
+      "crtp": {
+        "value": "CRTP",
+        "selected": 0
+      },
+      "crudp": {
+        "value": "CRUDP",
+        "selected": 0
+      },
+      "dccp": {
+        "value": "DCCP",
+        "selected": 0
+      },
+      "dcn": {
+        "value": "DCN",
+        "selected": 0
+      },
+      "ddp": {
+        "value": "DDP",
+        "selected": 0
+      },
+      "ddx": {
+        "value": "DDX",
+        "selected": 0
+      },
+      "dgp": {
+        "value": "DGP",
+        "selected": 0
+      },
+      "divert": {
+        "value": "DIVERT",
+        "selected": 0
+      },
+      "dsr": {
+        "value": "DSR",
+        "selected": 0
+      },
+      "egp": {
+        "value": "EGP",
+        "selected": 0
+      },
+      "eigrp": {
+        "value": "EIGRP",
+        "selected": 0
+      },
+      "emcon": {
+        "value": "EMCON",
+        "selected": 0
+      },
+      "encap": {
+        "value": "ENCAP",
+        "selected": 0
+      },
+      "etherip": {
+        "value": "ETHERIP",
+        "selected": 0
+      },
+      "fc": {
+        "value": "FC",
+        "selected": 0
+      },
+      "ggp": {
+        "value": "GGP",
+        "selected": 0
+      },
+      "gmtp": {
+        "value": "GMTP",
+        "selected": 0
+      },
+      "hip": {
+        "value": "HIP",
+        "selected": 0
+      },
+      "hmp": {
+        "value": "HMP",
+        "selected": 0
+      },
+      "i-nlsp": {
+        "value": "I-NLSP",
+        "selected": 0
+      },
+      "iatp": {
+        "value": "IATP",
+        "selected": 0
+      },
+      "idpr": {
+        "value": "IDPR",
+        "selected": 0
+      },
+      "idpr-cmtp": {
+        "value": "IDPR-CMTP",
+        "selected": 0
+      },
+      "idrp": {
+        "value": "IDRP",
+        "selected": 0
+      },
+      "ifmp": {
+        "value": "IFMP",
+        "selected": 0
+      },
+      "igp": {
+        "value": "IGP",
+        "selected": 0
+      },
+      "il": {
+        "value": "IL",
+        "selected": 0
+      },
+      "ipcomp": {
+        "value": "IPCOMP",
+        "selected": 0
+      },
+      "ipcv": {
+        "value": "IPCV",
+        "selected": 0
+      },
+      "ipencap": {
+        "value": "IPENCAP",
+        "selected": 0
+      },
+      "ipip": {
+        "value": "IPIP",
+        "selected": 0
+      },
+      "ippc": {
+        "value": "IPPC",
+        "selected": 0
+      },
+      "ipv6": {
+        "value": "IPV6",
+        "selected": 0
+      },
+      "ipv6-icmp": {
+        "value": "IPV6-ICMP",
+        "selected": 0
+      },
+      "ipx-in-ip": {
+        "value": "IPX-IN-IP",
+        "selected": 0
+      },
+      "irtp": {
+        "value": "IRTP",
+        "selected": 0
+      },
+      "isis": {
+        "value": "ISIS",
+        "selected": 0
+      },
+      "iso-ip": {
+        "value": "ISO-IP",
+        "selected": 0
+      },
+      "iso-tp4": {
+        "value": "ISO-TP4",
+        "selected": 0
+      },
+      "kryptolan": {
+        "value": "KRYPTOLAN",
+        "selected": 0
+      },
+      "l2tp": {
+        "value": "L2TP",
+        "selected": 0
+      },
+      "larp": {
+        "value": "LARP",
+        "selected": 0
+      },
+      "leaf-1": {
+        "value": "LEAF-1",
+        "selected": 0
+      },
+      "leaf-2": {
+        "value": "LEAF-2",
+        "selected": 0
+      },
+      "manet": {
+        "value": "MANET",
+        "selected": 0
+      },
+      "merit-inp": {
+        "value": "MERIT-INP",
+        "selected": 0
+      },
+      "mfe-nsp": {
+        "value": "MFE-NSP",
+        "selected": 0
+      },
+      "micp": {
+        "value": "MICP",
+        "selected": 0
+      },
+      "mobile": {
+        "value": "MOBILE",
+        "selected": 0
+      },
+      "mpls-in-ip": {
+        "value": "MPLS-IN-IP",
+        "selected": 0
+      },
+      "mtp": {
+        "value": "MTP",
+        "selected": 0
+      },
+      "mux": {
+        "value": "MUX",
+        "selected": 0
+      },
+      "narp": {
+        "value": "NARP",
+        "selected": 0
+      },
+      "netblt": {
+        "value": "NETBLT",
+        "selected": 0
+      },
+      "nsfnet-igp": {
+        "value": "NSFNET-IGP",
+        "selected": 0
+      },
+      "nvp": {
+        "value": "NVP",
+        "selected": 0
+      },
+      "pfsync": {
+        "value": "PFSYNC",
+        "selected": 0
+      },
+      "pgm": {
+        "value": "PGM",
+        "selected": 0
+      },
+      "pipe": {
+        "value": "PIPE",
+        "selected": 0
+      },
+      "pnni": {
+        "value": "PNNI",
+        "selected": 0
+      },
+      "prm": {
+        "value": "PRM",
+        "selected": 0
+      },
+      "ptp": {
+        "value": "PTP",
+        "selected": 0
+      },
+      "pup": {
+        "value": "PUP",
+        "selected": 0
+      },
+      "pvp": {
+        "value": "PVP",
+        "selected": 0
+      },
+      "qnx": {
+        "value": "QNX",
+        "selected": 0
+      },
+      "rdp": {
+        "value": "RDP",
+        "selected": 0
+      },
+      "rohc": {
+        "value": "ROHC",
+        "selected": 0
+      },
+      "rsvp": {
+        "value": "RSVP",
+        "selected": 0
+      },
+      "rsvp-e2e-ignore": {
+        "value": "RSVP-E2E-IGNORE",
+        "selected": 0
+      },
+      "rvd": {
+        "value": "RVD",
+        "selected": 0
+      },
+      "sat-expak": {
+        "value": "SAT-EXPAK",
+        "selected": 0
+      },
+      "sat-mon": {
+        "value": "SAT-MON",
+        "selected": 0
+      },
+      "scc-sp": {
+        "value": "SCC-SP",
+        "selected": 0
+      },
+      "scps": {
+        "value": "SCPS",
+        "selected": 0
+      },
+      "sctp": {
+        "value": "SCTP",
+        "selected": 0
+      },
+      "sdrp": {
+        "value": "SDRP",
+        "selected": 0
+      },
+      "secure-vmtp": {
+        "value": "SECURE-VMTP",
+        "selected": 0
+      },
+      "shim6": {
+        "value": "SHIM6",
+        "selected": 0
+      },
+      "skip": {
+        "value": "SKIP",
+        "selected": 0
+      },
+      "sm": {
+        "value": "SM",
+        "selected": 0
+      },
+      "smp": {
+        "value": "SMP",
+        "selected": 0
+      },
+      "snp": {
+        "value": "SNP",
+        "selected": 0
+      },
+      "sprite-rpc": {
+        "value": "SPRITE-RPC",
+        "selected": 0
+      },
+      "sps": {
+        "value": "SPS",
+        "selected": 0
+      },
+      "srp": {
+        "value": "SRP",
+        "selected": 0
+      },
+      "st2": {
+        "value": "ST2",
+        "selected": 0
+      },
+      "stp": {
+        "value": "STP",
+        "selected": 0
+      },
+      "sun-nd": {
+        "value": "SUN-ND",
+        "selected": 0
+      },
+      "swipe": {
+        "value": "SWIPE",
+        "selected": 0
+      },
+      "tcf": {
+        "value": "TCF",
+        "selected": 0
+      },
+      "tlsp": {
+        "value": "TLSP",
+        "selected": 0
+      },
+      "tp++": {
+        "value": "TP++",
+        "selected": 0
+      },
+      "trunk-1": {
+        "value": "TRUNK-1",
+        "selected": 0
+      },
+      "trunk-2": {
+        "value": "TRUNK-2",
+        "selected": 0
+      },
+      "ttp": {
+        "value": "TTP",
+        "selected": 0
+      },
+      "udplite": {
+        "value": "UDPLITE",
+        "selected": 0
+      },
+      "uti": {
+        "value": "UTI",
+        "selected": 0
+      },
+      "vines": {
+        "value": "VINES",
+        "selected": 0
+      },
+      "visa": {
+        "value": "VISA",
+        "selected": 0
+      },
+      "vmtp": {
+        "value": "VMTP",
+        "selected": 0
+      },
+      "wb-expak": {
+        "value": "WB-EXPAK",
+        "selected": 0
+      },
+      "wb-mon": {
+        "value": "WB-MON",
+        "selected": 0
+      },
+      "wesp": {
+        "value": "WESP",
+        "selected": 0
+      },
+      "wsn": {
+        "value": "WSN",
+        "selected": 0
+      },
+      "xnet": {
+        "value": "XNET",
+        "selected": 0
+      },
+      "xns-idp": {
+        "value": "XNS-IDP",
+        "selected": 0
+      },
+      "xtp": {
+        "value": "XTP",
+        "selected": 0
+      }
+    },
+    "source": {
+      "network": "",
+      "address": "",
+      "port": "",
+      "not": "0"
+    },
+    "destination": {
+      "network": "",
+      "address": "",
+      "port": "",
+      "not": "0"
+    },
+    "target": "",
+    "local-port": "",
+    "poolopts": {
+      "": {
+        "value": "Default",
+        "selected": 1
+      },
+      "round-robin": {
+        "value": "Round Robin",
+        "selected": 0
+      },
+      "round-robin sticky-address": {
+        "value": "Round Robin with Sticky Address",
+        "selected": 0
+      },
+      "random": {
+        "value": "Random",
+        "selected": 0
+      },
+      "random sticky-address": {
+        "value": "Random with Sticky Address",
+        "selected": 0
+      },
+      "source-hash": {
+        "value": "Source Hash",
+        "selected": 0
+      },
+      "bitmask": {
+        "value": "Bitmask",
+        "selected": 0
+      }
+    },
+    "log": "0",
+    "category": [],
+    "categories": "",
+    "descr": "",
+    "tag": "",
+    "tagged": "",
+    "nosync": "0",
+    "natreflection": {
+      "": {
+        "value": "Use system default",
+        "selected": 1
+      },
+      "purenat": {
+        "value": "Enable",
+        "selected": 0
+      },
+      "disable": {
+        "value": "Disable",
+        "selected": 0
+      }
+    },
+    "pass": {
+      "": {
+        "value": "Manual",
+        "selected": 1
+      },
+      "pass": {
+        "value": "Pass",
+        "selected": 0
+      },
+      "rule": {
+        "value": "Register rule",
+        "selected": 0
+      }
+    },
+    "associated-rule-id": "",
+    "created": {
+      "username": "",
+      "time": "",
+      "description": ""
+    },
+    "updated": {
+      "username": "",
+      "time": "",
+      "description": ""
+    }
+  }
+}

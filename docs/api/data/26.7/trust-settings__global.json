@@ -1,0 +1,705 @@
+{
+  "trust": {
+    "store_intermediate_certs": "0",
+    "install_crls": "0",
+    "fetch_crls": "0",
+    "enable_legacy_sect": "1",
+    "enable_config_constraints": "0",
+    "CipherString": {
+      "DHE-PSK-AES128-CBC-SHA": {
+        "value": "TLS_DHE_PSK_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "DHE-PSK-AES128-CBC-SHA256": {
+        "value": "TLS_DHE_PSK_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "DHE-PSK-AES128-GCM-SHA256": {
+        "value": "TLS_DHE_PSK_WITH_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "DHE-PSK-AES256-CBC-SHA": {
+        "value": "TLS_DHE_PSK_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "DHE-PSK-AES256-CBC-SHA384": {
+        "value": "TLS_DHE_PSK_WITH_AES_256_CBC_SHA384",
+        "selected": 0
+      },
+      "DHE-PSK-AES256-GCM-SHA384": {
+        "value": "TLS_DHE_PSK_WITH_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "DHE-PSK-CHACHA20-POLY1305": {
+        "value": "TLS_DHE_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      },
+      "DHE-RSA-AES128-SHA": {
+        "value": "TLS_DHE_RSA_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "DHE-RSA-AES128-SHA256": {
+        "value": "TLS_DHE_RSA_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "DHE-RSA-AES128-GCM-SHA256": {
+        "value": "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "DHE-RSA-AES256-SHA": {
+        "value": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "DHE-RSA-AES256-SHA256": {
+        "value": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA256",
+        "selected": 0
+      },
+      "DHE-RSA-AES256-GCM-SHA384": {
+        "value": "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "DHE-RSA-CHACHA20-POLY1305": {
+        "value": "TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      },
+      "ECDHE-ECDSA-AES128-SHA": {
+        "value": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "ECDHE-ECDSA-AES128-SHA256": {
+        "value": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "ECDHE-ECDSA-AES128-GCM-SHA256": {
+        "value": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "ECDHE-ECDSA-AES256-SHA": {
+        "value": "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "ECDHE-ECDSA-AES256-SHA384": {
+        "value": "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384",
+        "selected": 0
+      },
+      "ECDHE-ECDSA-AES256-GCM-SHA384": {
+        "value": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "ECDHE-ECDSA-CHACHA20-POLY1305": {
+        "value": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      },
+      "ECDHE-PSK-AES128-CBC-SHA": {
+        "value": "TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "ECDHE-PSK-AES128-CBC-SHA256": {
+        "value": "TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "ECDHE-PSK-AES256-CBC-SHA": {
+        "value": "TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "ECDHE-PSK-AES256-CBC-SHA384": {
+        "value": "TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA384",
+        "selected": 0
+      },
+      "ECDHE-PSK-CHACHA20-POLY1305": {
+        "value": "TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      },
+      "ECDHE-RSA-AES128-SHA": {
+        "value": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "ECDHE-RSA-AES128-SHA256": {
+        "value": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "ECDHE-RSA-AES128-GCM-SHA256": {
+        "value": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "ECDHE-RSA-AES256-SHA": {
+        "value": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "ECDHE-RSA-AES256-SHA384": {
+        "value": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+        "selected": 0
+      },
+      "ECDHE-RSA-AES256-GCM-SHA384": {
+        "value": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "ECDHE-RSA-CHACHA20-POLY1305": {
+        "value": "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      },
+      "PSK-AES128-CBC-SHA": {
+        "value": "TLS_PSK_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "PSK-AES128-CBC-SHA256": {
+        "value": "TLS_PSK_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "PSK-AES128-GCM-SHA256": {
+        "value": "TLS_PSK_WITH_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "PSK-AES256-CBC-SHA": {
+        "value": "TLS_PSK_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "PSK-AES256-CBC-SHA384": {
+        "value": "TLS_PSK_WITH_AES_256_CBC_SHA384",
+        "selected": 0
+      },
+      "PSK-AES256-GCM-SHA384": {
+        "value": "TLS_PSK_WITH_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "PSK-CHACHA20-POLY1305": {
+        "value": "TLS_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      },
+      "RSA-PSK-AES128-CBC-SHA": {
+        "value": "TLS_RSA_PSK_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "RSA-PSK-AES128-CBC-SHA256": {
+        "value": "TLS_RSA_PSK_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "RSA-PSK-AES128-GCM-SHA256": {
+        "value": "TLS_RSA_PSK_WITH_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "RSA-PSK-AES256-CBC-SHA": {
+        "value": "TLS_RSA_PSK_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "RSA-PSK-AES256-CBC-SHA384": {
+        "value": "TLS_RSA_PSK_WITH_AES_256_CBC_SHA384",
+        "selected": 0
+      },
+      "RSA-PSK-AES256-GCM-SHA384": {
+        "value": "TLS_RSA_PSK_WITH_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "RSA-PSK-CHACHA20-POLY1305": {
+        "value": "TLS_RSA_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      },
+      "AES128-SHA": {
+        "value": "TLS_RSA_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "AES128-SHA256": {
+        "value": "TLS_RSA_WITH_AES_128_CBC_SHA256",
+        "selected": 0
+      },
+      "AES128-GCM-SHA256": {
+        "value": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "AES256-SHA": {
+        "value": "TLS_RSA_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "AES256-SHA256": {
+        "value": "TLS_RSA_WITH_AES_256_CBC_SHA256",
+        "selected": 0
+      },
+      "AES256-GCM-SHA384": {
+        "value": "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "SRP-RSA-AES-128-CBC-SHA": {
+        "value": "TLS_SRP_SHA_RSA_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "SRP-RSA-AES-256-CBC-SHA": {
+        "value": "TLS_SRP_SHA_RSA_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      },
+      "SRP-AES-128-CBC-SHA": {
+        "value": "TLS_SRP_SHA_WITH_AES_128_CBC_SHA",
+        "selected": 0
+      },
+      "SRP-AES-256-CBC-SHA": {
+        "value": "TLS_SRP_SHA_WITH_AES_256_CBC_SHA",
+        "selected": 0
+      }
+    },
+    "Ciphersuites": {
+      "TLS_AES_128_GCM_SHA256": {
+        "value": "TLS_AES_128_GCM_SHA256",
+        "selected": 0
+      },
+      "TLS_AES_256_GCM_SHA384": {
+        "value": "TLS_AES_256_GCM_SHA384",
+        "selected": 0
+      },
+      "TLS_CHACHA20_POLY1305_SHA256": {
+        "value": "TLS_CHACHA20_POLY1305_SHA256",
+        "selected": 0
+      }
+    },
+    "SignatureAlgorithms": {
+      "ECDSA+SHA256": {
+        "value": "ECDSA+SHA256",
+        "selected": 0
+      },
+      "ECDSA+SHA384": {
+        "value": "ECDSA+SHA384",
+        "selected": 0
+      },
+      "ECDSA+SHA512": {
+        "value": "ECDSA+SHA512",
+        "selected": 0
+      },
+      "ed25519:ed448": {
+        "value": "ed25519:ed448",
+        "selected": 0
+      },
+      "rsa_pss_pss_sha256": {
+        "value": "rsa_pss_pss_sha256",
+        "selected": 0
+      },
+      "rsa_pss_pss_sha384": {
+        "value": "rsa_pss_pss_sha384",
+        "selected": 0
+      },
+      "rsa_pss_pss_sha512": {
+        "value": "rsa_pss_pss_sha512",
+        "selected": 0
+      },
+      "rsa_pss_rsae_sha256": {
+        "value": "rsa_pss_rsae_sha256",
+        "selected": 0
+      },
+      "rsa_pss_rsae_sha384": {
+        "value": "rsa_pss_rsae_sha384",
+        "selected": 0
+      },
+      "rsa_pss_rsae_sha512": {
+        "value": "rsa_pss_rsae_sha512",
+        "selected": 0
+      },
+      "RSA+SHA256": {
+        "value": "RSA+SHA256",
+        "selected": 0
+      },
+      "RSA+SHA384": {
+        "value": "RSA+SHA384",
+        "selected": 0
+      },
+      "RSA+SHA512": {
+        "value": "RSA+SHA512",
+        "selected": 0
+      },
+      "ECDSA+SHA224": {
+        "value": "ECDSA+SHA224",
+        "selected": 0
+      },
+      "RSA+SHA224": {
+        "value": "RSA+SHA224",
+        "selected": 0
+      }
+    },
+    "groups": {
+      "brainpoolP160r1": {
+        "value": "brainpoolP160r1",
+        "selected": 0
+      },
+      "brainpoolP160t1": {
+        "value": "brainpoolP160t1",
+        "selected": 0
+      },
+      "brainpoolP192r1": {
+        "value": "brainpoolP192r1",
+        "selected": 0
+      },
+      "brainpoolP192t1": {
+        "value": "brainpoolP192t1",
+        "selected": 0
+      },
+      "brainpoolP224r1": {
+        "value": "brainpoolP224r1",
+        "selected": 0
+      },
+      "brainpoolP224t1": {
+        "value": "brainpoolP224t1",
+        "selected": 0
+      },
+      "brainpoolP256r1": {
+        "value": "brainpoolP256r1",
+        "selected": 0
+      },
+      "brainpoolP256t1": {
+        "value": "brainpoolP256t1",
+        "selected": 0
+      },
+      "brainpoolP320r1": {
+        "value": "brainpoolP320r1",
+        "selected": 0
+      },
+      "brainpoolP320t1": {
+        "value": "brainpoolP320t1",
+        "selected": 0
+      },
+      "brainpoolP384r1": {
+        "value": "brainpoolP384r1",
+        "selected": 0
+      },
+      "brainpoolP384t1": {
+        "value": "brainpoolP384t1",
+        "selected": 0
+      },
+      "brainpoolP512r1": {
+        "value": "brainpoolP512r1",
+        "selected": 0
+      },
+      "brainpoolP512t1": {
+        "value": "brainpoolP512t1",
+        "selected": 0
+      },
+      "c2pnb163v1": {
+        "value": "c2pnb163v1",
+        "selected": 0
+      },
+      "c2pnb163v2": {
+        "value": "c2pnb163v2",
+        "selected": 0
+      },
+      "c2pnb163v3": {
+        "value": "c2pnb163v3",
+        "selected": 0
+      },
+      "c2pnb176v1": {
+        "value": "c2pnb176v1",
+        "selected": 0
+      },
+      "c2pnb208w1": {
+        "value": "c2pnb208w1",
+        "selected": 0
+      },
+      "c2pnb272w1": {
+        "value": "c2pnb272w1",
+        "selected": 0
+      },
+      "c2pnb304w1": {
+        "value": "c2pnb304w1",
+        "selected": 0
+      },
+      "c2pnb368w1": {
+        "value": "c2pnb368w1",
+        "selected": 0
+      },
+      "c2tnb191v1": {
+        "value": "c2tnb191v1",
+        "selected": 0
+      },
+      "c2tnb191v2": {
+        "value": "c2tnb191v2",
+        "selected": 0
+      },
+      "c2tnb191v3": {
+        "value": "c2tnb191v3",
+        "selected": 0
+      },
+      "c2tnb239v1": {
+        "value": "c2tnb239v1",
+        "selected": 0
+      },
+      "c2tnb239v2": {
+        "value": "c2tnb239v2",
+        "selected": 0
+      },
+      "c2tnb239v3": {
+        "value": "c2tnb239v3",
+        "selected": 0
+      },
+      "c2tnb359v1": {
+        "value": "c2tnb359v1",
+        "selected": 0
+      },
+      "c2tnb431r1": {
+        "value": "c2tnb431r1",
+        "selected": 0
+      },
+      "ffdhe2048": {
+        "value": "ffdhe2048",
+        "selected": 0
+      },
+      "ffdhe3072": {
+        "value": "ffdhe3072",
+        "selected": 0
+      },
+      "ffdhe4096": {
+        "value": "ffdhe4096",
+        "selected": 0
+      },
+      "ffdhe6144": {
+        "value": "ffdhe6144",
+        "selected": 0
+      },
+      "ffdhe8192": {
+        "value": "ffdhe8192",
+        "selected": 0
+      },
+      "Oakley-EC2N-3": {
+        "value": "Oakley-EC2N-3",
+        "selected": 0
+      },
+      "Oakley-EC2N-4": {
+        "value": "Oakley-EC2N-4",
+        "selected": 0
+      },
+      "prime192v1": {
+        "value": "prime192v1",
+        "selected": 0
+      },
+      "prime192v2": {
+        "value": "prime192v2",
+        "selected": 0
+      },
+      "prime192v3": {
+        "value": "prime192v3",
+        "selected": 0
+      },
+      "prime239v1": {
+        "value": "prime239v1",
+        "selected": 0
+      },
+      "prime239v2": {
+        "value": "prime239v2",
+        "selected": 0
+      },
+      "prime239v3": {
+        "value": "prime239v3",
+        "selected": 0
+      },
+      "prime256v1": {
+        "value": "prime256v1",
+        "selected": 0
+      },
+      "secp112r1": {
+        "value": "secp112r1",
+        "selected": 0
+      },
+      "secp112r2": {
+        "value": "secp112r2",
+        "selected": 0
+      },
+      "secp128r1": {
+        "value": "secp128r1",
+        "selected": 0
+      },
+      "secp128r2": {
+        "value": "secp128r2",
+        "selected": 0
+      },
+      "secp160k1": {
+        "value": "secp160k1",
+        "selected": 0
+      },
+      "secp160r1": {
+        "value": "secp160r1",
+        "selected": 0
+      },
+      "secp160r2": {
+        "value": "secp160r2",
+        "selected": 0
+      },
+      "secp192k1": {
+        "value": "secp192k1",
+        "selected": 0
+      },
+      "secp224k1": {
+        "value": "secp224k1",
+        "selected": 0
+      },
+      "secp224r1": {
+        "value": "secp224r1",
+        "selected": 0
+      },
+      "secp256k1": {
+        "value": "secp256k1",
+        "selected": 0
+      },
+      "secp384r1": {
+        "value": "secp384r1",
+        "selected": 0
+      },
+      "secp521r1": {
+        "value": "secp521r1",
+        "selected": 0
+      },
+      "sect113r1": {
+        "value": "sect113r1",
+        "selected": 0
+      },
+      "sect113r2": {
+        "value": "sect113r2",
+        "selected": 0
+      },
+      "sect131r1": {
+        "value": "sect131r1",
+        "selected": 0
+      },
+      "sect131r2": {
+        "value": "sect131r2",
+        "selected": 0
+      },
+      "sect163k1": {
+        "value": "sect163k1",
+        "selected": 0
+      },
+      "sect163r1": {
+        "value": "sect163r1",
+        "selected": 0
+      },
+      "sect163r2": {
+        "value": "sect163r2",
+        "selected": 0
+      },
+      "sect193r1": {
+        "value": "sect193r1",
+        "selected": 0
+      },
+      "sect193r2": {
+        "value": "sect193r2",
+        "selected": 0
+      },
+      "sect233k1": {
+        "value": "sect233k1",
+        "selected": 0
+      },
+      "sect233r1": {
+        "value": "sect233r1",
+        "selected": 0
+      },
+      "sect239k1": {
+        "value": "sect239k1",
+        "selected": 0
+      },
+      "sect283k1": {
+        "value": "sect283k1",
+        "selected": 0
+      },
+      "sect283r1": {
+        "value": "sect283r1",
+        "selected": 0
+      },
+      "sect409k1": {
+        "value": "sect409k1",
+        "selected": 0
+      },
+      "sect409r1": {
+        "value": "sect409r1",
+        "selected": 0
+      },
+      "sect571k1": {
+        "value": "sect571k1",
+        "selected": 0
+      },
+      "sect571r1": {
+        "value": "sect571r1",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls1": {
+        "value": "wap-wsg-idm-ecid-wtls1",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls3": {
+        "value": "wap-wsg-idm-ecid-wtls3",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls4": {
+        "value": "wap-wsg-idm-ecid-wtls4",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls5": {
+        "value": "wap-wsg-idm-ecid-wtls5",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls6": {
+        "value": "wap-wsg-idm-ecid-wtls6",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls7": {
+        "value": "wap-wsg-idm-ecid-wtls7",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls8": {
+        "value": "wap-wsg-idm-ecid-wtls8",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls9": {
+        "value": "wap-wsg-idm-ecid-wtls9",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls10": {
+        "value": "wap-wsg-idm-ecid-wtls10",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls11": {
+        "value": "wap-wsg-idm-ecid-wtls11",
+        "selected": 0
+      },
+      "wap-wsg-idm-ecid-wtls12": {
+        "value": "wap-wsg-idm-ecid-wtls12",
+        "selected": 0
+      },
+      "X448": {
+        "value": "X448",
+        "selected": 0
+      },
+      "X25519": {
+        "value": "X25519",
+        "selected": 0
+      }
+    },
+    "MinProtocol": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "TLSv1": {
+        "value": "TLSv1",
+        "selected": 0
+      },
+      "TLSv1.1": {
+        "value": "TLSv1.1",
+        "selected": 0
+      },
+      "TLSv1.2": {
+        "value": "TLSv1.2",
+        "selected": 0
+      },
+      "TLSv1.3": {
+        "value": "TLSv1.3",
+        "selected": 0
+      }
+    },
+    "MinProtocol_DTLS": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "DTLSv1": {
+        "value": "DTLSv1",
+        "selected": 0
+      },
+      "DTLSv1.1": {
+        "value": "DTLSv1.1",
+        "selected": 0
+      }
+    }
+  }
+}

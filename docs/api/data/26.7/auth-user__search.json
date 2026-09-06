@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "uuid": "9123cd03-c04b-4789-af49-c0e72b94f5b3",
+      "uid": "0",
+      "name": "root",
+      "disabled": "0",
+      "scope": "system",
+      "expires": "",
+      "authorizedkeys": "",
+      "otp_seed": "",
+      "shell": "",
+      "password": "<REDACTED:password>",
+      "%password": "",
+      "scrambled_password": "0",
+      "pwd_changed_at": "",
+      "landing_page": "",
+      "comment": "",
+      "email": "",
+      "apikeys": "<REDACTED:apikeys>",
+      "%apikeys": "",
+      "priv": "",
+      "language": "",
+      "group_memberships": "1999",
+      "%group_memberships": "admins",
+      "descr": "System Administrator",
+      "dashboard": "",
+      "is_admin": "1",
+      "shell_warning": "0"
+    }
+  ],
+  "rowCount": 1,
+  "total": 1,
+  "current": 1
+}

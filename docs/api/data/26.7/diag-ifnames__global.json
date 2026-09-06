@@ -1,0 +1,6 @@
+{
+  "vtnet1": "LAN",
+  "lo0": "Loopback",
+  "vtnet0": "OPT1",
+  "vtnet2": "WAN"
+}
