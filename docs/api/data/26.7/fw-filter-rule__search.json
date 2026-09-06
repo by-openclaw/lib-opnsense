@@ -1,0 +1,210 @@
+{
+  "total": 25,
+  "rowCount": 5,
+  "current": 1,
+  "rows": [
+    {
+      "log": true,
+      "disablereplyto": 1,
+      "ipprotocol": "inet46",
+      "quick": false,
+      "#priority": 1,
+      "enabled": "1",
+      "action": "block",
+      "replyto": "",
+      "description": "Default deny / state violation rule",
+      "source_net": "",
+      "source_port": "",
+      "destination_net": "",
+      "destination_port": "",
+      "ref": "",
+      "uuid": "02f4bab031b57d1e30553ce08e0ec131",
+      "direction": "in",
+      "%direction": "In",
+      "%action": "Block",
+      "%ipprotocol": "",
+      "protocol": "",
+      "%protocol": "",
+      "sort_order": "000001.1000001",
+      "legacy": true,
+      "is_automatic": true,
+      "category_colors": []
+    },
+    {
+      "log": true,
+      "disablereplyto": 1,
+      "ipprotocol": "inet6",
+      "protocol": "ipv6-icmp",
+      "icmp6-type": "1,2,3,4,135,136",
+      "statetype": "keep",
+      "disabled": false,
+      "#priority": 1,
+      "enabled": "1",
+      "action": "pass",
+      "replyto": "",
+      "description": "IPv6 RFC4890 requirements (ICMP)",
+      "source_net": "",
+      "source_port": "",
+      "destination_net": "",
+      "destination_port": "",
+      "ref": "system_advanced_firewall.php#no_ipv6_rfc4890_req",
+      "uuid": "7355b5da99f40893221b6c4140de1006",
+      "direction": "in",
+      "%direction": "In",
+      "%action": "Pass",
+      "%ipprotocol": "IPv6",
+      "%protocol": "IPV6-ICMP",
+      "sort_order": "000001.1000002",
+      "legacy": true,
+      "is_automatic": true,
+      "category_colors": []
+    },
+    {
+      "log": true,
+      "disablereplyto": 1,
+      "ipprotocol": "inet6",
+      "protocol": "ipv6-icmp",
+      "icmp6-type": "128,129,133,134,135,136",
+      "statetype": "keep",
+      "direction": "out",
+      "disabled": false,
+      "#priority": 1,
+      "enabled": "1",
+      "action": "pass",
+      "replyto": "",
+      "description": "IPv6 RFC4890 requirements (ICMP)",
+      "source_net": "(self)",
+      "source_port": "",
+      "destination_net": "fe80::/10,ff02::/16",
+      "destination_port": "",
+      "ref": "system_advanced_firewall.php#no_ipv6_rfc4890_req",
+      "uuid": "80f90f0d4c5aba0c28d1c539e1e35766",
+      "%direction": "Out",
+      "%action": "Pass",
+      "%ipprotocol": "IPv6",
+      "%protocol": "IPV6-ICMP",
+      "sort_order": "000001.1000003",
+      "legacy": true,
+      "is_automatic": true,
+      "category_colors": [],
+      "alias_meta_source_net": [
+        {
+          "value": "(self)",
+          "%value": "This Firewall",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination_net": [
+        {
+          "value": "fe80::/10",
+          "%value": "fe80::/10",
+          "isAlias": false,
+          "description": ""
+        },
+        {
+          "value": "ff02::/16",
+          "%value": "ff02::/16",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "log": true,
+      "disablereplyto": 1,
+      "ipprotocol": "inet6",
+      "protocol": "ipv6-icmp",
+      "icmp6-type": "128,133,134,135,136",
+      "statetype": "keep",
+      "direction": "in",
+      "disabled": false,
+      "#priority": 1,
+      "enabled": "1",
+      "action": "pass",
+      "replyto": "",
+      "description": "IPv6 RFC4890 requirements (ICMP)",
+      "source_net": "fe80::/10",
+      "source_port": "",
+      "destination_net": "fe80::/10,ff02::/16",
+      "destination_port": "",
+      "ref": "system_advanced_firewall.php#no_ipv6_rfc4890_req",
+      "uuid": "8fa5de02f1ff8cdd29bedb63b24cc7e0",
+      "%direction": "In",
+      "%action": "Pass",
+      "%ipprotocol": "IPv6",
+      "%protocol": "IPV6-ICMP",
+      "sort_order": "000001.1000004",
+      "legacy": true,
+      "is_automatic": true,
+      "category_colors": [],
+      "alias_meta_source_net": [
+        {
+          "value": "fe80::/10",
+          "%value": "fe80::/10",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination_net": [
+        {
+          "value": "fe80::/10",
+          "%value": "fe80::/10",
+          "isAlias": false,
+          "description": ""
+        },
+        {
+          "value": "ff02::/16",
+          "%value": "ff02::/16",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "log": true,
+      "disablereplyto": 1,
+      "ipprotocol": "inet6",
+      "protocol": "ipv6-icmp",
+      "icmp6-type": "128,133,134,135,136",
+      "statetype": "keep",
+      "direction": "in",
+      "disabled": false,
+      "#priority": 1,
+      "enabled": "1",
+      "action": "pass",
+      "replyto": "",
+      "description": "IPv6 RFC4890 requirements (ICMP)",
+      "source_net": "ff02::/16",
+      "source_port": "",
+      "destination_net": "fe80::/10",
+      "destination_port": "",
+      "ref": "system_advanced_firewall.php#no_ipv6_rfc4890_req",
+      "uuid": "e29b1b607bd6cd916cf6b598c41805d3",
+      "%direction": "In",
+      "%action": "Pass",
+      "%ipprotocol": "IPv6",
+      "%protocol": "IPV6-ICMP",
+      "sort_order": "000001.1000005",
+      "legacy": true,
+      "is_automatic": true,
+      "category_colors": [],
+      "alias_meta_source_net": [
+        {
+          "value": "ff02::/16",
+          "%value": "ff02::/16",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination_net": [
+        {
+          "value": "fe80::/10",
+          "%value": "fe80::/10",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "mac": "bc:24:11:ed:1e:7f",
+    "ip": "fe80::be24:11ff:feed:1e7f%vtnet0",
+    "intf": "vtnet0",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "OPT1"
+  },
+  {
+    "mac": "9c:b6:54:b2:0f:32",
+    "ip": "fe80::9eb6:54ff:feb2:f32%vtnet1",
+    "intf": "vtnet1",
+    "manufacturer": "Hewlett Packard",
+    "intf_description": "LAN"
+  },
+  {
+    "mac": "bc:24:11:3d:58:c2",
+    "ip": "fe80::be24:11ff:fe3d:58c2%vtnet1",
+    "intf": "vtnet1",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "LAN"
+  },
+  {
+    "mac": "bc:24:11:cc:3e:51",
+    "ip": "fe80::be24:11ff:fecc:3e51%vtnet1",
+    "intf": "vtnet1",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "LAN"
+  },
+  {
+    "mac": "bc:24:11:da:6b:34",
+    "ip": "fe80::be24:11ff:feda:6b34%vtnet2",
+    "intf": "vtnet2",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "WAN"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "peer": {
+    "name": "",
+    "role": {
+      "primary": {
+        "value": "Primary",
+        "selected": 1
+      },
+      "standby": {
+        "value": "Standby",
+        "selected": 0
+      }
+    },
+    "url": ""
+  }
+}

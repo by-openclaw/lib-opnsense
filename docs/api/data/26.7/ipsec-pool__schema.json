@@ -1,0 +1,13 @@
+{
+  "pool": {
+    "enabled": "1",
+    "name": "",
+    "addrs": "",
+    "dns": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    }
+  }
+}

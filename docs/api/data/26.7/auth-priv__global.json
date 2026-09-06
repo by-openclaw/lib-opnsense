@@ -1,0 +1,16 @@
+{
+  "priv": {
+    "users": {
+      "9123cd03-c04b-4789-af49-c0e72b94f5b3": {
+        "value": "root",
+        "selected": 0
+      }
+    },
+    "groups": {
+      "2989209e-a21e-4128-a225-80c97b964940": {
+        "value": "admins",
+        "selected": 0
+      }
+    }
+  }
+}

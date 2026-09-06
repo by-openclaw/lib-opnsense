@@ -1,0 +1,19 @@
+{
+  "rows": [
+    {
+      "uuid": "2989209e-a21e-4128-a225-80c97b964940",
+      "gid": "1999",
+      "name": "admins",
+      "scope": "system",
+      "description": "System Administrators",
+      "priv": "page-all",
+      "%priv": "All pages",
+      "member": "0",
+      "%member": "root",
+      "source_networks": ""
+    }
+  ],
+  "rowCount": 1,
+  "total": 1,
+  "current": 1
+}

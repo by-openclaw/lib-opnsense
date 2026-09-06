@@ -1,0 +1,8 @@
+{
+  "status": "disabled",
+  "widget": {
+    "caption_restart": "Restart",
+    "caption_start": "Start",
+    "caption_stop": "Stop"
+  }
+}

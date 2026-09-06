@@ -1,0 +1,73 @@
+{
+  "vlan": {
+    "if": {
+      "vtnet0": {
+        "value": "vtnet0 (bc:24:11:ed:1e:7f) [OPT1]",
+        "selected": 0
+      },
+      "vtnet1": {
+        "value": "vtnet1 (bc:24:11:3d:58:c2) [LAN]",
+        "selected": 0
+      },
+      "vtnet2": {
+        "value": "vtnet2 (bc:24:11:da:6b:34) [WAN]",
+        "selected": 0
+      },
+      "vtnet3": {
+        "value": "vtnet3 (bc:24:11:94:c3:e5)",
+        "selected": 0
+      }
+    },
+    "tag": "",
+    "pcp": {
+      "1": {
+        "value": "Background (1, lowest)",
+        "selected": 0
+      },
+      "0": {
+        "value": "Best Effort (0, default)",
+        "selected": 1
+      },
+      "2": {
+        "value": "Excellent Effort (2)",
+        "selected": 0
+      },
+      "3": {
+        "value": "Critical Applications (3)",
+        "selected": 0
+      },
+      "4": {
+        "value": "Video (4)",
+        "selected": 0
+      },
+      "5": {
+        "value": "Voice (5)",
+        "selected": 0
+      },
+      "6": {
+        "value": "Internetwork Control (6)",
+        "selected": 0
+      },
+      "7": {
+        "value": "Network Control (7, highest)",
+        "selected": 0
+      }
+    },
+    "proto": {
+      "": {
+        "value": "Automatic",
+        "selected": 1
+      },
+      "802.1q": {
+        "value": "802.1q",
+        "selected": 0
+      },
+      "802.1ad": {
+        "value": "802.1ad",
+        "selected": 0
+      }
+    },
+    "descr": "",
+    "vlanif": ""
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "vip": {
+    "interface": {
+      "wan": {
+        "value": "WAN",
+        "selected": 0
+      },
+      "lan": {
+        "value": "LAN",
+        "selected": 0
+      },
+      "lo0": {
+        "value": "Loopback",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "OPT1",
+        "selected": 0
+      }
+    },
+    "mode": {
+      "ipalias": {
+        "value": "IP Alias",
+        "selected": 1
+      },
+      "carp": {
+        "value": "CARP",
+        "selected": 0
+      },
+      "proxyarp": {
+        "value": "Proxy ARP",
+        "selected": 0
+      }
+    },
+    "gateway": "",
+    "noexpand": "0",
+    "nobind": "0",
+    "password": "",
+    "vhid": "",
+    "advbase": "1",
+    "advskew": "0",
+    "peer": "",
+    "peer6": "",
+    "nosync": "0",
+    "address": "",
+    "vhid_txt": "",
+    "descr": "",
+    "network": ""
+  }
+}

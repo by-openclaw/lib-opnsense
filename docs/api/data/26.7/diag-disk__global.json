@@ -1,0 +1,112 @@
+{
+  "devices": [
+    {
+      "device": "zroot/ROOT/default",
+      "type": "zfs",
+      "blocks": "21G",
+      "used": "1.1G",
+      "available": "20G",
+      "used_pct": 5,
+      "mountpoint": "/"
+    },
+    {
+      "device": "/dev/gpt/efiboot0",
+      "type": "msdosfs",
+      "blocks": "256M",
+      "used": "512B",
+      "available": "256M",
+      "used_pct": 0,
+      "mountpoint": "/boot/efi"
+    },
+    {
+      "device": "zroot/home",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/home"
+    },
+    {
+      "device": "zroot/usr/src",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/usr/src"
+    },
+    {
+      "device": "zroot",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/zroot"
+    },
+    {
+      "device": "zroot/tmp",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "252K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/tmp"
+    },
+    {
+      "device": "zroot/var/log",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "224K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/var/log"
+    },
+    {
+      "device": "zroot/var/tmp",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/var/tmp"
+    },
+    {
+      "device": "zroot/usr/ports",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/usr/ports"
+    },
+    {
+      "device": "zroot/var/audit",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/var/audit"
+    },
+    {
+      "device": "zroot/var/crash",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/var/crash"
+    },
+    {
+      "device": "zroot/var/mail",
+      "type": "zfs",
+      "blocks": "20G",
+      "used": "96K",
+      "available": "20G",
+      "used_pct": 0,
+      "mountpoint": "/var/mail"
+    }
+  ]
+}
