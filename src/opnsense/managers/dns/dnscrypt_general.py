@@ -14,9 +14,11 @@ Endpoints:
 
 The encrypted upstream of the AdGuard -> Unbound -> dnscrypt-proxy chain: Unbound forwards
 plaintext to ``listen_addresses`` (loopback :53531), dnscrypt-proxy does DoH/DNSCrypt upstream.
-``serverlist``/``disabled_serverlist``/``relaylist`` options come from the public-resolvers list
-the daemon downloads after its FIRST start — on a fresh install set ``enabled`` first, let the
-service fetch the list, then select servers (an unknown name fails API validation).
+``serverlist``/``disabled_serverlist``/``relaylist`` are free-form ``CSVListField``s on the
+API (server NAMES from the public-resolvers list the daemon downloads): the API does NOT
+validate the names against that list — a ``GET`` echoes the current values as its only
+"options" — so the whole config converges in one ``ensure``. Unknown names are ignored by
+the daemon at runtime.
 
 Schema discovered from ``GET /api/dnscryptproxy/general/get`` on OPNsense 26.7.3
 (os-dnscrypt-proxy).
