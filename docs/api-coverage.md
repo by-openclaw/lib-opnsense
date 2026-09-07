@@ -156,6 +156,7 @@
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
 | ddns-account | `DdnsAccountManager` | `description` | `dyndns/accounts` Item | `INTEGRATION_TEST_PASSED` | Built-in on 26.1 (not os-ddclient). Supports Cloudflare, AWS, etc. Redacts password. hostnames + checkip required |
+| ddns-service | `DdnsServiceManager` | — | `dyndns/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager`; restart after an account change publishes the active WAN address immediately |
 
 ## Trust / PKI
 
@@ -211,7 +212,7 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
-| plugins | `PluginManager` | — | `core/firmware` | `INTEGRATION_TEST_PASSED` | List/install/remove plugins. Not BaseManager — custom methods |
+| plugins | `PluginManager` | `package_name` | `core/firmware/{info,install,remove,upgradestatus}` | `INTEGRATION_TEST_PASSED` | List/install/remove + idempotent `ensure(name, present|absent)` that waits for the job and reads the VERDICT from the job log — the backend answers `done` for a refused install too ("Installation out of date…" on a fresh 26.7.0 image, unknown package) |
 
 ## Monit
 
@@ -292,11 +293,11 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | Domain | Manager | Endpoints | Status |
 |---|---|---|---|
 | core-backup-providers | `CoreBackupManager` | `GET /api/core/backup/providers` | `ABSENT` |
-| core-firmware-info | `CoreFirmwareManager` | `GET /api/core/firmware/info` | `ABSENT` |
+| core-firmware-info | `PluginManager.list_plugins` | `GET /api/core/firmware/info` | `INTEGRATION_TEST_PASSED` |
 | core-firmware-running | `CoreFirmwareManager` | `GET /api/core/firmware/running` | `ABSENT` |
-| core-firmware-status | `CoreFirmwareManager` | `GET /api/core/firmware/status` | `ABSENT` |
+| core-firmware-status | `FirmwareManager` | `core/firmware/{check,status,update,upgrade,upgradestatus}` — `check()` runs the job then reads the resolved status; `ensure('updated'|'upgraded', target=)` fires only when something is pending and `wait_for_version` survives the reboot | `INTEGRATION_TEST_PASSED` |
 | core-hasync | `CoreHasyncManager` | `GET /api/core/hasync/get` | `ABSENT` |
-| core-services | `CoreServiceManager` | `GET /api/core/service/search` | `ABSENT` |
+| core-services | `CoreServiceManager` | `core/service/{search,start,stop,restart}/<name>` — `ensure(name, running|stopped|restarted)` for legacy daemons without an MVC controller (`ntpd`, …) | `INTEGRATION_TEST_PASSED` |
 | core-snapshots | `CoreSnapshotManager` | `POST /api/core/snapshots/search` | `ABSENT` |
 | core-system | `CoreSystemManager` | `GET /api/core/system/status` | `ABSENT` |
 | core-tunables | `CoreTunablesSettingsManager` | `GET /api/core/tunables/get` | `ABSENT` |
@@ -316,7 +317,7 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | diag-memory | `DiagMemoryManager` | `GET /api/diagnostics/system/memory` | `ABSENT` |
 | diag-ndp | `DiagNdpManager` | `GET /api/diagnostics/interface/get_ndp` | `ABSENT` |
 | diag-netflow-enabled | `DiagNetflowManager` | `GET /api/diagnostics/netflow/is_enabled` | `ABSENT` |
-| diag-netflow-status | `DiagNetflowManager` | `GET /api/diagnostics/netflow/status` | `ABSENT` |
+| diag-netflow-status | `NetflowServiceManager` | `diagnostics/netflow/{status,reconfigure}` — status `active`→`running`; only `ensure('reconfigured')` is meaningful (the exporter config is seed-owned) | `INTEGRATION_TEST_PASSED` |
 | diag-proto | `DiagProtoManager` | `GET /api/diagnostics/interface/get_protocol_statistics` | `ABSENT` |
 | diag-resources | `DiagResourcesManager` | `GET /api/diagnostics/system/system_resources` | `ABSENT` |
 | diag-routes | `DiagRoutesManager` | `GET /api/diagnostics/interface/get_routes` | `ABSENT` |

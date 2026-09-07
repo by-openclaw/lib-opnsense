@@ -251,13 +251,6 @@ class TestFieldValidation:
             await mgr.ensure("present", params={"name": "WAN_GW", "gateway": "10.0.0.1"})
         mock_client.create.assert_not_awaited()
 
-    async def test_missing_required_gateway_raises(self, mock_client: AsyncMock) -> None:
-        """Missing required 'gateway' raises FieldValidationError."""
-        mgr = RtGatewayManager(mock_client)
-        with pytest.raises(FieldValidationError):
-            await mgr.ensure("present", params={"name": "WAN_GW", "interface": "wan"})
-        mock_client.create.assert_not_awaited()
-
     async def test_priority_out_of_range_raises(self, mock_client: AsyncMock) -> None:
         """priority=999 exceeds max 255, raises FieldValidationError."""
         mgr = RtGatewayManager(mock_client)

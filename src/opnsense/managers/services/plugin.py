@@ -14,10 +14,13 @@ Endpoints:
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from typing import Any
 
 from opnsense.client import OpnsenseClient
+from opnsense.exceptions import OpnsenseServerError, OpnsenseTimeoutError
+from opnsense.models.base import EnsureResult
 
 logger = logging.getLogger(__name__)
 
@@ -192,3 +195,139 @@ class PluginManager:
                 extra={"action": "get_status_failed", "error": str(exc)},
             )
             raise
+
+    # ------------------------------------------------------------------
+    # Idempotent ensure — the firmware job API says "done" even when it REFUSED
+    # ------------------------------------------------------------------
+
+    # Verdict lines the backend writes to the job log instead of failing the job.
+    _REFUSALS: tuple[tuple[str, str], ...] = (
+        (
+            "Installation out of date",
+            "base image out of date — apply the pending point update first",
+        ),
+        ("No packages available to install", "unknown package name"),
+        ("No packages available to remove", "unknown package name"),
+    )
+
+    async def ensure(
+        self,
+        package_name: str,
+        state: str = "present",
+        wait: bool = True,
+        timeout: int = 300,
+        interval: float = 5.0,
+        check_mode: bool = False,
+    ) -> EnsureResult:
+        """Ensure a plugin is installed (``present``) or removed (``absent``).
+
+        Reads the installed state first (noop when it already matches), fires the
+        firmware job, waits for ``upgradestatus`` to report ``done`` and then reads
+        the VERDICT from the job log — the backend reports ``done`` for a refused
+        install too (e.g. a fresh 26.7.0 image: "Installation out of date. The update
+        to opnsense-26.7.3_11 is required."). Finally re-reads the installed state.
+
+        Args:
+            package_name: Plugin package name (e.g. ``'os-chrony'``).
+            state:        ``'present'`` | ``'absent'``.
+            wait:         Poll the job until done (``False`` = fire and forget).
+            timeout:      Seconds to wait for the job.
+            interval:     Poll interval in seconds.
+            check_mode:   Report without changing anything.
+
+        Returns:
+            ``EnsureResult`` — ``action`` ``'installed'`` | ``'removed'`` | ``'noop'``,
+            ``before``/``after`` = ``{'installed': bool}``.
+
+        Raises:
+            ValueError:            Unsupported ``state``.
+            OpnsenseServerError:   The backend refused the job, or the package state
+                                   did not change although the job reported done.
+            OpnsenseTimeoutError:  The job did not finish within ``timeout``.
+        """
+        if state not in ("present", "absent"):
+            raise ValueError(f"PluginManager.ensure: state must be present|absent, got {state!r}")
+        want = state == "present"
+        action = "installed" if want else "removed"
+        installed = await self.is_installed(package_name)
+        before = {"installed": installed}
+        if installed == want:
+            logger.debug(
+                "noop plugin %s already %s",
+                package_name,
+                state,
+                extra={"action": "noop", "package": package_name},
+            )
+            return EnsureResult(changed=False, action="noop", before=before, after=before)
+        if check_mode:
+            logger.info(
+                "%s check_mode=True %s",
+                action,
+                package_name,
+                extra={"action": action, "package": package_name, "check_mode": True},
+            )
+            return EnsureResult(
+                changed=True, action=action, before=before, after={"installed": want}
+            )
+        if want:
+            await self.install(package_name)
+        else:
+            await self.remove(package_name)
+        if not wait:
+            return EnsureResult(
+                changed=True, action=action, before=before, after={"installed": want}
+            )
+        log = await self._wait_for_job(timeout=timeout, interval=interval)
+        self._verdict(package_name, log)
+        after_installed = await self.is_installed(package_name)
+        if after_installed != want:
+            tail = " | ".join(line for line in log.splitlines()[-4:] if line.strip())
+            logger.error(
+                "plugin %s: job done but state unchanged",
+                package_name,
+                extra={"action": f"{action}_failed", "package": package_name, "log_tail": tail},
+            )
+            raise OpnsenseServerError(
+                f"{package_name}: firmware job reported done but the package is still "
+                f"{'absent' if want else 'installed'} — job log tail: {tail}"
+            )
+        logger.info(
+            "%s %s", action, package_name, extra={"action": action, "package": package_name}
+        )
+        return EnsureResult(
+            changed=True, action=action, before=before, after={"installed": after_installed}
+        )
+
+    async def _wait_for_job(self, timeout: int, interval: float) -> str:
+        """Poll ``core/firmware/upgradestatus`` until ``status == 'done'``; return its log."""
+        waited = 0.0
+        while True:
+            status = await self.get_status()
+            if str(status.get("status", "")) == "done":
+                return str(status.get("log", "") or "")
+            if waited >= timeout:
+                logger.error(
+                    "firmware job timeout after %ss",
+                    timeout,
+                    extra={"action": "job_timeout", "timeout": timeout},
+                )
+                raise OpnsenseTimeoutError(
+                    f"firmware job still {status.get('status')!r} after {timeout}s"
+                )
+            await asyncio.sleep(interval)
+            waited += interval
+
+    def _verdict(self, package_name: str, log: str) -> None:
+        """Raise when the job log carries a refusal the backend did not report as a failure."""
+        for marker, meaning in self._REFUSALS:
+            if marker in log:
+                line = next((ln.strip() for ln in log.splitlines() if marker in ln), marker)
+                logger.error(
+                    "plugin %s refused: %s",
+                    package_name,
+                    line,
+                    extra={"action": "refused", "package": package_name, "reason": meaning},
+                )
+                raise OpnsenseServerError(
+                    f"{package_name}: firmware backend refused the job ({meaning}): {line}"
+                )
