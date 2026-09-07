@@ -21,6 +21,7 @@ import logging
 from typing import Any
 
 from opnsense.client import OpnsenseClient
+from opnsense.exceptions import OpnsenseServerError
 from opnsense.models.base import EnsureResult
 
 logger = logging.getLogger(__name__)
@@ -111,6 +112,20 @@ class IdsRulesetManager:
                 )
             if apply:
                 await self._client.reconfigure(self._apply_endpoint, timeout=120)
+        except OpnsenseServerError as exc:
+            # toggleRuleset saves the WHOLE IDS model; a seeded device still carries the
+            # OPNsense default general.interfaces="wan" (not a slot on our seeds), so the save
+            # fails validation and surfaces as an opaque 500. Point at the real fix.
+            logger.error(
+                "ids ruleset toggle failed: %s",
+                exc,
+                extra={"action": "update_failed", "error": str(exc)},
+            )
+            raise OpnsenseServerError(
+                f"{exc} — the IDS model may be invalid as stored (e.g. general.interfaces='wan' "
+                "on a fresh device): apply IdsSettingsManager (interfaces/homenet) BEFORE "
+                "toggling rulesets"
+            ) from exc
         except Exception as exc:
             logger.error(
                 "ids ruleset toggle failed: %s",
