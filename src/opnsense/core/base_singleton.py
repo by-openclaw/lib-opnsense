@@ -53,6 +53,11 @@ class BaseSingletonManager(ABC):
                          response and the request body under this key.
         _apply_endpoint: Reconfigure endpoint, or ``None`` if the daemon
                          applies settings immediately on ``set``.
+        _section:        Optional sub-block under the payload key that this
+                         manager owns (e.g. ``'general'`` when the document is
+                         ``{"unbound": {"general": {...}, "advanced": {...}}}``).
+                         ``get`` unwraps it so callers diff a flat dict; ``set``
+                         re-nests it on the POST body. ``None`` = flat payload.
         _validators:     Field validators dict (same schema as BaseManager).
         REDACT_FIELDS:   Field names to redact in before/after diff + logs.
         _apply_timeout:  Optional per-manager apply timeout (seconds).
@@ -69,6 +74,7 @@ class BaseSingletonManager(ABC):
     _endpoint: str
     _payload_key: str
     _apply_endpoint: str | None = None
+    _section: str | None = None
     _apply_timeout: int | None = None
     _validators: dict[str, dict[str, Any]] = {}
 
@@ -106,7 +112,11 @@ class BaseSingletonManager(ABC):
                 },
             )
             raise
-        return body.get(self._payload_key, body)
+        inner = body.get(self._payload_key, body)
+        if self._section is None:
+            return inner
+        section = inner.get(self._section, {}) if isinstance(inner, dict) else {}
+        return section if isinstance(section, dict) else {}
 
     async def set(
         self,
@@ -171,9 +181,10 @@ class BaseSingletonManager(ABC):
             )
 
         try:
+            payload = {self._section: params} if self._section is not None else params
             await self._client.post(
                 f"{self._endpoint}/set",
-                {self._payload_key: params},
+                {self._payload_key: payload},
             )
             await self._apply()
         except Exception as exc:

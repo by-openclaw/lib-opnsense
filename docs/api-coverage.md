@@ -80,7 +80,7 @@
 | routing-gw | `RtGatewayManager` | `name` | `routing/settings` Gateway | `INTEGRATION_TEST_PASSED` | API supports full CRUD. Tests are read-only — full CRUD deferred to WireGuard (2.14) when a real test gateway exists |
 | route | `RtRouteManager` | `network, gateway` | `routes/routes` Route | `INTEGRATION_TEST_PASSED` | CRUD with disabled=1, Null4 blackhole gateway (127.0.0.1, drops traffic), inttest- prefix |
 
-## Unbound DNS (6 managers — requires reconfigure)
+## Unbound DNS (8 managers — requires reconfigure)
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
@@ -91,6 +91,8 @@
 | ub-dot | `UbDotManager` | `server, port` | `unbound/settings` Dot | `INTEGRATION_TEST_PASSED` | DNS-over-TLS upstream servers |
 | ub-dnsbl | `UbDiagnosticsManager` | — | `unbound/settings` getDnsbl | `INTEGRATION_TEST_PASSED` | Read-only (add/set/del=404 on 26.1.5) |
 | ub-diag-stats | `UbDiagnosticsManager` | — | `unbound/diagnostics/stats` | `INTEGRATION_TEST_PASSED` | Read-only resolver statistics |
+| ub-settings | `UbSettingsManager` | — (singleton) | `unbound/settings/{get,set}` `general` block | `INTEGRATION_TEST_PASSED` | `BaseSingletonManager` with `_section='general'` (document nests general/advanced/…). A fresh FW ships `enabled='0'` — this is the only API path that turns the resolver on. `active_interface`/`outgoing_interface` accept list or CSV; diff compares multi-selects as sets and treats "none selected" as `""` |
+| ub-service | `UbServiceManager` | — | `unbound/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager`. `status` = `disabled` while `general.enabled='0'` |
 | ub-domain-override | — | — | API broken on 26.1.5 | `NOT_AVAILABLE` | Empty response from server |
 
 ## Kea DHCPv4 (requires reconfigure)
@@ -319,7 +321,7 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | ipsec-service | `IpsecServiceManager` | `GET /api/ipsec/service/status` | `ABSENT` |
 | kea-service | `KeaServiceManager` | `GET /api/kea/service/status` | `ABSENT` |
 | syslog-service | `SyslogServiceManager` | `GET /api/syslog/service/status` | `ABSENT` |
-| ub-service | `UbServiceManager` | `GET /api/unbound/service/status` | `ABSENT` |
+| ub-service | `UbServiceManager` | `GET /api/unbound/service/status` | `IMPLEMENTED` |
 | wg-service | `WgServiceManager` | `GET /api/wireguard/service/status` | `ABSENT` |
 
 ## Global Settings (read-only)
@@ -342,7 +344,7 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | syslog-settings | `SyslogSettingsManager` | `GET /api/syslog/settings/get` | `ABSENT` |
 | trust-settings | `TrustSettingsManager` | `GET /api/trust/settings/get` | `ABSENT` |
 | ts-settings | `TsSettingsManager` | `GET /api/trafficshaper/settings/get` | `ABSENT` |
-| ub-settings | `UbSettingsManager` | `GET /api/unbound/settings/get` | `ABSENT` |
+| ub-settings | `UbSettingsManager` | `GET /api/unbound/settings/get` | `IMPLEMENTED` |
 | wg-general | `WgGeneralManager` | `GET /api/wireguard/general/get` | `ABSENT` |
 
 ## Other Read-only
