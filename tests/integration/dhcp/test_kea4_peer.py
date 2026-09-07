@@ -110,6 +110,19 @@ class TestAmbiguousMatch:
 
     async def test_01_create_duplicates(self, opn_client: OpnsenseClient) -> None:
         """Create two peers with same name via direct create."""
+        # OPNsense >= 26.7 refuses duplicate peer names ("Duplicate entry exists") — the
+        # ambiguous-match scenario cannot be staged there; skip the class.
+        from opnsense.exceptions import OpnsenseValidationError as _VErr
+
+        try:
+            await self._create_dup(opn_client)
+        except _VErr as exc:
+            if "Duplicate" in str(exc) or "unique" in str(exc):
+                pytest.skip(f"device enforces peer uniqueness: {exc}")
+            raise
+        return
+
+    async def _create_dup(self, opn_client: OpnsenseClient) -> None:
         mgr = Kea4PeerManager(opn_client)
         r1 = await mgr.create(
             params={
@@ -131,6 +144,17 @@ class TestAmbiguousMatch:
 
     async def test_02_ensure_raises_ambiguous(self, opn_client: OpnsenseClient) -> None:
         """ensure() on ambiguous pair -> AmbiguousMatchError."""
+        if (
+            len(
+                [
+                    r
+                    for r in await Kea4PeerManager(opn_client).list("")
+                    if r.get("name") == "inttest-dup-peer"
+                ]
+            )
+            < 2
+        ):
+            pytest.skip("no duplicate peers staged (device enforces uniqueness)")
         mgr = Kea4PeerManager(opn_client)
         with pytest.raises(AmbiguousMatchError) as exc_info:
             await mgr.ensure(

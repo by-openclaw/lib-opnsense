@@ -99,7 +99,7 @@
 
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
-| kea4-subnet | `Kea4SubnetManager` | `subnet` | `kea/dhcpv4` Subnet | `INTEGRATION_TEST_PASSED` | Full CRUD, test subnet 10.99.0.0/24 |
+| kea4-subnet (nested `option_data` diffed via full get since 2026-09, #85) | `Kea4SubnetManager` | `subnet` | `kea/dhcpv4` Subnet | `INTEGRATION_TEST_PASSED` | Full CRUD, test subnet 10.99.0.0/24 |
 | kea4-reservation | `Kea4ReservationManager` | `ip_address, hw_address` | `kea/dhcpv4` Reservation | `INTEGRATION_TEST_PASSED` | Requires parent subnet UUID in 'subnet' field |
 | kea4-peer | `Kea4PeerManager` | `name` | `kea/dhcpv4` Peer | `INTEGRATION_TEST_PASSED` | HA peer (primary/standby) |
 
@@ -108,6 +108,9 @@
 | Domain | Manager | Match keys | Endpoints | Status | Notes |
 |---|---|---|---|---|---|
 | kea6-subnet | `Kea6SubnetManager` | `subnet` | `kea/dhcpv6` Subnet | `INTEGRATION_TEST_PASSED` | Requires `interface` field (mandatory). Kea DHCPv6 enabled on LAN |
+| kea4-settings | `Kea4SettingsManager` | — (singleton `general`) | `kea/dhcpv4/{get,set}` + `kea/service/reconfigure` | `INTEGRATION_TEST_PASSED` | `_section='general'`; `interfaces`/`compatibility` multi-selects (list or CSV); `dhcp_socket_type` raw|udp |
+| kea6-settings | `Kea6SettingsManager` | — (singleton `general`) | `kea/dhcpv6/{get,set}` + `kea/service/reconfigure` | `INTEGRATION_TEST_PASSED` | `interfaces`/`mac_sources` multi-selects |
+| kea-service | `KeaServiceManager` | — | `kea/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager`; `disabled` while both families are off |
 | kea6-reservation | `Kea6ReservationManager` | `ip_address, duid` | `kea/dhcpv6` Reservation | `INTEGRATION_TEST_PASSED` | Requires parent subnet UUID in 'subnet' field |
 
 ## WireGuard (requires reconfigure)

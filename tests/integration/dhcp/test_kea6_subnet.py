@@ -35,6 +35,26 @@ from opnsense.managers.dhcp.kea6_subnet import Kea6SubnetManager
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
 
 
+# The device must have the test interface selected in Kea DHCPv6 *general* settings, otherwise
+# addSubnet is refused ("Interface is not selected in the general settings"). A stock/seeded
+# FW has none selected — skip the CRUD suite there instead of failing on a precondition.
+@pytest.fixture(autouse=True)
+async def _kea6_interface_precondition(opn_client):
+    from opnsense.managers.dhcp.kea6_settings import Kea6SettingsManager
+
+    general = await Kea6SettingsManager(opn_client).get()
+    raw = general.get("interfaces", {})
+    selected = (
+        [k for k, v in raw.items() if isinstance(v, dict) and v.get("selected")]
+        if isinstance(raw, dict)
+        else []
+    )
+    if not selected:
+        pytest.skip(
+            "Kea DHCPv6: no interface selected in general settings — subnet CRUD cannot be staged"
+        )
+
+
 class TestKea6SubnetCRUD:
     """DHCPv6 subnet CRUD -- requires interface field (lan)."""
 

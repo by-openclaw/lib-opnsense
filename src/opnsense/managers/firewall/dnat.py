@@ -97,8 +97,8 @@ class FwDnatManager(BaseManager):
     _validators = {
         "descr": {"type": "str", "required": True, "max_length": 255},
         "interface": {"type": "str", "required": True},
-        "target": {"type": "ip", "required": True},
-        "local-port": {"type": "port"},
+        "target": {"type": "ip_or_alias", "required": True},
+        "local-port": {"type": "port_or_alias"},
         "protocol": {"type": "str"},
         "ipprotocol": {"type": "enum", "values": ["", "inet", "inet6", "inet46"]},
         "disabled": {"type": "bool_str"},
