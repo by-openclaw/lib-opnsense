@@ -38,7 +38,12 @@ class TestIds:
         assert "opnsense.test.rules" in rows
         original = rows["opnsense.test.rules"] == "1"
         try:
-            r = await mgr.ensure("opnsense.test.rules", not original, apply=False)
+            try:
+                r = await mgr.ensure("opnsense.test.rules", not original, apply=False)
+            except OpnsenseError as exc:
+                if "IDS model may be invalid" in str(exc):
+                    pytest.skip(f"device precondition: {exc}")
+                raise
             assert r.changed is True
             assert (
                 await mgr.ensure("opnsense.test.rules", not original, apply=False)
