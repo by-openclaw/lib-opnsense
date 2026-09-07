@@ -126,7 +126,9 @@ class MonitSettingsManager(BaseSingletonManager):
         # Single-select enum
         "sslversion": {
             "type": "enum",
-            "values": ["AUTO", "TLSV1", "TLSV11", "TLSV12", "TLSV13"],
+            # Option KEYS as the API stores them (26.1/26.7: lowercase) — uppercase never matched
+            # the current value, so every ensure re-set the block.
+            "values": ["auto", "tlsv1", "tlsv11", "tlsv12", "tlsv13"],
         },
     }
 
