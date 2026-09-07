@@ -172,6 +172,24 @@ def validate_ip(field: str, value: str, spec: dict[str, Any]) -> None:
         raise FieldValidationError(field, value, "must be a link-local IP address")
 
 
+def validate_ip_or_alias(field: str, value: str, spec: dict[str, Any]) -> None:
+    r"""Validate an IPv4/IPv6 address OR an OPNsense alias name.
+
+    Used by NAT redirect/target fields where OPNsense accepts either a literal
+    address or a host alias. Alias-first per the platform 'alias, never raw IP'
+    standard: any value matching the alias name pattern is accepted as-is; any
+    other value is validated as a full IP (honouring optional version/scope spec
+    keys, identical to ``validate_ip``).
+
+    Examples::
+
+        {"type": "ip_or_alias"}                  # host4_defguard  OR  10.1.3.180
+    """
+    if _ALIAS_RE.match(value):
+        return  # valid alias name (IPs never match — they start with a digit/colon)
+    validate_ip(field, value, spec)
+
+
 def validate_cidr(field: str, value: str, spec: dict[str, Any]) -> None:
     """Validate CIDR notation (e.g. 10.0.0.0/24) using stdlib ipaddress.
 
@@ -315,6 +333,7 @@ class ValidatorRegistry:
             "bool_str": validate_bool_str,
             "email": validate_email,
             "ip": validate_ip,
+            "ip_or_alias": validate_ip_or_alias,
             "cidr": validate_cidr,
             "mac": validate_mac,
             "port": validate_port,
