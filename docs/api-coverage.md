@@ -263,15 +263,29 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 
 | Domain | Manager | Endpoints | Status |
 |---|---|---|---|
-| chrony-general | `ChronoSettingsManager` | `GET /api/chrony/general/get` | `ABSENT` |
-| chrony-service | `ChronoServiceManager` | `GET /api/chrony/service/status` | `ABSENT` |
+| chrony-general | `ChronyGeneralManager` | `chrony/general/{get,set}` + `chrony/service/reconfigure` | `INTEGRATION_TEST_PASSED` | Singleton (`general` payload). `peers`/`allowednetworks` multi-selects accept list or CSV; empty `allowednetworks` = client-only |
+| chrony-service | `ChronyServiceManager` | `chrony/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` |
 
 ## LLDP (plugin: os-lldpd)
 
 | Domain | Manager | Endpoints | Status |
 |---|---|---|---|
-| lldpd-general | `LldpdSettingsManager` | `GET /api/lldpd/general/get` | `ABSENT` |
-| lldpd-service | `LldpdServiceManager` | `GET /api/lldpd/service/status` | `ABSENT` |
+| lldpd-general | `LldpdGeneralManager` | `lldpd/general/{get,set}` + `lldpd/service/reconfigure` | `INTEGRATION_TEST_PASSED` | Singleton (`general` payload). `interface` is a CSV TextField (list accepted) |
+| lldpd-service | `LldpdServiceManager` | `lldpd/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` |
+
+## QEMU guest agent (plugin: os-qemu-guest-agent)
+
+| Domain | Manager | Endpoints | Status | Notes |
+|---|---|---|---|---|
+| qemuguestagent-settings | `QemuGuestAgentSettingsManager` | `qemuguestagent/settings/{get,set}` (`qemuguestagent.general`) + `qemuguestagent/service/reconfigure` | `INTEGRATION_TEST_PASSED` | Singleton with `_section='general'`; CamelCase fields `Enabled`, `LogDebug`, `DisabledRPCs` (multi-select of guest-* RPC names) |
+| qemuguestagent-service | `QemuGuestAgentServiceManager` | `qemuguestagent/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` |
+
+## dnscrypt-proxy (plugin: os-dnscrypt-proxy)
+
+| Domain | Manager | Endpoints | Status | Notes |
+|---|---|---|---|---|
+| dnscryptproxy-general | `DnscryptProxyGeneralManager` | `dnscryptproxy/general/{get,set}` + `dnscryptproxy/service/reconfigure` | `INTEGRATION_TEST_PASSED` | Singleton (`general` payload), 31 fields. `listen_addresses`/`serverlist`/`disabled_serverlist`/`relaylist` multi-selects accept list or CSV. Server names are validated against the public-resolvers list the daemon downloads after its FIRST start — enable first, then select servers. Epic #80 |
+| dnscryptproxy-service | `DnscryptProxyServiceManager` | `dnscryptproxy/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` |
 
 ## Core / Firmware / System
 
