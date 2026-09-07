@@ -102,8 +102,10 @@ class IdentityResolver:
     ) -> dict[str, Any] | None:
         """Search for an existing resource by composite match keys.
 
-        Uses the first match key as the search phrase (server-side substring
-        filter), then exact-matches ALL keys in Python.
+        Uses the first NON-empty match key as the search phrase (server-side
+        substring filter; ``''`` = list all when every key is empty), then
+        exact-matches ALL keys in Python — an empty key value is a valid
+        identity (catch-all Unbound forward ``domain=''``).
 
         Args:
             params:  Parameters containing all match key fields.
@@ -117,11 +119,17 @@ class IdentityResolver:
             AmbiguousMatchError: If more than one resource matches all keys.
         """
         try:
-            primary_value = str(params.get(self._match_keys[0], ""))
-            if not primary_value:
-                return None
+            # The server-side search phrase is the first NON-empty match key.
+            # An empty primary is a legitimate identity (e.g. the catch-all
+            # Unbound forward has domain=''): bailing out here made ensure()
+            # create a duplicate on every run. With every key empty the phrase
+            # is '' (list all) and the Python exact-match below decides.
+            search_phrase = next(
+                (str(params.get(k, "")) for k in self._match_keys if str(params.get(k, ""))),
+                "",
+            )
 
-            rows = await list_fn(primary_value)
+            rows = await list_fn(search_phrase)
 
             matches = [
                 row

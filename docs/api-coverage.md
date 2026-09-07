@@ -86,7 +86,7 @@
 |---|---|---|---|---|---|
 | ub-host-override | `UbHostOverrideManager` | `hostname, domain, server` | `unbound/settings` HostOverride | `INTEGRATION_TEST_PASSED` | Local A/AAAA/MX/TXT records, full CRUD |
 | ub-host-alias | `UbHostAliasManager` | `hostname, domain` | `unbound/settings` HostAlias | `INTEGRATION_TEST_PASSED` | Create+read only (set/del=404 on 26.1.5) |
-| ub-forward | `UbForwardManager` | `domain, server` | `unbound/settings` Forward | `INTEGRATION_TEST_PASSED` | Domain-specific DNS forwarding. `domain` optional — empty = catch-all root forward-zone "." (forward all; e.g. dnscrypt-proxy chain). Fixed #81. |
+| ub-forward | `UbForwardManager` | `domain, server` | `unbound/settings` Forward | `INTEGRATION_TEST_PASSED` | Domain-specific DNS forwarding. `domain` optional — empty = catch-all root forward (matched by `server` — IdentityResolver uses the first NON-empty match key as the search phrase since 2026-09; before that every apply duplicated the catch-all)-zone "." (forward all; e.g. dnscrypt-proxy chain). Fixed #81. |
 | ub-acl | `UbAclManager` | `name` | `unbound/settings` Acl | `INTEGRATION_TEST_PASSED` | Resolver access control lists |
 | ub-dot | `UbDotManager` | `server, port` | `unbound/settings` Dot | `INTEGRATION_TEST_PASSED` | DNS-over-TLS upstream servers |
 | ub-dnsbl | `UbDiagnosticsManager` | — | `unbound/settings` getDnsbl | `INTEGRATION_TEST_PASSED` | Read-only (add/set/del=404 on 26.1.5) |

@@ -15,7 +15,7 @@ Test flow (ordered, 10-step standard):
     4. Check mode (K)   -- TestCheckMode.test_04_check_mode_create
     5. Read/list (R)    -- covered by idempotent (test_02)
     6. Ambiguous (A)    -- TestAmbiguousMatch (test_05..test_07)
-    7. Error (E)        -- TestErrorHandling.test_08_empty_domain_raises
+    7. Catch-all (E)    -- TestErrorHandling.test_08_empty_domain_is_catch_all_and_idempotent
     8. Delete (D)       -- TestForwardCRUD.test_04_delete
     9. Delete noop (Dn) -- N/A -- no explicit delete-noop test
     10. Cleanup (X)     -- TestCleanup.test_cleanup_forwards
@@ -29,7 +29,7 @@ from __future__ import annotations
 import pytest
 
 from opnsense.client import OpnsenseClient
-from opnsense.exceptions import AmbiguousMatchError, FieldValidationError
+from opnsense.exceptions import AmbiguousMatchError
 from opnsense.managers.dns.ub_forward import UbForwardManager
 
 pytestmark = [pytest.mark.integration, pytest.mark.asyncio]
@@ -150,14 +150,28 @@ class TestAmbiguousMatch:
 class TestErrorHandling:
     """Field validation error tests."""
 
-    async def test_08_empty_domain_raises(self, opn_client: OpnsenseClient) -> None:
-        """Empty domain (required field) -> FieldValidationError."""
+    async def test_08_empty_domain_is_catch_all_and_idempotent(
+        self, opn_client: OpnsenseClient
+    ) -> None:
+        """domain='' is the catch-all root forward — a valid identity.
+
+        Regression for the IdentityResolver empty-primary bug: the second
+        ensure() must MATCH the existing catch-all (noop), never create a
+        duplicate. Uses a unique inttest server so the device's real
+        catch-all forwards are untouched; always cleans up.
+        """
         mgr = UbForwardManager(opn_client)
-        with pytest.raises(FieldValidationError):
-            await mgr.ensure(
-                "present",
-                {"domain": "", "server": "10.11.1.53", "type": "forward"},
-            )
+        params = {"domain": "", "server": "10.11.1.53", "type": "forward"}
+        try:
+            created = await mgr.ensure("present", params)
+            assert created.changed is True
+            assert created.action == "created"
+            again = await mgr.ensure("present", params)
+            assert again.changed is False, "catch-all forward re-created (empty-primary bug)"
+            assert again.action == "noop"
+        finally:
+            removed = await mgr.ensure("absent", {"domain": "", "server": "10.11.1.53"})
+            assert removed.action in ("deleted", "noop")
 
 
 class TestCleanup:
