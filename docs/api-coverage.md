@@ -291,6 +291,16 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | dnscryptproxy-general | `DnscryptProxyGeneralManager` | `dnscryptproxy/general/{get,set}` + `dnscryptproxy/service/reconfigure` | `INTEGRATION_TEST_PASSED` | Singleton (`general` payload), 31 fields. `listen_addresses`/`serverlist`/`disabled_serverlist`/`relaylist` are free-form `CSVListField`s (list or CSV accepted; a GET echoes the current values as the only "options") — the API does NOT validate server names against the downloaded public-resolvers list, so everything converges in one ensure. Epic #80 |
 | dnscryptproxy-service | `DnscryptProxyServiceManager` | `dnscryptproxy/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` |
 
+## Intrusion detection (Suricata) + mDNS repeater
+
+| Domain | Manager | Match keys | Endpoints | Status | Notes |
+|---|---|---|---|---|---|
+| ids-settings | `IdsSettingsManager` | — (singleton `general`) | `ids/settings/{get,set}` + `ids/service/reconfigure` | `INTEGRATION_TEST_PASSED` | `mode` pcap (IDS) / netmap|divert (IPS); `interfaces`/`homenet`/`eveLog` multi-selects; `syslog_eve` = EVE alerts to syslog (Loki) |
+| ids-ruleset | `IdsRulesetManager` | `filename` | `ids/settings/{listRulesets,toggleRuleset}` + `ids/service/reconfigure` | `INTEGRATION_TEST_PASSED` | fixed catalogue (68 sets on 26.7.3: 48 ET open, abuse.ch ×5, OPNsense app-detect); `ensure_many` toggles only the drifted sets; rules are fetched by `IdsServiceManager.update_rules()` |
+| ids-service | `IdsServiceManager` | — | `ids/service/{status,start,stop,restart,reconfigure,updateRules}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` + `update_rules()` |
+| mdnsrepeater-settings | `MdnsRepeaterSettingsManager` | — (singleton) | `mdnsrepeater/settings/{get,set}` + `mdnsrepeater/service/reconfigure` | `INTEGRATION_TEST_PASSED` | os-mdns-repeater; `interfaces` (≥2 slots) + `blocklist` multi-selects |
+| mdnsrepeater-service | `MdnsRepeaterServiceManager` | — | `mdnsrepeater/service/*` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` |
+
 ## Core / Firmware / System
 
 | Domain | Manager | Endpoints | Status |
@@ -349,7 +359,6 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | cron-settings | `CronSettingsManager` | `GET /api/cron/settings/get` | `ABSENT` |
 | dhcrelay-settings | `DhcrelaySettingsManager` | `GET /api/dhcrelay/settings/get` | `ABSENT` |
 | dnsmasq-settings | `DnsmasqSettingsManager` | `GET /api/dnsmasq/settings/get` | `ABSENT` |
-| ids-settings | `IdsSettingsManager` | `GET /api/ids/settings/get` | `ABSENT` |
 | if-overview | `IfOverviewManager` | `GET /api/interfaces/overview/export` | `ABSENT` |
 | if-settings | `IfSettingsManager` | `GET /api/interfaces/settings/get` | `ABSENT` |
 | ipsec-enabled | `IpsecEnabledManager` | `GET /api/ipsec/sessions/is_enabled` | `ABSENT` |

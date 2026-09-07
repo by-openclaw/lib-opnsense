@@ -1,0 +1,1 @@
+"""OPNsense IDS (Suricata) managers."""
