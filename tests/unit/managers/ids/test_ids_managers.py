@@ -58,6 +58,27 @@ class TestIdsSettings:
         )
         mock_client.reconfigure.assert_awaited_once_with("ids/service/reconfigure", timeout=120)
 
+    async def test_detect_profile_nested_block(self, mock_client: AsyncMock) -> None:
+        cur = {
+            "ids": {
+                "general": {
+                    "enabled": "1",
+                    "detect": {"Profile": {"": {"selected": 1}, "low": {"selected": 0}}},
+                }
+            }
+        }
+        mock_client.get.side_effect = [
+            cur,
+            {"ids": {"general": {"enabled": "1", "detect": {"Profile": "low"}}}},
+        ]
+        mock_client.post.return_value = {"result": "saved"}
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        r = await IdsSettingsManager(mock_client).ensure("present", {"detect": {"Profile": "low"}})
+        assert r.changed is True
+        mock_client.post.assert_awaited_once_with(
+            "ids/settings/set", {"ids": {"general": {"detect": {"Profile": "low"}}}}
+        )
+
     async def test_mode_enum(self, mock_client: AsyncMock) -> None:
         with pytest.raises(FieldValidationError):
             await IdsSettingsManager(mock_client).ensure("present", {"mode": "ips"})

@@ -77,6 +77,11 @@ class IdsSettingsManager(BaseSingletonManager):
         "homenet": {"type": "str", "max_length": 4096},
         "eveLog": {"type": "str", "max_length": 4096},
         "mode": {"type": "enum", "values": ["pcap", "netmap", "divert"]},
+        # Nested detection-engine block: {"Profile": ""|"low"|"medium"|"high"|"custom",
+        # "toclient_groups": "", "toserver_groups": ""} — Profile "low" is what keeps Suricata
+        # inside 3 GiB (a full ET Open selection is otherwise OOM-killed: "failed to reclaim
+        # memory").
+        "detect": {"type": "dict"},
         "AlertLogrotate": {"type": "enum", "values": ["D0", "W0D23"]},
         "MPMAlgo": {"type": "enum", "values": ["", "ac", "ac-ks", "hs"]},
         "verbosity": {"type": "enum", "values": ["", "v", "vv", "vvv", "vvvv"]},
