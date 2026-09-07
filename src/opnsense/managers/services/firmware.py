@@ -223,7 +223,9 @@ class FirmwareManager:
         after: dict[str, Any] = {"product_version": before["product_version"], "status": "applying"}
         if target:
             after = {
-                "product_version": await self.wait_for_version(target, timeout=wait_timeout),
+                "product_version": await self.wait_for_version(
+                    target, timeout=wait_timeout, interval=wait_interval
+                ),
                 "status": "none",
             }
         return EnsureResult(changed=True, action=state, before=before, after=after)
