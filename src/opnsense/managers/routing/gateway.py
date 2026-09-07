@@ -96,7 +96,9 @@ class RtGatewayManager(BaseManager):
     _validators = {
         "name": {"type": "str", "required": True, "max_length": 255},
         "interface": {"type": "str", "required": True},
-        "gateway": {"type": "str", "required": True},
+        # Optional: DYNAMIC gateways (PPPoE / DHCP / DHCP6-PD) carry no static address —
+        # the API reads them back with gateway=None and they are matched by name.
+        "gateway": {"type": "str"},
         "ipprotocol": {"type": "enum", "values": ["inet", "inet6"]},
         "disabled": {"type": "bool_str"},
         "defaultgw": {"type": "bool_str"},
