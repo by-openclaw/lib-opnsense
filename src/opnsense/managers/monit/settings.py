@@ -9,8 +9,9 @@ Pattern:    BaseSingletonManager — fetch/diff/set with idempotent ensure().
 
 The Monit ``settings/get`` document wraps the general daemon config under the
 ``general`` object (alongside ``alert``/``service``/``test`` collections, which
-have their own managers). This manager only manages the ``general`` block; on
-``set`` the params are sent as ``{"monit": {"general": {...}}}``.
+have their own managers). This manager owns the ``general`` block only
+(``_section='general'`` on the base: ``get`` unwraps it, ``set`` sends
+``{"monit": {"general": {...}}}``).
 
 Endpoints:
     get   GET  monit/settings/get
@@ -25,20 +26,8 @@ Reference: https://docs.opnsense.org/manual/monit.html
 
 from __future__ import annotations
 
-import logging
-from typing import Any
-
 from opnsense.client import OpnsenseClient
 from opnsense.core.base_singleton import BaseSingletonManager
-from opnsense.core.diff import DiffEngine
-from opnsense.core.logging_helpers import ManagerLogBuilder
-from opnsense.core.redaction import Redactor
-from opnsense.models.base import EnsureResult
-
-logger = logging.getLogger(__name__)
-
-_diff_engine = DiffEngine()
-_redactor = Redactor()
 
 
 class MonitSettingsManager(BaseSingletonManager):
@@ -98,6 +87,7 @@ class MonitSettingsManager(BaseSingletonManager):
     _endpoint = "monit/settings"
     _payload_key = "monit"
     _apply_endpoint = "monit/service/reconfigure"
+    _section = "general"
     _apply_timeout = 60
 
     REDACT_FIELDS: set[str] = {
@@ -147,113 +137,3 @@ class MonitSettingsManager(BaseSingletonManager):
             client: An :class:`OpnsenseClient` instance.
         """
         super().__init__(client)
-
-    async def get(self) -> dict[str, Any]:
-        """Fetch the current Monit ``general`` settings block.
-
-        The ``settings/get`` payload nests the daemon config under
-        ``general``; we unwrap it so callers diff a flat dict.
-
-        Returns:
-            The ``general`` settings dict (empty dict if absent).
-        """
-        body = await super().get()
-        general = body.get("general", {})
-        return general if isinstance(general, dict) else {}
-
-    async def set(
-        self,
-        params: dict[str, Any],
-        check_mode: bool = False,
-    ) -> EnsureResult:
-        """Update the Monit ``general`` settings (fetch → diff → POST if drifted).
-
-        Mirrors :meth:`BaseSingletonManager.set` but keeps ``before`` and
-        ``params`` in the same flat ``general`` shape for diffing, while
-        nesting under ``general`` on the POST body that the API requires:
-        ``{"monit": {"general": {...}}}``.
-
-        Args:
-            params:     Desired ``general`` settings (flat dict).
-            check_mode: If True, return what would happen without making changes.
-
-        Returns:
-            ``EnsureResult`` with ``action='updated'`` or ``'noop'``.
-        """
-        log = ManagerLogBuilder()
-        before = await self.get()
-        diff = _diff_engine.compute_diff(before, params)
-
-        redacted_before = _redactor.redact_dict(before, redact_fields=self.REDACT_FIELDS)
-
-        if diff is None:
-            logger.debug(
-                "noop %s — settings match",
-                self._endpoint,
-                extra=log.build_extra("noop", {}, before=redacted_before, changed=False),
-            )
-            return EnsureResult(
-                changed=False,
-                action="noop",
-                before=redacted_before,
-                after=redacted_before,
-            )
-
-        projected_after = {**before, **params}
-        redacted_after = _redactor.redact_dict(projected_after, redact_fields=self.REDACT_FIELDS)
-
-        if check_mode:
-            logger.info(
-                "set check_mode=True %s",
-                self._endpoint,
-                extra=log.build_extra(
-                    "updated",
-                    {},
-                    before=redacted_before,
-                    after=redacted_after,
-                    changed=True,
-                    check_mode=True,
-                ),
-            )
-            return EnsureResult(
-                changed=True,
-                action="updated",
-                before=redacted_before,
-                after=redacted_after,
-            )
-
-        try:
-            await self._client.post(
-                f"{self._endpoint}/set",
-                {self._payload_key: {"general": params}},
-            )
-            await self._apply()
-        except Exception as exc:
-            logger.error(
-                "set failed %s: %s",
-                self._endpoint,
-                exc,
-                extra=log.build_extra("update_failed", {}, before=redacted_before, error=str(exc)),
-            )
-            raise
-
-        actual_after = await self.get()
-        redacted_actual = _redactor.redact_dict(actual_after, redact_fields=self.REDACT_FIELDS)
-
-        logger.info(
-            "updated %s",
-            self._endpoint,
-            extra=log.build_extra(
-                "updated",
-                {},
-                before=redacted_before,
-                after=redacted_actual,
-                changed=True,
-            ),
-        )
-        return EnsureResult(
-            changed=True,
-            action="updated",
-            before=redacted_before,
-            after=redacted_actual,
-        )

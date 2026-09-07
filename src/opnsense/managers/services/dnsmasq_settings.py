@@ -24,16 +24,11 @@ from typing import Any
 
 from opnsense.client import OpnsenseClient
 from opnsense.core.base_singleton import BaseSingletonManager
+from opnsense.core.validation import normalize_multi_select
 
-
-def _normalize_multi_select(value: Any) -> str:
-    """OPNsense multi-select fields accept comma-separated strings on ``set``.
-
-    Accepts a string passthrough or a list/tuple/set of slot ids.
-    """
-    if isinstance(value, list | tuple | set):
-        return ",".join(str(x) for x in value)
-    return str(value) if value is not None else ""
+# Kept as a module alias: the helper moved to ``opnsense.core.validation`` so
+# every multi-select manager (dnsmasq, unbound, …) shares one implementation.
+_normalize_multi_select = normalize_multi_select
 
 
 class DnsmasqSettingsManager(BaseSingletonManager):

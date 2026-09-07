@@ -60,9 +60,16 @@ class DiffEngine:
             if isinstance(value, dict):
                 if "selected" in value:
                     return str(value.get("selected", ""))
-                for _opt_key, opt_val in value.items():
-                    if isinstance(opt_val, dict) and opt_val.get("selected") in (1, "1", True):
-                        return str(_opt_key)
+                # Format 2 option dict: single-select yields one key; a
+                # multi-select yields every selected key as CSV, and none
+                # selected yields "" (the API's "all"/unset value) — NOT the
+                # dict's repr, which could never equal a desired string.
+                if value and all(isinstance(opt, dict) for opt in value.values()):
+                    return ",".join(
+                        str(opt_key)
+                        for opt_key, opt_val in value.items()
+                        if opt_val.get("selected") in (1, "1", True)
+                    )
             # OPNsense search endpoint returns native bool for "0"/"1" fields.
             # Normalize to "1"/"0" to match the string format used in create/update.
             if isinstance(value, bool):
@@ -75,6 +82,11 @@ class DiffEngine:
                 extra={"action": "normalize_value_failed", "error": str(exc)},
             )
             raise
+
+    @staticmethod
+    def _csv_set(value: str) -> set[str]:
+        """Split a CSV string into its non-empty, stripped tokens."""
+        return {tok.strip() for tok in value.split(",") if tok.strip()}
 
     def compute_diff(
         self,
@@ -108,6 +120,15 @@ class DiffEngine:
                     continue
                 normalized = self.normalize_value(current_value)
                 desired_str = str(desired_value)
+                # Multi-select option dicts compare as a SET of selected keys:
+                # the caller's CSV order must not matter.
+                if (
+                    isinstance(current_value, dict)
+                    and "selected" not in current_value
+                    and "," in f"{normalized}{desired_str}"
+                    and self._csv_set(normalized) == self._csv_set(desired_str)
+                ):
+                    continue
                 if normalized != desired_str:
                     # OPNsense UpdateOnlyTextField: API returns bcrypt hash
                     # ($2y$...), input is plaintext. Use bcrypt.checkpw()

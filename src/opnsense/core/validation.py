@@ -63,6 +63,24 @@ class FieldValidator(Protocol):
 # -- Built-in validators -------------------------------------------------------
 
 
+def normalize_multi_select(value: Any) -> str:
+    """Normalise a multi-select field to the CSV string the API expects on ``set``.
+
+    OPNsense multi-select fields (interface lists, DNS server lists, …) are
+    written as comma-separated strings. Accepts a string passthrough or a
+    list/tuple/set of ids; ``None`` becomes ``""``.
+
+    Args:
+        value: A CSV string, an iterable of ids, or ``None``.
+
+    Returns:
+        The comma-separated string form.
+    """
+    if isinstance(value, list | tuple | set):
+        return ",".join(str(x) for x in value)
+    return str(value) if value is not None else ""
+
+
 def validate_str(field: str, value: str, spec: dict[str, Any]) -> None:
     """Validate a string field: max_length, regex."""
     max_length = spec.get("max_length", 255)

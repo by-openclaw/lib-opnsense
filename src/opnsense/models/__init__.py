@@ -21,6 +21,7 @@ from opnsense.models.dns.ub_dot import UbDot
 from opnsense.models.dns.ub_forward import UbForward
 from opnsense.models.dns.ub_host_alias import UbHostAlias
 from opnsense.models.dns.ub_host_override import UbHostOverride
+from opnsense.models.dns.ub_settings import UbSettings
 from opnsense.models.firewall.alias import FwAlias
 from opnsense.models.firewall.category import FwCategory
 from opnsense.models.firewall.dnat import FwDnatRule
@@ -117,6 +118,7 @@ __all__ = [
     "UbForward",
     "UbHostAlias",
     "UbHostOverride",
+    "UbSettings",
     "WgClient",
     "WgServer",
 ]
