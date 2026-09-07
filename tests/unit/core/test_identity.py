@@ -95,12 +95,35 @@ class TestFindExisting:
         assert exc_info.value.endpoint == "auth/user"
 
     @pytest.mark.asyncio
-    async def test_empty_primary_key_returns_none(self) -> None:
+    async def test_empty_primary_uses_next_nonempty_key_as_phrase(self) -> None:
+        """Catch-all Unbound forward: domain='' is a legitimate identity."""
+        resolver = IdentityResolver(match_keys=["domain", "server"])
+        rows = [
+            {"uuid": "1", "domain": "", "server": "127.0.0.1"},
+            {"uuid": "2", "domain": "lab.test", "server": "127.0.0.1"},
+        ]
+        list_fn = AsyncMock(return_value=rows)
+        result = await resolver.find_existing({"domain": "", "server": "127.0.0.1"}, list_fn)
+        assert result is not None
+        assert result["uuid"] == "1"
+        list_fn.assert_called_once_with("127.0.0.1")
+
+    @pytest.mark.asyncio
+    async def test_all_keys_empty_lists_all_and_matches_exactly(self) -> None:
         resolver = IdentityResolver(match_keys=["name"])
-        list_fn = AsyncMock()
+        rows = [{"uuid": "1", "name": ""}, {"uuid": "2", "name": "x"}]
+        list_fn = AsyncMock(return_value=rows)
         result = await resolver.find_existing({"name": ""}, list_fn)
+        assert result is not None
+        assert result["uuid"] == "1"
+        list_fn.assert_called_once_with("")
+
+    @pytest.mark.asyncio
+    async def test_empty_primary_no_match_returns_none(self) -> None:
+        resolver = IdentityResolver(match_keys=["domain", "server"])
+        list_fn = AsyncMock(return_value=[{"uuid": "2", "domain": "lab.test", "server": "::1"}])
+        result = await resolver.find_existing({"domain": "", "server": "::1"}, list_fn)
         assert result is None
-        list_fn.assert_not_called()
 
     @pytest.mark.asyncio
     async def test_uses_first_key_as_search_phrase(self) -> None:
