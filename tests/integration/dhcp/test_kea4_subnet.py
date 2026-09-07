@@ -122,6 +122,19 @@ class TestAmbiguousMatch:
 
     async def test_01_create_duplicates(self, opn_client: OpnsenseClient) -> None:
         """Create two subnets with same CIDR via direct create."""
+        # OPNsense >= 26.7 enforces "Subnet must be unique" on addSubnet, so the
+        # ambiguous-match scenario cannot be staged there — skip the class.
+        from opnsense.exceptions import OpnsenseValidationError as _VErr
+
+        try:
+            await self._create_dup(opn_client)
+        except _VErr as exc:
+            if "unique" in str(exc):
+                pytest.skip(f"device enforces subnet uniqueness: {exc}")
+            raise
+        return
+
+    async def _create_dup(self, opn_client: OpnsenseClient) -> None:
         mgr = Kea4SubnetManager(opn_client)
         r1 = await mgr.create(
             params={
@@ -143,6 +156,9 @@ class TestAmbiguousMatch:
 
     async def test_02_ensure_raises_ambiguous(self, opn_client: OpnsenseClient) -> None:
         """ensure() on ambiguous pair -> AmbiguousMatchError."""
+        mgr = Kea4SubnetManager(opn_client)
+        if len([r for r in await mgr.list("") if r.get("subnet") == "10.99.2.0/24"]) < 2:
+            pytest.skip("no duplicate subnets staged (device enforces uniqueness)")
         mgr = Kea4SubnetManager(opn_client)
         with pytest.raises(AmbiguousMatchError) as exc_info:
             await mgr.ensure(

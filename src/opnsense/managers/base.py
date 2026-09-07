@@ -481,6 +481,15 @@ class BaseManager(ABC):
             existing["uuid"] = uuid
         else:
             existing = await self._identity.find_existing(params, self.list)
+            # Search rows are FLAT: nested blocks (Kea subnet ``option_data``, …) are
+            # missing, so a diff on the row silently ignores them (#85). When the
+            # desired params carry a nested dict, diff against the full item.
+            if existing is not None and any(isinstance(v, dict) for v in params.values()):
+                row_uuid = str(existing.get("uuid", "") or "")
+                if row_uuid:
+                    full = await self.get(row_uuid)
+                    full["uuid"] = row_uuid
+                    existing = full
 
         if state == "present":
             if existing is None:
