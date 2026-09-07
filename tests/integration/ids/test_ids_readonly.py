@@ -37,17 +37,18 @@ class TestIds:
         rows = {r["filename"]: r["enabled"] for r in await mgr.list()}
         assert "opnsense.test.rules" in rows
         original = rows["opnsense.test.rules"] == "1"
+        # Precondition probe: a seeded device stores general.interfaces="wan" (invalid slot) and
+        # refuses EVERY IDS save — skip instead of failing (the settings manager fixes that).
         try:
-            try:
-                r = await mgr.ensure("opnsense.test.rules", not original, apply=False)
-            except OpnsenseError as exc:
-                if "IDS model may be invalid" in str(exc):
-                    pytest.skip(f"device precondition: {exc}")
-                raise
+            r = await mgr.ensure("opnsense.test.rules", not original, apply=False)
+        except OpnsenseError as exc:
+            if "IDS model may be invalid" in str(exc):
+                pytest.skip(f"device precondition: {exc}")
+            raise
+        try:
             assert r.changed is True
-            assert (
-                await mgr.ensure("opnsense.test.rules", not original, apply=False)
-            ).action == "noop"
+            again = await mgr.ensure("opnsense.test.rules", not original, apply=False)
+            assert again.action == "noop"
         finally:
             await mgr.ensure("opnsense.test.rules", original, apply=False)
 
