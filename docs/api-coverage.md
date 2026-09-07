@@ -284,7 +284,7 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 
 | Domain | Manager | Endpoints | Status | Notes |
 |---|---|---|---|---|
-| dnscryptproxy-general | `DnscryptProxyGeneralManager` | `dnscryptproxy/general/{get,set}` + `dnscryptproxy/service/reconfigure` | `INTEGRATION_TEST_PASSED` | Singleton (`general` payload), 31 fields. `listen_addresses`/`serverlist`/`disabled_serverlist`/`relaylist` multi-selects accept list or CSV. Server names are validated against the public-resolvers list the daemon downloads after its FIRST start — enable first, then select servers. Epic #80 |
+| dnscryptproxy-general | `DnscryptProxyGeneralManager` | `dnscryptproxy/general/{get,set}` + `dnscryptproxy/service/reconfigure` | `INTEGRATION_TEST_PASSED` | Singleton (`general` payload), 31 fields. `listen_addresses`/`serverlist`/`disabled_serverlist`/`relaylist` are free-form `CSVListField`s (list or CSV accepted; a GET echoes the current values as the only "options") — the API does NOT validate server names against the downloaded public-resolvers list, so everything converges in one ensure. Epic #80 |
 | dnscryptproxy-service | `DnscryptProxyServiceManager` | `dnscryptproxy/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager` |
 
 ## Core / Firmware / System
