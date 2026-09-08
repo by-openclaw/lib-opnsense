@@ -83,7 +83,6 @@ class AcmeCertificateManager(BaseManager):
     """
 
     _endpoint = "acmeclient/certificates"
-    _diff_full_object = True  # certRefId/statusCode never appear in search rows
     _payload_key = "certificate"
     _entity_suffix = ""
     _apply_endpoint = None  # issuance is explicit via sign()
@@ -110,9 +109,6 @@ class AcmeCertificateManager(BaseManager):
             "values": ["none", "automatic", "domain", "challenge"],
         },
         "enabled": {"type": "bool_str"},
-        # Trust-store refid to (re)use on import: LeCertificate::import() keeps an existing refid
-        # that matches, so pinning the WebGUI's current cert refid binds the issued leaf to the GUI.
-        "certRefId": {"type": "str", "max_length": 64},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:
@@ -149,17 +145,15 @@ class AcmeCertificateManager(BaseManager):
         ``issued`` = ``present`` + :meth:`sign` when the object has no issued leaf yet
         (``certRefId`` empty or last ``statusCode`` not OK). An issued, unchanged
         certificate is a noop; ``renew=True`` signs again (explicit renewal, never
-        idempotent by design). When the desired ``certRefId`` differs from the stored one
-        on an already-issued certificate, the leaf is re-imported under the desired refid
-        (:meth:`import_`) and the automations run (:meth:`automation`) — that is how the
-        WebGUI binding converges without a GUI step (``action='rebound'``).
+        idempotent by design). ``certRefId`` is read-only on the API (setBase drops it, verified
+        on 26.7): the trust-store refid the leaf lands under is the plugin's choice, so binding
+        the WebGUI to it is a seed concern (pre-set refid in config.xml), not this manager's.
 
         ``sign`` is asynchronous on the plugin: this method polls the object until a
         terminal ``statusCode`` and raises :class:`OpnsenseServerError` on 300/400.
         """
         if state != "issued":
             return await super().ensure(state, params, check_mode=check_mode, uuid=uuid)
-        desired_ref = str(params.get("certRefId", "") or "").strip()
         result = await super().ensure("present", params, check_mode=check_mode, uuid=uuid)
         cert_uuid = result.uuid
         if cert_uuid is None:  # object would be created (check mode) — nothing to sign yet
@@ -174,17 +168,6 @@ class AcmeCertificateManager(BaseManager):
             ref, status, stamp = self._issue_state(current)
         issued = bool(ref) and status in self._STATUS_OK
         if issued and not renew:
-            if desired_ref and ref != desired_ref and result.action == "updated":
-                # certRefId just changed on an issued certificate → bind the leaf to it.
-                await self._invoke("import", cert_uuid, "imported")
-                await self._invoke("automation", cert_uuid, "automation_run")
-                return EnsureResult(
-                    changed=True,
-                    action="rebound",
-                    uuid=cert_uuid,
-                    before={"certRefId": ref, "statusCode": status},
-                    after={"certRefId": desired_ref, "statusCode": status},
-                )
             return result
         action = "renewed" if issued else "issued"
         before = {"certRefId": ref, "statusCode": status}

@@ -135,27 +135,6 @@ class TestIssuedState:
         assert r.changed is False and r.action == "noop"
         mock_client.post.assert_not_awaited()
 
-    async def test_diff_uses_the_full_object(self, mock_client: AsyncMock) -> None:
-        """certRefId is absent from search rows: a differing desired refid must still update."""
-        mock_client.search.return_value = [self.ROW]
-        mock_client.get.side_effect = [
-            self._obj("abc", "200"),  # full object for the diff (BaseManager)
-            self._obj("abc", "200"),  # full object for the update's before-state
-            self._obj("abc", "200"),  # issue-state read
-        ]
-        mock_client.update.return_value = {"result": "saved"}
-        mock_client.post.return_value = {"status": "OK"}
-        r = await self._fast(mock_client).ensure(
-            "issued", {"name": "fw.example.com", "keyLength": "key_4096", "certRefId": "gui1"}
-        )
-        assert r.changed is True and r.action == "rebound"
-        assert r.after == {"certRefId": "gui1", "statusCode": "200"}
-        posted = [c.args[0] for c in mock_client.post.await_args_list]
-        assert posted == [
-            "acmeclient/certificates/import/u1",
-            "acmeclient/certificates/automation/u1",
-        ]
-
     async def test_signs_when_not_issued_and_waits_for_the_async_issue(
         self, mock_client: AsyncMock
     ) -> None:

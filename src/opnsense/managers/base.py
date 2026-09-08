@@ -78,9 +78,6 @@ class BaseManager(ABC):
     _endpoint: str
     _payload_key: str
     _apply_endpoint: str | None
-    # Diff against the full ``get`` object instead of the flat search row (some fields — e.g.
-    # os-acme-client ``certRefId`` — never appear in search rows, so a row-diff cannot see them).
-    _diff_full_object: bool = False
     _match_key: str | None = None  # Legacy single key
     _match_keys: list[str] | None = None  # Composite identity (preferred)
     _entity_suffix: str | None = None  # None = auto from _payload_key
@@ -487,9 +484,7 @@ class BaseManager(ABC):
             # Search rows are FLAT: nested blocks (Kea subnet ``option_data``, …) are
             # missing, so a diff on the row silently ignores them (#85). When the
             # desired params carry a nested dict, diff against the full item.
-            if existing is not None and (
-                self._diff_full_object or any(isinstance(v, dict) for v in params.values())
-            ):
+            if existing is not None and any(isinstance(v, dict) for v in params.values()):
                 row_uuid = str(existing.get("uuid", "") or "")
                 if row_uuid:
                     full = await self.get(row_uuid)
