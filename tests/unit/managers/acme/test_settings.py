@@ -14,7 +14,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import FieldValidationError
+from opnsense.exceptions import FieldValidationError, OpnsenseServerError
 from opnsense.managers.acme.settings import AcmeSettingsManager
 
 
@@ -94,3 +94,38 @@ class TestValidation:
         mgr = AcmeSettingsManager(mock_client)
         with pytest.raises(FieldValidationError):
             await mgr.ensure("present", {"environment": "qa"})
+
+
+@pytest.mark.asyncio
+class TestCronIntegration:
+    SETTINGS = {"acmeclient": {"settings": {"enabled": "1", "autoRenewal": "1"}}}
+
+    async def test_cron_created(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SETTINGS
+        mock_client.post.return_value = {"result": "new", "uuid": "cron-1"}
+        r = await AcmeSettingsManager(mock_client).ensure(
+            "present", {"enabled": "1", "autoRenewal": "1"}, cron=True
+        )
+        assert r.changed is True and r.action == "cron_created"
+        assert r.after is not None and r.after["UpdateCron"] == "cron-1"
+        mock_client.post.assert_awaited_once_with("acmeclient/settings/fetchCronIntegration")
+
+    async def test_cron_no_change(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SETTINGS
+        mock_client.post.return_value = {"result": "no change"}
+        r = await AcmeSettingsManager(mock_client).ensure("present", {"enabled": "1"}, cron=True)
+        assert r.changed is False and r.action == "noop"
+
+    async def test_cron_skipped_in_check_mode(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SETTINGS
+        r = await AcmeSettingsManager(mock_client).ensure(
+            "present", {"enabled": "1"}, check_mode=True, cron=True
+        )
+        assert r.action == "noop"
+        mock_client.post.assert_not_awaited()
+
+    async def test_cron_refused_raises(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SETTINGS
+        mock_client.post.return_value = {"result": "unable to add cron"}
+        with pytest.raises(OpnsenseServerError):
+            await AcmeSettingsManager(mock_client).ensure("present", {"enabled": "1"}, cron=True)

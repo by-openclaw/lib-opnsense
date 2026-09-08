@@ -31,10 +31,12 @@ Reference: https://github.com/opnsense/plugins/tree/master/security/acme-client
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from typing import Any
 
 from opnsense.client import OpnsenseClient
+from opnsense.exceptions import OpnsenseServerError
 from opnsense.managers.base import BaseManager
 from opnsense.models.base import EnsureResult
 
@@ -81,6 +83,7 @@ class AcmeCertificateManager(BaseManager):
     """
 
     _endpoint = "acmeclient/certificates"
+    _diff_full_object = True  # certRefId/statusCode never appear in search rows
     _payload_key = "certificate"
     _entity_suffix = ""
     _apply_endpoint = None  # issuance is explicit via sign()
@@ -107,6 +110,9 @@ class AcmeCertificateManager(BaseManager):
             "values": ["none", "automatic", "domain", "challenge"],
         },
         "enabled": {"type": "bool_str"},
+        # Trust-store refid to (re)use on import: LeCertificate::import() keeps an existing refid
+        # that matches, so pinning the WebGUI's current cert refid binds the issued leaf to the GUI.
+        "certRefId": {"type": "str", "max_length": 64},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:
@@ -119,6 +125,15 @@ class AcmeCertificateManager(BaseManager):
 
     # acme.sh DNS-01 round trips (dns_sleep + CA) take minutes — never the default timeout.
     _sign_timeout = 300
+    # `sign` is ASYNCHRONOUS on the plugin side (configd runs lecert.php under daemon -f and
+    # answers at once): the object stays statusCode 100 ("in progress") until acme.sh finishes.
+    # ensure("issued") therefore polls the object until a terminal status; a second sign while
+    # the first is still running makes the CA answer "order status valid" → 400 (seen 2026-09-09).
+    _issue_poll_interval = 10.0
+    _issue_wait_timeout = 600.0
+    _STATUS_RUNNING = ("100",)  # lecert.php sets 100 while it works
+    _STATUS_PENDING = ("", "100")  # right after our sign: not yet 100, or 100
+    _STATUS_OK = ("200", "250")
 
     async def ensure(  # type: ignore[override]
         self,
@@ -132,24 +147,19 @@ class AcmeCertificateManager(BaseManager):
 
         ``present`` / ``absent`` behave exactly like :meth:`BaseManager.ensure`.
         ``issued`` = ``present`` + :meth:`sign` when the object has no issued leaf yet
-        (``certRefId`` empty or last ``statusCode`` not ``200``). An issued, unchanged
+        (``certRefId`` empty or last ``statusCode`` not OK). An issued, unchanged
         certificate is a noop; ``renew=True`` signs again (explicit renewal, never
-        idempotent by design).
+        idempotent by design). When the desired ``certRefId`` differs from the stored one
+        on an already-issued certificate, the leaf is re-imported under the desired refid
+        (:meth:`import_`) and the automations run (:meth:`automation`) — that is how the
+        WebGUI binding converges without a GUI step (``action='rebound'``).
 
-        Args:
-            state:      ``'present'`` | ``'absent'`` | ``'issued'``.
-            params:     Certificate parameters (``name`` is the match key).
-            check_mode: Report only — ``would_issued`` / ``would_renewed``.
-            uuid:       Known UUID (bypasses the match-key lookup).
-            renew:      With ``issued``: sign even if already issued.
-
-        Returns:
-            ``EnsureResult``; ``action`` ∈ created/updated/noop/deleted/issued/renewed/
-            would_issued/would_renewed (``would_issued`` also when the object itself
-            would only be created in check mode).
+        ``sign`` is asynchronous on the plugin: this method polls the object until a
+        terminal ``statusCode`` and raises :class:`OpnsenseServerError` on 300/400.
         """
         if state != "issued":
             return await super().ensure(state, params, check_mode=check_mode, uuid=uuid)
+        desired_ref = str(params.get("certRefId", "") or "").strip()
         result = await super().ensure("present", params, check_mode=check_mode, uuid=uuid)
         cert_uuid = result.uuid
         if cert_uuid is None:  # object would be created (check mode) — nothing to sign yet
@@ -157,10 +167,24 @@ class AcmeCertificateManager(BaseManager):
                 changed=True, action="would_issued", before=result.before, after=result.after
             )
         current = await self.get(cert_uuid)
-        ref = str(current.get("certRefId", "") or "").strip()
-        status = str(current.get("statusCode", "") or "").strip()
-        issued = bool(ref) and status == "200"
+        ref, status, stamp = self._issue_state(current)
+        if status in self._STATUS_RUNNING and not check_mode:
+            # An issue/renew may still be running (cron, GUI, previous run): never race it.
+            current = await self._wait_for_issue(cert_uuid, stale_stamp=None)
+            ref, status, stamp = self._issue_state(current)
+        issued = bool(ref) and status in self._STATUS_OK
         if issued and not renew:
+            if desired_ref and ref != desired_ref and result.action == "updated":
+                # certRefId just changed on an issued certificate → bind the leaf to it.
+                await self._invoke("import", cert_uuid, "imported")
+                await self._invoke("automation", cert_uuid, "automation_run")
+                return EnsureResult(
+                    changed=True,
+                    action="rebound",
+                    uuid=cert_uuid,
+                    before={"certRefId": ref, "statusCode": status},
+                    after={"certRefId": desired_ref, "statusCode": status},
+                )
             return result
         action = "renewed" if issued else "issued"
         before = {"certRefId": ref, "statusCode": status}
@@ -174,10 +198,54 @@ class AcmeCertificateManager(BaseManager):
             return EnsureResult(
                 changed=True, action=f"would_{action}", uuid=cert_uuid, before=before
             )
-        signed = await self._invoke("sign", cert_uuid, action)
-        return EnsureResult(
-            changed=True, action=action, uuid=cert_uuid, before=before, after=signed.after
+        await self._invoke("sign", cert_uuid, action)
+        final = await self._wait_for_issue(cert_uuid, stale_stamp=stamp)
+        ref_after, status_after, _ = self._issue_state(final)
+        after = {"certRefId": ref_after, "statusCode": status_after}
+        if status_after not in self._STATUS_OK or not ref_after:
+            logger.error(
+                "%s failed acme cert uuid=%s statusCode=%s",
+                action,
+                cert_uuid,
+                status_after,
+                extra={"action": f"{action}_failed", "endpoint": self._endpoint, "uuid": cert_uuid},
+            )
+            raise OpnsenseServerError(
+                f"acme {action} of {cert_uuid} ended with statusCode={status_after or 'none'} "
+                "(400 = validation/CA failure, 300 = config error, 100 = still running after "
+                f"{int(self._issue_wait_timeout)} s) — read the acmeclient log on the firewall",
+                endpoint=f"{self._endpoint}/sign/{cert_uuid}",
+            )
+        return EnsureResult(changed=True, action=action, uuid=cert_uuid, before=before, after=after)
+
+    @staticmethod
+    def _issue_state(obj: dict[str, Any]) -> tuple[str, str, str]:
+        """``(certRefId, statusCode, statusLastUpdate)`` of a full certificate object."""
+        return (
+            str(obj.get("certRefId", "") or "").strip(),
+            str(obj.get("statusCode", "") or "").strip(),
+            str(obj.get("statusLastUpdate", "") or "").strip(),
         )
+
+    async def _wait_for_issue(self, uuid: str, stale_stamp: str | None) -> dict[str, Any]:
+        """Poll the certificate until a terminal statusCode that is NEWER than ``stale_stamp``.
+
+        Right after our ``sign`` the object still carries the previous (terminal) status for a
+        moment — lecert.php starts under ``daemon -f``; the old status must not be mistaken for
+        the outcome. ``stale_stamp=None`` = just wait for the current run to end. Returns the
+        last object read; the caller decides what the status means.
+        """
+        deadline = asyncio.get_running_loop().time() + self._issue_wait_timeout
+        current = await self.get(uuid)
+        while True:
+            _, status, stamp = self._issue_state(current)
+            pending = status in self._STATUS_PENDING or (
+                stale_stamp is not None and stamp == stale_stamp
+            )
+            if not pending or asyncio.get_running_loop().time() >= deadline:
+                return current
+            await asyncio.sleep(self._issue_poll_interval)
+            current = await self.get(uuid)
 
     async def _invoke(self, verb: str, uuid: str, action_name: str) -> EnsureResult:
         """POST a custom certificate verb (``{endpoint}/{verb}/{uuid}``).
