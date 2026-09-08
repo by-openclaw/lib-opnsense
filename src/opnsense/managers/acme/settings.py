@@ -32,6 +32,7 @@ from opnsense.core.base_singleton import BaseSingletonManager
 from opnsense.core.diff import DiffEngine
 from opnsense.core.logging_helpers import ManagerLogBuilder
 from opnsense.core.redaction import Redactor
+from opnsense.exceptions import OpnsenseServerError
 from opnsense.models.base import EnsureResult
 
 logger = logging.getLogger(__name__)
@@ -67,7 +68,8 @@ class AcmeSettingsManager(BaseSingletonManager):
         logLevel:           'normal' / 'extended' / 'debug' / 'debug2' / 'debug3'.
         showIntro:          Show GUI intro panel ('1'/'0').
 
-    Output (EnsureResult): updated/noop (singleton — never created/deleted).
+    Output (EnsureResult): updated/noop (singleton — never created/deleted);
+    ``ensure(..., cron=True)`` adds ``cron_created`` (renewal cron job created/relinked).
     """
 
     _endpoint = "acmeclient/settings"
@@ -91,6 +93,46 @@ class AcmeSettingsManager(BaseSingletonManager):
         "TLSchallengePort": {"type": "str", "max_length": 5},
         "restartTimeout": {"type": "str", "max_length": 10},
     }
+
+    _cron_endpoint = "acmeclient/settings/fetchCronIntegration"
+
+    async def ensure(  # type: ignore[override]
+        self,
+        state: str,
+        params: dict[str, Any] | None = None,
+        check_mode: bool = False,
+        cron: bool = False,
+    ) -> EnsureResult:
+        """Converge the settings block and, with ``cron=True``, the auto-renewal cron job.
+
+        The plugin creates its renewal cron ONLY through ``fetchCronIntegration`` (the GUI
+        settings page calls it); saving ``autoRenewal=1`` through the API alone leaves
+        ``UpdateCron`` empty and nothing ever renews (prod, 2026-09-09). ``cron=True`` POSTs
+        that endpoint after the settings converge: ``result=new`` → changed (job created or
+        re-linked), ``no change`` → noop. Requires ``enabled=1`` and ``autoRenewal=1``.
+        """
+        result = await super().ensure(state, params or {}, check_mode=check_mode)
+        if not cron or check_mode:
+            return result
+        body = await self._client.post(self._cron_endpoint)
+        outcome = str(body.get("result", "")).strip().lower()
+        if outcome == "new":
+            logger.info(
+                "acme auto-renewal cron created/relinked uuid=%s",
+                body.get("uuid"),
+                extra={"action": "cron_created", "endpoint": self._cron_endpoint},
+            )
+            return EnsureResult(
+                changed=True,
+                action="updated" if result.changed else "cron_created",
+                before=result.before,
+                after={**(result.after or {}), "UpdateCron": str(body.get("uuid", ""))},
+            )
+        if outcome and outcome != "no change":
+            raise OpnsenseServerError(
+                f"acme cron integration refused: {outcome}", endpoint=self._cron_endpoint
+            )
+        return result
 
     def __init__(self, client: OpnsenseClient) -> None:
         """Initialise the ACME settings manager.

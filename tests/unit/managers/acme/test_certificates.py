@@ -10,7 +10,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from opnsense.exceptions import FieldValidationError, OpnsenseValidationError
+from opnsense.exceptions import FieldValidationError, OpnsenseServerError, OpnsenseValidationError
 from opnsense.managers.acme.certificates import AcmeCertificateManager
 
 
@@ -114,38 +114,80 @@ class TestIssuedState:
         assert r.changed is False and r.action == "noop"
         mock_client.post.assert_not_awaited()
 
-    async def test_signs_when_not_issued(self, mock_client: AsyncMock) -> None:
-        mock_client.search.return_value = [self.ROW]
-        mock_client.get.return_value = {
-            "certificate": {**self.ROW, "certRefId": "", "statusCode": ""}
-        }
-        mock_client.post.return_value = {"status": "OK"}
+    def _fast(self, mock_client: AsyncMock) -> AcmeCertificateManager:
         mgr = AcmeCertificateManager(mock_client)
-        r = await mgr.ensure("issued", {"name": "fw.example.com", "keyLength": "key_4096"})
+        mgr._issue_poll_interval = 0.0
+        mgr._issue_wait_timeout = 1.0
+        return mgr
+
+    async def test_signs_when_not_issued_and_waits_for_the_async_issue(
+        self, mock_client: AsyncMock
+    ) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.side_effect = [
+            {"certificate": {**self.ROW, "certRefId": "", "statusCode": ""}},
+            {"certificate": {**self.ROW, "certRefId": "", "statusCode": "100"}},
+            {"certificate": {**self.ROW, "certRefId": "", "statusCode": "100"}},
+            {"certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}},
+        ]
+        mock_client.post.return_value = {"status": "OK"}
+        r = await self._fast(mock_client).ensure(
+            "issued", {"name": "fw.example.com", "keyLength": "key_4096"}
+        )
         assert r.changed is True and r.action == "issued" and r.uuid == "u1"
+        assert r.after == {"certRefId": "abc", "statusCode": "200"}
         mock_client.post.assert_awaited_once_with("acmeclient/certificates/sign/u1", timeout=300)
 
     async def test_signs_when_last_status_failed(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [self.ROW]
-        mock_client.get.return_value = {
-            "certificate": {**self.ROW, "certRefId": "abc", "statusCode": "500"}
-        }
+        mock_client.get.side_effect = [
+            {"certificate": {**self.ROW, "certRefId": "abc", "statusCode": "400"}},
+            {"certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}},
+        ]
         mock_client.post.return_value = {"status": "OK"}
-        r = await AcmeCertificateManager(mock_client).ensure(
+        r = await self._fast(mock_client).ensure(
             "issued", {"name": "fw.example.com", "keyLength": "key_4096"}
         )
         assert r.action == "issued"
 
     async def test_renew_signs_again(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [self.ROW]
-        mock_client.get.return_value = {
-            "certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}
-        }
+        mock_client.get.side_effect = [
+            {"certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}},
+            {"certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}},
+        ]
         mock_client.post.return_value = {"status": "OK"}
-        r = await AcmeCertificateManager(mock_client).ensure(
+        r = await self._fast(mock_client).ensure(
             "issued", {"name": "fw.example.com", "keyLength": "key_4096"}, renew=True
         )
         assert r.changed is True and r.action == "renewed"
+
+    async def test_in_flight_issue_is_awaited_not_raced(self, mock_client: AsyncMock) -> None:
+        """A cron/GUI issue still running (100) → wait; it ends 200 → noop, no second sign."""
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.side_effect = [
+            {"certificate": {**self.ROW, "certRefId": "", "statusCode": "100"}},
+            {"certificate": {**self.ROW, "certRefId": "", "statusCode": "100"}},
+            {"certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}},
+        ]
+        r = await self._fast(mock_client).ensure(
+            "issued", {"name": "fw.example.com", "keyLength": "key_4096"}
+        )
+        assert r.changed is False and r.action == "noop"
+        mock_client.post.assert_not_awaited()
+
+    async def test_failed_issue_raises(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.side_effect = [
+            {"certificate": {**self.ROW, "certRefId": "", "statusCode": ""}},
+            {"certificate": {**self.ROW, "certRefId": "", "statusCode": "400"}},
+        ]
+        mock_client.post.return_value = {"status": "OK"}
+        with pytest.raises(OpnsenseServerError) as exc_info:
+            await self._fast(mock_client).ensure(
+                "issued", {"name": "fw.example.com", "keyLength": "key_4096"}
+            )
+        assert "statusCode=400" in str(exc_info.value)
 
     async def test_check_mode_reports_only(self, mock_client: AsyncMock) -> None:
         mock_client.search.return_value = [self.ROW]

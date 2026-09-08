@@ -31,10 +31,12 @@ Reference: https://github.com/opnsense/plugins/tree/master/security/acme-client
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from typing import Any
 
 from opnsense.client import OpnsenseClient
+from opnsense.exceptions import OpnsenseServerError
 from opnsense.managers.base import BaseManager
 from opnsense.models.base import EnsureResult
 
@@ -107,6 +109,9 @@ class AcmeCertificateManager(BaseManager):
             "values": ["none", "automatic", "domain", "challenge"],
         },
         "enabled": {"type": "bool_str"},
+        # Trust-store refid to (re)use on import: LeCertificate::import() keeps an existing refid
+        # that matches, so pinning the WebGUI's current cert refid binds the issued leaf to the GUI.
+        "certRefId": {"type": "str", "max_length": 64},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:
@@ -119,6 +124,15 @@ class AcmeCertificateManager(BaseManager):
 
     # acme.sh DNS-01 round trips (dns_sleep + CA) take minutes — never the default timeout.
     _sign_timeout = 300
+    # `sign` is ASYNCHRONOUS on the plugin side (configd runs lecert.php under daemon -f and
+    # answers at once): the object stays statusCode 100 ("in progress") until acme.sh finishes.
+    # ensure("issued") therefore polls the object until a terminal status; a second sign while
+    # the first is still running makes the CA answer "order status valid" → 400 (seen 2026-09-09).
+    _issue_poll_interval = 10.0
+    _issue_wait_timeout = 600.0
+    _STATUS_RUNNING = ("100",)  # lecert.php sets 100 while it works
+    _STATUS_PENDING = ("", "100")  # right after our sign: not yet 100, or 100
+    _STATUS_OK = ("200", "250")
 
     async def ensure(  # type: ignore[override]
         self,
@@ -157,9 +171,12 @@ class AcmeCertificateManager(BaseManager):
                 changed=True, action="would_issued", before=result.before, after=result.after
             )
         current = await self.get(cert_uuid)
-        ref = str(current.get("certRefId", "") or "").strip()
-        status = str(current.get("statusCode", "") or "").strip()
-        issued = bool(ref) and status == "200"
+        ref, status = self._issue_state(current)
+        if status in self._STATUS_RUNNING and not check_mode:
+            # An issue/renew may still be running (cron, GUI, previous run): never race it.
+            current = await self._wait_for_issue(cert_uuid)
+            ref, status = self._issue_state(current)
+        issued = bool(ref) and status in self._STATUS_OK
         if issued and not renew:
             return result
         action = "renewed" if issued else "issued"
@@ -174,10 +191,47 @@ class AcmeCertificateManager(BaseManager):
             return EnsureResult(
                 changed=True, action=f"would_{action}", uuid=cert_uuid, before=before
             )
-        signed = await self._invoke("sign", cert_uuid, action)
-        return EnsureResult(
-            changed=True, action=action, uuid=cert_uuid, before=before, after=signed.after
+        await self._invoke("sign", cert_uuid, action)
+        final = await self._wait_for_issue(cert_uuid)
+        ref_after, status_after = self._issue_state(final)
+        after = {"certRefId": ref_after, "statusCode": status_after}
+        if status_after not in self._STATUS_OK or not ref_after:
+            logger.error(
+                "%s failed acme cert uuid=%s statusCode=%s",
+                action,
+                cert_uuid,
+                status_after,
+                extra={"action": f"{action}_failed", "endpoint": self._endpoint, "uuid": cert_uuid},
+            )
+            raise OpnsenseServerError(
+                f"acme {action} of {cert_uuid} ended with statusCode={status_after or 'none'} "
+                "(400 = validation/CA failure, 300 = config error, 100 = still running after "
+                f"{int(self._issue_wait_timeout)} s) — read the acmeclient log on the firewall",
+                endpoint=f"{self._endpoint}/sign/{cert_uuid}",
+            )
+        return EnsureResult(changed=True, action=action, uuid=cert_uuid, before=before, after=after)
+
+    @staticmethod
+    def _issue_state(obj: dict[str, Any]) -> tuple[str, str]:
+        """``(certRefId, statusCode)`` of a full certificate object (search rows lack both)."""
+        return (
+            str(obj.get("certRefId", "") or "").strip(),
+            str(obj.get("statusCode", "") or "").strip(),
         )
+
+    async def _wait_for_issue(self, uuid: str) -> dict[str, Any]:
+        """Poll the certificate until its statusCode is terminal (not ''/100) or the wait times out.
+
+        Returns the last object read; the caller decides what the status means.
+        """
+        deadline = asyncio.get_running_loop().time() + self._issue_wait_timeout
+        current = await self.get(uuid)
+        while self._issue_state(current)[1] in self._STATUS_PENDING:
+            if asyncio.get_running_loop().time() >= deadline:
+                break
+            await asyncio.sleep(self._issue_poll_interval)
+            current = await self.get(uuid)
+        return current
 
     async def _invoke(self, verb: str, uuid: str, action_name: str) -> EnsureResult:
         """POST a custom certificate verb (``{endpoint}/{verb}/{uuid}``).
