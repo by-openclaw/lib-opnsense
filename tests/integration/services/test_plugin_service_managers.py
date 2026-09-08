@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 # Repo: https://github.com/by-openclaw/lib-opnsense
 """Integration tests — plugin service controllers (chrony, lldpd, qemu-guest-agent,
-dnscrypt-proxy) against a live OPNsense device.
+dnscrypt-proxy, monit daemon) against a live OPNsense device.
 
 Safety boundaries: status (read-only), ensure-to-current-state (noop), reconfigure (re-reads the
 current config). start/stop are never issued. Missing plugin -> skip.
@@ -15,6 +15,7 @@ import pytest
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import OpnsenseError
 from opnsense.managers.dns.dnscrypt_service import DnscryptProxyServiceManager
+from opnsense.managers.monit.daemon import MonitDaemonManager
 from opnsense.managers.services.chrony_service import ChronyServiceManager
 from opnsense.managers.services.lldpd_service import LldpdServiceManager
 from opnsense.managers.services.qemuguestagent_service import QemuGuestAgentServiceManager
@@ -26,8 +27,9 @@ CASES = [
     LldpdServiceManager,
     QemuGuestAgentServiceManager,
     DnscryptProxyServiceManager,
+    MonitDaemonManager,
 ]
-IDS = ["chrony", "lldpd", "qemuguestagent", "dnscrypt"]
+IDS = ["chrony", "lldpd", "qemuguestagent", "dnscrypt", "monit"]
 
 
 async def _status_or_skip(mgr):
