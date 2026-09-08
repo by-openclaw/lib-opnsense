@@ -32,6 +32,7 @@ Reference: https://github.com/opnsense/plugins/tree/master/security/acme-client
 from __future__ import annotations
 
 import logging
+from typing import Any
 
 from opnsense.client import OpnsenseClient
 from opnsense.managers.base import BaseManager
@@ -45,7 +46,8 @@ class AcmeCertificateManager(BaseManager):
 
     Inherits the full CRUD + ``ensure()`` lifecycle from :class:`BaseManager`
     and adds the certificate lifecycle verbs: :meth:`sign`, :meth:`revoke`,
-    :meth:`remove_key`, :meth:`automation`, :meth:`import_`.
+    :meth:`remove_key`, :meth:`automation`, :meth:`import_` — plus the idempotent
+    ``ensure("issued")`` state (present + sign once; ``renew=True`` to renew).
 
     Usage::
 
@@ -115,6 +117,68 @@ class AcmeCertificateManager(BaseManager):
         """
         super().__init__(client)
 
+    # acme.sh DNS-01 round trips (dns_sleep + CA) take minutes — never the default timeout.
+    _sign_timeout = 300
+
+    async def ensure(  # type: ignore[override]
+        self,
+        state: str,
+        params: dict[str, Any],
+        check_mode: bool = False,
+        uuid: str | None = None,
+        renew: bool = False,
+    ) -> EnsureResult:
+        """Ensure the certificate object and, for ``state='issued'``, an issued leaf.
+
+        ``present`` / ``absent`` behave exactly like :meth:`BaseManager.ensure`.
+        ``issued`` = ``present`` + :meth:`sign` when the object has no issued leaf yet
+        (``certRefId`` empty or last ``statusCode`` not ``200``). An issued, unchanged
+        certificate is a noop; ``renew=True`` signs again (explicit renewal, never
+        idempotent by design).
+
+        Args:
+            state:      ``'present'`` | ``'absent'`` | ``'issued'``.
+            params:     Certificate parameters (``name`` is the match key).
+            check_mode: Report only — ``would_issued`` / ``would_renewed``.
+            uuid:       Known UUID (bypasses the match-key lookup).
+            renew:      With ``issued``: sign even if already issued.
+
+        Returns:
+            ``EnsureResult``; ``action`` ∈ created/updated/noop/deleted/issued/renewed/
+            would_issued/would_renewed (``would_issued`` also when the object itself
+            would only be created in check mode).
+        """
+        if state != "issued":
+            return await super().ensure(state, params, check_mode=check_mode, uuid=uuid)
+        result = await super().ensure("present", params, check_mode=check_mode, uuid=uuid)
+        cert_uuid = result.uuid
+        if cert_uuid is None:  # object would be created (check mode) — nothing to sign yet
+            return EnsureResult(
+                changed=True, action="would_issued", before=result.before, after=result.after
+            )
+        current = await self.get(cert_uuid)
+        ref = str(current.get("certRefId", "") or "").strip()
+        status = str(current.get("statusCode", "") or "").strip()
+        issued = bool(ref) and status == "200"
+        if issued and not renew:
+            return result
+        action = "renewed" if issued else "issued"
+        before = {"certRefId": ref, "statusCode": status}
+        if check_mode:
+            logger.info(
+                "%s check_mode=True acme cert uuid=%s",
+                action,
+                cert_uuid,
+                extra={"action": f"would_{action}", "endpoint": self._endpoint, "uuid": cert_uuid},
+            )
+            return EnsureResult(
+                changed=True, action=f"would_{action}", uuid=cert_uuid, before=before
+            )
+        signed = await self._invoke("sign", cert_uuid, action)
+        return EnsureResult(
+            changed=True, action=action, uuid=cert_uuid, before=before, after=signed.after
+        )
+
     async def _invoke(self, verb: str, uuid: str, action_name: str) -> EnsureResult:
         """POST a custom certificate verb (``{endpoint}/{verb}/{uuid}``).
 
@@ -127,7 +191,10 @@ class AcmeCertificateManager(BaseManager):
             ``EnsureResult`` with ``changed=True`` and the API status.
         """
         try:
-            body = await self._client.post(f"{self._endpoint}/{verb}/{uuid}")
+            body = await self._client.post(
+                f"{self._endpoint}/{verb}/{uuid}",
+                timeout=self._sign_timeout if verb == "sign" else None,
+            )
         except Exception as exc:
             logger.error(
                 "%s failed acme cert uuid=%s: %s",
