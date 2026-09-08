@@ -427,6 +427,52 @@ class TestReconfigureMethod:
         result = await client.reconfigure("unbound/service/reconfigure")
         assert result == {"status": "ok"}
 
+    @pytest.mark.parametrize(
+        "body",
+        [
+            {"status": "failed", "message": "Control file syntax error line 12"},
+            {"status": "error"},
+            {"status": "FAILED\n", "message": "x"},
+        ],
+    )
+    async def test_reconfigure_raises_on_failed_status(self, body: dict) -> None:
+        """HTTP 200 + status failed/error (os-monit config test) must not pass silently."""
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+
+        async def mock_post(url: str, json: dict | None = None, **kwargs) -> MagicMock:  # type: ignore[override]
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = body
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.post = mock_post
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        with pytest.raises(OpnsenseServerError) as exc_info:
+            await client.reconfigure("monit/service/reconfigure")
+        assert "monit/service/reconfigure" in str(exc_info.value)
+        if "message" in body:
+            assert body["message"] in str(exc_info.value)
+
+    @pytest.mark.parametrize("body", [{"status": "ok"}, {"status": "OK\n\n"}, {"result": "ok"}, {}])
+    async def test_reconfigure_accepts_ok_variants(self, body: dict) -> None:
+        client = OpnsenseClient(host="fw.example.com", key="k", secret="s")
+
+        async def mock_post(url: str, json: dict | None = None, **kwargs) -> MagicMock:  # type: ignore[override]
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.json.return_value = body
+            return resp
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.post = mock_post
+        mock_http.is_closed = False
+        client._http = mock_http
+
+        assert await client.reconfigure("ids/service/reconfigure") == body
+
 
 @pytest.mark.asyncio
 class TestWaitForReady:
