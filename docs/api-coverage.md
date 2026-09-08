@@ -232,6 +232,7 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | monit-alert | `MonitAlertManager` | `monit/settings/{search,get,add,set,del}Alert` | `UNIT_TEST_PASSED` | CRUD. Match key `recipient` (redacted PII). `events` multi-select normalised to CSV. Apply `monit/service/reconfigure`. |
 | monit-test | `MonitTestManager` | `monit/settings/{search,get,add,set,del}Test` | `UNIT_TEST_PASSED` | CRUD. Match key `name`. `type`/`action` enums per schema (note: schema spells `Permisssion` with triple-s). Apply `monit/service/reconfigure`. |
 | monit-service | `MonitServiceManager` | `monit/settings/{search,get,add,set,del}Service` | `UNIT_TEST_PASSED` | CRUD. Match key `name`. `tests`/`depends` multi-selects (UUID refs) normalised to CSV. Apply `monit/service/reconfigure`. |
+| monit-daemon | `MonitDaemonManager` | `monit/service/{status,start,stop,restart,reconfigure}` | `INTEGRATION_TEST_PASSED` | `BaseServiceManager`. Drives the daemon (not the monitored-service entries). `reconfigure` = regenerate monitrc + syntax test + (re)start; a refused config is HTTP 200 `status: failed` → `OpnsenseServerError` (client, #107). |
 
 ## Dnsmasq
 

@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 # Repo: https://github.com/by-openclaw/lib-opnsense
 """Unit tests for the plugin service controllers (chrony, lldpd, qemu-guest-agent,
-dnscrypt-proxy) — endpoint binding, ``_apply_timeout`` propagation, disabled semantics.
+dnscrypt-proxy, monit daemon) — endpoint binding, ``_apply_timeout`` propagation, disabled
+semantics.
 """
 
 from __future__ import annotations
@@ -13,6 +14,7 @@ import pytest
 
 from opnsense.exceptions import OpnsenseServerError
 from opnsense.managers.dns.dnscrypt_service import DnscryptProxyServiceManager
+from opnsense.managers.monit.daemon import MonitDaemonManager
 from opnsense.managers.services.chrony_service import ChronyServiceManager
 from opnsense.managers.services.lldpd_service import LldpdServiceManager
 from opnsense.managers.services.qemuguestagent_service import QemuGuestAgentServiceManager
@@ -22,8 +24,9 @@ CASES = [
     (LldpdServiceManager, "lldpd/service"),
     (QemuGuestAgentServiceManager, "qemuguestagent/service"),
     (DnscryptProxyServiceManager, "dnscryptproxy/service"),
+    (MonitDaemonManager, "monit/service"),
 ]
-IDS = ["chrony", "lldpd", "qemuguestagent", "dnscrypt"]
+IDS = ["chrony", "lldpd", "qemuguestagent", "dnscrypt", "monit"]
 
 
 @pytest.mark.asyncio
