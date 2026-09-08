@@ -597,8 +597,27 @@ class OpnsenseClient:
 
         Returns:
             Parsed JSON response dict.
+
+        Raises:
+            OpnsenseServerError: When the controller answers HTTP 200 with
+                ``{"status": "failed"|"error", "message": ...}`` — plugins such as
+                os-monit do this when the generated config fails its syntax test,
+                leaving the daemon down while the save itself succeeded.
         """
-        return await self.post(endpoint, timeout=timeout, max_retries=max_retries)
+        body = await self.post(endpoint, timeout=timeout, max_retries=max_retries)
+        status = str(body.get("status", "")).strip().lower() if isinstance(body, dict) else ""
+        if status in ("failed", "error"):
+            message = str(body.get("message") or body.get("status_msg") or body).strip()
+            logger.error(
+                "reconfigure failed %s: %s",
+                endpoint,
+                message,
+                extra={"action": "reconfigure_failed", "endpoint": endpoint, "error": message},
+            )
+            raise OpnsenseServerError(
+                f"reconfigure refused by {endpoint}: {message}", endpoint=endpoint
+            )
+        return body
 
     async def wait_for_ready(
         self,
