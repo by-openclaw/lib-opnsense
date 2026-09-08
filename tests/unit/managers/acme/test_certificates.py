@@ -63,7 +63,9 @@ class TestLifecycleVerbs:
         assert result.changed is True
         assert result.action == action
         assert result.uuid == "u1"
-        mock_client.post.assert_awaited_once_with(f"acmeclient/certificates/{verb}/u1")
+        mock_client.post.assert_awaited_once_with(
+            f"acmeclient/certificates/{verb}/u1", timeout=300 if verb == "sign" else None
+        )
 
     async def test_sign_failure_logs_and_reraises(
         self, mock_client: AsyncMock, caplog: pytest.LogCaptureFixture
@@ -96,3 +98,71 @@ class TestValidation:
         mgr = AcmeCertificateManager(mock_client)
         with pytest.raises(FieldValidationError):
             await mgr.ensure("present", {"name": "x", "aliasmode": "wildcard"})
+
+
+@pytest.mark.asyncio
+class TestIssuedState:
+    ROW = {"uuid": "u1", "name": "fw.example.com", "keyLength": "key_4096"}
+
+    async def test_noop_when_issued(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {
+            "certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}
+        }
+        mgr = AcmeCertificateManager(mock_client)
+        r = await mgr.ensure("issued", {"name": "fw.example.com", "keyLength": "key_4096"})
+        assert r.changed is False and r.action == "noop"
+        mock_client.post.assert_not_awaited()
+
+    async def test_signs_when_not_issued(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {
+            "certificate": {**self.ROW, "certRefId": "", "statusCode": ""}
+        }
+        mock_client.post.return_value = {"status": "OK"}
+        mgr = AcmeCertificateManager(mock_client)
+        r = await mgr.ensure("issued", {"name": "fw.example.com", "keyLength": "key_4096"})
+        assert r.changed is True and r.action == "issued" and r.uuid == "u1"
+        mock_client.post.assert_awaited_once_with("acmeclient/certificates/sign/u1", timeout=300)
+
+    async def test_signs_when_last_status_failed(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {
+            "certificate": {**self.ROW, "certRefId": "abc", "statusCode": "500"}
+        }
+        mock_client.post.return_value = {"status": "OK"}
+        r = await AcmeCertificateManager(mock_client).ensure(
+            "issued", {"name": "fw.example.com", "keyLength": "key_4096"}
+        )
+        assert r.action == "issued"
+
+    async def test_renew_signs_again(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {
+            "certificate": {**self.ROW, "certRefId": "abc", "statusCode": "200"}
+        }
+        mock_client.post.return_value = {"status": "OK"}
+        r = await AcmeCertificateManager(mock_client).ensure(
+            "issued", {"name": "fw.example.com", "keyLength": "key_4096"}, renew=True
+        )
+        assert r.changed is True and r.action == "renewed"
+
+    async def test_check_mode_reports_only(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {
+            "certificate": {**self.ROW, "certRefId": "", "statusCode": ""}
+        }
+        r = await AcmeCertificateManager(mock_client).ensure(
+            "issued", {"name": "fw.example.com", "keyLength": "key_4096"}, check_mode=True
+        )
+        assert r.changed is True and r.action == "would_issued"
+        mock_client.post.assert_not_awaited()
+
+    async def test_check_mode_object_missing(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        r = await AcmeCertificateManager(mock_client).ensure(
+            "issued", {"name": "new.example.com"}, check_mode=True
+        )
+        assert r.changed is True and r.action == "would_issued" and r.uuid is None
+        mock_client.create.assert_not_awaited()
+        mock_client.post.assert_not_awaited()

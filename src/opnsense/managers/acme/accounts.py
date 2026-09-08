@@ -41,7 +41,7 @@ class AcmeAccountManager(BaseManager):
     Inherits the full CRUD + ``ensure()`` lifecycle from :class:`BaseManager`
     and adds :meth:`register` — the custom verb that registers the account with
     the ACME CA (a prerequisite before any certificate referencing it can be
-    signed).
+    signed) — plus the idempotent ``ensure("registered")`` state.
 
     Usage::
 
@@ -110,6 +110,47 @@ class AcmeAccountManager(BaseManager):
             client: An :class:`OpnsenseClient` instance.
         """
         super().__init__(client)
+
+    async def ensure(  # type: ignore[override]
+        self,
+        state: str,
+        params: dict[str, Any],
+        check_mode: bool = False,
+        uuid: str | None = None,
+    ) -> EnsureResult:
+        """Ensure the account and, for ``state='registered'``, its CA registration.
+
+        ``present`` / ``absent`` behave exactly like :meth:`BaseManager.ensure`.
+        ``registered`` = ``present`` + :meth:`register` when the last registration
+        ``statusCode`` is not ``200`` (idempotent: a registered account is a noop).
+
+        Returns:
+            ``EnsureResult``; ``action`` adds ``registered`` / ``would_register``.
+        """
+        if state != "registered":
+            return await super().ensure(state, params, check_mode=check_mode, uuid=uuid)
+        result = await super().ensure("present", params, check_mode=check_mode, uuid=uuid)
+        acct_uuid = result.uuid
+        if acct_uuid is None:  # would be created (check mode) — registration follows
+            return EnsureResult(
+                changed=True, action="would_register", before=result.before, after=result.after
+            )
+        current = await self.get(acct_uuid)
+        status = str(current.get("statusCode", "") or "").strip()
+        if status == "200":
+            return result
+        if check_mode:
+            return EnsureResult(
+                changed=True, action="would_register", uuid=acct_uuid, before={"statusCode": status}
+            )
+        reg = await self.register(acct_uuid)
+        return EnsureResult(
+            changed=True,
+            action="registered",
+            uuid=acct_uuid,
+            before={"statusCode": status},
+            after=reg.after,
+        )
 
     async def register(self, uuid: str) -> EnsureResult:
         """Register the account with its ACME CA (custom ``register`` verb).

@@ -152,3 +152,36 @@ class TestRedactFields:
         )
         assert result.after is not None
         assert result.after["eab_hmac"] == "<REDACTED:eab_hmac>"
+
+
+@pytest.mark.asyncio
+class TestRegisteredState:
+    ROW = {"uuid": "u1", "name": "letsencrypt-prod", "ca": "letsencrypt"}
+
+    async def test_noop_when_registered(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {"account": {**self.ROW, "statusCode": "200"}}
+        r = await AcmeAccountManager(mock_client).ensure(
+            "registered", {"name": "letsencrypt-prod", "ca": "letsencrypt"}
+        )
+        assert r.changed is False and r.action == "noop"
+        mock_client.post.assert_not_awaited()
+
+    async def test_registers_when_status_missing(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {"account": {**self.ROW, "statusCode": ""}}
+        mock_client.post.return_value = {"status": "OK"}
+        r = await AcmeAccountManager(mock_client).ensure(
+            "registered", {"name": "letsencrypt-prod", "ca": "letsencrypt"}
+        )
+        assert r.changed is True and r.action == "registered" and r.uuid == "u1"
+        mock_client.post.assert_awaited_once_with("acmeclient/accounts/register/u1")
+
+    async def test_check_mode(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [self.ROW]
+        mock_client.get.return_value = {"account": {**self.ROW, "statusCode": ""}}
+        r = await AcmeAccountManager(mock_client).ensure(
+            "registered", {"name": "letsencrypt-prod", "ca": "letsencrypt"}, check_mode=True
+        )
+        assert r.action == "would_register"
+        mock_client.post.assert_not_awaited()
