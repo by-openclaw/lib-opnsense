@@ -151,6 +151,7 @@ class MonitAlertManager(BaseManager):
         params: dict[str, Any],
         check_mode: bool = False,
         uuid: str | None = None,
+        dedupe: bool = False,
     ) -> Any:
         """Normalise the ``events`` multi-select then delegate to base ``ensure``.
 
@@ -162,4 +163,4 @@ class MonitAlertManager(BaseManager):
             normalized = dict(params)
             normalized["events"] = _normalize_events(normalized["events"])
             params = normalized
-        return await super().ensure(state, params, check_mode=check_mode, uuid=uuid)
+        return await super().ensure(state, params, check_mode=check_mode, uuid=uuid, dedupe=dedupe)

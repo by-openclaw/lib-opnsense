@@ -95,6 +95,38 @@ class IdentityResolver:
             )
             raise
 
+    async def find_matching(
+        self,
+        params: dict[str, Any],
+        list_fn: Callable[[str], Awaitable[list[dict[str, Any]]]],
+        _search_phrase: str | None = None,
+    ) -> list[dict[str, Any]]:
+        """Return EVERY resource matching the composite match keys.
+
+        Same lookup as :meth:`find_existing`, but duplicates are returned instead of
+        raising — the caller decides what to do with them. Ordered by UUID so a
+        de-duplicating caller keeps the same survivor on every run.
+
+        Args:
+            params:  Parameters containing all match key fields.
+            list_fn: Async callable that accepts a search phrase and returns resource dicts.
+
+        Returns:
+            Matching resource dicts, possibly empty, ordered by UUID.
+        """
+        if _search_phrase is None:
+            _search_phrase = next(
+                (str(params.get(k, "")) for k in self._match_keys if str(params.get(k, ""))),
+                "",
+            )
+        rows = await list_fn(_search_phrase)
+        matches = [
+            row
+            for row in rows
+            if all(str(row.get(k, "")) == str(params.get(k, "")) for k in self._match_keys)
+        ]
+        return sorted(matches, key=lambda row: str(row.get("uuid", "")))
+
     async def find_existing(
         self,
         params: dict[str, Any],
@@ -129,13 +161,7 @@ class IdentityResolver:
                 "",
             )
 
-            rows = await list_fn(search_phrase)
-
-            matches = [
-                row
-                for row in rows
-                if all(str(row.get(k, "")) == str(params.get(k, "")) for k in self._match_keys)
-            ]
+            matches = await self.find_matching(params, list_fn, _search_phrase=search_phrase)
 
             if len(matches) == 0:
                 return None
