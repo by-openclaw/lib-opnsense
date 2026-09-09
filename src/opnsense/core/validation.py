@@ -172,6 +172,37 @@ def validate_ip(field: str, value: str, spec: dict[str, Any]) -> None:
         raise FieldValidationError(field, value, "must be a link-local IP address")
 
 
+def validate_csv_ip(field: str, value: str, spec: dict[str, Any]) -> None:
+    """Validate a comma-separated list of IP addresses.
+
+    Several OPNsense fields take a CSVList of addresses rather than a single one — the
+    radvd RDNSS resolver list is the reason this exists. Empty means "unset" and is
+    allowed; every element is then validated with :func:`validate_ip`, so ``version``
+    and ``scope`` work exactly as they do there.
+
+    Optional spec keys:
+        version:   4 or 6 — restrict every element to one family
+        scope:     as :func:`validate_ip`
+        max_items: reject a list longer than this
+
+    Examples::
+
+        {"type": "csv_ip"}                        # any addresses
+        {"type": "csv_ip", "version": 6}          # IPv6 only (radvd RDNSS)
+        {"type": "csv_ip", "version": 6, "max_items": 3}
+    """
+    if not str(value).strip():
+        return
+    items = [item.strip() for item in str(value).split(",") if item.strip()]
+    max_items = spec.get("max_items")
+    if max_items is not None and len(items) > max_items:
+        raise FieldValidationError(
+            field, value, f"must list at most {max_items} address(es), got {len(items)}"
+        )
+    for item in items:
+        validate_ip(field, item, spec)
+
+
 def validate_ip_or_alias(field: str, value: str, spec: dict[str, Any]) -> None:
     r"""Validate an IPv4/IPv6 address OR an OPNsense alias name.
 
@@ -334,6 +365,7 @@ class ValidatorRegistry:
             "email": validate_email,
             "ip": validate_ip,
             "ip_or_alias": validate_ip_or_alias,
+            "csv_ip": validate_csv_ip,
             "cidr": validate_cidr,
             "mac": validate_mac,
             "port": validate_port,
