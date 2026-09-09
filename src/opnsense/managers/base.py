@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABC
+from dataclasses import replace
 from typing import Any
 
 from opnsense.client import OpnsenseClient
@@ -428,6 +429,7 @@ class BaseManager(ABC):
         params: dict[str, Any],
         check_mode: bool = False,
         uuid: str | None = None,
+        dedupe: bool = False,
     ) -> EnsureResult:
         """Ensure a resource matches desired state — full idempotent lifecycle.
 
@@ -441,6 +443,11 @@ class BaseManager(ABC):
             check_mode: If True, return what would happen without making changes.
             uuid:       Optional UUID — bypasses _find_existing. Use when UUID is
                         known (e.g. after AmbiguousMatchError, or out-of-band creation).
+            dedupe:     If True, several resources matching the same identity keys are
+                        collapsed instead of raising: the lowest UUID survives and
+                        converges, the rest are deleted. The catalog declares ONE
+                        resource per identity, so more than one is drift like any other.
+                        Off by default — deleting is never a silent default.
 
         Returns:
             EnsureResult describing what was (or would be) done.
@@ -475,25 +482,24 @@ class BaseManager(ABC):
         match_fields = self._identity.match_log_fields(params)
 
         # Resolve existing resource — by UUID or by composite match keys
+        deduped: tuple[str, ...] = ()
         existing: dict[str, Any] | None
         if uuid is not None:
             existing = await self.get(uuid)
             existing["uuid"] = uuid
+        elif dedupe:
+            existing, deduped = await self._collapse_duplicates(
+                params, check_mode=check_mode, label=label
+            )
         else:
             existing = await self._identity.find_existing(params, self.list)
-            # Search rows are FLAT: nested blocks (Kea subnet ``option_data``, …) are
-            # missing, so a diff on the row silently ignores them (#85). When the
-            # desired params carry a nested dict, diff against the full item.
-            if existing is not None and any(isinstance(v, dict) for v in params.values()):
-                row_uuid = str(existing.get("uuid", "") or "")
-                if row_uuid:
-                    full = await self.get(row_uuid)
-                    full["uuid"] = row_uuid
-                    existing = full
+
+        if uuid is None:
+            existing = await self._hydrate_nested(existing, params)
 
         if state == "present":
             if existing is None:
-                return await self.create(params, check_mode=check_mode)
+                return self._with_dedupe(await self.create(params, check_mode=check_mode), deduped)
 
             # Resource exists — check for drift
             existing_uuid = existing.get("uuid", "")
@@ -511,9 +517,13 @@ class BaseManager(ABC):
                         changed=False,
                     ),
                 )
-                return EnsureResult(changed=False, action="noop", uuid=existing_uuid)
+                return self._with_dedupe(
+                    EnsureResult(changed=False, action="noop", uuid=existing_uuid), deduped
+                )
 
-            return await self.update(existing_uuid, params, check_mode=check_mode)
+            return self._with_dedupe(
+                await self.update(existing_uuid, params, check_mode=check_mode), deduped
+            )
 
         # state == "absent"
         if existing is None:
@@ -522,14 +532,82 @@ class BaseManager(ABC):
                 label,
                 extra=log.build_extra("noop", match_fields, changed=False),
             )
-            return EnsureResult(changed=False, action="noop")
+            return self._with_dedupe(EnsureResult(changed=False, action="noop"), deduped)
 
         existing_uuid = existing.get("uuid", "")
-        return await self.delete(existing_uuid, check_mode=check_mode)
+        return self._with_dedupe(await self.delete(existing_uuid, check_mode=check_mode), deduped)
 
     # ------------------------------------------------------------------
     # Private helpers
     # ------------------------------------------------------------------
+
+    async def _hydrate_nested(
+        self, existing: dict[str, Any] | None, params: dict[str, Any]
+    ) -> dict[str, Any] | None:
+        """Replace a flat search row with the full item when the diff needs nested blocks.
+
+        Search rows are FLAT: nested blocks (Kea subnet ``option_data``, …) are missing, so a
+        diff against the row silently ignores them (#85). When the desired params carry a
+        nested dict, diff against the full item instead.
+        """
+        if existing is None or not any(isinstance(v, dict) for v in params.values()):
+            return existing
+        row_uuid = str(existing.get("uuid", "") or "")
+        if not row_uuid:
+            return existing
+        full = await self.get(row_uuid)
+        full["uuid"] = row_uuid
+        return full
+
+    async def _collapse_duplicates(
+        self, params: dict[str, Any], *, check_mode: bool, label: str
+    ) -> tuple[dict[str, Any] | None, tuple[str, ...]]:
+        """Reduce several resources sharing one identity down to the lowest-UUID survivor.
+
+        The catalog declares ONE resource per identity, so a second one carrying the same
+        keys is drift — the same class of thing as a wrong field value, and it is what makes
+        an otherwise idempotent converge fail with AmbiguousMatchError. Deterministic by
+        UUID order so repeated runs keep the same survivor.
+
+        Returns:
+            (survivor or None, UUIDs removed). In check mode nothing is deleted and the
+            UUIDs that WOULD be removed are returned.
+        """
+        matches = await self._identity.find_matching(params, self.list)
+        if len(matches) <= 1:
+            return (matches[0] if matches else None), ()
+
+        survivor, duplicates = matches[0], matches[1:]
+        removed = tuple(str(row.get("uuid", "")) for row in duplicates)
+        logger.warning(
+            "duplicate identity %s: keeping uuid=%s, removing %s",
+            label,
+            survivor.get("uuid", ""),
+            list(removed),
+            extra={
+                "action": "dedupe",
+                "endpoint": self._endpoint,
+                "kept": survivor.get("uuid", ""),
+                "removed": list(removed),
+                "check_mode": check_mode,
+            },
+        )
+        if not check_mode:
+            for dup_uuid in removed:
+                await self.delete(dup_uuid, check_mode=False)
+        return survivor, removed
+
+    @staticmethod
+    def _with_dedupe(result: EnsureResult, deduped: tuple[str, ...]) -> EnsureResult:
+        """Fold removed duplicates into the result — removing one is always a change."""
+        if not deduped:
+            return result
+        return replace(
+            result,
+            changed=True,
+            action=result.action if result.changed else "deduped",
+            deduped=deduped,
+        )
 
     async def _apply(self) -> None:
         """Trigger reconfigure if _apply_endpoint is set.

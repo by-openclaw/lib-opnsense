@@ -21,10 +21,13 @@ class EnsureResult:
         uuid:    UUID of the affected resource, or None for noop/delete.
         before:  Resource state before the operation, or None.
         after:   Resource state after the operation, or None.
+        deduped: UUIDs of duplicate resources removed before converging the survivor.
+                 Only ever non-empty when ensure() was called with dedupe=True.
     """
 
     changed: bool
-    action: str  # 'created' | 'updated' | 'deleted' | 'noop'
+    action: str  # 'created' | 'updated' | 'deleted' | 'noop' | 'deduped'
     uuid: str | None = None
     before: dict | None = None
     after: dict | None = None
+    deduped: tuple[str, ...] = ()
