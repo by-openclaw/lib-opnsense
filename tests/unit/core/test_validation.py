@@ -9,7 +9,12 @@ from typing import Any
 
 import pytest
 
-from opnsense.core.validation import FieldValidator, ValidatorRegistry, validate_str
+from opnsense.core.validation import (
+    FieldValidator,
+    ValidatorRegistry,
+    validate_csv_ip,
+    validate_str,
+)
 from opnsense.exceptions import FieldValidationError
 
 
@@ -382,3 +387,48 @@ class TestIpClassification:
 
     def test_ipv6_with_prefix_accepted(self) -> None:
         self.registry.validate_params({"addr": "fd00::1/128"}, {"addr": {"type": "ip"}})
+
+
+class TestCsvIpValidator:
+    """A comma-separated address list — radvd's RDNSS is why this type exists.
+
+    With `dns` on and RDNSS empty, radvd advertises the firewall's own address, so IPv6
+    clients resolve at the firewall whatever the DHCPv4 options say. RDNSS is the only way
+    to give them the same resolver as IPv4, and RFC 8106 caps the list at three.
+    """
+
+    def test_empty_means_unset(self) -> None:
+        validate_csv_ip("RDNSS", "", {"version": 6})
+        validate_csv_ip("RDNSS", "   ", {"version": 6})
+
+    def test_single_address(self) -> None:
+        validate_csv_ip("RDNSS", "fd01:3::101", {"version": 6})
+
+    def test_several_addresses_with_spacing(self) -> None:
+        validate_csv_ip("RDNSS", "fd01:3::101, fd01:3::102", {"version": 6})
+
+    def test_wrong_family_is_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="must be IPv6"):
+            validate_csv_ip("RDNSS", "fd01:3::101,10.1.3.101", {"version": 6})
+
+    def test_nonsense_element_is_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="valid IP address"):
+            validate_csv_ip("RDNSS", "fd01:3::101,not-an-address", {"version": 6})
+
+    def test_list_longer_than_the_cap_is_rejected(self) -> None:
+        with pytest.raises(FieldValidationError, match="at most 3"):
+            validate_csv_ip(
+                "RDNSS",
+                "fd01:3::1,fd01:3::2,fd01:3::3,fd01:3::4",
+                {"version": 6, "max_items": 3},
+            )
+
+    def test_scope_is_honoured_per_element(self) -> None:
+        # 2001:db8:: is classified private by ipaddress, so this needs a global address
+        with pytest.raises(FieldValidationError, match="private"):
+            validate_csv_ip("RDNSS", "fd01:3::101,2a00::1", {"scope": "private"})
+
+    def test_registered_under_its_type_name(self) -> None:
+        ValidatorRegistry().validate_params(
+            {"RDNSS": "fd01:3::101"}, {"RDNSS": {"type": "csv_ip", "version": 6}}
+        )

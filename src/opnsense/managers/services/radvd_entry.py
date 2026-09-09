@@ -86,6 +86,16 @@ class RadvdEntryManager(BaseManager):
         "DeprecatePrefix": {"type": "enum", "values": ["", "on", "off"]},
         "RemoveAdvOnExit": {"type": "enum", "values": ["", "on", "off"]},
         "RemoveRoute": {"type": "enum", "values": ["", "on", "off"]},
+        # Resolver advertisement (RFC 8106). ``dns`` is the plugin's "advertise DNS"
+        # toggle: with it on and ``RDNSS`` EMPTY, radvd advertises the interface's own
+        # address, so IPv6 clients resolve at the firewall no matter what the DHCPv4
+        # options say. Set ``RDNSS`` to advertise a specific resolver instead — that is
+        # the only way to give IPv6 clients the same resolver as IPv4.
+        "dns": {"type": "bool_str"},
+        "RDNSS": {"type": "csv_ip", "version": 6, "max_items": 3},  # RFC 8106 caps at 3
+        "DNSSL": {"type": "str", "max_length": 255},
+        "AdvRDNSSLifetime": {"type": "str", "max_length": 16},
+        "AdvDNSSLLifetime": {"type": "str", "max_length": 16},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:
