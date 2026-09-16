@@ -7,6 +7,11 @@ from __future__ import annotations
 
 from opnsense.core.diff import DiffEngine
 
+# Fixtures for the write-only (UpdateOnlyTextField) cases — fake values, never real credentials.
+_PLAIN = "not-a-real-password"  # pragma: allowlist secret
+_HASH = "$2y$10$" + "a" * 53  # pragma: allowlist secret
+_WRITE_ONLY_KEYS = ("password", "api_key", "apikey", "psk", "secret", "bind_password", "passwd")
+
 
 class TestComputeDiff:
     """compute_diff compares current vs desired state."""
@@ -18,6 +23,30 @@ class TestComputeDiff:
         current = {"name": "rune", "scope": "local"}
         desired = {"name": "rune", "scope": "local"}
         assert self.engine.compute_diff(current, desired) is None
+
+    def test_write_only_field_returned_empty_is_not_a_diff(self) -> None:
+        # OPNsense never returns UpdateOnlyTextField values from get: password == "" carries no
+        # information, so a desired plaintext must not re-write the same secret on every run.
+        current = {"name": "alice", "password": "", "disabled": "0"}
+        desired = {"name": "alice", "password": _PLAIN, "disabled": "0"}
+        assert self.engine.compute_diff(current, desired) is None
+
+    def test_write_only_field_still_diffs_when_the_api_returns_a_hash(self) -> None:
+        # a bcrypt hash that does NOT verify against the desired plaintext is real drift
+        current = {"name": "alice", "password": _HASH}
+        desired = {"name": "alice", "password": _PLAIN}
+        assert self.engine.compute_diff(current, desired) == {"password": _PLAIN}
+
+    def test_empty_current_value_still_diffs_for_ordinary_fields(self) -> None:
+        current = {"name": "alice", "descr": ""}
+        desired = {"name": "alice", "descr": "Platform admin"}
+        assert self.engine.compute_diff(current, desired) == {"descr": "Platform admin"}
+
+    def test_write_only_key_variants(self) -> None:
+        for key in _WRITE_ONLY_KEYS:
+            assert self.engine.compute_diff({key: ""}, {key: "x"}) is None, key
+        # not write-only: a key that merely contains the letters
+        assert self.engine.compute_diff({"keyboard": ""}, {"keyboard": "x"}) == {"keyboard": "x"}
 
     def test_single_field_difference(self) -> None:
         current = {"name": "rune", "scope": "local"}
