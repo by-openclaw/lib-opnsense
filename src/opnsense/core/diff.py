@@ -19,6 +19,7 @@ Usage::
 from __future__ import annotations
 
 import logging
+import re
 from typing import Any
 
 try:
@@ -34,6 +35,12 @@ logger = logging.getLogger(__name__)
 # The search endpoint returns the hash; the get endpoint returns "".
 # We use bcrypt.checkpw() to compare plaintext input against stored hash.
 _BCRYPT_PREFIX_RE = "$2y$"
+
+# Write-only fields (UpdateOnlyTextField and friends): the get endpoint returns "" for them, so an
+# empty current value carries no information — it is not "the password is empty". Diffing it
+# against the desired plaintext would re-write the same secret on every run. Compared only when
+# the API hands back something (a hash, see above); otherwise left to create/rotation paths.
+_WRITE_ONLY_KEY_RE = re.compile(r"(?i)(^|_)(password|passwd|secret|psk|apikey|api_key)($|_)")
 
 
 class DiffEngine:
@@ -112,6 +119,12 @@ class DiffEngine:
                 current_value = current.get(key)
                 if current_value is None and key not in current:
                     continue
+                if (
+                    current_value == ""
+                    and str(desired_value) != ""
+                    and _WRITE_ONLY_KEY_RE.search(key)
+                ):
+                    continue  # write-only field: the API never returns it — nothing to compare
                 # Nested dict — recurse and compare sub-fields
                 if isinstance(desired_value, dict) and isinstance(current_value, dict):
                     sub_diff = self.compute_diff(current_value, desired_value)
