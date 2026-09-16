@@ -544,13 +544,21 @@ class BaseManager(ABC):
     async def _hydrate_nested(
         self, existing: dict[str, Any] | None, params: dict[str, Any]
     ) -> dict[str, Any] | None:
-        """Replace a flat search row with the full item when the diff needs nested blocks.
+        """Replace a flat search row with the full item when the diff cannot see a field.
 
         Search rows are FLAT: nested blocks (Kea subnet ``option_data``, …) are missing, so a
-        diff against the row silently ignores them (#85). When the desired params carry a
-        nested dict, diff against the full item instead.
+        diff against the row silently ignores them (#85). The same happens for any field the
+        row simply does not carry — 26.7 lists a dynamic (virtual) gateway without its
+        ``monitor`` — because the diff engine skips keys absent from ``current``. When the
+        desired params carry a nested dict or name a key the row lacks, diff against the full
+        item instead; one extra GET, never a silent noop.
         """
-        if existing is None or not any(isinstance(v, dict) for v in params.values()):
+        if existing is None:
+            return existing
+        if not (
+            any(isinstance(v, dict) for v in params.values())
+            or any(key not in existing for key in params)
+        ):
             return existing
         row_uuid = str(existing.get("uuid", "") or "")
         if not row_uuid:

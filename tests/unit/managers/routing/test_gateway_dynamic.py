@@ -55,3 +55,28 @@ class TestDynamicGateway:
         )
         assert r.changed is False and r.action == "noop"
         mock_client.update.assert_not_awaited()
+
+    async def test_monitor_pinned_when_the_search_row_has_no_monitor_key(
+        self, mock_client: AsyncMock
+    ) -> None:
+        # 26.7 lists a virtual gateway WITHOUT a ``monitor`` key at all; the diff engine skips
+        # keys absent from the row, so the catalog's monitor pin used to be a silent noop.
+        # ensure() must fetch the full item (which carries monitor='') and update it.
+        row = {k: v for k, v in _DYN.items() if k != "monitor"}
+        mock_client.search.return_value = [row]
+        mock_client.get.return_value = {"gateway_item": {**_DYN, "monitor": ""}}
+        mock_client.update.return_value = {"result": "saved"}
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        mgr = RtGatewayManager(mock_client)
+        r = await mgr.ensure(
+            "present",
+            {
+                "name": "WAN_PROXIMUS_DHCP6",
+                "interface": "opt12",
+                "ipprotocol": "inet6",
+                "monitor": "2001:4860:4860::8888",
+            },
+        )
+        assert r.changed is True and r.action == "updated"
+        mock_client.get.assert_awaited()
+        mock_client.create.assert_not_awaited()

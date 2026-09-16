@@ -290,6 +290,15 @@ class TestAmbiguousMatch:
             },
         ]
 
+        # the flat rows do not carry every desired field: ensure() fetches the full item
+        mock_client.get.return_value = {
+            "description": "Allow HTTPS",
+            "interface": "lan",
+            "direction": "in",
+            "protocol": "TCP",
+            "action": "pass",
+        }
+
         mgr = FwFilterManager(mock_client)
         result = await mgr.ensure(
             state="present",
@@ -303,6 +312,7 @@ class TestAmbiguousMatch:
         )
         # Should match uuid-1 only, no ambiguity
         assert result.action == "noop"
+        mock_client.get.assert_awaited_once()
 
     async def test_uuid_escape_hatch_bypasses_find(self, mock_client: AsyncMock) -> None:
         """ensure(uuid=) bypasses _find_existing entirely."""

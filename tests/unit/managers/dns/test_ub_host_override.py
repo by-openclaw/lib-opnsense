@@ -338,6 +338,14 @@ class TestAmbiguousMatch:
             {"uuid": "uuid-2", "hostname": "ns1", "domain": "other.com", "server": "10.0.0.1"},
         ]
 
+        # the flat rows do not carry every desired field: ensure() fetches the full item
+        mock_client.get.return_value = {
+            "hostname": "ns1",
+            "domain": "example.com",
+            "server": "10.0.0.1",
+            "rr": "A",
+        }
+
         mgr = UbHostOverrideManager(mock_client)
         result = await mgr.ensure(
             state="present",
@@ -349,3 +357,4 @@ class TestAmbiguousMatch:
             },
         )
         assert result.action == "noop"
+        mock_client.get.assert_awaited_once()
