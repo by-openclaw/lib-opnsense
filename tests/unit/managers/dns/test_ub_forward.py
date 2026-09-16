@@ -298,9 +298,17 @@ class TestAmbiguousMatch:
             {"uuid": "uuid-2", "domain": "example.com", "server": "10.0.0.54"},
         ]
 
+        # the flat rows do not carry every desired field: ensure() fetches the full item
+        mock_client.get.return_value = {
+            "domain": "example.com",
+            "server": "10.0.0.53",
+            "type": "forward",
+        }
+
         mgr = UbForwardManager(mock_client)
         result = await mgr.ensure(
             state="present",
             params={"domain": "example.com", "server": "10.0.0.53", "type": "forward"},
         )
         assert result.action == "noop"
+        mock_client.get.assert_awaited_once()

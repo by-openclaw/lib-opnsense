@@ -291,6 +291,10 @@ class TestAmbiguousMatch:
             {"uuid": "uuid-1", "server": "1.1.1.1", "port": "853"},
             {"uuid": "uuid-2", "server": "1.1.1.1", "port": "8853"},
         ]
+        # the flat rows do not carry ``verify``: ensure() fetches the full item to compare it
+        mock_client.get.return_value = {
+            "dot": {"server": "1.1.1.1", "port": "853", "verify": "cloudflare-dns.com"}
+        }
 
         mgr = UbDotManager(mock_client)
         result = await mgr.ensure(
@@ -298,3 +302,4 @@ class TestAmbiguousMatch:
             params={"server": "1.1.1.1", "port": "853", "verify": "cloudflare-dns.com"},
         )
         assert result.action == "noop"
+        mock_client.get.assert_awaited_once()
