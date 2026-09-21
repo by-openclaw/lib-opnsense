@@ -123,7 +123,7 @@ class FirmwareManager:
     async def wait_for_version(
         self, target: str, timeout: int = 1500, interval: float = 30.0
     ) -> str:
-        """Poll ``status`` until ``product_version`` contains ``target`` (reboot-tolerant).
+        """Poll ``info`` until ``product_version`` contains ``target`` (reboot-tolerant).
 
         Connection/timeout/server errors while the device reboots are expected and
         swallowed; anything else propagates.
@@ -140,7 +140,9 @@ class FirmwareManager:
             try:
                 # One attempt per poll: the loop below is the retry. max_retries counts attempts
                 # in the client, so 0 would never send the request ("failed after 0 attempts").
-                body = await self._client.get(f"{self._endpoint}/status", timeout=20, max_retries=1)
+                # ``info`` carries product_version on every boot; ``status`` reports none until a
+                # check job has run (a freshly rebooted appliance never reached the target).
+                body = await self._client.get(f"{self._endpoint}/info", timeout=20, max_retries=1)
                 last = str(body.get("product_version", "") or "")
                 if target in last:
                     logger.info(
