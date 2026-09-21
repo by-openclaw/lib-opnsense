@@ -328,20 +328,20 @@ class PluginManager:
             waited += interval
 
     async def _wait_for_job(self, timeout: int, interval: float) -> str:
-        """Poll ``core/firmware/upgradestatus`` until ``status == 'done'``; return its log."""
+        """Poll ``core/firmware/upgradestatus`` until ``status == 'done'``; return its log.
+
+        The appliance derives the status from its progress log: ``done`` once it holds
+        ``***DONE***``, ``running`` while it fills, and ``error`` when it is EMPTY — which is
+        what a job that has just been fired looks like before its first line lands
+        (``FirmwareController::upgradestatusAction``, verified on 26.7.4). ``error`` is
+        therefore "not started yet", never a failure: keep polling until ``done`` or the
+        timeout. Failures surface in the finished log (``_check_job_log``) or as a timeout.
+        """
         waited = 0.0
         while True:
             status = await self.get_status()
-            state = str(status.get("status", ""))
-            if state == "done":
+            if str(status.get("status", "")) == "done":
                 return str(status.get("log", "") or "")
-            if state == "error":
-                tail = " | ".join(
-                    line
-                    for line in str(status.get("log", "") or "").splitlines()[-4:]
-                    if line.strip()
-                )
-                raise OpnsenseServerError(f"firmware job ended in error — log tail: {tail}")
             if waited >= timeout:
                 logger.error(
                     "firmware job timeout after %ss",
