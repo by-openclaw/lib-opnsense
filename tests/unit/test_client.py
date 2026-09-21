@@ -189,8 +189,10 @@ class TestRetryLogic:
             resp.json.return_value = {"ok": True}
             return resp
 
-        client._http = MagicMock()
-        client._http.get = mock_get
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
         assert await client.get("core/firmware/status", max_retries=0) == {"ok": True}
         assert call_count == 1
 
