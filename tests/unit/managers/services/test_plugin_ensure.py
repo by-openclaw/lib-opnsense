@@ -111,7 +111,9 @@ class TestEnsure:
         ]
         client.post.return_value = {"status": "ok"}
         with pytest.raises(OpnsenseServerError, match="still absent"):
-            await PluginManager(client).ensure("os-chrony", "present", interval=0)
+            await PluginManager(client).ensure(
+                "os-chrony", "present", interval=0, verify_retries=0, verify_interval=0
+            )
 
     async def test_job_timeout_raises(self, client: AsyncMock) -> None:
         client.get.side_effect = [_info({"os-chrony": "0"})] + [
@@ -124,3 +126,21 @@ class TestEnsure:
     async def test_invalid_state(self, client: AsyncMock) -> None:
         with pytest.raises(ValueError):
             await PluginManager(client).ensure("os-chrony", "latest")
+
+
+@pytest.mark.asyncio
+async def test_done_with_lagging_cache_is_verified_on_reread(client: AsyncMock) -> None:
+    # The job says done ("Nothing to do": the appliance installed it itself after a firmware
+    # update) while core/firmware/info still serves the old cache; a later re-read confirms it.
+    client.get.side_effect = [
+        _info({"os-ddclient": "0"}),  # pre-check: absent
+        {"status": "done", "log": "Checking integrity... done\nNothing to do.\n***DONE***"},
+        _info({"os-ddclient": "0"}),  # first re-read: cache lags
+        _info({"os-ddclient": "1"}),  # second re-read: present
+    ]
+    client.post.return_value = {"status": "ok"}
+    result = await PluginManager(client).ensure(
+        "os-ddclient", "present", interval=0, verify_retries=3, verify_interval=0
+    )
+    assert result.changed is True
+    assert result.after == {"installed": True}

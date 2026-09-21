@@ -218,6 +218,8 @@ class PluginManager:
         timeout: int = 300,
         interval: float = 5.0,
         check_mode: bool = False,
+        verify_retries: int = 12,
+        verify_interval: float = 5.0,
     ) -> EnsureResult:
         """Ensure a plugin is installed (``present``) or removed (``absent``).
 
@@ -234,6 +236,9 @@ class PluginManager:
             timeout:      Seconds to wait for the job.
             interval:     Poll interval in seconds.
             check_mode:   Report without changing anything.
+            verify_retries: Re-reads of the installed state after the job (the package cache lags;
+                           the appliance may still be installing its own plugin list).
+            verify_interval: Seconds between those re-reads.
 
         Returns:
             ``EnsureResult`` — ``action`` ``'installed'`` | ``'removed'`` | ``'noop'``,
@@ -279,7 +284,16 @@ class PluginManager:
             )
         log = await self._wait_for_job(timeout=timeout, interval=interval)
         self._verdict(package_name, log)
+        # core/firmware/info serves a package cache that lags the job — and right after a
+        # firmware update the appliance re-installs the plugins its config lists on its own, so
+        # the job may answer "Nothing to do" while the cache still says absent (2026-09-21). Re-read
+        # for a while before calling it a failure.
         after_installed = await self.is_installed(package_name)
+        tries = 0
+        while after_installed != want and tries < verify_retries:
+            tries += 1
+            await asyncio.sleep(verify_interval)
+            after_installed = await self.is_installed(package_name)
         if after_installed != want:
             tail = " | ".join(line for line in log.splitlines()[-4:] if line.strip())
             logger.error(
