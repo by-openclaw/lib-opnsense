@@ -182,7 +182,8 @@ class OpnsenseClient:
         last_exc: Exception | None = None
         status_code: int | None = None
         effective_timeout = timeout if timeout is not None else self._timeout
-        effective_retries = max_retries if max_retries is not None else self._max_retries
+        # max_retries counts attempts; a per-call 0 must still send the request once.
+        effective_retries = max(1, max_retries if max_retries is not None else self._max_retries)
         req_timeout = httpx.Timeout(effective_timeout)
 
         try:
