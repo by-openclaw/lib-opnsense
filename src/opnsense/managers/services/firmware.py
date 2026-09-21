@@ -138,7 +138,9 @@ class FirmwareManager:
         last = ""
         while True:
             try:
-                body = await self._client.get(f"{self._endpoint}/status", timeout=20, max_retries=0)
+                # One attempt per poll: the loop below is the retry. max_retries counts attempts
+                # in the client, so 0 would never send the request ("failed after 0 attempts").
+                body = await self._client.get(f"{self._endpoint}/status", timeout=20, max_retries=1)
                 last = str(body.get("product_version", "") or "")
                 if target in last:
                     logger.info(

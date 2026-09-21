@@ -106,3 +106,12 @@ class TestWaitForVersion:
         fw = FirmwareManager(client)
         with pytest.raises(OpnsenseTimeoutError):
             await fw.wait_for_version("26.7.3", timeout=0, interval=0)
+
+    async def test_wait_polls_with_one_attempt_per_round(self, client: AsyncMock) -> None:
+        # A poll must send exactly one request per round: max_retries=0 sends none
+        # (client counts attempts) and the wait failed "after 0 attempts" on a live update.
+        client.get.return_value = _status("26.7.3", "none")
+        fw = FirmwareManager(client)
+        assert await fw.wait_for_version("26.7.3", timeout=0, interval=0) == "26.7.3"
+        _, kwargs = client.get.call_args
+        assert kwargs.get("max_retries") == 1

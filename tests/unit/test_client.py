@@ -175,6 +175,25 @@ class TestRetryLogic:
         assert result == {"rows": [{"name": "test"}]}
         assert call_count == 3
 
+    async def test_zero_retries_still_sends_one_request(self) -> None:
+        # max_retries=0 (per call) used to skip the request entirely: "failed after 0 attempts".
+        client = OpnsenseClient(host="fw", key="k", secret="s", max_retries=3, retry_backoff=0.01)
+        call_count = 0
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            nonlocal call_count
+            call_count += 1
+            resp = MagicMock(spec=httpx.Response)
+            resp.status_code = 200
+            resp.text = "{}"
+            resp.json.return_value = {"ok": True}
+            return resp
+
+        client._http = MagicMock()
+        client._http.get = mock_get
+        assert await client.get("core/firmware/status", max_retries=0) == {"ok": True}
+        assert call_count == 1
+
     async def test_raises_after_max_retries_exhausted(self) -> None:
         client = OpnsenseClient(host="fw", key="k", secret="s", max_retries=2, retry_backoff=0.01)
 
