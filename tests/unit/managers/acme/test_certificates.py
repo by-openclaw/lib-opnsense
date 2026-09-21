@@ -230,3 +230,9 @@ class TestIssuedState:
         assert r.changed is True and r.action == "would_issued" and r.uuid is None
         mock_client.create.assert_not_awaited()
         mock_client.post.assert_not_awaited()
+
+
+def test_update_endpoint_is_the_plugins_update_verb(mock_client: AsyncMock) -> None:
+    # 2026-09-21: set/{uuid} answered "saved" and changed nothing on 26.7.4 (plugin 4.17);
+    # the per-object update of every acmeclient controller is update/{uuid}.
+    assert AcmeCertificateManager(mock_client)._endpoints.set() == "acmeclient/certificates/update"

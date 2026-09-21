@@ -12,7 +12,7 @@ Endpoints:
     search    GET  acmeclient/accounts/search
     get       GET  acmeclient/accounts/get/{uuid}
     create    POST acmeclient/accounts/add
-    update    POST acmeclient/accounts/set/{uuid}
+    update    POST acmeclient/accounts/update/{uuid}
     delete    POST acmeclient/accounts/del/{uuid}
     register  POST acmeclient/accounts/register/{uuid}   (custom — register with CA)
     apply     None — config is stored immediately; use AcmeServiceManager to
@@ -74,6 +74,7 @@ class AcmeAccountManager(BaseManager):
     _endpoint = "acmeclient/accounts"
     _payload_key = "account"
     _entity_suffix = ""  # bare action names: search, get, add, set, del
+    _update_action = "update"  # acmeclient: set/{uuid} says "saved" but is the whole-model setter
     _apply_endpoint = None  # stored immediately; activate via register()/service
     _match_key = "name"
 

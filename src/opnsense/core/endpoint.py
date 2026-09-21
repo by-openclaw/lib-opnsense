@@ -47,6 +47,10 @@ class EndpointConfig:
     payload_key: str
     entity_suffix: str | None = None
     apply_endpoint: str | None = None
+    # Verb of the per-object update action. Core models use ``set``; the acmeclient plugin
+    # answers ``set`` with "saved" while changing nothing (it is the whole-model setter) and
+    # updates one object through ``update/{uuid}``.
+    update_action: str = "set"
 
     @property
     def suffix(self) -> str:
@@ -111,9 +115,9 @@ class EndpointResolver:
             raise
 
     def set(self) -> str:
-        """Set endpoint: ``{base}/set{Suffix}``."""
+        """Per-object update endpoint: ``{base}/{update_action}{Suffix}`` (``set`` by default)."""
         try:
-            return f"{self._config.base}/set{self._config.suffix}"
+            return f"{self._config.base}/{self._config.update_action}{self._config.suffix}"
         except Exception as exc:
             logger.error(
                 "set endpoint resolution failed: %s",

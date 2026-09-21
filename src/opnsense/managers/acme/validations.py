@@ -18,7 +18,7 @@ Endpoints:
     search  GET  acmeclient/validations/search
     get     GET  acmeclient/validations/get/{uuid}
     create  POST acmeclient/validations/add
-    update  POST acmeclient/validations/set/{uuid}
+    update  POST acmeclient/validations/update/{uuid}
     delete  POST acmeclient/validations/del/{uuid}
     apply   None — stored immediately; reconfigure via AcmeServiceManager.
 
@@ -69,6 +69,7 @@ class AcmeValidationManager(BaseManager):
     _endpoint = "acmeclient/validations"
     _payload_key = "validation"
     _entity_suffix = ""
+    _update_action = "update"  # acmeclient: set/{uuid} says "saved" but is the whole-model setter
     _apply_endpoint = None
     _match_key = "name"
 
