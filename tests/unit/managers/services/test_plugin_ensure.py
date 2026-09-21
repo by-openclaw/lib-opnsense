@@ -41,6 +41,7 @@ class TestEnsure:
     async def test_install_waits_and_verifies(self, client: AsyncMock) -> None:
         client.get.side_effect = [
             _info({"os-chrony": "0"}),  # before
+            {"status": "ready"},  # firmware subsystem idle
             {"status": "running", "log": ""},  # upgradestatus poll 1
             {
                 "status": "done",
@@ -59,6 +60,7 @@ class TestEnsure:
     async def test_remove(self, client: AsyncMock) -> None:
         client.get.side_effect = [
             _info({"os-lldpd": "1"}),
+            {"status": "ready"},
             {"status": "done", "log": "Deinstallation of os-lldpd ***DONE***"},
             _info({"os-lldpd": "0"}),
         ]
@@ -76,6 +78,7 @@ class TestEnsure:
     async def test_refused_out_of_date_raises(self, client: AsyncMock) -> None:
         client.get.side_effect = [
             _info({"os-chrony": "0"}),
+            {"status": "ready"},
             {
                 "status": "done",
                 "log": (
@@ -91,6 +94,7 @@ class TestEnsure:
     async def test_unknown_package_raises(self, client: AsyncMock) -> None:
         client.get.side_effect = [
             _info({}),
+            {"status": "ready"},
             {
                 "status": "done",
                 "log": (
@@ -106,6 +110,7 @@ class TestEnsure:
     async def test_done_but_state_unchanged_raises(self, client: AsyncMock) -> None:
         client.get.side_effect = [
             _info({"os-chrony": "0"}),
+            {"status": "ready"},
             {"status": "done", "log": "***DONE***"},
             _info({"os-chrony": "0"}),
         ]
@@ -116,7 +121,7 @@ class TestEnsure:
             )
 
     async def test_job_timeout_raises(self, client: AsyncMock) -> None:
-        client.get.side_effect = [_info({"os-chrony": "0"})] + [
+        client.get.side_effect = [_info({"os-chrony": "0"}), {"status": "ready"}] + [
             {"status": "running", "log": ""}
         ] * 5
         client.post.return_value = {"status": "ok"}
@@ -127,6 +132,38 @@ class TestEnsure:
         with pytest.raises(ValueError):
             await PluginManager(client).ensure("os-chrony", "latest")
 
+    async def test_waits_for_the_firmware_subsystem_before_firing(self, client: AsyncMock) -> None:
+        # 2026-09-21 rebuild: the appliance re-installs its configured plugins itself right
+        # after the update reboot; an install fired meanwhile ended in job 'error'.
+        client.get.side_effect = [
+            _info({"os-chrony": "0"}),
+            {"status": "busy"},
+            {"status": "busy"},
+            {"status": "ready"},
+            {"status": "done", "log": "***DONE***"},
+            _info({"os-chrony": "1"}),
+        ]
+        client.post.return_value = {"status": "ok"}
+        r = await PluginManager(client).ensure("os-chrony", "present", interval=0)
+        assert r.action == "installed"
+        assert [c.args[0] for c in client.get.await_args_list[1:4]] == ["core/firmware/running"] * 3
+
+    async def test_never_idle_raises_without_firing(self, client: AsyncMock) -> None:
+        client.get.side_effect = [_info({"os-chrony": "0"})] + [{"status": "busy"}] * 5
+        with pytest.raises(OpnsenseTimeoutError, match="still busy"):
+            await PluginManager(client).ensure("os-chrony", "present", timeout=0, interval=0)
+        client.post.assert_not_awaited()
+
+    async def test_job_error_fails_fast_with_the_log_tail(self, client: AsyncMock) -> None:
+        client.get.side_effect = [
+            _info({"os-chrony": "0"}),
+            {"status": "ready"},
+            {"status": "error", "log": "***GOT REQUEST TO INSTALL***\npkg: lock held\n***DONE***"},
+        ]
+        client.post.return_value = {"status": "ok"}
+        with pytest.raises(OpnsenseServerError, match="ended in error.*lock held"):
+            await PluginManager(client).ensure("os-chrony", "present", interval=0)
+
 
 @pytest.mark.asyncio
 async def test_done_with_lagging_cache_is_verified_on_reread(client: AsyncMock) -> None:
@@ -134,6 +171,7 @@ async def test_done_with_lagging_cache_is_verified_on_reread(client: AsyncMock) 
     # update) while core/firmware/info still serves the old cache; a later re-read confirms it.
     client.get.side_effect = [
         _info({"os-ddclient": "0"}),  # pre-check: absent
+        {"status": "ready"},  # firmware subsystem idle
         {"status": "done", "log": "Checking integrity... done\nNothing to do.\n***DONE***"},
         _info({"os-ddclient": "0"}),  # first re-read: cache lags
         _info({"os-ddclient": "1"}),  # second re-read: present

@@ -274,6 +274,9 @@ class PluginManager:
             return EnsureResult(
                 changed=True, action=action, before=before, after={"installed": want}
             )
+        # Never fire into a running firmware job (the appliance's own post-update plugin
+        # reinstall, a check, another install): it ends in a job 'error'.
+        await self.wait_for_idle(timeout=timeout, interval=interval)
         if want:
             await self.install(package_name)
         else:
@@ -312,13 +315,33 @@ class PluginManager:
             changed=True, action=action, before=before, after={"installed": after_installed}
         )
 
+    async def wait_for_idle(self, timeout: int = 300, interval: float = 5.0) -> None:
+        """Poll ``core/firmware/running`` until the firmware subsystem reports ``ready``."""
+        waited = 0.0
+        while True:
+            body = await self._client.get("core/firmware/running")
+            if str(body.get("status", "")) == "ready":
+                return
+            if waited >= timeout:
+                raise OpnsenseTimeoutError(f"firmware subsystem still busy after {timeout}s")
+            await asyncio.sleep(interval)
+            waited += interval
+
     async def _wait_for_job(self, timeout: int, interval: float) -> str:
         """Poll ``core/firmware/upgradestatus`` until ``status == 'done'``; return its log."""
         waited = 0.0
         while True:
             status = await self.get_status()
-            if str(status.get("status", "")) == "done":
+            state = str(status.get("status", ""))
+            if state == "done":
                 return str(status.get("log", "") or "")
+            if state == "error":
+                tail = " | ".join(
+                    line
+                    for line in str(status.get("log", "") or "").splitlines()[-4:]
+                    if line.strip()
+                )
+                raise OpnsenseServerError(f"firmware job ended in error — log tail: {tail}")
             if waited >= timeout:
                 logger.error(
                     "firmware job timeout after %ss",

@@ -66,6 +66,8 @@ class TestEnsure:
             OpnsenseConnectionError("rebooting"),  # wait: down
             _status("26.7", "none"),  # wait: still old version pre-reboot
             _status("26.7.3_11", "none"),  # wait: back on target
+            {"status": "busy"},  # idle wait: the appliance re-installs its plugin list
+            {"status": "ready"},  # idle wait: done
         ]
         fw = FirmwareManager(client)
         r = await fw.ensure("updated", target="26.7.3", check_timeout=0, wait_interval=0)
@@ -134,8 +136,29 @@ class TestFireTolerance:
         client.get.side_effect = [
             _status("26.7", "update"),  # resolved status after the check
             _status("26.7.4", "none"),  # info after the reboot
+            {"status": "ready"},  # idle wait
         ]
         fw = FirmwareManager(client)
         result = await fw.ensure("updated", target="26.7.4", wait_timeout=0, wait_interval=0)
         assert result.changed is True
         assert result.after["product_version"] == "26.7.4"
+
+
+@pytest.mark.asyncio
+class TestWaitForIdle:
+    async def test_returns_once_ready(self, client: AsyncMock) -> None:
+        # 2026-09-21 rebuild: right after the update reboot the appliance re-installs its
+        # configured plugins itself; a plugin job fired meanwhile ends in 'error'.
+        client.get.side_effect = [
+            OpnsenseConnectionError("rebooting"),
+            {"status": "busy"},
+            {"status": "ready"},
+        ]
+        await FirmwareManager(client).wait_for_idle(timeout=10, interval=0)
+        assert client.get.await_count == 3
+        assert client.get.await_args_list[-1].args[0] == "core/firmware/running"
+
+    async def test_times_out_while_busy(self, client: AsyncMock) -> None:
+        client.get.return_value = {"status": "busy"}
+        with pytest.raises(OpnsenseTimeoutError, match="still busy"):
+            await FirmwareManager(client).wait_for_idle(timeout=0, interval=0)

@@ -171,6 +171,33 @@ class FirmwareManager:
             await asyncio.sleep(interval)
             waited += interval
 
+    async def wait_for_idle(self, timeout: int = 300, interval: float = 5.0) -> None:
+        """Poll ``core/firmware/running`` until the firmware subsystem reports ``ready``.
+
+        Right after an update the appliance reboots and then re-installs the plugins its
+        configuration lists on its own; any install/remove fired meanwhile ends in a job
+        ``error`` (2026-09-21 rebuild). Connection errors while it reboots are expected.
+
+        Raises:
+            OpnsenseTimeoutError: still busy after ``timeout`` seconds.
+        """
+        waited = 0.0
+        while True:
+            try:
+                body = await self._client.get(
+                    f"{self._endpoint}/running", timeout=20, max_retries=1
+                )
+                if str(body.get("status", "")) == "ready":
+                    return
+            except (OpnsenseConnectionError, OpnsenseTimeoutError, OpnsenseServerError) as exc:
+                logger.debug(
+                    "waiting for idle: %s", exc, extra={"action": "idle_wait", "error": str(exc)}
+                )
+            if waited >= timeout:
+                raise OpnsenseTimeoutError(f"firmware subsystem still busy after {timeout}s")
+            await asyncio.sleep(interval)
+            waited += interval
+
     async def ensure(
         self,
         state: str = "updated",
@@ -232,6 +259,8 @@ class FirmwareManager:
                 ),
                 "status": "none",
             }
+            # Back on the target is not idle: the appliance still re-installs its plugin list.
+            await self.wait_for_idle(timeout=wait_timeout, interval=wait_interval)
         return EnsureResult(changed=True, action=state, before=before, after=after)
 
     async def _fire(self, verb: str) -> dict[str, Any]:
