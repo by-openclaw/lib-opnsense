@@ -69,6 +69,23 @@ class TestEnsurePresent:
         assert result.action == "updated"
         assert result.uuid == "uuid-existing"
 
+    async def test_force_update_rewrites_a_matching_user(self, mock_client: AsyncMock) -> None:
+        """force_update sends the update although nothing comparable drifted."""
+        row = {"uuid": "uuid-existing", "name": "svc-test", "email": "test@example.com"}
+        mock_client.search.return_value = [row]
+        mock_client.get.return_value = dict(row)
+        mock_client.post.return_value = {"result": "saved"}
+
+        mgr = AuthUserManager(mock_client)
+        result = await mgr.ensure(
+            state="present",
+            params={"name": "svc-test", "email": "test@example.com"},
+            force_update=True,
+        )
+
+        assert result.changed is True
+        assert result.action == "updated"
+
     async def test_create_redacts_password_in_result(self, mock_client: AsyncMock) -> None:
         """ensure present create -> password is redacted in after dict."""
         mock_client.search.return_value = []

@@ -430,6 +430,7 @@ class BaseManager(ABC):
         check_mode: bool = False,
         uuid: str | None = None,
         dedupe: bool = False,
+        force_update: bool = False,
     ) -> EnsureResult:
         """Ensure a resource matches desired state — full idempotent lifecycle.
 
@@ -443,6 +444,10 @@ class BaseManager(ABC):
             check_mode: If True, return what would happen without making changes.
             uuid:       Optional UUID — bypasses _find_existing. Use when UUID is
                         known (e.g. after AmbiguousMatchError, or out-of-band creation).
+            force_update: Send the update even when no comparable field differs. For
+                        write-only fields the API never returns (a user's password) the
+                        diff cannot see drift; this is the explicit rotation path, never
+                        the default (it reports ``changed`` on every run).
             dedupe:     If True, several resources matching the same identity keys are
                         collapsed instead of raising: the lowest UUID survives and
                         converges, the rest are deleted. The catalog declares ONE
@@ -505,7 +510,7 @@ class BaseManager(ABC):
             existing_uuid = existing.get("uuid", "")
             diff = _diff_engine.compute_diff(existing, params)
 
-            if diff is None:
+            if diff is None and not force_update:
                 logger.debug(
                     "noop %s uuid=%s — state matches",
                     label,
