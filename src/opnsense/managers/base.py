@@ -82,6 +82,7 @@ class BaseManager(ABC):
     _match_key: str | None = None  # Legacy single key
     _match_keys: list[str] | None = None  # Composite identity (preferred)
     _entity_suffix: str | None = None  # None = auto from _payload_key
+    _update_action: str = "set"  # per-object update verb; plugins may use "update"
     _validators: dict[str, dict[str, Any]] = {}  # Field validators per manager
     _apply_timeout: int | None = None  # Per-manager apply timeout override (seconds)
 
@@ -114,6 +115,7 @@ class BaseManager(ABC):
                 payload_key=self._payload_key,
                 entity_suffix=self._entity_suffix,
                 apply_endpoint=self._apply_endpoint,
+                update_action=self._update_action,
             )
         )
 

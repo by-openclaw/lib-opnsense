@@ -18,7 +18,7 @@ Endpoints:
     search  GET  acmeclient/actions/search
     get     GET  acmeclient/actions/get/{uuid}
     create  POST acmeclient/actions/add
-    update  POST acmeclient/actions/set/{uuid}
+    update  POST acmeclient/actions/update/{uuid}
     delete  POST acmeclient/actions/del/{uuid}
     apply   None — stored immediately; reconfigure via AcmeServiceManager.
 
@@ -65,6 +65,7 @@ class AcmeActionManager(BaseManager):
     _endpoint = "acmeclient/actions"
     _payload_key = "action"
     _entity_suffix = ""
+    _update_action = "update"  # acmeclient: set/{uuid} says "saved" but is the whole-model setter
     _apply_endpoint = None
     _match_key = "name"
 

@@ -17,7 +17,7 @@ Endpoints:
     search     GET  acmeclient/certificates/search
     get        GET  acmeclient/certificates/get/{uuid}
     create     POST acmeclient/certificates/add
-    update     POST acmeclient/certificates/set/{uuid}
+    update     POST acmeclient/certificates/update/{uuid}
     delete     POST acmeclient/certificates/del/{uuid}
     sign       POST acmeclient/certificates/sign/{uuid}        (issue/renew)
     revoke     POST acmeclient/certificates/revoke/{uuid}      (revoke at CA)
@@ -85,6 +85,7 @@ class AcmeCertificateManager(BaseManager):
     _endpoint = "acmeclient/certificates"
     _payload_key = "certificate"
     _entity_suffix = ""
+    _update_action = "update"  # acmeclient: set/{uuid} says "saved" but is the whole-model setter
     _apply_endpoint = None  # issuance is explicit via sign()
     _match_key = "name"
 

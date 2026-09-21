@@ -100,3 +100,19 @@ class TestEndpointResolverBareSuffix:
 
     def test_delete(self) -> None:
         assert self.resolver.delete() == "auth/user/del"
+
+
+class TestUpdateActionOverride:
+    """A plugin may name the per-object update verb differently (acmeclient: update/{uuid})."""
+
+    def test_set_uses_the_configured_update_verb(self) -> None:
+        resolver = EndpointResolver(
+            EndpointConfig(
+                base="acmeclient/certificates",
+                payload_key="certificate",
+                entity_suffix="",
+                update_action="update",
+            )
+        )
+        assert resolver.set() == "acmeclient/certificates/update"
+        assert resolver.add() == "acmeclient/certificates/add"
