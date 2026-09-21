@@ -1,5 +1,82 @@
 # Changelog
 
+## [1.4.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.3.0...v1.4.0) (2026-09-21)
+
+
+### Features
+
+* **acme:** idempotent ensure('issued') / ensure('registered') + 300 s sign timeout ([8707d5a](https://github.com/by-openclaw/lib-opnsense/commit/8707d5a5cb0329906451e39e82cbbf6e00ba3180))
+* **acme:** idempotent ensure('issued') / ensure('registered') states + 300 s sign timeout ([13cd392](https://github.com/by-openclaw/lib-opnsense/commit/13cd3922b8a450f66b9b9219a3fc8f5cd5a6cd45))
+* **acme:** stamp-aware issuance wait, full-object diff for certRefId, GUI rebind via re-import ([c63b9dd](https://github.com/by-openclaw/lib-opnsense/commit/c63b9dd90d6e3d7515fefb1c674804234eaa1124))
+* **acme:** wait for the async issuance, settable certRefId (GUI binding), renewal-cron integration ([0fe853b](https://github.com/by-openclaw/lib-opnsense/commit/0fe853b8f487e8d72d1ca2b7d55a6c9ec4d0a362))
+* **acme:** wait for the plugin's ASYNC issuance, settable certRefId (GUI binding), renewal-cron integration ([6be3681](https://github.com/by-openclaw/lib-opnsense/commit/6be36810738c6bb05f20eca12675ac5af24201ac))
+* **base:** ensure(dedupe=True) collapses resources sharing one identity ([aca4a9e](https://github.com/by-openclaw/lib-opnsense/commit/aca4a9ef35eace1bf4df89cc08158f8e574c2b73))
+* **base:** ensure(dedupe=True) collapses resources sharing one identity ([f4c23f6](https://github.com/by-openclaw/lib-opnsense/commit/f4c23f6c3282b2d486422ffc10aae6392b819247))
+* **base:** ensure(force_update=True) — the explicit path for write-only fields ([85d0f36](https://github.com/by-openclaw/lib-opnsense/commit/85d0f360ecebdf5f11ee3dc0d79a8ac5226c70f0))
+* **base:** ensure(force_update=True) — the explicit path for write-only fields ([252610d](https://github.com/by-openclaw/lib-opnsense/commit/252610d5816295f6e7a65824df7c2a7e17b807a9))
+* **core:** CoreSnapshotManager (config/ZFS boot-env snapshots) + integration tests ([96b7660](https://github.com/by-openclaw/lib-opnsense/commit/96b76609827b1ba9e6ffcd3e6d4cdac2b0321693))
+* **dhcp:** Kea4/Kea6 general settings + Kea service managers; nested option_data diffed via full get ([#85](https://github.com/by-openclaw/lib-opnsense/issues/85)) ([a4db3d0](https://github.com/by-openclaw/lib-opnsense/commit/a4db3d04b835bb48d6590a61a1000823b3b1222a))
+* **dhcp:** Kea4/Kea6 general settings + Kea service managers; nested option_data diffed via full get ([#85](https://github.com/by-openclaw/lib-opnsense/issues/85)) ([42264d1](https://github.com/by-openclaw/lib-opnsense/commit/42264d171e47f20d6762c52634e068733f3c26ee)), closes [#97](https://github.com/by-openclaw/lib-opnsense/issues/97)
+* **dns:** Unbound general settings + service managers; singleton _section; multi-select diff ([8257bec](https://github.com/by-openclaw/lib-opnsense/commit/8257bec1755370d053e8b5079c621634d0bdb20e))
+* **dns:** Unbound general settings + service managers; singleton _section; multi-select diff ([1200822](https://github.com/by-openclaw/lib-opnsense/commit/12008224b1f3fa8029e9a507fbfa3161dfe66022)), closes [#97](https://github.com/by-openclaw/lib-opnsense/issues/97)
+* **ids,services:** IDS settings/ruleset/service + mDNS repeater settings/service managers ([cdd9d8b](https://github.com/by-openclaw/lib-opnsense/commit/cdd9d8bbce4a8117c2325681099ba579a2aa68cf))
+* **ids,services:** IDS settings/ruleset/service + mDNS repeater settings/service managers ([dc55169](https://github.com/by-openclaw/lib-opnsense/commit/dc55169b6f6a9bee9050a38fb3ea6e23372500eb))
+* **ids:** IdsSettingsManager accepts the nested detect block (Profile low helps Suricata fit 3 GiB) ([ecd05cc](https://github.com/by-openclaw/lib-opnsense/commit/ecd05ccc70264f55f564e130ad72e1a6c6d9276f))
+* **ids:** IdsSettingsManager accepts the nested detect block (Profile low helps Suricata fit 3 GiB) ([3066519](https://github.com/by-openclaw/lib-opnsense/commit/3066519929092c54ae615d0a161ee84de1ac9f68))
+* **monit:** MonitDaemonManager — drive the Monit daemon (monit/service) ([2ca74ba](https://github.com/by-openclaw/lib-opnsense/commit/2ca74bad1cc528797be2922155d1bd3e859aa1c7))
+* **monit:** MonitDaemonManager — start/stop/restart/reconfigure the Monit daemon (monit/service) ([390ba47](https://github.com/by-openclaw/lib-opnsense/commit/390ba4793ccd69dac32254e7a8e8c5fadec77127))
+* **radvd:** advertise a specific IPv6 resolver (RDNSS) ([629780f](https://github.com/by-openclaw/lib-opnsense/commit/629780f82672807d136b8c3a51fe1ef57b283252))
+* **radvd:** advertise a specific IPv6 resolver (RDNSS) ([daf5cd8](https://github.com/by-openclaw/lib-opnsense/commit/daf5cd851055a1aa924e9f33bed5d9661f2a8fbb))
+* **services,dns:** chrony / lldpd / qemu-guest-agent / dnscrypt-proxy general + service managers ([1dd030e](https://github.com/by-openclaw/lib-opnsense/commit/1dd030e2ae0ecafafe67489c842d295f24f52fb7))
+* **services,dns:** chrony / lldpd / qemu-guest-agent / dnscrypt-proxy general + service managers ([a73c8b4](https://github.com/by-openclaw/lib-opnsense/commit/a73c8b4c3919b7a59ac314096d7b54a1d5253388))
+* **services:** firmware + plugin ensure with job-log verdict, core service, ddns/netflow services; dynamic gateways ([d2fca80](https://github.com/by-openclaw/lib-opnsense/commit/d2fca80d4d3a544928ea87f4e3f2b1b24d50ce49))
+* **services:** firmware + plugin ensure with job-log verdict, core service, ddns/netflow services; dynamic gateways ([7d3122d](https://github.com/by-openclaw/lib-opnsense/commit/7d3122dbfa991936a7a4944e9e8b95320c2cf728)), closes [#97](https://github.com/by-openclaw/lib-opnsense/issues/97)
+
+
+### Bug Fixes
+
+* **acme:** certRefId is read-only on the API — drop the rebind path, keep the issuance wait ([ecf5bfd](https://github.com/by-openclaw/lib-opnsense/commit/ecf5bfd8a40129d2cf2446dd7220aa8c0cbecac3))
+* **acme:** certRefId is read-only on the API — drop the rebind path; keep the issuance wait ([b9b7c38](https://github.com/by-openclaw/lib-opnsense/commit/b9b7c3842c3d22bd2a733098fa695ffe8f6c17fc))
+* **acme:** per-object updates go to update/{uuid} — set/{uuid} silently changed nothing ([8df4573](https://github.com/by-openclaw/lib-opnsense/commit/8df4573cdf356ee23a3b83316a1542590013c28f))
+* **acme:** per-object updates go to update/{uuid} — set/{uuid} silently changed nothing ([628a900](https://github.com/by-openclaw/lib-opnsense/commit/628a9001ca37f3bab5cad6a13677f87e606774ed))
+* **client,firmware:** a reply cut mid-stream is a connection error; the update request tolerates it ([5c8e617](https://github.com/by-openclaw/lib-opnsense/commit/5c8e61798b020774865a38b0779375e0340b5a95))
+* **client,firmware:** a reply cut mid-stream is a connection error; the update request tolerates it ([61434c6](https://github.com/by-openclaw/lib-opnsense/commit/61434c697ba7fe5932c7d178e568f204a225b6d8))
+* **client:** reconfigure() raises on HTTP 200 {status: failed|error} (os-monit config test) ([3985fa2](https://github.com/by-openclaw/lib-opnsense/commit/3985fa238f439211605beff3dfcc242973986507))
+* **client:** reconfigure() raises OpnsenseServerError on HTTP 200 {status: failed|error} ([fb1f3f2](https://github.com/by-openclaw/lib-opnsense/commit/fb1f3f2865ce3d5eea9f054614a0acb6597b26c9))
+* **core:** IdentityResolver matches resources whose primary match key is empty ([d069235](https://github.com/by-openclaw/lib-opnsense/commit/d069235147195ab18ee6238b943f7523982f8744))
+* **core:** IdentityResolver matches resources whose primary match key is empty ([9865d26](https://github.com/by-openclaw/lib-opnsense/commit/9865d26d25ea5210a1af1b9e83d3fd0efbe33d2b))
+* **diff:** a write-only field the API returns empty is not drift ([b7e0dd4](https://github.com/by-openclaw/lib-opnsense/commit/b7e0dd4dc0da36a4e02db69c5835f4db31526f69))
+* **diff:** a write-only field the API returns empty is not drift ([4922ea4](https://github.com/by-openclaw/lib-opnsense/commit/4922ea4a9b88a904ee9f7d2008d881291cf2ec51))
+* **firmware,plugin:** wait for the firmware subsystem to be idle before firing a plugin job ([53816ca](https://github.com/by-openclaw/lib-opnsense/commit/53816ca7b508f9703bdb894210ea4fe99a7821c7))
+* **firmware,plugin:** wait for the firmware subsystem to be idle before firing a plugin job ([4338345](https://github.com/by-openclaw/lib-opnsense/commit/4338345357b36c02b09507c3ba287caaabf7b95a))
+* **firmware:** pass wait_interval through ensure() to wait_for_version (unit test slept 60 s) ([0bf9be8](https://github.com/by-openclaw/lib-opnsense/commit/0bf9be88811251001d5a18e9bc42385ea88a9544))
+* **firmware:** the version wait polls info, which carries product_version on every boot ([667e66a](https://github.com/by-openclaw/lib-opnsense/commit/667e66ac1147718c687bb921604f2adb7f18c7c3))
+* **firmware:** the version wait polls info, which carries product_version on every boot ([b05f110](https://github.com/by-openclaw/lib-opnsense/commit/b05f1105c877fd0fbe1dd0e6143fe119143b190e))
+* **firmware:** the version wait sends one request per poll ([f797ba2](https://github.com/by-openclaw/lib-opnsense/commit/f797ba264b2cde2cf24cb0cab55276eb4b1f3ce0))
+* **firmware:** the version wait sends one request per poll ([5574690](https://github.com/by-openclaw/lib-opnsense/commit/5574690e5c75772778ad29183cd10d3cbe0cac73))
+* **ids:** surface the invalid-IDS-model hint on a refused ruleset toggle (the earlier edit never landed) ([ae1face](https://github.com/by-openclaw/lib-opnsense/commit/ae1face263da1c2e6cbcee4a368cf56dff50b27f))
+* **managers:** fetch the full item when a search row lacks a desired field ([40548dc](https://github.com/by-openclaw/lib-opnsense/commit/40548dc3df83b633cf87a103038760e607112624))
+* **managers:** fetch the full item when a search row lacks a desired field ([7b3d677](https://github.com/by-openclaw/lib-opnsense/commit/7b3d677872d0b7b1a503a3922e97f0ef73a511ea))
+* **monit:** ensure overrides carry force_update (mypy override) ([c87572b](https://github.com/by-openclaw/lib-opnsense/commit/c87572beeb8486127ac0b533ab74e4c040ba4270))
+* **monit:** sslversion enum uses the API option keys (lowercase auto/tlsv1x) ([664f46d](https://github.com/by-openclaw/lib-opnsense/commit/664f46d1455865ac79760c29265f3f10ba9136ca))
+* **monit:** sslversion enum uses the API option keys (lowercase auto/tlsv1x) ([dd720e6](https://github.com/by-openclaw/lib-opnsense/commit/dd720e6af3a963ed7f37f2b3af714fc9687a659c))
+* **plugin:** re-read the package cache after a job before calling the install a failure ([1c8d0e4](https://github.com/by-openclaw/lib-opnsense/commit/1c8d0e46b64a413dfbc076df4e957c935a10c63a))
+* **plugin:** re-read the package cache after a job before calling the install a failure ([085764e](https://github.com/by-openclaw/lib-opnsense/commit/085764eb76eee523a6d472d1efff10c9714f596b))
+* **plugin:** upgradestatus 'error' is an empty progress log (job just fired), not a failure ([ceb765e](https://github.com/by-openclaw/lib-opnsense/commit/ceb765e77c1d73e35790c62d97fcccff23c37f21))
+* **plugin:** upgradestatus 'error' is an empty progress log (job just fired), not a failure ([baa3e05](https://github.com/by-openclaw/lib-opnsense/commit/baa3e0532fbf49b6cb205f3a11ae0ea974261906))
+
+
+### Documentation
+
+* **api:** capture 26.7 schema (probe) + 26.1.9-&gt;26.7 delta — 205 schemas changed; interfaces now MVC ([51ab9dc](https://github.com/by-openclaw/lib-opnsense/commit/51ab9dc42782408ea37e522629ed3ef22a3da3bd))
+* **api:** definitive 26.7 coverage — clientoverwrites/groupsettings not API-routed (full ZFS install); real gaps = trust/crl + core/snapshots ([d7e8a93](https://github.com/by-openclaw/lib-opnsense/commit/d7e8a93152754e1ec02b81bfdb85b3267e922d04))
+* **api:** finalize 26.7 coverage — snapshots DONE; trust/crl is a derived resource (no add), not an ensure() target -&gt; 100% of the clean config MVC surface ([0361071](https://github.com/by-openclaw/lib-opnsense/commit/0361071685c51b8c0136afd82234c56752f658f7))
+* **api:** live-verify 26.7 coverage; add OvpnClientOverwrite manager as DRAFT (route 404 on nano) ([3457a46](https://github.com/by-openclaw/lib-opnsense/commit/3457a46d974a54d91a72210e64fb158adcd38d4a))
+* **api:** OPNsense 26.7 MVC coverage map — 117 controllers, 19-controller config backlog ([b4956ad](https://github.com/by-openclaw/lib-opnsense/commit/b4956ad84611675ae87fca79da947d9657829d51))
+* **api:** OPNsense 26.7 MVC coverage map (live-verified) + CSO manager draft ([0b68c54](https://github.com/by-openclaw/lib-opnsense/commit/0b68c54ea7c7640fd2d92dc05252c8672401e49c))
+* **dns:** dnscrypt-proxy server lists are free-form CSVListFields — no list-download ordering ([673e3db](https://github.com/by-openclaw/lib-opnsense/commit/673e3db427fd47065c33c1649106a6262835d862))
+* **dns:** dnscrypt-proxy server lists are free-form CSVListFields — no list-download ordering ([e078c87](https://github.com/by-openclaw/lib-opnsense/commit/e078c872a379c39d50ccc733a8e98966c1698e2f))
+
 ## [1.3.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.2.1...v1.3.0) (2026-08-30)
 
 
