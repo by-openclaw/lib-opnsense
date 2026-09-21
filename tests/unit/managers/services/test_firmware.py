@@ -113,5 +113,7 @@ class TestWaitForVersion:
         client.get.return_value = _status("26.7.3", "none")
         fw = FirmwareManager(client)
         assert await fw.wait_for_version("26.7.3", timeout=0, interval=0) == "26.7.3"
-        _, kwargs = client.get.call_args
+        args, kwargs = client.get.call_args
         assert kwargs.get("max_retries") == 1
+        # 2026-09-21 drill: status reports no version until a check ran → the wait never ended
+        assert args[0] == "core/firmware/info"
