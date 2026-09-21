@@ -559,6 +559,21 @@ class TestRequestRetryOnConnectionError:
         assert result == {"ok": True}
         assert call_count == 3
 
+    async def test_response_cut_mid_stream_is_a_connection_error(self) -> None:
+        # RemoteProtocolError ("malformed chunk footer") when the appliance restarts its web
+        # server mid-response: a transport failure, retryable, mapped like a connect error.
+        client = OpnsenseClient(host="fw", key="k", secret="s", max_retries=1, retry_backoff=0.01)
+
+        async def mock_get(url: str, **kwargs) -> MagicMock:  # type: ignore[override]
+            raise httpx.RemoteProtocolError("malformed chunk footer")
+
+        mock_http = AsyncMock(spec=httpx.AsyncClient)
+        mock_http.get = mock_get
+        mock_http.is_closed = False
+        client._http = mock_http
+        with pytest.raises(OpnsenseConnectionError):
+            await client.get("core/firmware/status")
+
     async def test_raises_connection_error_after_retries(self) -> None:
         client = OpnsenseClient(
             host="fw.example.com", key="k", secret="s", max_retries=2, retry_backoff=0.01
