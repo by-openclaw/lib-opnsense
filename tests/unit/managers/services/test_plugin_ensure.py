@@ -154,15 +154,33 @@ class TestEnsure:
             await PluginManager(client).ensure("os-chrony", "present", timeout=0, interval=0)
         client.post.assert_not_awaited()
 
-    async def test_job_error_fails_fast_with_the_log_tail(self, client: AsyncMock) -> None:
+    async def test_error_with_an_empty_log_means_the_job_is_starting(
+        self, client: AsyncMock
+    ) -> None:
+        # 2026-09-21 rebuild: right after the install request the progress log is still empty
+        # and the appliance reports status 'error' (FirmwareController::upgradestatusAction:
+        # empty output → 'error'); the job then runs to ***DONE***.
         client.get.side_effect = [
-            _info({"os-chrony": "0"}),
+            _info({"os-acme-client": "0"}),
             {"status": "ready"},
-            {"status": "error", "log": "***GOT REQUEST TO INSTALL***\npkg: lock held\n***DONE***"},
+            {"status": "error", "log": ""},
+            {"status": "error", "log": ""},
+            {"status": "running", "log": "***GOT REQUEST TO INSTALL***"},
+            {"status": "done", "log": "***GOT REQUEST TO INSTALL***\nos-acme-client\n***DONE***"},
+            _info({"os-acme-client": "1"}),
         ]
         client.post.return_value = {"status": "ok"}
-        with pytest.raises(OpnsenseServerError, match="ended in error.*lock held"):
-            await PluginManager(client).ensure("os-chrony", "present", interval=0)
+        r = await PluginManager(client).ensure("os-acme-client", "present", interval=0)
+        assert r.changed is True and r.action == "installed"
+        client.post.assert_awaited_once_with("core/firmware/install/os-acme-client", data={})
+
+    async def test_error_that_never_clears_times_out(self, client: AsyncMock) -> None:
+        client.get.side_effect = [_info({"os-chrony": "0"}), {"status": "ready"}] + [
+            {"status": "error", "log": ""}
+        ] * 5
+        client.post.return_value = {"status": "ok"}
+        with pytest.raises(OpnsenseTimeoutError, match="still 'error'"):
+            await PluginManager(client).ensure("os-chrony", "present", timeout=0, interval=0)
 
 
 @pytest.mark.asyncio

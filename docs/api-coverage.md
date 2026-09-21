@@ -309,7 +309,7 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | core-backup-providers | `CoreBackupManager` | `GET /api/core/backup/providers` | `ABSENT` |
 | core-firmware-info | `PluginManager.list_plugins` | `GET /api/core/firmware/info` | `INTEGRATION_TEST_PASSED` |
 | core-firmware-running | `CoreFirmwareManager` | `GET /api/core/firmware/running` | `ABSENT` |
-| core-firmware-status | `FirmwareManager` | `core/firmware/{check,status,update,upgrade,upgradestatus}` — `check()` runs the job then reads the resolved status; `ensure('updated'|'upgraded', target=)` fires only when something is pending, `wait_for_version` survives the reboot and `wait_for_idle` (`core/firmware/running` == ready) covers the appliance's own post-update plugin reinstall | `INTEGRATION_TEST_PASSED` |
+| core-firmware-status | `FirmwareManager` | `core/firmware/{check,status,update,upgrade,upgradestatus}` — `check()` runs the job then reads the resolved status; `ensure('updated'|'upgraded', target=)` fires only when something is pending, `wait_for_version` survives the reboot and `wait_for_idle` (`core/firmware/running` == ready) covers the appliance's own post-update plugin reinstall; `upgradestatus` = `error` means an EMPTY progress log (job just fired), never a failure | `INTEGRATION_TEST_PASSED` |
 | core-hasync | `CoreHasyncManager` | `GET /api/core/hasync/get` | `ABSENT` |
 | core-services | `CoreServiceManager` | `core/service/{search,start,stop,restart}/<name>` — `ensure(name, running|stopped|restarted)` for legacy daemons without an MVC controller (`ntpd`, …) | `INTEGRATION_TEST_PASSED` |
 | core-snapshots | `CoreSnapshotManager` | `POST /api/core/snapshots/search` | `ABSENT` |
