@@ -117,3 +117,25 @@ class TestWaitForVersion:
         assert kwargs.get("max_retries") == 1
         # 2026-09-21 drill: status reports no version until a check ran → the wait never ended
         assert args[0] == "core/firmware/info"
+
+
+@pytest.mark.asyncio
+class TestFireTolerance:
+    async def test_update_request_cut_mid_stream_still_waits_for_the_version(
+        self, client: AsyncMock
+    ) -> None:
+        # 2026-09-21 drill: the appliance restarted its web server as the update began and the
+        # reply was cut ("malformed chunk footer"); the request had gone out.
+        client.post.side_effect = [
+            {"status": "ok"},  # check job
+            {"status": "done", "log": ""},  # upgradestatus
+            OpnsenseConnectionError("cut", endpoint="core/firmware/update"),  # update
+        ]
+        client.get.side_effect = [
+            _status("26.7", "update"),  # resolved status after the check
+            _status("26.7.4", "none"),  # info after the reboot
+        ]
+        fw = FirmwareManager(client)
+        result = await fw.ensure("updated", target="26.7.4", wait_timeout=0, wait_interval=0)
+        assert result.changed is True
+        assert result.after["product_version"] == "26.7.4"

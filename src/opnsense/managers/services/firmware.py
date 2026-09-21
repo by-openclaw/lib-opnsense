@@ -237,6 +237,19 @@ class FirmwareManager:
     async def _fire(self, verb: str) -> dict[str, Any]:
         try:
             result = await self._client.post(f"{self._endpoint}/{verb}", data={})
+        except OpnsenseConnectionError as exc:
+            if verb in ("update", "upgrade"):
+                # The appliance restarts its web server as soon as it starts applying; the
+                # response can be cut mid-stream. The request went out — the version wait that
+                # follows is the proof, not this reply.
+                logger.warning(
+                    "firmware %s: connection dropped while the device started applying (%s)",
+                    verb,
+                    exc,
+                    extra={"action": f"{verb}_requested", "error": str(exc)},
+                )
+                return {}
+            raise
         except Exception as exc:
             logger.error(
                 "firmware %s failed: %s",

@@ -292,12 +292,16 @@ class OpnsenseClient:
                         endpoint=endpoint,
                     ) from exc
 
-                except httpx.ConnectError as exc:
+                # Every transport-level failure (connect, read, write, a response cut mid-stream —
+                # "malformed chunk footer" when the appliance restarts its web server during a
+                # firmware update) is a connection error: retryable, and swallowed by reboot-aware
+                # waits. TimeoutException is caught above (it is a TransportError too).
+                except httpx.TransportError as exc:
                     last_exc = exc
                     if attempt < effective_retries:
                         delay = self._retry_backoff**attempt
                         logger.warning(
-                            "OPNsense %s %s connection error, retrying in %.1fs (attempt %d/%d)",
+                            "OPNsense %s %s transport error, retrying in %.1fs (attempt %d/%d)",
                             method,
                             endpoint,
                             delay,
