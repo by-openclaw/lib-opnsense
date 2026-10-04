@@ -306,3 +306,48 @@ class TestAmbiguousMatch:
                     "source_net": "10.1.2.10/32",
                 },
             )
+
+
+@pytest.mark.asyncio
+class TestEnableFlag:
+    """The API field is `enabled`; the legacy `disabled` input is translated, never sent."""
+
+    async def test_disabled_becomes_enabled_zero(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        mock_client.create.return_value = "uuid-new"
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        await FwOneToOneManager(mock_client).ensure("present", {**OTO_PARAMS, "disabled": "1"})
+        mock_client.create.assert_awaited_once_with(
+            "firewall/one_to_one/addRule", "rule", {**OTO_PARAMS, "enabled": "0"}
+        )
+
+    async def test_drift_seen_when_declared_disabled_but_enabled(
+        self, mock_client: AsyncMock
+    ) -> None:
+        row = {"uuid": "uuid-1", **OTO_PARAMS, "enabled": "1"}
+        mock_client.search.return_value = [row]
+        mock_client.get.return_value = {"rule": row}
+        result = await FwOneToOneManager(mock_client).ensure(
+            "present", {**OTO_PARAMS, "disabled": "1"}, check_mode=True
+        )
+        assert result.changed is True and result.action == "updated"
+
+    async def test_enabled_passes_through(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = [{"uuid": "uuid-1", **OTO_PARAMS, "enabled": "1"}]
+        result = await FwOneToOneManager(mock_client).ensure(
+            "present", {**OTO_PARAMS, "enabled": "1"}
+        )
+        assert result.changed is False
+
+    async def test_direct_create_translates_too(self, mock_client: AsyncMock) -> None:
+        mock_client.create.return_value = "uuid-new"
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        await FwOneToOneManager(mock_client).create({**OTO_PARAMS, "disabled": "1"})
+        sent = mock_client.create.await_args.args[2]
+        assert sent["enabled"] == "0" and "disabled" not in sent
+
+    async def test_contradiction_is_refused(self, mock_client: AsyncMock) -> None:
+        with pytest.raises(ValueError, match="contradict"):
+            await FwOneToOneManager(mock_client).ensure(
+                "present", {**OTO_PARAMS, "disabled": "1", "enabled": "1"}
+            )

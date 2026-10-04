@@ -1,0 +1,32 @@
+{
+  "priv": {
+    "users": {
+      "c3a1b2d4-9e8f-4a6b-8c7d-5e4f3a2b1c0d": {
+        "value": "local-admin",
+        "selected": 0
+      },
+      "a4f1c2e3-5b6d-4e7f-8a9b-0c1d2e3f4a5b": {
+        "value": "oob-admin",
+        "selected": 0
+      },
+      "22c2bfb8-0734-4439-b2b9-7816f7017363": {
+        "value": "root",
+        "selected": 0
+      },
+      "7d2e9f10-3b4c-4d5e-8f6a-1b2c3d4e5f60": {
+        "value": "svc-ansible-prod",
+        "selected": 0
+      }
+    },
+    "groups": {
+      "f18c26a6-094e-4f91-b784-dc4d0bc55884": {
+        "value": "admins",
+        "selected": 0
+      },
+      "1d27914d-81c5-4130-ac47-909665601c63": {
+        "value": "platform-admins",
+        "selected": 0
+      }
+    }
+  }
+}

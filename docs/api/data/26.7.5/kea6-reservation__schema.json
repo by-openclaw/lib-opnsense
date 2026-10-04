@@ -1,0 +1,18 @@
+{
+  "reservation": {
+    "subnet": [],
+    "ip_address": "",
+    "prefix": "",
+    "duid": "",
+    "hw_address": "",
+    "hostname": "",
+    "domain_search": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "option": [],
+    "description": ""
+  }
+}

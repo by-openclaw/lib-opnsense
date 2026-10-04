@@ -307,7 +307,5 @@ class TestRedactFields:
     """Tests for REDACT_FIELDS on WgClientManager."""
 
     async def test_redact_fields_defined(self) -> None:
-        """WgClientManager redacts psk and pubkey."""
-        assert "psk" in WgClientManager.REDACT_FIELDS
-        assert "pubkey" in WgClientManager.REDACT_FIELDS
-        assert len(WgClientManager.REDACT_FIELDS) == 2
+        """WgClientManager redacts psk, pubkey and (26.7.5) the peer private key."""
+        assert {"psk", "pubkey", "privkey"} == WgClientManager.REDACT_FIELDS

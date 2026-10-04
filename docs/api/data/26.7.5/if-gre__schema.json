@@ -1,0 +1,13 @@
+{
+  "gre": {
+    "local-addr": "",
+    "if": "",
+    "ipaddr": "",
+    "greif": "",
+    "remote-addr": "",
+    "tunnel-local-addr": "",
+    "tunnel-remote-addr": "",
+    "tunnel-remote-net": "32",
+    "descr": ""
+  }
+}

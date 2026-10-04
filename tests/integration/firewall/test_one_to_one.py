@@ -61,6 +61,10 @@ class TestOneToOneCRUD:
         )
         assert result.changed is True
         assert result.action in ("created", "updated")
+        # The safety claim, verified ON THE DEVICE: the API field is `enabled`, and a rule
+        # declared disabled must come back with enabled == "0".
+        row = next(x for x in await mgr.list() if x.get("description") == ONETOONE_DESC)
+        assert row.get("enabled") == "0", row
 
     async def test_02_idempotent_noop(self, opn_client: OpnsenseClient) -> None:
         """Same params -> noop."""

@@ -1,0 +1,90 @@
+{
+  "cso": {
+    "enabled": "1",
+    "servers": [],
+    "common_name": "",
+    "block": "0",
+    "push_reset": "0",
+    "tunnel_network": "",
+    "tunnel_networkv6": "",
+    "local_networks": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "remote_networks": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "route_gateway": "",
+    "redirect_gateway": {
+      "local": {
+        "value": "local",
+        "selected": 0
+      },
+      "autolocal": {
+        "value": "autolocal",
+        "selected": 0
+      },
+      "def1": {
+        "value": "default",
+        "selected": 0
+      },
+      "bypass-dhcp": {
+        "value": "bypass-dhcp",
+        "selected": 0
+      },
+      "bypass-dns": {
+        "value": "bypass-dns",
+        "selected": 0
+      },
+      "block-local": {
+        "value": "block-local",
+        "selected": 0
+      },
+      "ipv6": {
+        "value": "ipv6 (default)",
+        "selected": 0
+      },
+      "!ipv4": {
+        "value": "not ipv4 (default)",
+        "selected": 0
+      }
+    },
+    "register_dns": "0",
+    "dns_domain": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "dns_domain_search": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "dns_servers": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "ntp_servers": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "wins_servers": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "description": ""
+  }
+}

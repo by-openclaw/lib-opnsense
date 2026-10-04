@@ -1,0 +1,59 @@
+{
+  "gateways": {
+    "gateway_item": {
+      "3578fa8f-f4ab-496a-8776-e9a9d4c726c5": {
+        "disabled": "0",
+        "name": "OOB_GW",
+        "descr": "OOB management gateway",
+        "interface": {
+          "opt3": {
+            "value": "FAB",
+            "selected": 0
+          },
+          "opt1": {
+            "value": "LAN_TRUNK",
+            "selected": 0
+          },
+          "lan": {
+            "value": "OOB",
+            "selected": 1
+          },
+          "opt2": {
+            "value": "SCRATCH",
+            "selected": 0
+          }
+        },
+        "ipprotocol": {
+          "inet": {
+            "value": "IPv4",
+            "selected": 1
+          },
+          "inet6": {
+            "value": "IPv6",
+            "selected": 0
+          }
+        },
+        "gateway": "10.6.224.1",
+        "defaultgw": "1",
+        "fargw": "0",
+        "monitor_disable": "1",
+        "monitor_noroute": "0",
+        "monitor_killstates": "0",
+        "monitor_killstates_priority": "0",
+        "monitor": "",
+        "force_down": "0",
+        "nosync": "0",
+        "priority": "255",
+        "weight": "1",
+        "latencylow": "",
+        "latencyhigh": "",
+        "losslow": "",
+        "losshigh": "",
+        "interval": "",
+        "time_period": "",
+        "loss_interval": "",
+        "data_length": ""
+      }
+    }
+  }
+}

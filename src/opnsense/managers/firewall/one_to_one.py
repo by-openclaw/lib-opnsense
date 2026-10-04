@@ -23,8 +23,13 @@ Safety:  see docs/test-zone-plan.md §M11
 
 from __future__ import annotations
 
+from typing import Any
+
 from opnsense.client import OpnsenseClient
 from opnsense.managers.base import BaseManager
+from opnsense.models.base import EnsureResult
+
+_TRUE = {"1", "true", "yes", "on"}
 
 
 class FwOneToOneManager(BaseManager):
@@ -81,6 +86,10 @@ class FwOneToOneManager(BaseManager):
         "interface": {"type": "str", "required": True},
         "source_net": {"type": "str", "required": True},
         "external": {"type": "str"},
+        # The API field is `enabled` (every probed firmware, 25.1 → 26.7.5). `disabled` is
+        # the historical input of this manager: accepted, translated in ensure(), never sent
+        # — the API ignored it, so a rule declared disabled was created enabled.
+        "enabled": {"type": "bool_str"},
         "disabled": {"type": "bool_str"},
         "sequence": {"type": "int", "min": 1},
         "source_not": {"type": "bool_str"},
@@ -99,3 +108,79 @@ class FwOneToOneManager(BaseManager):
             client: An :class:`OpnsenseClient` instance.
         """
         super().__init__(client)
+
+    async def ensure(
+        self,
+        state: str,
+        params: dict[str, Any],
+        check_mode: bool = False,
+        uuid: str | None = None,
+        dedupe: bool = False,
+        force_update: bool = False,
+    ) -> EnsureResult:
+        """Ensure the rule; a legacy ``disabled`` input becomes the API's ``enabled``.
+
+        Args:
+            state:        ``'present'`` or ``'absent'``.
+            params:       Rule parameters; ``enabled``, or the legacy ``disabled``.
+            check_mode:   If True, report without changing anything.
+            uuid:         Optional UUID, bypasses the identity lookup.
+            dedupe:       Collapse duplicates of the same identity.
+            force_update: Send the update even without a visible difference.
+
+        Returns:
+            ``EnsureResult`` describing what was (or would be) done.
+
+        Raises:
+            ValueError: If ``disabled`` and ``enabled`` are both given and contradict.
+        """
+        return await super().ensure(
+            state,
+            self._api_enable_flag(params),
+            check_mode=check_mode,
+            uuid=uuid,
+            dedupe=dedupe,
+            force_update=force_update,
+        )
+
+    async def create(self, params: dict[str, Any], check_mode: bool = False) -> EnsureResult:
+        """Create a rule; a legacy ``disabled`` input becomes the API's ``enabled``.
+
+        Args:
+            params:     Rule field values.
+            check_mode: If True, report without changing anything.
+
+        Returns:
+            ``EnsureResult`` with ``action='created'``.
+        """
+        return await super().create(self._api_enable_flag(params), check_mode=check_mode)
+
+    async def update(
+        self,
+        uuid: str,
+        params: dict[str, Any],
+        check_mode: bool = False,
+    ) -> EnsureResult:
+        """Update a rule; a legacy ``disabled`` input becomes the API's ``enabled``.
+
+        Args:
+            uuid:       Rule UUID.
+            params:     Rule field values.
+            check_mode: If True, report without changing anything.
+
+        Returns:
+            ``EnsureResult`` with ``action='updated'``.
+        """
+        return await super().update(uuid, self._api_enable_flag(params), check_mode=check_mode)
+
+    @staticmethod
+    def _api_enable_flag(params: dict[str, Any]) -> dict[str, Any]:
+        """Return ``params`` with a legacy ``disabled`` translated to ``enabled``."""
+        if "disabled" not in params:
+            return params
+        disabled = str(params["disabled"]).lower() in _TRUE
+        if "enabled" in params and (str(params["enabled"]).lower() in _TRUE) == disabled:
+            raise ValueError("one_to_one: 'disabled' and 'enabled' contradict each other")
+        out = {k: v for k, v in params.items() if k != "disabled"}
+        out["enabled"] = "0" if disabled else "1"
+        return out

@@ -52,6 +52,10 @@ class TestRouteCRUD:
         )
         assert r.changed is True
         assert r.action == "created"
+        # The safety claim, verified ON THE DEVICE: whatever the firmware calls the flag
+        # (`disabled` up to 26.1, `enabled` from 26.7), the route really is off.
+        row = next(x for x in await mgr.list() if x.get("descr") == "inttest-route-disabled")
+        assert row.get("disabled") == "1" or row.get("enabled") == "0", row
 
     async def test_02_idempotent(self, opn_client: OpnsenseClient) -> None:
         mgr = RtRouteManager(opn_client)

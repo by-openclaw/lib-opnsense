@@ -1,0 +1,18 @@
+{
+  "rows": [
+    {
+      "uuid": "a12270c0-346c-4ac8-ba9b-fefbd5c1b67f",
+      "if": "vtnet0",
+      "%if": "vtnet0 (bc:24:11:1a:cf:f9) [LAN_TRUNK]",
+      "tag": "2999",
+      "pcp": "1",
+      "%pcp": "Background (1, lowest)",
+      "proto": "",
+      "descr": "SCRATCH",
+      "vlanif": "vlan2999 [SCRATCH]"
+    }
+  ],
+  "rowCount": 1,
+  "total": 1,
+  "current": 1
+}

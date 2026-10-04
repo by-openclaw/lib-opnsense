@@ -1,0 +1,16 @@
+{
+  "total": 1,
+  "rowCount": 1,
+  "current": 1,
+  "rows": [
+    {
+      "name": "localhost",
+      "ip_address": "127.0.0.1",
+      "version": "v1.8.1-909b515-freebsd",
+      "validated": true,
+      "created": "2026-10-04T00:44:27.704552161Z",
+      "last_seen": "2026-10-04T01:12:36.992719292Z",
+      "os": "freebsd/15.1-release-p3"
+    }
+  ]
+}

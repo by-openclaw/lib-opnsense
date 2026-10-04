@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "id": "2907bb72cee7566da8c1b72d71991687",
+      "descr": "CrowdSec (IPv4) in"
+    },
+    {
+      "id": "4f97b46692e34500b33709f0202458a0",
+      "descr": "CrowdSec (IPv4) out"
+    },
+    {
+      "id": "c1590cc68c2058c7019f5c22982eafcb",
+      "descr": "CrowdSec (IPv6) in"
+    },
+    {
+      "id": "459e8c6276fe2babf17b9fa34d4919c4",
+      "descr": "CrowdSec (IPv6) out"
+    },
+    {
+      "id": "02f4bab031b57d1e30553ce08e0ec131",
+      "descr": "Default deny / state violation rule"
+    },
+    {
+      "id": "7355b5da99f40893221b6c4140de1006",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "80f90f0d4c5aba0c28d1c539e1e35766",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "8fa5de02f1ff8cdd29bedb63b24cc7e0",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "e29b1b607bd6cd916cf6b598c41805d3",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "b242f2d3f6b4756fa468cfd0daa78cd4",
+      "descr": "IPv6 RFC4890 requirements (ICMP)"
+    },
+    {
+      "id": "01e83daa25c4483dee217a7ecd7c9a88",
+      "descr": "anti-lockout rule"
+    },
+    {
+      "id": "3345e04986bd5750d23b77cbbb21271f",
+      "descr": "anti-lockout rule"
+    },
+    {
+      "id": "2ebd8025e9e8bef2e32203666a5cda7c",
+      "descr": "anti-lockout rule"
+    },
+    {
+      "id": "b477ac1c8f5237a59ee416b9d819ce58",
+      "descr": "block all targeting port 0"
+    },
+    {
+      "id": "b454844853f2346167ad77449b79ad8e",
+      "descr": "block all targeting port 0"
+    },
+    {
+      "id": "fae559338f65e11c53669fc3642c93c2",
+      "descr": "let out anything from firewall host itself"
+    },
+    {
+      "id": "6ebc0d31e63bdb5b77b67f88f9234869",
+      "descr": "let out anything from firewall host itself (force gw)"
+    },
+    {
+      "id": "5b7a1255d836ee6e3f8de1b60daaeeb0",
+      "descr": "sshlockout"
+    },
+    {
+      "id": "27ad7dee30c19305dc0187bf0e87cd4e",
+      "descr": "sshlockout"
+    },
+    {
+      "id": "add09fc915886757c300419fc2ecc1e6",
+      "descr": "virusprot overload table"
+    }
+  ]
+}

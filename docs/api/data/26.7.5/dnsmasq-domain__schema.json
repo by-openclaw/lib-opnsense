@@ -1,0 +1,24 @@
+{
+  "domainoverride": {
+    "sequence": "1",
+    "domain": "",
+    "ipset": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "879fdf6e-999f-4992-94f8-dbf98c1447b8": {
+        "value": "crowdsec6_blocklists",
+        "selected": 0
+      },
+      "d3b381b9-9ce4-4690-84e2-6e4d9f3780c6": {
+        "value": "crowdsec_blocklists",
+        "selected": 0
+      }
+    },
+    "srcip": "",
+    "port": "",
+    "ip": "",
+    "descr": ""
+  }
+}

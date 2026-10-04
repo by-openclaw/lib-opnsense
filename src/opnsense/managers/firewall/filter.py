@@ -116,6 +116,11 @@ class FwFilterManager(BaseManager):
         "tag": {"type": "str"},
         "tagged": {"type": "str"},
         "nosync": {"type": "bool_str"},
+        # 26.7.5: packet-rate limit and the interface a packet was received on
+        "max-pkt-rate-number": {"type": "str", "max_length": 10},
+        "max-pkt-rate-seconds": {"type": "str", "max_length": 10},
+        "received-on": {"type": "str"},
+        "received-on-not": {"type": "bool_str"},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

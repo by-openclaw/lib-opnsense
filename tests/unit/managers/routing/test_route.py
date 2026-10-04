@@ -33,6 +33,18 @@ ROUTE_PARAMS = {
 }
 
 
+@pytest.fixture(autouse=True)
+def _schema_of_the_firmware_these_params_target(mock_client: AsyncMock) -> None:
+    """ROUTE_PARAMS carries `disabled`: the manager reads the schema to pick the device's flag.
+
+    The default is the ≤ 26.1 schema (the field exists as declared); a test that needs
+    another answer sets ``mock_client.get`` itself.
+    """
+    mock_client.get.return_value = {
+        "route": {"network": "", "gateway": {}, "descr": "", "disabled": "0"}
+    }
+
+
 @pytest.mark.asyncio
 class TestEnsurePresent:
     """Tests for ensure(state='present')."""
@@ -302,3 +314,90 @@ class TestAmbiguousMatch:
             )
         assert exc_info.value.uuids == ["aaa", "bbb"]
         mock_client.create.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+class TestEnableFlagAcrossFirmware:
+    """`disabled` (≤ 26.1) became `enabled` (26.7+): the manager sends the device's field."""
+
+    SCHEMA_267 = {"route": {"network": "", "gateway": {}, "descr": "", "enabled": "1"}}
+    SCHEMA_261 = {"route": {"network": "", "gateway": {}, "descr": "", "disabled": "0"}}
+
+    async def test_disabled_becomes_enabled_zero_on_26_7(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SCHEMA_267
+        mock_client.search.return_value = []
+        mock_client.create.return_value = "uuid-new"
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        await RtRouteManager(mock_client).ensure("present", ROUTE_PARAMS)
+        mock_client.create.assert_awaited_once_with(
+            "routes/routes/addRoute",
+            "route",
+            {
+                "network": "10.99.0.0/24",
+                "gateway": "WAN_DHCP",
+                "descr": "inttest-route",
+                "enabled": "0",
+            },
+        )
+
+    async def test_drift_seen_on_26_7(self, mock_client: AsyncMock) -> None:
+        """A route declared disabled but enabled on the device is an update, not a noop."""
+        row = {
+            "uuid": "uuid-1",
+            "network": "10.99.0.0/24",
+            "gateway": "WAN_DHCP",
+            "descr": "inttest-route",
+            "enabled": "1",
+        }
+        mock_client.get.side_effect = [self.SCHEMA_267, {"route": row}]
+        mock_client.search.return_value = [row]
+        result = await RtRouteManager(mock_client).ensure("present", ROUTE_PARAMS, check_mode=True)
+        assert result.changed is True and result.action == "updated"
+
+    async def test_enabled_becomes_disabled_on_26_1(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SCHEMA_261
+        mock_client.search.return_value = []
+        mock_client.create.return_value = "uuid-new"
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        params = {"network": "10.99.0.0/24", "gateway": "WAN_DHCP", "enabled": "1"}
+        await RtRouteManager(mock_client).ensure("present", params)
+        mock_client.create.assert_awaited_once_with(
+            "routes/routes/addRoute",
+            "route",
+            {"network": "10.99.0.0/24", "gateway": "WAN_DHCP", "disabled": "0"},
+        )
+
+    async def test_schema_read_once_per_manager(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SCHEMA_267
+        mock_client.search.return_value = []
+        mock_client.create.return_value = "uuid-new"
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        mgr = RtRouteManager(mock_client)
+        await mgr.ensure("present", ROUTE_PARAMS)
+        await mgr.ensure("present", ROUTE_PARAMS)
+        assert mock_client.get.await_count == 1
+
+    async def test_no_flag_means_no_schema_read(self, mock_client: AsyncMock) -> None:
+        mock_client.search.return_value = []
+        mock_client.create.return_value = "uuid-new"
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        params = {"network": "10.99.0.0/24", "gateway": "WAN_DHCP"}
+        await RtRouteManager(mock_client).ensure("present", params)
+        mock_client.get.assert_not_awaited()
+        mock_client.create.assert_awaited_once_with("routes/routes/addRoute", "route", params)
+
+    async def test_direct_create_and_update_translate_too(self, mock_client: AsyncMock) -> None:
+        mock_client.get.return_value = self.SCHEMA_267
+        mock_client.create.return_value = "uuid-new"
+        mock_client.update.return_value = {"result": "saved"}
+        mock_client.reconfigure.return_value = {"status": "ok"}
+        mgr = RtRouteManager(mock_client)
+        await mgr.create(ROUTE_PARAMS)
+        assert mock_client.create.await_args.args[2]["enabled"] == "0"
+        assert "disabled" not in mock_client.create.await_args.args[2]
+        await mgr.update("uuid-new", {"disabled": "0"}, check_mode=True)
+
+    async def test_contradiction_is_refused(self, mock_client: AsyncMock) -> None:
+        params = {"network": "10.99.0.0/24", "gateway": "WAN_DHCP", "disabled": "1", "enabled": "1"}
+        with pytest.raises(ValueError, match="contradict"):
+            await RtRouteManager(mock_client).ensure("present", params)
