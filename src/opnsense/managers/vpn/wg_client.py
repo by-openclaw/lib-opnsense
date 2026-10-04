@@ -55,7 +55,7 @@ class WgClientManager(BaseManager):
         keepalive:      Persistent keepalive interval, 0+ seconds (optional)
         endpoint:       Computed endpoint display (optional)
 
-    REDACT_FIELDS: psk, pubkey — never exposed in before/after dicts.
+    REDACT_FIELDS: psk, pubkey, privkey — never exposed in before/after dicts.
 
     Output (EnsureResult):
         changed:  bool — True if state was modified
@@ -72,7 +72,7 @@ class WgClientManager(BaseManager):
     _apply_timeout = 30
     _match_key = "name"
 
-    REDACT_FIELDS: set[str] = {"psk", "pubkey"}
+    REDACT_FIELDS: set[str] = {"psk", "pubkey", "privkey"}
 
     _validators = {
         "name": {"type": "str", "required": True, "max_length": 255},
@@ -84,6 +84,7 @@ class WgClientManager(BaseManager):
         "serverport": {"type": "port"},
         "keepalive": {"type": "int", "min": 0},
         "endpoint": {"type": "str"},
+        "privkey": {"type": "str"},  # 26.7.5 (peer private key, redacted)
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

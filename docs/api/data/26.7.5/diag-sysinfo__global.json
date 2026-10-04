@@ -1,0 +1,9 @@
+{
+  "name": "vm-opns-scratch-01.scratch.example.com",
+  "versions": [
+    "OPNsense 26.7.5-amd64",
+    "FreeBSD 15.1-RELEASE-p3",
+    "OpenSSL 3.5.9"
+  ],
+  "updates": "Click to check for updates."
+}

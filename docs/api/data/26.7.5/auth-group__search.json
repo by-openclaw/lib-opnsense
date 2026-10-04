@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "uuid": "f18c26a6-094e-4f91-b784-dc4d0bc55884",
+      "gid": "1999",
+      "name": "admins",
+      "scope": "system",
+      "description": "System Administrators",
+      "priv": "page-all",
+      "%priv": "All pages",
+      "member": "0,2001,2002,2003",
+      "%member": "root, local-admin, svc-ansible-prod, oob-admin",
+      "source_networks": ""
+    },
+    {
+      "uuid": "1d27914d-81c5-4130-ac47-909665601c63",
+      "gid": "2000",
+      "name": "platform-admins",
+      "scope": "local",
+      "description": "Platform admins — populated by the Authentik LDAP memberOf sync (identity/0004)",
+      "priv": "page-all",
+      "%priv": "All pages",
+      "member": "",
+      "source_networks": ""
+    }
+  ],
+  "rowCount": 2,
+  "total": 2,
+  "current": 1
+}

@@ -15,7 +15,7 @@
 #           Each probe run is stored under a versioned subdirectory so that
 #           multiple OPNsense versions can be compared via git diff.
 #
-# Usage:    ./probe-api-schemas.sh
+# Usage:    ./probe-api-schemas.sh [--scrub real.domain=example.com] [--scrub name=alias]
 #           Requires: OPN_HOST, OPN_KEY, OPN_SECRET env vars
 #
 # Safety:   ALL calls are read-only (GET schema, GET/POST search).
@@ -28,6 +28,10 @@ TOOL_DIR="$(dirname "$SCRIPT_DIR")"
 PROBE_BASE="${TOOL_DIR}/docs/api/data"
 ENV_FILE="${TOOL_DIR}/.env"
 SLEEP_SECONDS="${OPN_SLEEP_SECONDS:-0.3}"
+# Identifying strings to replace in everything the probe writes (--scrub from=to, repeatable):
+# the probed device's real domain or account names. The output is committed, and a test
+# appliance built from the production seed still carries those.
+SCRUB=()
 
 SAFE_DENY_RE='/(add|set|del|delete|toggle|reconfigure|apply|start|stop|restart|rollback|revert|import|export|move|upload|flush)(/|$)'
 SAFE_ALLOW_POST_RE='/(search[^/]*|is_enabled|status|show|meta|providers|running|info)(/|$)'
@@ -37,7 +41,8 @@ SAFE_ALLOW_POST_RE='/(search[^/]*|is_enabled|status|show|meta|providers|running|
 # relay password or a password hash — and these files are committed. Values are
 # replaced with <REDACTED:{field}>; the field name, type and length stay visible,
 # which is all the schema audit ever needed.
-SECRET_FIELDS_RE='^(enroll_key|api_key|apikey|secret|api_secret|password|passwd|passphrase|token|private_key|privkey|prv|prv_payload|psk|pre_shared_key|apikeys|otp_seed)$'
+SECRET_FIELDS_RE='^(enroll_key|api_key|apikey|secret|api_secret|password|passwd|passphrase|token|private_key|privkey|prv|prv_payload|psk|pre_shared_key|apikeys|otp_seed|authorizedkeys)$'
+# 'authorizedkeys' is public-key material, but it names who may open the appliance.
 # Public material is deliberately NOT redacted — 'crt'/'crt_payload' are
 # certificates, 'pubkey'/'public-key' are public halves, 'uuid' is an id.
 # Redacting those would gut the schema audit for no security gain.
@@ -50,6 +55,7 @@ while [[ $# -gt 0 ]]; do
     --secret-file) OPN_SECRET="$(<"$2")"; shift 2 ;;
     --outdir)      OUTDIR="$2"; shift 2 ;;
     --sleep)       SLEEP_SECONDS="$2"; shift 2 ;;
+    --scrub)       SCRUB+=("$2"); shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 2 ;;
   esac
 done
@@ -494,5 +500,57 @@ echo "Log: $LOG" | tee -a "$LOG"
 # Build the .md audit
 # ---------------------------------------------------------------------------
 echo ""
+# Scrub identifying strings from every file written (longest pattern first, so a domain is
+# replaced before an account name it contains).
+if [[ ${#SCRUB[@]} -gt 0 ]]; then
+  mapfile -t SCRUB_SORTED < <(printf '%s\n' "${SCRUB[@]}" | awk '{ print length($0) "\t" $0 }' | sort -rn | cut -f2-)
+  for pair in "${SCRUB_SORTED[@]}"; do
+    from="${pair%%=*}"; to="${pair#*=}"
+    [[ -n "$from" && "$pair" == *"="* ]] || { echo "bad --scrub '$pair' (want from=to)" >&2; exit 2; }
+    from_re=$(printf '%s' "$from" | sed -e 's/[][\\.^$*/]/\\&/g')   # BRE: only these are special
+    to_re=$(printf '%s' "$to" | sed -e 's/[\\&/]/\\&/g')
+    find "$OUTDIR" -type f \( -name '*.json' -o -name '*.jsonl' -o -name '*.log' \) \
+      -exec sed -i "s/${from_re}/${to_re}/g" {} +
+  done
+  # A certificate is public, but it carries the device's names INSIDE base64 where the text
+  # replacement above cannot see them: a long base64 value whose decoded bytes contain a
+  # scrubbed pattern is replaced whole.
+  SCRUB_FROM=$(printf '%s\n' "${SCRUB[@]}" | sed -e 's/=.*$//') OUTDIR="$OUTDIR" python3 - <<'PYEOF'
+import base64, binascii, os, pathlib, re
+
+needles = [n.encode() for n in os.environ["SCRUB_FROM"].split("\n") if n]
+blob = re.compile(r'"([A-Za-z0-9+/]{200,}={0,2})"')
+
+
+def carries(raw: bytes) -> bool:
+    """True when the bytes, or the DER inside a PEM block they hold, contain a needle."""
+    if any(n in raw for n in needles):
+        return True
+    for body in re.findall(rb"-----BEGIN [A-Z ]+-----(.*?)-----END [A-Z ]+-----", raw, re.S):
+        try:
+            if any(n in base64.b64decode(b"".join(body.split())) for n in needles):
+                return True
+        except (binascii.Error, ValueError):
+            continue
+    return False
+
+
+def scrub(match: re.Match) -> str:
+    try:
+        raw = base64.b64decode(match.group(1), validate=True)
+    except (binascii.Error, ValueError):
+        return match.group(0)
+    return '"<SCRUBBED:base64>"' if carries(raw) else match.group(0)
+
+
+for path in pathlib.Path(os.environ["OUTDIR"]).glob("*.json"):
+    text = path.read_text()
+    new = blob.sub(scrub, text)
+    if new != text:
+        path.write_text(new)
+PYEOF
+  echo "Scrubbed ${#SCRUB[@]} pattern(s) from $OUTDIR" | tee -a "$LOG"
+fi
+
 echo "Building .md audit from JSON schemas..."
 "${SCRIPT_DIR}/build-api-schema-audit.sh" --indir "$OUTDIR"

@@ -14,11 +14,17 @@ Checks:
     4. UpdateOnlyTextField detection (password-like fields)
     5. Dynamic enum detection (interface, gateway — device-state dependent)
 
+    6. With ``--baseline-dir``: what the firmware CHANGED between two probes — fields and
+       enum options added or removed per managed entity (the upgrade analysis)
+
 Usage:
     python scripts/verify-validators.py [--schema-dir docs/api/data/26.1.5]
+    python scripts/verify-validators.py --schema-dir docs/api/data/26.7.5 \
+        --baseline-dir docs/api/data/26.7
 
 Output:
-    Per-manager comparison table with OK / MISMATCH / MISSING flags.
+    Per-manager comparison table with OK / MISMATCH / MISSING flags; every gap is named
+    (the summary counts alone do not say what to port).
 """
 
 from __future__ import annotations
@@ -26,6 +32,7 @@ from __future__ import annotations
 import argparse
 import importlib
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -108,6 +115,30 @@ DYNAMIC_FIELDS = {
 }
 
 
+# Inputs a manager still accepts but translates before the call (the API never had them, or
+# renamed them): not a gap between pylib and the schema.
+LEGACY_INPUT_FIELDS = {
+    "fw-1to1-rule": {"disabled"},  # API field is `enabled`
+    "route": {"disabled"},  # renamed `enabled` on 26.7
+}
+
+# Option keys that come from the probed DEVICE, not from the firmware: interface idents and
+# devices, certificate refs. A changed option made only of these says the two probes
+# ran on different appliances.
+DEVICE_OPTION_RE = re.compile(
+    r"^(lan|wan|opt\d+|lo\d+|vtnet\d+|vlan\d+|em\d+|igb\d+|ix\d+|[0-9a-f]{13})$"
+)
+# Enums whose options depend on what is installed or configured on the device.
+DEVICE_ENUM_FIELDS = {
+    "command",
+    "program",
+    "authmode",
+    "groups",
+    "local_group",
+    "authEnforceGroup",
+}
+
+
 def classify_schema_field(key: str, value: Any) -> str:
     """Classify a schema field as ENUM_STATIC, ENUM_DYNAMIC, STR, or BCRYPT."""
     if isinstance(value, dict):
@@ -134,15 +165,92 @@ def load_manager(module_path: str, class_name: str) -> Any:
     return getattr(mod, class_name)
 
 
+def unwrap_schema(schema_data: dict[str, Any], payload_key: str) -> dict[str, Any]:
+    """Unwrap the payload key (``{"user": {...}}`` → ``{...}``)."""
+    if payload_key and payload_key in schema_data:
+        return schema_data[payload_key]
+    if len(schema_data) == 1:
+        return next(iter(schema_data.values()))
+    return schema_data
+
+
+def compare_with_baseline(schema_dir: Path, baseline_dir: Path) -> int:
+    """Print what changed between two probes for every managed entity.
+
+    Fields added or removed, and static enum options added or removed. Dynamic enums
+    (interfaces, gateways, …) depend on the probed device, not on the firmware, and are
+    skipped.
+
+    Returns:
+        The number of changes found.
+    """
+    print(f"\n{'=' * 60}")
+    print(f"CHANGES {baseline_dir.name} -> {schema_dir.name} (managed entities)")
+    changes = 0
+    device_only = 0
+    for label, (mod_path, cls_name) in sorted(MANAGER_MAP.items()):
+        new_file = schema_dir / f"{label}__schema.json"
+        old_file = baseline_dir / f"{label}__schema.json"
+        if not new_file.exists() or not old_file.exists():
+            if new_file.exists() != old_file.exists():
+                side = schema_dir.name if new_file.exists() else baseline_dir.name
+                print(f"  {label}: schema only in {side}")
+                changes += 1
+            continue
+        try:
+            payload_key = getattr(load_manager(mod_path, cls_name), "_payload_key", "")
+        except Exception:
+            payload_key = ""
+        new = unwrap_schema(json.loads(new_file.read_text()), payload_key)
+        old = unwrap_schema(json.loads(old_file.read_text()), payload_key)
+        if not isinstance(new, dict) or not isinstance(old, dict):
+            continue
+        lines = []
+        for field in sorted(set(new) - set(old)):
+            lines.append(f"    + {field} ({classify_schema_field(field, new[field])})")
+        for field in sorted(set(old) - set(new)):
+            lines.append(f"    - {field} ({classify_schema_field(field, old[field])})")
+        for field in sorted(set(new) & set(old)):
+            if (
+                classify_schema_field(field, new[field]) == "ENUM_STATIC"
+                and classify_schema_field(field, old[field]) == "ENUM_STATIC"
+            ):
+                added = sorted(set(get_enum_keys(new[field])) - set(get_enum_keys(old[field])))
+                removed = sorted(set(get_enum_keys(old[field])) - set(get_enum_keys(new[field])))
+                if not (added or removed):
+                    continue
+                if field in DEVICE_ENUM_FIELDS or all(
+                    DEVICE_OPTION_RE.match(opt) for opt in added + removed
+                ):
+                    device_only += 1  # another appliance, not another firmware
+                    continue
+                lines.append(f"    ~ {field}: options added {added} removed {removed}")
+        if lines:
+            print(f"  {label} ({cls_name})")
+            print("\n".join(lines))
+            changes += len(lines)
+    print(f"CHANGES: {changes} (+ {device_only} option lists that differ only by device state)")
+    return changes
+
+
 def main() -> None:
     """Compare pylib validators against the probed API schemas and report gaps."""
     parser = argparse.ArgumentParser(description="Verify pylib validators vs API schemas")
     parser.add_argument("--schema-dir", default="docs/api/data/26.1.5")
+    parser.add_argument(
+        "--baseline-dir",
+        default=None,
+        help="an older probe: also report what the firmware changed since then",
+    )
     args = parser.parse_args()
 
     schema_dir = Path(args.schema_dir)
     if not schema_dir.is_dir():
         print(f"Schema dir not found: {schema_dir}")
+        sys.exit(1)
+    baseline_dir = Path(args.baseline_dir) if args.baseline_dir else None
+    if baseline_dir is not None and not baseline_dir.is_dir():
+        print(f"Baseline dir not found: {baseline_dir}")
         sys.exit(1)
 
     total_ok = 0
@@ -165,14 +273,7 @@ def main() -> None:
         validators = getattr(mgr_cls, "_validators", {})
         schema_data = json.loads(schema_file.read_text())
 
-        # Unwrap payload key (e.g. {"user": {...}} → {...})
-        payload_key = getattr(mgr_cls, "_payload_key", "")
-        if payload_key and payload_key in schema_data:
-            schema = schema_data[payload_key]
-        elif len(schema_data) == 1:
-            schema = next(iter(schema_data.values()))
-        else:
-            schema = schema_data
+        schema = unwrap_schema(schema_data, getattr(mgr_cls, "_payload_key", ""))
 
         print(f"\n--- {label} ({cls_name}) ---")
 
@@ -182,7 +283,12 @@ def main() -> None:
             if field not in schema:
                 # Check hyphenated variants
                 alt = field.replace("_", "-")
+                if field in LEGACY_INPUT_FIELDS.get(label, set()):
+                    continue  # accepted and translated by the manager
                 if alt not in schema and field not in ("state",):
+                    print(
+                        f"  {field}: NOT IN SCHEMA — pylib validates a field the API does not have"
+                    )
                     total_missing_schema += 1
                 continue
 
@@ -217,6 +323,8 @@ def main() -> None:
                     alt not in validators
                     and classify_schema_field(field, schema[field]) == "ENUM_STATIC"
                 ):
+                    options = sorted(get_enum_keys(schema[field]))
+                    print(f"  {field}: STATIC ENUM not validated by pylib — {options}")
                     total_missing_pylib += 1
 
     print(f"\n{'=' * 60}")
@@ -225,6 +333,9 @@ def main() -> None:
         f"{total_missing_pylib} static enums missing from pylib | "
         f"{total_missing_schema} pylib fields missing from schema"
     )
+
+    if baseline_dir is not None:
+        compare_with_baseline(schema_dir, baseline_dir)
 
     if total_mismatch > 0:
         sys.exit(1)

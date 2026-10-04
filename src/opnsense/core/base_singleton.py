@@ -53,6 +53,10 @@ class BaseSingletonManager(ABC):
                          response and the request body under this key.
         _apply_endpoint: Reconfigure endpoint, or ``None`` if the daemon
                          applies settings immediately on ``set``.
+        _get_action:     Action name of the read call (default ``'get'``). A few
+                         core controllers name it differently
+                         (``diagnostics/netflow/getconfig``).
+        _set_action:     Action name of the write call (default ``'set'``).
         _section:        Optional sub-block under the payload key that this
                          manager owns (e.g. ``'general'`` when the document is
                          ``{"unbound": {"general": {...}, "advanced": {...}}}``).
@@ -74,6 +78,8 @@ class BaseSingletonManager(ABC):
     _endpoint: str
     _payload_key: str
     _apply_endpoint: str | None = None
+    _get_action: str = "get"
+    _set_action: str = "set"
     _section: str | None = None
     _apply_timeout: int | None = None
     _validators: dict[str, dict[str, Any]] = {}
@@ -99,7 +105,7 @@ class BaseSingletonManager(ABC):
             The inner payload dict (unwrapped from ``_payload_key``).
         """
         try:
-            body = await self._client.get(f"{self._endpoint}/get")
+            body = await self._client.get(f"{self._endpoint}/{self._get_action}")
         except Exception as exc:
             logger.error(
                 "get failed %s: %s",
@@ -183,7 +189,7 @@ class BaseSingletonManager(ABC):
         try:
             payload = {self._section: params} if self._section is not None else params
             await self._client.post(
-                f"{self._endpoint}/set",
+                f"{self._endpoint}/{self._set_action}",
                 {self._payload_key: payload},
             )
             await self._apply()

@@ -1,0 +1,3877 @@
+{
+  "__version": "2",
+  "vmstat": {
+    "malloc-statistics": {
+      "memory": [
+        {
+          "type": "CAM periph",
+          "in-use": 2,
+          "memory-use": 384,
+          "requests": 20,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256
+          ]
+        },
+        {
+          "type": "CAM queue",
+          "in-use": 14,
+          "memory-use": 7280,
+          "requests": 53,
+          "size": [
+            16,
+            32,
+            1024
+          ]
+        },
+        {
+          "type": "CAM dev queue",
+          "in-use": 7,
+          "memory-use": 448,
+          "requests": 7,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "CAM SIM",
+          "in-use": 7,
+          "memory-use": 896,
+          "requests": 7,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "CAM XPT",
+          "in-use": 23,
+          "memory-use": 2080,
+          "requests": 48,
+          "size": [
+            32,
+            128,
+            512,
+            1024
+          ]
+        },
+        {
+          "type": "CAM DEV",
+          "in-use": 7,
+          "memory-use": 14336,
+          "requests": 20,
+          "size": [
+            2048
+          ]
+        },
+        {
+          "type": "CAM CCB",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 48,
+          "size": [
+            2048
+          ]
+        },
+        {
+          "type": "CAM path",
+          "in-use": 7,
+          "memory-use": 224,
+          "requests": 60,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "nvlist",
+          "in-use": 196,
+          "memory-use": 12544,
+          "requests": 916686,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            4096,
+            8192
+          ]
+        },
+        {
+          "type": "ddb_capture",
+          "in-use": 1,
+          "memory-use": 65536,
+          "requests": 1,
+          "size": [
+            65536
+          ]
+        },
+        {
+          "type": "acpiintr",
+          "in-use": 1,
+          "memory-use": 64,
+          "requests": 1,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "acpica",
+          "in-use": 4495,
+          "memory-use": 484720,
+          "requests": 128444,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384,
+            2048,
+            8192
+          ]
+        },
+        {
+          "type": "acpitask",
+          "in-use": 1,
+          "memory-use": 229376,
+          "requests": 1,
+          "size": []
+        },
+        {
+          "type": "acpisem",
+          "in-use": 25,
+          "memory-use": 3200,
+          "requests": 25,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "acpidev",
+          "in-use": 32,
+          "memory-use": 4096,
+          "requests": 32,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "evdev",
+          "in-use": 4,
+          "memory-use": 4096,
+          "requests": 4,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "kbdmux",
+          "in-use": 6,
+          "memory-use": 28048,
+          "requests": 6,
+          "size": [
+            16,
+            384,
+            1024,
+            2048,
+            8192,
+            16384
+          ]
+        },
+        {
+          "type": "entropy",
+          "in-use": 1,
+          "memory-use": 32,
+          "requests": 48300,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            4096
+          ]
+        },
+        {
+          "type": "hdac",
+          "in-use": 1,
+          "memory-use": 1024,
+          "requests": 1,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "UART",
+          "in-use": 3,
+          "memory-use": 2064,
+          "requests": 3,
+          "size": [
+            16,
+            1024
+          ]
+        },
+        {
+          "type": "USB",
+          "in-use": 48,
+          "memory-use": 37248,
+          "requests": 48,
+          "size": [
+            16,
+            128,
+            384,
+            4096
+          ]
+        },
+        {
+          "type": "USBdev",
+          "in-use": 40,
+          "memory-use": 4352,
+          "requests": 40,
+          "size": [
+            32,
+            64,
+            128,
+            256
+          ]
+        },
+        {
+          "type": "vtbuf",
+          "in-use": 24,
+          "memory-use": 2015232,
+          "requests": 46,
+          "size": [
+            4096
+          ]
+        },
+        {
+          "type": "vt",
+          "in-use": 11,
+          "memory-use": 4224,
+          "requests": 11,
+          "size": [
+            384
+          ]
+        },
+        {
+          "type": "DEVFS3",
+          "in-use": 130,
+          "memory-use": 33280,
+          "requests": 162,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "DEVFS1",
+          "in-use": 106,
+          "memory-use": 108544,
+          "requests": 128,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "DEVFS",
+          "in-use": 17,
+          "memory-use": 384,
+          "requests": 18,
+          "size": [
+            16,
+            128
+          ]
+        },
+        {
+          "type": "DEVFSP",
+          "in-use": 7,
+          "memory-use": 448,
+          "requests": 67,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "NFSD srvcache",
+          "in-use": 3,
+          "memory-use": 69632,
+          "requests": 3,
+          "size": [
+            4096,
+            32768
+          ]
+        },
+        {
+          "type": "NFSD V4client",
+          "in-use": 1,
+          "memory-use": 256,
+          "requests": 1,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "NFSD lckfile",
+          "in-use": 1,
+          "memory-use": 256,
+          "requests": 1,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "NFSD session",
+          "in-use": 1,
+          "memory-use": 1024,
+          "requests": 1,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "pfs_nodes",
+          "in-use": 22,
+          "memory-use": 5632,
+          "requests": 22,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "pfs_vncache",
+          "in-use": 1,
+          "memory-use": 8192,
+          "requests": 1,
+          "size": [
+            8192
+          ]
+        },
+        {
+          "type": "GEOM",
+          "in-use": 35,
+          "memory-use": 8064,
+          "requests": 967,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            65536
+          ]
+        },
+        {
+          "type": "raid_data",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 168,
+          "size": [
+            32,
+            128,
+            256
+          ]
+        },
+        {
+          "type": "isadev",
+          "in-use": 5,
+          "memory-use": 640,
+          "requests": 5,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "cdev",
+          "in-use": 3,
+          "memory-use": 768,
+          "requests": 3,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "filedesc",
+          "in-use": 6,
+          "memory-use": 24576,
+          "requests": 133,
+          "size": [
+            4096
+          ]
+        },
+        {
+          "type": "pwddesc",
+          "in-use": 85,
+          "memory-use": 5440,
+          "requests": 14999,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "sigio",
+          "in-use": 1,
+          "memory-use": 64,
+          "requests": 9,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "filecaps",
+          "in-use": 3,
+          "memory-use": 96,
+          "requests": 1920,
+          "size": [
+            16,
+            32,
+            64
+          ]
+        },
+        {
+          "type": "kdtrace",
+          "in-use": 359,
+          "memory-use": 75392,
+          "requests": 21903,
+          "size": [
+            64,
+            256
+          ]
+        },
+        {
+          "type": "kenv",
+          "in-use": 192,
+          "memory-use": 15248,
+          "requests": 192,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            8192
+          ]
+        },
+        {
+          "type": "kqueue",
+          "in-use": 122,
+          "memory-use": 36416,
+          "requests": 15791,
+          "size": [
+            64,
+            128,
+            256,
+            512,
+            2048
+          ]
+        },
+        {
+          "type": "proc-args",
+          "in-use": 127,
+          "memory-use": 5344,
+          "requests": 41164,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256
+          ]
+        },
+        {
+          "type": "Fail Points",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 88,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "hhook",
+          "in-use": 10,
+          "memory-use": 2432,
+          "requests": 10,
+          "size": [
+            32,
+            384
+          ]
+        },
+        {
+          "type": "ithread",
+          "in-use": 141,
+          "memory-use": 21568,
+          "requests": 141,
+          "size": [
+            32,
+            128,
+            256
+          ]
+        },
+        {
+          "type": "prison",
+          "in-use": 6,
+          "memory-use": 192,
+          "requests": 6,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "KTRACE",
+          "in-use": 100,
+          "memory-use": 204800,
+          "requests": 100,
+          "size": [
+            2048
+          ]
+        },
+        {
+          "type": "linker",
+          "in-use": 420,
+          "memory-use": 551424,
+          "requests": 546,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768
+          ]
+        },
+        {
+          "type": "lockf",
+          "in-use": 1006,
+          "memory-use": 127552,
+          "requests": 249711,
+          "size": [
+            64,
+            128
+          ]
+        },
+        {
+          "type": "loginclass",
+          "in-use": 2,
+          "memory-use": 128,
+          "requests": 33,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "devbuf",
+          "in-use": 6275,
+          "memory-use": 5704528,
+          "requests": 6327,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            65536
+          ]
+        },
+        {
+          "type": "temp",
+          "in-use": 42,
+          "memory-use": 21424,
+          "requests": 62249,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384,
+            512,
+            1024,
+            2048,
+            4096,
+            16384,
+            32768,
+            65536
+          ]
+        },
+        {
+          "type": "module",
+          "in-use": 543,
+          "memory-use": 69504,
+          "requests": 543,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "mtx_pool",
+          "in-use": 3,
+          "memory-use": 75776,
+          "requests": 3,
+          "size": [
+            2048,
+            8192,
+            65536
+          ]
+        },
+        {
+          "type": "osd",
+          "in-use": 4,
+          "memory-use": 528,
+          "requests": 2739,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384
+          ]
+        },
+        {
+          "type": "pmchooks",
+          "in-use": 1,
+          "memory-use": 128,
+          "requests": 1,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "pmc",
+          "in-use": 1,
+          "memory-use": 64,
+          "requests": 1,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "session",
+          "in-use": 30,
+          "memory-use": 3840,
+          "requests": 167,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "proc",
+          "in-use": 3,
+          "memory-use": 16896,
+          "requests": 3,
+          "size": [
+            512,
+            8192
+          ]
+        },
+        {
+          "type": "subproc",
+          "in-use": 208,
+          "memory-use": 399104,
+          "requests": 15121,
+          "size": [
+            384,
+            4096
+          ]
+        },
+        {
+          "type": "cred",
+          "in-use": 22,
+          "memory-use": 8448,
+          "requests": 1707,
+          "size": [
+            384
+          ]
+        },
+        {
+          "type": "plimit",
+          "in-use": 22,
+          "memory-use": 8448,
+          "requests": 1902,
+          "size": [
+            384
+          ]
+        },
+        {
+          "type": "uidinfo",
+          "in-use": 5,
+          "memory-use": 2560,
+          "requests": 52,
+          "size": [
+            128,
+            2048
+          ]
+        },
+        {
+          "type": "sysctl",
+          "in-use": 1,
+          "memory-use": 32,
+          "requests": 1248,
+          "size": [
+            32,
+            64
+          ]
+        },
+        {
+          "type": "sysctloid",
+          "in-use": 23899,
+          "memory-use": 1410288,
+          "requests": 26127,
+          "size": [
+            16,
+            32,
+            64,
+            128
+          ]
+        },
+        {
+          "type": "sysctltmp",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 15688,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            1024
+          ]
+        },
+        {
+          "type": "tidhash",
+          "in-use": 3,
+          "memory-use": 144384,
+          "requests": 3,
+          "size": [
+            1024,
+            16384
+          ]
+        },
+        {
+          "type": "callout",
+          "in-use": 2,
+          "memory-use": 524288,
+          "requests": 2,
+          "size": []
+        },
+        {
+          "type": "umtx",
+          "in-use": 592,
+          "memory-use": 75776,
+          "requests": 592,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "p1003.1b",
+          "in-use": 1,
+          "memory-use": 16,
+          "requests": 1,
+          "size": [
+            16
+          ]
+        },
+        {
+          "type": "bus",
+          "in-use": 1291,
+          "memory-use": 113664,
+          "requests": 12627,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            4096
+          ]
+        },
+        {
+          "type": "bus-sc",
+          "in-use": 100,
+          "memory-use": 746592,
+          "requests": 5233,
+          "size": [
+            16,
+            32,
+            128,
+            256,
+            384,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768,
+            65536
+          ]
+        },
+        {
+          "type": "counter_rate",
+          "in-use": 2500,
+          "memory-use": 80000,
+          "requests": 2500,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "devstat",
+          "in-use": 4,
+          "memory-use": 8256,
+          "requests": 4,
+          "size": [
+            32,
+            4096
+          ]
+        },
+        {
+          "type": "eventhandler",
+          "in-use": 185,
+          "memory-use": 15552,
+          "requests": 185,
+          "size": [
+            64,
+            128
+          ]
+        },
+        {
+          "type": "gtaskqueue",
+          "in-use": 18,
+          "memory-use": 99824,
+          "requests": 18,
+          "size": [
+            16,
+            32,
+            256,
+            32768
+          ]
+        },
+        {
+          "type": "kobj",
+          "in-use": 343,
+          "memory-use": 1404928,
+          "requests": 582,
+          "size": [
+            4096
+          ]
+        },
+        {
+          "type": "Per-cpu",
+          "in-use": 1,
+          "memory-use": 32,
+          "requests": 1,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "rman",
+          "in-use": 263,
+          "memory-use": 28992,
+          "requests": 602,
+          "size": [
+            16,
+            32,
+            128
+          ]
+        },
+        {
+          "type": "sbuf",
+          "in-use": 1,
+          "memory-use": 128,
+          "requests": 5986,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            65536
+          ]
+        },
+        {
+          "type": "sglist",
+          "in-use": 12,
+          "memory-use": 21664,
+          "requests": 12,
+          "size": [
+            32,
+            1024,
+            8192
+          ]
+        },
+        {
+          "type": "toponodes",
+          "in-use": 10,
+          "memory-use": 2560,
+          "requests": 10,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "stack",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 880,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "taskqueue",
+          "in-use": 87,
+          "memory-use": 9120,
+          "requests": 8298,
+          "size": [
+            16,
+            32,
+            256
+          ]
+        },
+        {
+          "type": "terminal",
+          "in-use": 11,
+          "memory-use": 2816,
+          "requests": 11,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "Unitno",
+          "in-use": 34,
+          "memory-use": 2112,
+          "requests": 126,
+          "size": [
+            32,
+            64
+          ]
+        },
+        {
+          "type": "vmem",
+          "in-use": 5,
+          "memory-use": 205824,
+          "requests": 12,
+          "size": [
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768,
+            65536
+          ]
+        },
+        {
+          "type": "ioctlops",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 48704,
+          "size": [
+            256,
+            384,
+            1024,
+            2048
+          ]
+        },
+        {
+          "type": "select",
+          "in-use": 9,
+          "memory-use": 1152,
+          "requests": 510,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "iov",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 474372,
+          "size": [
+            16,
+            64,
+            128,
+            256,
+            384
+          ]
+        },
+        {
+          "type": "selfd",
+          "in-use": 22,
+          "memory-use": 1408,
+          "requests": 58204,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "procdesc",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 2,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "msg",
+          "in-use": 4,
+          "memory-use": 30720,
+          "requests": 4,
+          "size": [
+            2048,
+            4096,
+            8192,
+            16384
+          ]
+        },
+        {
+          "type": "sem",
+          "in-use": 4,
+          "memory-use": 108544,
+          "requests": 4,
+          "size": [
+            2048,
+            4096
+          ]
+        },
+        {
+          "type": "shm",
+          "in-use": 1,
+          "memory-use": 32768,
+          "requests": 1,
+          "size": [
+            32768
+          ]
+        },
+        {
+          "type": "tty",
+          "in-use": 14,
+          "memory-use": 14336,
+          "requests": 14,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "mbuf_tag",
+          "in-use": 1,
+          "memory-use": 32,
+          "requests": 476113,
+          "size": [
+            32,
+            64
+          ]
+        },
+        {
+          "type": "shmfd",
+          "in-use": 1,
+          "memory-use": 8192,
+          "requests": 1,
+          "size": [
+            8192
+          ]
+        },
+        {
+          "type": "soname",
+          "in-use": 13,
+          "memory-use": 720,
+          "requests": 40187,
+          "size": [
+            16,
+            32,
+            64,
+            128
+          ]
+        },
+        {
+          "type": "pcb",
+          "in-use": 16,
+          "memory-use": 536608,
+          "requests": 3001,
+          "size": [
+            16,
+            64,
+            256,
+            1024,
+            2048
+          ]
+        },
+        {
+          "type": "biobuf",
+          "in-use": 1,
+          "memory-use": 384,
+          "requests": 1,
+          "size": [
+            384
+          ]
+        },
+        {
+          "type": "vfscache",
+          "in-use": 3,
+          "memory-use": 1049344,
+          "requests": 3,
+          "size": [
+            256,
+            512
+          ]
+        },
+        {
+          "type": "cl_savebuf",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 175,
+          "size": [
+            64,
+            128,
+            256
+          ]
+        },
+        {
+          "type": "vfs_hash",
+          "in-use": 1,
+          "memory-use": 524288,
+          "requests": 1,
+          "size": []
+        },
+        {
+          "type": "vnodes",
+          "in-use": 1,
+          "memory-use": 256,
+          "requests": 24,
+          "size": [
+            32,
+            256
+          ]
+        },
+        {
+          "type": "namei_tracker",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 55,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "mount",
+          "in-use": 19,
+          "memory-use": 848,
+          "requests": 174,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            1024
+          ]
+        },
+        {
+          "type": "statfs",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 359,
+          "size": [
+            4096
+          ]
+        },
+        {
+          "type": "VN POLL",
+          "in-use": 6,
+          "memory-use": 768,
+          "requests": 6,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "vnodemarker",
+          "in-use": 2,
+          "memory-use": 1024,
+          "requests": 71,
+          "size": [
+            512
+          ]
+        },
+        {
+          "type": "chacha20random",
+          "in-use": 1,
+          "memory-use": 384,
+          "requests": 1,
+          "size": [
+            384
+          ]
+        },
+        {
+          "type": "zlib",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 1,
+          "size": [
+            8192
+          ]
+        },
+        {
+          "type": "BPF",
+          "in-use": 38,
+          "memory-use": 7345696,
+          "requests": 274,
+          "size": [
+            32,
+            128,
+            256,
+            512,
+            4096
+          ]
+        },
+        {
+          "type": "ifdescr",
+          "in-use": 4,
+          "memory-use": 80,
+          "requests": 4,
+          "size": [
+            16,
+            32
+          ]
+        },
+        {
+          "type": "ifnet",
+          "in-use": 11,
+          "memory-use": 20736,
+          "requests": 20,
+          "size": [
+            128,
+            256,
+            2048
+          ]
+        },
+        {
+          "type": "ifaddr",
+          "in-use": 84,
+          "memory-use": 20784,
+          "requests": 110,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384,
+            2048,
+            4096
+          ]
+        },
+        {
+          "type": "ether_multi",
+          "in-use": 84,
+          "memory-use": 6832,
+          "requests": 86,
+          "size": [
+            16,
+            32,
+            64,
+            128
+          ]
+        },
+        {
+          "type": "clone",
+          "in-use": 14,
+          "memory-use": 3584,
+          "requests": 14,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "lltable",
+          "in-use": 47,
+          "memory-use": 13440,
+          "requests": 63,
+          "size": [
+            256,
+            384
+          ]
+        },
+        {
+          "type": "vlan",
+          "in-use": 9,
+          "memory-use": 1088,
+          "requests": 29,
+          "size": [
+            64,
+            128
+          ]
+        },
+        {
+          "type": "pfil",
+          "in-use": 18,
+          "memory-use": 2048,
+          "requests": 18,
+          "size": [
+            64,
+            128
+          ]
+        },
+        {
+          "type": "nhops",
+          "in-use": 6,
+          "memory-use": 896,
+          "requests": 7,
+          "size": [
+            128,
+            256
+          ]
+        },
+        {
+          "type": "routetbl",
+          "in-use": 174,
+          "memory-use": 54816,
+          "requests": 2966,
+          "size": [
+            32,
+            64,
+            128,
+            256,
+            384,
+            512,
+            1024,
+            2048
+          ]
+        },
+        {
+          "type": "vnet",
+          "in-use": 1,
+          "memory-use": 64,
+          "requests": 1,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "vnet_data",
+          "in-use": 2,
+          "memory-use": 229376,
+          "requests": 2,
+          "size": []
+        },
+        {
+          "type": "vnet_data_free",
+          "in-use": 1,
+          "memory-use": 32,
+          "requests": 1,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "igmp",
+          "in-use": 10,
+          "memory-use": 1280,
+          "requests": 18,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "ipid",
+          "in-use": 2,
+          "memory-use": 24576,
+          "requests": 2,
+          "size": [
+            8192,
+            16384
+          ]
+        },
+        {
+          "type": "in_multi",
+          "in-use": 5,
+          "memory-use": 1280,
+          "requests": 6,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "encap_export_host",
+          "in-use": 14,
+          "memory-use": 768,
+          "requests": 14,
+          "size": [
+            32,
+            64
+          ]
+        },
+        {
+          "type": "mroutetbl",
+          "in-use": 2,
+          "memory-use": 4352,
+          "requests": 3,
+          "size": [
+            256,
+            4096
+          ]
+        },
+        {
+          "type": "IP reass",
+          "in-use": 1,
+          "memory-use": 131072,
+          "requests": 1,
+          "size": []
+        },
+        {
+          "type": "CC Mem",
+          "in-use": 13,
+          "memory-use": 1664,
+          "requests": 1494,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "tfo_ccache",
+          "in-use": 1,
+          "memory-use": 131072,
+          "requests": 1,
+          "size": []
+        },
+        {
+          "type": "hostcache",
+          "in-use": 1,
+          "memory-use": 32768,
+          "requests": 1,
+          "size": [
+            32768
+          ]
+        },
+        {
+          "type": "LRO",
+          "in-use": 10,
+          "memory-use": 168960,
+          "requests": 10,
+          "size": [
+            1024,
+            32768
+          ]
+        },
+        {
+          "type": "tcpfunc",
+          "in-use": 1,
+          "memory-use": 64,
+          "requests": 1,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "syncache",
+          "in-use": 1,
+          "memory-use": 69632,
+          "requests": 1,
+          "size": []
+        },
+        {
+          "type": "in6_multi",
+          "in-use": 41,
+          "memory-use": 4672,
+          "requests": 41,
+          "size": [
+            32,
+            256
+          ]
+        },
+        {
+          "type": "mf6c",
+          "in-use": 1,
+          "memory-use": 8192,
+          "requests": 2,
+          "size": [
+            8192
+          ]
+        },
+        {
+          "type": "mld",
+          "in-use": 8,
+          "memory-use": 1024,
+          "requests": 8,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "ip6ndp",
+          "in-use": 13,
+          "memory-use": 1792,
+          "requests": 13,
+          "size": [
+            64,
+            256
+          ]
+        },
+        {
+          "type": "inpcbpolicy",
+          "in-use": 18,
+          "memory-use": 576,
+          "requests": 8139,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "secasvar",
+          "in-use": 1,
+          "memory-use": 1024,
+          "requests": 1,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "sahead",
+          "in-use": 1,
+          "memory-use": 1024,
+          "requests": 1,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "ipsecpolicy",
+          "in-use": 1,
+          "memory-use": 1024,
+          "requests": 1,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "ipsec-saq",
+          "in-use": 2,
+          "memory-use": 2048,
+          "requests": 2,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "netlink",
+          "in-use": 3,
+          "memory-use": 2304,
+          "requests": 31736,
+          "size": [
+            128,
+            256,
+            2048,
+            4096
+          ]
+        },
+        {
+          "type": "lkpikmalloc",
+          "in-use": 8,
+          "memory-use": 464,
+          "requests": 9,
+          "size": [
+            16,
+            64,
+            256
+          ]
+        },
+        {
+          "type": "crypto",
+          "in-use": 3,
+          "memory-use": 576,
+          "requests": 3,
+          "size": [
+            64,
+            256
+          ]
+        },
+        {
+          "type": "audit_evclass",
+          "in-use": 242,
+          "memory-use": 7744,
+          "requests": 309,
+          "size": [
+            32
+          ]
+        },
+        {
+          "type": "pagedep",
+          "in-use": 5,
+          "memory-use": 132096,
+          "requests": 2001,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "inodedep",
+          "in-use": 209,
+          "memory-use": 604160,
+          "requests": 14808,
+          "size": [
+            384
+          ]
+        },
+        {
+          "type": "bmsafemap",
+          "in-use": 6,
+          "memory-use": 9472,
+          "requests": 14606,
+          "size": [
+            256,
+            8192
+          ]
+        },
+        {
+          "type": "newblk",
+          "in-use": 25,
+          "memory-use": 1054720,
+          "requests": 40323,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "indirdep",
+          "in-use": 5,
+          "memory-use": 1280,
+          "requests": 216,
+          "size": [
+            256,
+            32768
+          ]
+        },
+        {
+          "type": "freefrag",
+          "in-use": 4,
+          "memory-use": 512,
+          "requests": 925,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "freeblks",
+          "in-use": 3,
+          "memory-use": 768,
+          "requests": 2132,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "freefile",
+          "in-use": 4,
+          "memory-use": 512,
+          "requests": 2646,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "diradd",
+          "in-use": 191,
+          "memory-use": 24448,
+          "requests": 15640,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "mkdir",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 2774,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "dirrem",
+          "in-use": 1,
+          "memory-use": 128,
+          "requests": 5220,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "newdirblk",
+          "in-use": 1,
+          "memory-use": 64,
+          "requests": 1406,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "freework",
+          "in-use": 4,
+          "memory-use": 800,
+          "requests": 2717,
+          "size": [
+            32,
+            256
+          ]
+        },
+        {
+          "type": "sbdep",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 62,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "savedino",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 1117,
+          "size": [
+            256
+          ]
+        },
+        {
+          "type": "softdep",
+          "in-use": 1,
+          "memory-use": 1024,
+          "requests": 1,
+          "size": [
+            1024
+          ]
+        },
+        {
+          "type": "ufs_dirhash",
+          "in-use": 1275,
+          "memory-use": 255376,
+          "requests": 1329,
+          "size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            384,
+            512,
+            1024,
+            4096
+          ]
+        },
+        {
+          "type": "ufs_quota",
+          "in-use": 1,
+          "memory-use": 524288,
+          "requests": 1,
+          "size": []
+        },
+        {
+          "type": "ufs_mount",
+          "in-use": 4,
+          "memory-use": 16928,
+          "requests": 13,
+          "size": [
+            32,
+            512,
+            4096,
+            8192
+          ]
+        },
+        {
+          "type": "UMA",
+          "in-use": 157,
+          "memory-use": 2784,
+          "requests": 175,
+          "size": [
+            16,
+            32
+          ]
+        },
+        {
+          "type": "rpc",
+          "in-use": 8,
+          "memory-use": 9152,
+          "requests": 8,
+          "size": [
+            64,
+            256,
+            4096
+          ]
+        },
+        {
+          "type": "pci_link",
+          "in-use": 32,
+          "memory-use": 2304,
+          "requests": 32,
+          "size": [
+            16,
+            128
+          ]
+        },
+        {
+          "type": "atkbddev",
+          "in-use": 2,
+          "memory-use": 128,
+          "requests": 2,
+          "size": [
+            64
+          ]
+        },
+        {
+          "type": "spkr",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 5,
+          "size": [
+            512
+          ]
+        },
+        {
+          "type": "apmdev",
+          "in-use": 1,
+          "memory-use": 128,
+          "requests": 1,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "busdma",
+          "in-use": 8198,
+          "memory-use": 524864,
+          "requests": 8198,
+          "size": [
+            64,
+            256
+          ]
+        },
+        {
+          "type": "bounce",
+          "in-use": 8197,
+          "memory-use": 33574912,
+          "requests": 8197,
+          "size": []
+        },
+        {
+          "type": "intr",
+          "in-use": 4,
+          "memory-use": 483328,
+          "requests": 4,
+          "size": [
+            65536
+          ]
+        },
+        {
+          "type": "MCA",
+          "in-use": 10,
+          "memory-use": 1280,
+          "requests": 10,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "cpus",
+          "in-use": 2,
+          "memory-use": 32,
+          "requests": 2,
+          "size": [
+            16
+          ]
+        },
+        {
+          "type": "nexusdev",
+          "in-use": 8,
+          "memory-use": 128,
+          "requests": 8,
+          "size": [
+            16
+          ]
+        },
+        {
+          "type": "memdesc",
+          "in-use": 1,
+          "memory-use": 4096,
+          "requests": 1,
+          "size": [
+            4096
+          ]
+        },
+        {
+          "type": "madt_table",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 2,
+          "size": [
+            16,
+            4096
+          ]
+        },
+        {
+          "type": "io_apic",
+          "in-use": 1,
+          "memory-use": 2048,
+          "requests": 1,
+          "size": [
+            2048
+          ]
+        },
+        {
+          "type": "local_apic",
+          "in-use": 1,
+          "memory-use": 2048,
+          "requests": 1,
+          "size": [
+            2048
+          ]
+        },
+        {
+          "type": "msi",
+          "in-use": 25,
+          "memory-use": 3200,
+          "requests": 25,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "pf_hash",
+          "in-use": 6,
+          "memory-use": 13111296,
+          "requests": 6,
+          "size": [
+            2048
+          ]
+        },
+        {
+          "type": "pf_ifnet",
+          "in-use": 57,
+          "memory-use": 11264,
+          "requests": 3026,
+          "size": [
+            128,
+            256,
+            2048
+          ]
+        },
+        {
+          "type": "pf_osfp",
+          "in-use": 1191,
+          "memory-use": 124992,
+          "requests": 66696,
+          "size": [
+            64,
+            128
+          ]
+        },
+        {
+          "type": "pf_rule",
+          "in-use": 101,
+          "memory-use": 185728,
+          "requests": 2788,
+          "size": [
+            128,
+            2048
+          ]
+        },
+        {
+          "type": "pf",
+          "in-use": 5,
+          "memory-use": 80,
+          "requests": 2441,
+          "size": [
+            16,
+            256,
+            384,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768
+          ]
+        },
+        {
+          "type": "pf_table",
+          "in-use": 27,
+          "memory-use": 55296,
+          "requests": 557,
+          "size": [
+            2048
+          ]
+        },
+        {
+          "type": "pfsync",
+          "in-use": 2,
+          "memory-use": 2560,
+          "requests": 2,
+          "size": [
+            512,
+            2048
+          ]
+        },
+        {
+          "type": "netgraph",
+          "in-use": 12,
+          "memory-use": 4203168,
+          "requests": 38,
+          "size": [
+            16,
+            64,
+            128
+          ]
+        },
+        {
+          "type": "netgraph_msg",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 206,
+          "size": [
+            64,
+            128,
+            256,
+            1024,
+            32768
+          ]
+        },
+        {
+          "type": "netgraph_hook",
+          "in-use": 12,
+          "memory-use": 1536,
+          "requests": 66,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "netgraph_node",
+          "in-use": 12,
+          "memory-use": 3072,
+          "requests": 156,
+          "size": [
+            128,
+            256
+          ]
+        },
+        {
+          "type": "netgraph_parse",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 22,
+          "size": [
+            16
+          ]
+        },
+        {
+          "type": "netgraph_path",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 157,
+          "size": [
+            16,
+            32
+          ]
+        },
+        {
+          "type": "netgraph_sock",
+          "in-use": 0,
+          "memory-use": 0,
+          "requests": 248,
+          "size": [
+            128
+          ]
+        },
+        {
+          "type": "netflow_hash",
+          "in-use": 4,
+          "memory-use": 12582912,
+          "requests": 22,
+          "size": []
+        },
+        {
+          "type": "netflow_general",
+          "in-use": 4,
+          "memory-use": 544,
+          "requests": 140,
+          "size": [
+            16,
+            256
+          ]
+        },
+        {
+          "type": "netgraph_ksock",
+          "in-use": 2,
+          "memory-use": 256,
+          "requests": 11,
+          "size": [
+            128
+          ]
+        }
+      ]
+    },
+    "memory-zone-statistics": {
+      "zone": [
+        {
+          "name": "kstack_cache",
+          "size": 16384,
+          "limit": 0,
+          "used": 272,
+          "free": 48,
+          "requests": 6903,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "buf free cache",
+          "size": 472,
+          "limit": 0,
+          "used": 11589,
+          "free": 111,
+          "requests": 54102,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "vm pgcache",
+          "size": 4096,
+          "limit": 0,
+          "used": 313096,
+          "free": 119,
+          "requests": 4331672,
+          "fail": 806,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "vm pgcache",
+          "size": 4096,
+          "limit": 0,
+          "used": 42953,
+          "free": 66,
+          "requests": 969472,
+          "fail": 8,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "debugnet_mbuf",
+          "size": 256,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 320,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "debugnet_mbuf_cluster",
+          "size": 4096,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 64,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "debugnet_mbuf_packet",
+          "size": 2048,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "UMA Kegs",
+          "size": 384,
+          "limit": 0,
+          "used": 116,
+          "free": 7,
+          "requests": 134,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "UMA Zones",
+          "size": 768,
+          "limit": 0,
+          "used": 129,
+          "free": 5,
+          "requests": 147,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "UMA Slabs 0",
+          "size": 80,
+          "limit": 0,
+          "used": 8514,
+          "free": 30,
+          "requests": 8514,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "UMA Slabs 1",
+          "size": 112,
+          "limit": 0,
+          "used": 30,
+          "free": 5,
+          "requests": 30,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "UMA Hash",
+          "size": 256,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "2 Bucket",
+          "size": 32,
+          "limit": 0,
+          "used": 21,
+          "free": 861,
+          "requests": 3472,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "4 Bucket",
+          "size": 48,
+          "limit": 0,
+          "used": 8,
+          "free": 580,
+          "requests": 299,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "8 Bucket",
+          "size": 80,
+          "limit": 0,
+          "used": 134,
+          "free": 266,
+          "requests": 3486,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "16 Bucket",
+          "size": 144,
+          "limit": 0,
+          "used": 31,
+          "free": 109,
+          "requests": 392,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "32 Bucket",
+          "size": 256,
+          "limit": 0,
+          "used": 138,
+          "free": 237,
+          "requests": 25949,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "64 Bucket",
+          "size": 512,
+          "limit": 0,
+          "used": 323,
+          "free": 149,
+          "requests": 118367,
+          "fail": 36766,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "128 Bucket",
+          "size": 1024,
+          "limit": 0,
+          "used": 67,
+          "free": 80,
+          "requests": 14146,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "256 Bucket",
+          "size": 2048,
+          "limit": 0,
+          "used": 143,
+          "free": 19,
+          "requests": 1798,
+          "fail": 2770,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "SMR SHARED",
+          "size": 24,
+          "limit": 0,
+          "used": 8,
+          "free": 503,
+          "requests": 8,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "SMR CPU",
+          "size": 32,
+          "limit": 0,
+          "used": 8,
+          "free": 503,
+          "requests": 8,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "vmem",
+          "size": 1856,
+          "limit": 0,
+          "used": 2,
+          "free": 7,
+          "requests": 2,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "vmem btag",
+          "size": 56,
+          "limit": 0,
+          "used": 16130,
+          "free": 58,
+          "requests": 21449,
+          "fail": 112,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "VM OBJECT",
+          "size": 240,
+          "limit": 0,
+          "used": 20646,
+          "free": 570,
+          "requests": 398960,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "RADIX NODE",
+          "size": 152,
+          "limit": 0,
+          "used": 31572,
+          "free": 353,
+          "requests": 1356273,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "KMAP ENTRY",
+          "size": 96,
+          "limit": 0,
+          "used": 27,
+          "free": 12,
+          "requests": 27,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "MAP ENTRY",
+          "size": 96,
+          "limit": 0,
+          "used": 8060,
+          "free": 1138,
+          "requests": 1582672,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "VMSPACE",
+          "size": 584,
+          "limit": 0,
+          "used": 67,
+          "free": 45,
+          "requests": 14982,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "fakepg",
+          "size": 88,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pcpu-4",
+          "size": 4,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pcpu-8",
+          "size": 8,
+          "limit": 0,
+          "used": 7591,
+          "free": 8281,
+          "requests": 72549,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pcpu-16",
+          "size": 16,
+          "limit": 0,
+          "used": 4,
+          "free": 252,
+          "requests": 4,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pcpu-32",
+          "size": 32,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pcpu-64",
+          "size": 64,
+          "limit": 0,
+          "used": 488,
+          "free": 280,
+          "requests": 488,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-16",
+          "size": 16,
+          "limit": 0,
+          "used": 10919,
+          "free": 673,
+          "requests": 381959,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-32",
+          "size": 32,
+          "limit": 0,
+          "used": 7983,
+          "free": 711,
+          "requests": 375257,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-64",
+          "size": 64,
+          "limit": 0,
+          "used": 14899,
+          "free": 1418,
+          "requests": 911256,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-128",
+          "size": 128,
+          "limit": 0,
+          "used": 17343,
+          "free": 3706,
+          "requests": 1007612,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-256",
+          "size": 256,
+          "limit": 0,
+          "used": 1776,
+          "free": 15474,
+          "requests": 164058,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-384",
+          "size": 384,
+          "limit": 0,
+          "used": 477,
+          "free": 3663,
+          "requests": 22180,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-512",
+          "size": 512,
+          "limit": 0,
+          "used": 1834,
+          "free": 62,
+          "requests": 3592,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-1024",
+          "size": 1024,
+          "limit": 0,
+          "used": 203,
+          "free": 21,
+          "requests": 31635,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-2048",
+          "size": 2048,
+          "limit": 0,
+          "used": 285,
+          "free": 843,
+          "requests": 16844,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-4096",
+          "size": 4096,
+          "limit": 0,
+          "used": 1016,
+          "free": 14,
+          "requests": 32040,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-8192",
+          "size": 8192,
+          "limit": 0,
+          "used": 101,
+          "free": 4,
+          "requests": 2536,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-16384",
+          "size": 16384,
+          "limit": 0,
+          "used": 13,
+          "free": 3,
+          "requests": 718,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-32768",
+          "size": 32768,
+          "limit": 0,
+          "used": 13,
+          "free": 5,
+          "requests": 1071,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "malloc-65536",
+          "size": 65536,
+          "limit": 0,
+          "used": 24,
+          "free": 2,
+          "requests": 2810,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "SLEEPQUEUE",
+          "size": 80,
+          "limit": 0,
+          "used": 297,
+          "free": 87,
+          "requests": 297,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "kenv",
+          "size": 258,
+          "limit": 0,
+          "used": 15,
+          "free": 45,
+          "requests": 3485,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "Files",
+          "size": 80,
+          "limit": 0,
+          "used": 231,
+          "free": 319,
+          "requests": 372282,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "filedesc0",
+          "size": 1072,
+          "limit": 0,
+          "used": 85,
+          "free": 27,
+          "requests": 14999,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "PWD",
+          "size": 40,
+          "limit": 0,
+          "used": 24,
+          "free": 1087,
+          "requests": 30146,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "rl_entry",
+          "size": 40,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "rangeset pctrie nodes",
+          "size": 152,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "TURNSTILE",
+          "size": 136,
+          "limit": 0,
+          "used": 297,
+          "free": 18,
+          "requests": 297,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "lkpicurr",
+          "size": 168,
+          "limit": 0,
+          "used": 2,
+          "free": 3094,
+          "requests": 2,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "lkpimm",
+          "size": 56,
+          "limit": 0,
+          "used": 1,
+          "free": 3095,
+          "requests": 1,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "umtx pi",
+          "size": 96,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "umtx_shm",
+          "size": 88,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "swrbuf",
+          "size": 2400,
+          "limit": 32,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "swwbuf",
+          "size": 2400,
+          "limit": 16,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "nfspbuf",
+          "size": 2400,
+          "limit": 32,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "vnpbuf",
+          "size": 2400,
+          "limit": 128,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "clpbuf",
+          "size": 2400,
+          "limit": 32,
+          "used": 0,
+          "free": 20,
+          "requests": 1636,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pbuf",
+          "size": 2400,
+          "limit": 16,
+          "used": 0,
+          "free": 245,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "FPU_save_area",
+          "size": 512,
+          "limit": 0,
+          "used": 274,
+          "free": 62,
+          "requests": 6905,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "MAC labels",
+          "size": 40,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "PROC",
+          "size": 1376,
+          "limit": 0,
+          "used": 85,
+          "free": 36,
+          "requests": 14998,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "PGRP",
+          "size": 120,
+          "limit": 0,
+          "used": 32,
+          "free": 232,
+          "requests": 219,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "THREAD",
+          "size": 1860,
+          "limit": 0,
+          "used": 272,
+          "free": 24,
+          "requests": 6903,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "cpuset",
+          "size": 200,
+          "limit": 0,
+          "used": 8,
+          "free": 120,
+          "requests": 8,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "domainset",
+          "size": 40,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "audit_record",
+          "size": 1280,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "mbuf_packet",
+          "size": 256,
+          "limit": 0,
+          "used": 3,
+          "free": 759,
+          "requests": 18917,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "mbuf",
+          "size": 256,
+          "limit": 803275,
+          "used": 3394,
+          "free": 1949,
+          "requests": 406271,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "mbuf_cluster",
+          "size": 2048,
+          "limit": 125511,
+          "used": 762,
+          "free": 0,
+          "requests": 762,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "mbuf_jumbo_page",
+          "size": 4096,
+          "limit": 62755,
+          "used": 3136,
+          "free": 1944,
+          "requests": 180471,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "mbuf_jumbo_9k",
+          "size": 9216,
+          "limit": 18594,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "mbuf_jumbo_16k",
+          "size": 16384,
+          "limit": 10459,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "epoch_record pcpu",
+          "size": 256,
+          "limit": 0,
+          "used": 4,
+          "free": 60,
+          "requests": 4,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "ttyinq",
+          "size": 160,
+          "limit": 0,
+          "used": 120,
+          "free": 5,
+          "requests": 255,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "ttyoutq",
+          "size": 256,
+          "limit": 0,
+          "used": 64,
+          "free": 71,
+          "requests": 136,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "skbuff",
+          "size": 1808,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "IOMMU_MAP_ENTRY",
+          "size": 112,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "DEVCTL",
+          "size": 1024,
+          "limit": 1000,
+          "used": 0,
+          "free": 368,
+          "requests": 308,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "g_bio",
+          "size": 416,
+          "limit": 0,
+          "used": 0,
+          "free": 2286,
+          "requests": 167738,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "linux_dma_pctrie",
+          "size": 152,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "linux_dma_object",
+          "size": 32,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "vtnet_tx_hdr",
+          "size": 24,
+          "limit": 0,
+          "used": 1,
+          "free": 839,
+          "requests": 173265,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "cryptop",
+          "size": 280,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "VNODE",
+          "size": 440,
+          "limit": 0,
+          "used": 89355,
+          "free": 78,
+          "requests": 92010,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "BUF TRIE",
+          "size": 152,
+          "limit": 0,
+          "used": 720,
+          "free": 12800,
+          "requests": 36885,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "S VFS Cache",
+          "size": 104,
+          "limit": 0,
+          "used": 103262,
+          "free": 322,
+          "requests": 110088,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "STS VFS Cache",
+          "size": 144,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "L VFS Cache",
+          "size": 320,
+          "limit": 0,
+          "used": 383,
+          "free": 37,
+          "requests": 550,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "LTS VFS Cache",
+          "size": 360,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NAMEI",
+          "size": 1024,
+          "limit": 0,
+          "used": 0,
+          "free": 48,
+          "requests": 1236897,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NCLNODE",
+          "size": 608,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "TMPFS node",
+          "size": 240,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "DIRHASH",
+          "size": 1024,
+          "limit": 0,
+          "used": 2012,
+          "free": 20,
+          "requests": 2085,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pipe",
+          "size": 736,
+          "limit": 0,
+          "used": 20,
+          "free": 46,
+          "requests": 12321,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "AIO",
+          "size": 208,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "AIOCB",
+          "size": 552,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "AIOLIO",
+          "size": 272,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "Mountpoints",
+          "size": 2816,
+          "limit": 0,
+          "used": 2,
+          "free": 2,
+          "requests": 2,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "ksiginfo",
+          "size": 112,
+          "limit": 0,
+          "used": 102,
+          "free": 942,
+          "requests": 3773,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "itimer",
+          "size": 352,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "KNOTE",
+          "size": 160,
+          "limit": 0,
+          "used": 70,
+          "free": 180,
+          "requests": 117650,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "socket",
+          "size": 1024,
+          "limit": 64174,
+          "used": 50,
+          "free": 458,
+          "requests": 24187,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "IPsec SA lft_c",
+          "size": 16,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "unpcb",
+          "size": 320,
+          "limit": 64174,
+          "used": 32,
+          "free": 484,
+          "requests": 13063,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "ripcb",
+          "size": 376,
+          "limit": 0,
+          "used": 0,
+          "free": 60,
+          "requests": 45,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "tcp_inpcb",
+          "size": 1304,
+          "limit": 0,
+          "used": 13,
+          "free": 35,
+          "requests": 1494,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "udp_inpcb",
+          "size": 408,
+          "limit": 0,
+          "used": 5,
+          "free": 121,
+          "requests": 6600,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "udplite_inpcb",
+          "size": 408,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "routing nhops",
+          "size": 256,
+          "limit": 0,
+          "used": 18,
+          "free": 117,
+          "requests": 32,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "tcpreass",
+          "size": 48,
+          "limit": 7844,
+          "used": 0,
+          "free": 588,
+          "requests": 6,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "tcp_log",
+          "size": 408,
+          "limit": 5000000,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "tcp_log_id_bucket",
+          "size": 176,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "tcp_log_id_node",
+          "size": 120,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "rtentry",
+          "size": 168,
+          "limit": 0,
+          "used": 20,
+          "free": 124,
+          "requests": 32,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "ipq",
+          "size": 56,
+          "limit": 3922,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "syncache",
+          "size": 176,
+          "limit": 15360,
+          "used": 0,
+          "free": 529,
+          "requests": 1067,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "hostcache",
+          "size": 64,
+          "limit": 15360,
+          "used": 11,
+          "free": 556,
+          "requests": 11,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "sackhole",
+          "size": 32,
+          "limit": 0,
+          "used": 0,
+          "free": 630,
+          "requests": 14,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "tfo",
+          "size": 4,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "tfo_ccache_entries",
+          "size": 80,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf mtags",
+          "size": 184,
+          "limit": 0,
+          "used": 0,
+          "free": 1122,
+          "requests": 296908,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf tags",
+          "size": 104,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf states",
+          "size": 384,
+          "limit": 200500,
+          "used": 184,
+          "free": 586,
+          "requests": 1510,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf state keys",
+          "size": 88,
+          "limit": 0,
+          "used": 184,
+          "free": 322,
+          "requests": 1510,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf source nodes",
+          "size": 152,
+          "limit": 200500,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf UDP mappings",
+          "size": 104,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf anchors",
+          "size": 1664,
+          "limit": 2147483647,
+          "used": 1,
+          "free": 258,
+          "requests": 1,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf Ethernet anchors",
+          "size": 1240,
+          "limit": 2147483647,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf table entry counters",
+          "size": 64,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf table entries",
+          "size": 160,
+          "limit": 3007500,
+          "used": 38,
+          "free": 487,
+          "requests": 310,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf frags",
+          "size": 232,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf fragment node",
+          "size": 72,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf frag entries",
+          "size": 40,
+          "limit": 5000,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "pf state scrubs",
+          "size": 40,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "bridge_rtnode",
+          "size": 88,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "swpctrie",
+          "size": 152,
+          "limit": 251030,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "swblk",
+          "size": 136,
+          "limit": 251024,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "FFS inode",
+          "size": 200,
+          "limit": 0,
+          "used": 89320,
+          "free": 160,
+          "requests": 91974,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "FFS1 dinode",
+          "size": 128,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "FFS2 dinode",
+          "size": 256,
+          "limit": 0,
+          "used": 89320,
+          "free": 95,
+          "requests": 91974,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "ada_ccb",
+          "size": 272,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "da_ccb",
+          "size": 536,
+          "limit": 0,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NetGraph items",
+          "size": 72,
+          "limit": 4096,
+          "used": 0,
+          "free": 512,
+          "requests": 357,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NetGraph data items",
+          "size": 72,
+          "limit": 4096,
+          "used": 2,
+          "free": 510,
+          "requests": 338225,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NetFlow IPv4 cache",
+          "size": 88,
+          "limit": 1048576,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NetFlow IPv6 cache",
+          "size": 128,
+          "limit": 1048576,
+          "used": 0,
+          "free": 279,
+          "requests": 1,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NetFlow IPv4 cache",
+          "size": 88,
+          "limit": 1048576,
+          "used": 43,
+          "free": 725,
+          "requests": 967,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        },
+        {
+          "name": "NetFlow IPv6 cache",
+          "size": 128,
+          "limit": 1048576,
+          "used": 0,
+          "free": 0,
+          "requests": 0,
+          "fail": 0,
+          "sleep": 0,
+          "xdomain": 0
+        }
+      ]
+    }
+  }
+}

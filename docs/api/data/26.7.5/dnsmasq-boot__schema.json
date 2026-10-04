@@ -1,0 +1,31 @@
+{
+  "boot": {
+    "interface": {
+      "": {
+        "value": "Any",
+        "selected": 1
+      },
+      "opt3": {
+        "value": "FAB",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "LAN_TRUNK",
+        "selected": 0
+      },
+      "lan": {
+        "value": "OOB",
+        "selected": 0
+      },
+      "opt2": {
+        "value": "SCRATCH",
+        "selected": 0
+      }
+    },
+    "tag": [],
+    "filename": "",
+    "servername": "",
+    "address": "",
+    "description": ""
+  }
+}

@@ -67,6 +67,7 @@ class Kea6SubnetManager(BaseManager):
         "subnet": {"type": "str", "required": True, "max_length": 255},
         "interface": {"type": "str", "required": True},
         "description": {"type": "str", "max_length": 255},
+        "subnet_id": {"type": "str", "max_length": 10},  # 26.7.5
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

@@ -11,12 +11,12 @@
 
 | Property | Value |
 |----------|-------|
-| **OPNsense Version** | `26.7` |
+| **OPNsense Version** | `26.7.5` |
 | **Product** | OPNsense (amd64) |
-| **Probe timestamp** | 2026-09-06T13:49:57Z |
-| **Audit generated** | 2026-09-06T13:51:35Z |
+| **Probe timestamp** | 2026-10-04T01:11:09Z |
+| **Audit generated** | 2026-10-04T01:13:19Z |
 | **Endpoints probed** | 206 |
-| **Source JSONs** | `docs/api/data/26.7/` |
+| **Source JSONs** | `docs/api/data/26.7.5/` |
 
 ## API Type Conventions
 
@@ -50,12 +50,12 @@
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `gid` | `"2000"` | `int-like string` |
+| `gid` | `"2001"` | `int-like string` |
 | `name` | `""` | `string` |
 | `scope` | `"user"` | `string` |
 | `description` | `""` | `string` |
-| `priv` | enum | `enum`: page-all, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-firewall-nat-outbound, page-firewall-nat-outbound-edit, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-rules-edit, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-captiveportal, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-ids, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-system-camanager, page-system-certmanager, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, page-system-crlmanager, user-config-readonly, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-services-monit, page-xmlrpclibrary |
-| `member` | [] | `list` |
+| `priv` | enum | `enum`: page-all, page-user-crowdsec, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-acmeclient, page-services-captiveportal, page-services-chrony, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-dnscryptproxy-config, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-dyndns, page-services-ids, page-services-lldpd, page-services-monit, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-qemuguestagent, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, user-config-readonly, page-diagnostics-system-statistics, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-system-camanager, page-system-certmanager, page-system-crlmanager, page-system-trust-settings, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-xmlrpclibrary |
+| `member` | enum | `enum`: 0, 2001, 2002, 2003 |
 | `source_networks` | enum | `enum`: ** |
 
 > 7 fields discovered
@@ -70,7 +70,7 @@
 
 ```
 
-**Rows returned:** 1 (total: 1)
+**Rows returned:** 2 (total: 2)
 
 **Row keys:**
 ```
@@ -89,15 +89,15 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "2989209e-a21e-4128-a225-80c97b964940",
+  "uuid": "f18c26a6-094e-4f91-b784-dc4d0bc55884",
   "gid": "1999",
   "name": "admins",
   "scope": "system",
   "description": "System Administrators",
   "priv": "page-all",
   "%priv": "All pages",
-  "member": "0",
-  "%member": "root",
+  "member": "0,2001,2002,2003",
+  "%member": "root, local-admin, svc-ansible-prod, oob-admin",
   "source_networks": ""
 }
 ```
@@ -126,14 +126,30 @@ priv
 {
   "priv": {
     "users": {
-      "9123cd03-c04b-4789-af49-c0e72b94f5b3": {
+      "c3a1b2d4-9e8f-4a6b-8c7d-5e4f3a2b1c0d": {
+        "value": "local-admin",
+        "selected": 0
+      },
+      "a4f1c2e3-5b6d-4e7f-8a9b-0c1d2e3f4a5b": {
+        "value": "oob-admin",
+        "selected": 0
+      },
+      "22c2bfb8-0734-4439-b2b9-7816f7017363": {
         "value": "root",
+        "selected": 0
+      },
+      "7d2e9f10-3b4c-4d5e-8f6a-1b2c3d4e5f60": {
+        "value": "svc-ansible-prod",
         "selected": 0
       }
     },
     "groups": {
-      "2989209e-a21e-4128-a225-80c97b964940": {
+      "f18c26a6-094e-4f91-b784-dc4d0bc55884": {
         "value": "admins",
+        "selected": 0
+      },
+      "1d27914d-81c5-4130-ac47-909665601c63": {
+        "value": "platform-admins",
         "selected": 0
       }
     }
@@ -141,7 +157,7 @@ priv
 }
 ```
 
-> Response size: 272 bytes
+> Response size: 723 bytes
 
 ---
 
@@ -176,14 +192,15 @@ priv
 | `comment` | `""` | `string` |
 | `email` | `""` | `string` |
 | `apikeys` | `""` | `string` |
-| `priv` | enum | `enum`: page-all, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-firewall-nat-outbound, page-firewall-nat-outbound-edit, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-rules-edit, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-captiveportal, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-ids, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-system-camanager, page-system-certmanager, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, page-system-crlmanager, user-config-readonly, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-services-monit, page-xmlrpclibrary |
+| `priv` | enum | `enum`: page-all, page-user-crowdsec, page-diagnostics-arptable, page-diagnostics-authentication, page-diagnostics-configurationhistory, page-diagnostics-factorydefaults, page-diagnostics-system-pftop, page-diagnostics-pf-info, page-diagnostics-haltsystem, page-diagnostics-logs-firewall-general, page-diagnostics-logs-firewall-dynamic, page-diagnostics-logs-firewall-plain, page-diagnostics-logs-firewall-summary, page-diagnostics-logs-gateways, page-diagnostics-logs-system, page-diagnostics-ndptable, page-diagnostics-netflow, page-diagnostics-netstat, page-diagnostics-networkinsight, page-diagnostics-packetcapture, page-diagnostics-tables, page-diagnostics-ping, page-diagnostics-rebootsystem, page-diagnostics-routingtables, page-diagnostics-limiter-info, page-diagnostics-showstates, page-diagnostics-system-activity, page-diagnostics-health, page-diagnostics-testport, page-diagnostics-traceroute, page-firewall-alias-edit, page-firewall-aliases, page-firewall-categories, page-interfaces-groups-edit, page-firewall-nat-1-1-edit, page-firewall-nat-portforward-edit, page-firewall-nat-npt, page-filter-snat-api, page-firewall-scrub, page-firewall-rules, page-filter-api, page-firewall-schedules, page-firewall-schedules-edit, page-firewall-trafficshaper, page-interfaces-assignnetworkports, page-interfaces-bridge-edit, page-diagnostics-dns_diagnostics, page-interfaces-gif-edit, page-interfaces-gre-edit, page-interfaces-lagg-edit, page-interfaces-loopback, page-interfaces-neighbor, page-hostdiscovery, page-diagnostics-logs-hostdiscovery, page-interfaces-ppps, page-interfaces-ppps-edit, page-system-advanced-network, page-firewall-virtualipaddress-edit, page-status-carp, page-interfaces-vlan-edit, page-interfaces-vxlan, page-interfaces, page-interfaces-wireless-edit, page-system-login-logout, page-system-license, page-system-usermanager-passwordmg, page-status-trafficgraph, page-services-acmeclient, page-services-captiveportal, page-services-chrony, page-dhcp-kea-ctrl-agent, page-dhcp-kea-ddns, page-diagnostics-logs-kea, page-dhcp-kea-v4, page-dhcp-kea-v6, page-services-dhcprelay, page-services-opendns, page-dnscryptproxy-config, page-diagnostics-logs-dnsmasq, page-services-dnsforwarder, page-services-dyndns, page-services-ids, page-services-lldpd, page-services-monit, page-services-ntpd, page-services-ntp-gps, page-services-ntp-pps, page-services-qemuguestagent, page-services-router-advertisements, page-services-unbound, page-services-dnsresolver-acls, page-services-dnsresolver-advanced, page-services-dnsresolver-overrides, page-services-dnsresolver, page-diagnostics-logs-resolver, page-status-dnsoverview, page-status-habackup, page-status-interfaces, page-status-ipsec, page-status-ipsec-leases, page-status-ipsec-sad, page-status-ipsec-spd, page-status-ntp, page-status-openvpn, page-status-services, page-status-systemlogs-portalauth, page-status-systemlogs-ipsecvpn, page-status-systemlogs-ntpd, page-status-systemlogs-openvpn, page-status-systemlogs-ppp, page-status-systemlogs-routing, page-status-systemlogs-wireless, page-diagnostics-wirelessstatus, page-system-usermanager, page-system-advanced-admin, page-system-advanced-firewall, page-system-advanced-misc, page-system-advanced-sysctl, page-system-authservers, page-diagnostics-backup-restore, page-wizard-system, page-diagnostics-crash-reporter, user-config-readonly, page-diagnostics-system-statistics, page-system-firmware-manualupdate, page-system-gatewaygroups, page-system-gateways, page-system-generalsetup, page-system-hasync, page-system-cron, page-diagnostics-logs-settings-targets, page-snapshots, page-system-staticroutes, page-system-status, page-system-camanager, page-system-certmanager, page-system-crlmanager, page-system-trust-settings, page-vpn-ipsec-connections, page-vpn-ipsec-editkeys, page-vpn-ipsec-keypairs, page-openvpn-client-export, page-openvpn-csc, page-openvpn-instances, page-wireguard-config, page-wireguard-logs, page-wireguard-diagnostics, page-xmlrpclibrary |
 | `language` | enum | `enum`: **, cs_CZ, de_DE, el_GR, en_US, es_ES, fa_IR, fr_FR, it_IT, ja_JP, ko_KR, no_NO, pl_PL, pt_BR, pt_PT, ru_RU, tr_TR, uk_UA, zh_CN, zh_TW |
-| `group_memberships` | enum | `enum`: 1999 |
+| `group_memberships` | enum | `enum`: 1999, 2000 |
 | `descr` | `""` | `string` |
 | `dashboard` | `""` | `string` |
+| `menu_favorites` | `""` | `string` |
 | `otp_uri` | `""` | `string` |
 
-> 21 fields discovered
+> 22 fields discovered
 
 ### search — HTTP 200
 
@@ -195,11 +212,10 @@ priv
 
 ```
 
-**Rows returned:** 1 (total: 1)
+**Rows returned:** 4 (total: 4)
 
 **Row keys:**
 ```
-%apikeys
 %group_memberships
 %password
 apikeys
@@ -214,6 +230,7 @@ group_memberships
 is_admin
 landing_page
 language
+menu_favorites
 name
 otp_seed
 password
@@ -230,7 +247,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "9123cd03-c04b-4789-af49-c0e72b94f5b3",
+  "uuid": "22c2bfb8-0734-4439-b2b9-7816f7017363",
   "uid": "0",
   "name": "root",
   "disabled": "0",
@@ -246,14 +263,14 @@ uuid
   "landing_page": "",
   "comment": "",
   "email": "",
-  "apikeys": "<REDACTED:apikeys>",
-  "%apikeys": "",
+  "apikeys": "",
   "priv": "",
   "language": "",
   "group_memberships": "1999",
   "%group_memberships": "admins",
   "descr": "System Administrator",
   "dashboard": "",
+  "menu_favorites": "",
   "is_admin": "1",
   "shell_warning": "0"
 }
@@ -263,7 +280,7 @@ uuid
 
 ## 4. chrony-general
 
-### global — HTTP 404
+### global — HTTP 200
 
 **Endpoint:** `GET /api/chrony/general/get`
 
@@ -273,13 +290,43 @@ uuid
 
 ```
 
-> **Probe failed:** HTTP 404
+**Top-level keys:**
+```
+general
+```
+
+**Response sample:**
+```json
+{
+  "general": {
+    "enabled": "0",
+    "port": "323",
+    "ntsclient": "0",
+    "ntsnocert": "0",
+    "peers": {
+      "0.opnsense.pool.ntp.org": {
+        "value": "0.opnsense.pool.ntp.org",
+        "selected": 1
+      }
+    },
+    "fallbackpeers": "",
+    "allowednetworks": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    }
+  }
+}
+```
+
+> Response size: 356 bytes
 
 ---
 
 ## 5. chrony-service
 
-### global — HTTP 404
+### global — HTTP 200
 
 **Endpoint:** `GET /api/chrony/service/status`
 
@@ -289,7 +336,25 @@ uuid
 
 ```
 
-> **Probe failed:** HTTP 404
+**Top-level keys:**
+```
+status
+widget
+```
+
+**Response sample:**
+```json
+{
+  "status": "disabled",
+  "widget": {
+    "caption_restart": "Restart",
+    "caption_start": "Start",
+    "caption_stop": "Stop"
+  }
+}
+```
+
+> Response size: 137 bytes
 
 ---
 
@@ -352,37 +417,37 @@ product_version
 ```json
 {
   "product_id": "opnsense",
-  "product_version": "26.7",
+  "product_version": "26.7.5",
   "package": [
     {
       "name": "abseil",
-      "version": "20250127.1_1",
+      "version": "20250127.1_2",
       "comment": "Abseil Common Libraries (C++)",
       "flatsize": "5.52MiB",
       "locked": "N/A",
-      "automatic": "N/A",
+      "automatic": "1",
       "license": "APACHE20",
       "repository": "OPNsense",
       "origin": "devel/abseil",
       "provided": "1",
-      "installed": "0",
+      "installed": "1",
       "path": "OPNsense/devel/abseil",
-      "configured": "0"
+      "configured": "1"
     },
     {
       "name": "acme.sh",
-      "version": "3.1.4",
+      "version": "3.1.6",
       "comment": "ACME protocol client written in shell",
-      "flatsize": "1.79MiB",
+      "flatsize": "1.94MiB",
       "locked": "N/A",
-      "automatic": "N/A",
+      "automatic": "1",
       "license": "GPLv3+",
       "repository": "OPNsense",
       "origin": "security/acme.sh",
       "provided": "1",
-      "installed": "0",
+      "installed": "1",
       "path": "OPNsense/security/acme.sh",
-      "configured": "0"
+      "configured": "1"
     },
     {
       "name": "addrwatch",
@@ -401,7 +466,7 @@ product_version
     },
     {
       "name": "amazon-ssm-agent",
-      "version": "3.3.4177.0_5",
+      "version": "3.3.4177.0_6",
       "comment": "Amazon Simple Systems Manager Agent",
       "flatsize": "123MiB",
       "locked": "N/A",
@@ -416,9 +481,9 @@ product_version
     },
     {
       "name": "ap24-mod_auth_openidc",
-      "version": "2.4.19.1",
+      "version": "2.4.20.3",
       "comment": "OpenID Connect Relying Party and OAuth 2.0 Resource Server for Apache",
-      "flatsize": "688KiB",
+      "flatsize": "764KiB",
       "locked": "N/A",
       "automatic": "N/A",
       "license": "APACHE20",
@@ -433,7 +498,7 @@ product_version
 (parse error)
 ```
 
-> Response size: 449600 bytes
+> Response size: 470487 bytes
 
 ---
 
@@ -479,31 +544,73 @@ status
 
 **Top-level keys:**
 ```
+all_packages
+all_sets
+api_version
+connection
+downgrade_packages
+download_size
+last_check
+needs_reboot
+new_packages
+os_version
 product
+product_abi
+product_id
+product_target
+product_version
+reinstall_packages
+remove_packages
+repository
 status
 status_msg
+upgrade_major_message
+upgrade_major_version
+upgrade_needs_reboot
+upgrade_packages
+upgrade_sets
 ```
 
 **Response sample:**
 ```json
 {
+  "api_version": "2",
+  "connection": "ok",
+  "downgrade_packages": [],
+  "download_size": "",
+  "last_check": "Sun Oct  4 02:43:24 CEST 2026",
+  "needs_reboot": "0",
+  "new_packages": [],
+  "os_version": "FreeBSD 15.1-RELEASE-p3",
+  "product_id": "opnsense",
+  "product_target": "opnsense",
+  "product_version": "26.7.5",
+  "product_abi": "26.7",
+  "reinstall_packages": [],
+  "remove_packages": [],
+  "repository": "ok",
+  "upgrade_major_message": "",
+  "upgrade_major_version": "",
+  "upgrade_needs_reboot": "0",
+  "upgrade_packages": [],
+  "upgrade_sets": [],
   "product": {
     "CORE_ABI": "26.7",
     "CORE_ARCH": "amd64",
-    "CORE_COMMIT": "26.7 0 821598263",
+    "CORE_COMMIT": "26.7.5 0 791286d4d",
     "CORE_CONFLICTS": "os-firewall os-firewall-devel os-wireguard os-wireguard-devel os-wireguard-go os-wireguard-go-devel",
     "CORE_COPYRIGHT_HOLDER": "Deciso B.V.",
     "CORE_COPYRIGHT_WWW": "https://www.deciso.com/",
     "CORE_COPYRIGHT_YEARS": "2014-2026",
     "CORE_GID": "789",
     "CORE_GROUP": "wwwonly",
-    "CORE_HASH": "821598263",
+    "CORE_HASH": "791286d4d",
     "CORE_MAINTAINER": "project@opnsense.org",
     "CORE_NAME": "opnsense",
     "CORE_NEXT": "27.1",
     "CORE_NICKNAME": "Xenial Xenops",
     "CORE_PACKAGESITE": "https://pkg.opnsense.org",
-    "CORE_PKGVERSION": "26.7",
+    "CORE_PKGVERSION": "26.7.5",
     "CORE_PRODUCT": "OPNsense",
     "CORE_PYTHON_DOT": "3.13",
     "CORE_SERIES": "26.7",
@@ -511,37 +618,44 @@ status_msg
     "CORE_SYSLOGNG": "4.12",
     "CORE_UID": "789",
     "CORE_USER": "wwwonly",
-    "CORE_VERSION": "26.7",
+    "CORE_VERSION": "26.7.5",
     "CORE_WWW": "https://opnsense.org/",
     "product_abi": "26.7",
     "product_arch": "amd64",
-    "product_check": null,
+    "product_check": {
+      "api_version": "2",
+      "connection": "ok",
+      "downgrade_packages": [],
+      "download_size": "",
+      "last_check": "Sun Oct  4 02:43:24 CEST 2026",
+      "needs_reboot": "0",
+      "new_packages": [],
+      "os_version": "FreeBSD 15.1-RELEASE-p3",
+      "product_id": "opnsense",
+      "product_target": "opnsense",
+      "product_version": "26.7.5",
+      "product_abi": "26.7",
+      "reinstall_packages": [],
+      "remove_packages": [],
+      "repository": "ok",
+      "upgrade_major_message": "",
+      "upgrade_major_version": "",
+      "upgrade_needs_reboot": "0",
+      "upgrade_packages": [],
+      "upgrade_sets": []
+    },
     "product_conflicts": "os-firewall os-firewall-devel os-wireguard os-wireguard-devel os-wireguard-go os-wireguard-go-devel",
     "product_copyright_owner": "Deciso B.V.",
     "product_copyright_url": "https://www.deciso.com/",
     "product_copyright_years": "2014-2026",
     "product_email": "project@opnsense.org",
-    "product_hash": "821598263",
+    "product_hash": "791286d4d",
     "product_id": "opnsense",
-    "product_latest": "26.7",
+    "product_latest": "26.7.5",
     "product_license": [],
-    "product_log": 0,
-    "product_mirror": "https://pkg.opnsense.org/FreeBSD:15:amd64/26.7",
-    "product_name": "OPNsense",
-    "product_nickname": "Xenial Xenops",
-    "product_repos": "OPNsense (Priority: 11)",
-    "product_series": "26.7",
-    "product_tier": "1",
-    "product_time": "Mon Jul 13 15:01:42 UTC 2026",
-    "product_version": "26.7",
-    "product_website": "https://opnsense.org/"
-  },
-  "status_msg": "Firmware status requires to check for update first to provide more information.",
-  "status": "none"
-}
 ```
 
-> Response size: 1990 bytes
+> Response size: 3225 bytes
 
 ---
 
@@ -573,16 +687,20 @@ hasync
         "value": "Disabled",
         "selected": 1
       },
-      "lan": {
-        "value": "LAN",
+      "opt3": {
+        "value": "FAB",
         "selected": 0
       },
       "opt1": {
-        "value": "OPT1",
+        "value": "LAN_TRUNK",
         "selected": 0
       },
-      "wan": {
-        "value": "WAN",
+      "lan": {
+        "value": "OOB",
+        "selected": 0
+      },
+      "opt2": {
+        "value": "SCRATCH",
         "selected": 0
       }
     },
@@ -593,8 +711,12 @@ hasync
         "selected": 0
       },
       "1400": {
-        "value": "OPNsense 24.7 or above",
+        "value": "OPNsense 24.7 - 26.1",
         "selected": 1
+      },
+      "1500": {
+        "value": "OPNsense 26.7 or above",
+        "selected": 0
       }
     },
     "pfsyncdefer": "0",
@@ -623,6 +745,10 @@ hasync
         "value": "Cron",
         "selected": 0
       },
+      "ddclient": {
+        "value": "ddclient",
+        "selected": 0
+      },
       "dhcrelay": {
         "value": "DHCRelay",
         "selected": 0
@@ -632,21 +758,9 @@ hasync
         "selected": 0
       },
       "categories": {
-        "value": "Firewall Categories",
-        "selected": 0
-      },
-      "ifgroups": {
-        "value": "Firewall Groups",
-        "selected": 0
-      },
-      "lvtemplate": {
-        "value": "Firewall Log Templates",
-        "selected": 0
-      },
-      "rules": {
 ```
 
-> Response size: 3554 bytes
+> Response size: 3897 bytes
 
 ---
 
@@ -673,8 +787,8 @@ total
 **Response sample:**
 ```json
 {
-  "total": 12,
-  "rowCount": 12,
+  "total": 15,
+  "rowCount": 15,
   "current": 1,
   "rows": [
     {
@@ -692,11 +806,25 @@ total
       "name": "cron"
     },
     {
-      "id": "dnsmasq",
+      "id": "crowdsec",
       "locked": 0,
       "running": 1,
-      "description": "Dnsmasq DNS/DHCP",
-      "name": "dnsmasq"
+      "description": "CrowdSec",
+      "name": "crowdsec"
+    },
+    {
+      "id": "ddclient",
+      "locked": 0,
+      "running": 0,
+      "description": "ddclient",
+      "name": "ddclient"
+    },
+    {
+      "id": "flowd_aggregate",
+      "locked": 0,
+      "running": 1,
+      "description": "Insight Aggregator",
+      "name": "flowd_aggregate"
     },
     {
       "id": "hostwatch",
@@ -713,11 +841,11 @@ total
       "name": "login"
     },
     {
-      "id": "ntpd",
+      "id": "openssh",
       "locked": 0,
       "running": 1,
-      "description": "Ntpd",
-      "name": "ntpd"
+      "description": "Secure Shell",
+      "name": "openssh"
     },
     {
       "id": "pf",
@@ -727,34 +855,20 @@ total
       "name": "pf"
     },
     {
+      "id": "qemu-ga",
+      "locked": 0,
+      "running": 0,
+      "description": "QEMU Guest Agent",
+      "name": "qemu-ga"
+    },
+    {
       "id": "routing",
       "locked": 1,
       "running": 1,
       "description": "System routing",
-      "name": "routing"
-    },
-    {
-      "id": "sysctl",
-      "locked": 1,
-      "running": 1,
-      "description": "System tunables",
-      "name": "sysctl"
-    },
-    {
-      "id": "syslog-ng",
-      "locked": 0,
-      "running": 1,
-      "description": "Syslog-ng",
-      "name": "syslog-ng"
-    },
-    {
-      "id": "unbound",
-      "locked": 0,
-      "running": 1,
-      "description": "Unbound",
 ```
 
-> Response size: 1655 bytes
+> Response size: 2113 bytes
 
 ---
 
@@ -770,31 +884,8 @@ total
 
 ```
 
-**Rows returned:** 1 (total: 1)
+**Rows returned:** 0 (total: 0)
 
-**Row keys:**
-```
-active
-created
-created_str
-mountpoint
-name
-size
-uuid
-```
-
-**First row sample:**
-```json
-{
-  "uuid": "e8873782-69d7-37cf-93f2-81fd850947cd",
-  "name": "default",
-  "active": "NR",
-  "mountpoint": "/",
-  "size": "1.07G",
-  "created_str": "2026-09-06 11:30",
-  "created": 1788694200
-}
-```
 
 ---
 
@@ -888,7 +979,7 @@ value
 {
   "uuid": "0add3c58db981d0d24d5d4ab322e3695",
   "tunable": "net.inet.tcp.drop_synfin",
-  "value": "1",
+  "value": "0",
   "descr": "Drop TCP packets with SYN+FIN set",
   "default_value": "1",
   "type": "w"
@@ -935,7 +1026,7 @@ sysctl
       },
       "0d2ae7e5354b56d605ca250f63add447": {
         "tunable": "hw.syscons.kbd_reboot",
-        "value": "0",
+        "value": "1",
         "descr": "enable keyboard reboot",
         "default_value": "0",
         "type": "w"
@@ -949,14 +1040,14 @@ sysctl
       },
       "84e7d743f1d5911964ac319a3a6dbd1d": {
         "tunable": "kern.coredump",
-        "value": "0",
+        "value": "1",
         "descr": "Enable/Disable coredumps",
         "default_value": "0",
         "type": "w"
       },
       "e042e8fcf57edfff9c69efb4f6e9ef79": {
         "tunable": "kern.ipc.maxsockbuf",
-        "value": "4262144",
+        "value": "8388608",
         "descr": "Maximum socket buffer size",
         "default_value": "4262144",
         "type": "w"
@@ -970,28 +1061,28 @@ sysctl
       },
       "cd44e6bf780a7e206237d510b1a8cad0": {
         "tunable": "kern.randompid",
-        "value": "232",
+        "value": "0",
         "descr": "Random PID modulus. Special values: 0: disable, 1: choose random value",
         "default_value": "1",
         "type": "w"
       },
       "ee4f33b65d25b47dda0ccfb967030a99": {
         "tunable": "net.enc.in.ipsec_bpf_mask",
-        "value": "2",
+        "value": "1",
         "descr": "IPsec input bpf mask",
         "default_value": "2",
         "type": "w"
       },
       "b5a8d42becd6e448e8e4f903fff6e8d1": {
         "tunable": "net.enc.in.ipsec_filter_mask",
-        "value": "2",
+        "value": "1",
         "descr": "IPsec input firewall filter mask",
         "default_value": "2",
         "type": "w"
       },
       "3c3187e6c49f4e93837b1a4c613c0a8d": {
         "tunable": "net.enc.out.ipsec_bpf_mask",
-        "value": "1",
+        "value": "3",
         "descr": "IPsec output bpf mask",
         "default_value": "1",
         "type": "w"
@@ -999,7 +1090,7 @@ sysctl
 (parse error)
 ```
 
-> Response size: 13763 bytes
+> Response size: 13657 bytes
 
 ---
 
@@ -1023,11 +1114,11 @@ supported
 **Response sample:**
 ```json
 {
-  "supported": true
+  "supported": false
 }
 ```
 
-> Response size: 24 bytes
+> Response size: 25 bytes
 
 ---
 
@@ -1108,16 +1199,16 @@ widget
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
 | `zoneid` | `"0"` | `string-bool` |
-| `interfaces` | enum | `enum`: *lan*, opt1 |
+| `interfaces` | enum | `enum`: opt3, opt1, *lan*, opt2 |
 | `disableRules` | `"0"` | `string-bool` |
-| `authservers` | enum | `enum`: Local Database |
+| `authservers` | enum | `enum`: Authentik LDAP, Local Database |
 | `roaming` | `"1"` | `string-bool` |
 | `alwaysSendAccountingReqs` | `"0"` | `string-bool` |
-| `authEnforceGroup` | enum | `enum`: **, 1999 |
+| `authEnforceGroup` | enum | `enum`: **, 1999, 2000 |
 | `idletimeout` | `"0"` | `string-bool` |
 | `hardtimeout` | `"0"` | `string-bool` |
 | `concurrentlogins` | `"1"` | `string-bool` |
-| `certificate` | enum | `enum`: **, 6a9d4cdae404a |
+| `certificate` | enum | `enum`: **, 6ac19fa548497 |
 | `servername` | `""` | `string` |
 | `allowedAddresses` | enum | `enum`: ** |
 | `allowedMACAddresses` | enum | `enum`: ** |
@@ -1166,7 +1257,7 @@ widget
 | `months` | `"*"` | `string` |
 | `weekdays` | `"*"` | `string` |
 | `who` | `"root"` | `string` |
-| `command` | enum | `enum`: firmware auto-update, firmware changelog cron, firmware poll, system halt, system ha_reconfigure_backup, interface routes alarm, interface reconfigure, system reboot, ids reload, ipsec reload, dns reload, system remote backup, wireguard renew, captiveportal restart, cron restart, dnsmasq restart, hostwatch restart, ids restart, ipsec restart, kea restart, monit restart, netflow restart, openssh restart, openvpn restart, radvd restart, syslog restart, unbound restart, webgui restart, wireguard restart, syslog archive, filter refresh_aliases, ids update, filter update bogons, filter update geoip, unbound dnsbl, zfs scrub, zfs trim |
+| `command` | enum | `enum`: firmware auto-update, dnscryptproxy dnsblcron, firmware changelog cron, firmware poll, ddclient force, system halt, system ha_reconfigure_backup, interface routes alarm, interface reconfigure, system reboot, ids reload, ipsec reload, dns reload, system remote backup, acmeclient cron-auto-renew, wireguard renew, captiveportal restart, cron restart, ddclient restart, dnsmasq restart, hostwatch restart, ids restart, ipsec restart, kea restart, monit restart, netflow restart, openssh restart, openvpn restart, radvd restart, syslog restart, unbound restart, webgui restart, wireguard restart, syslog archive, filter refresh_aliases, ids update, filter update bogons, filter update geoip, unbound dnsbl, zfs scrub, zfs trim |
 | `parameters` | `""` | `string` |
 | `description` | `""` | `string` |
 
@@ -1221,7 +1312,7 @@ job
 
 ## 22. crowdsec-bouncers
 
-### search — HTTP 404
+### search — HTTP 200
 
 **Endpoint:** `POST /api/crowdsec/bouncers/search`
 
@@ -1231,13 +1322,39 @@ job
 
 ```
 
-> **Probe failed:** HTTP 404
+**Rows returned:** 1 (total: 1)
+
+**Row keys:**
+```
+created
+ip_address
+last_seen
+name
+os
+type
+valid
+version
+```
+
+**First row sample:**
+```json
+{
+  "name": "cs-firewall-bouncer-1791074669",
+  "type": "crowdsec-firewall-bouncer",
+  "version": "v0.0.38-freebsd-20bd97a",
+  "created": "2026-10-04T00:44:29.448518754Z",
+  "valid": true,
+  "ip_address": "127.0.0.1",
+  "last_seen": "2026-10-04T01:13:09.555759352Z",
+  "os": "freebsd/15.1-release-p3"
+}
+```
 
 ---
 
 ## 23. crowdsec-collections
 
-### search — HTTP 404
+### search — HTTP 200
 
 **Endpoint:** `POST /api/crowdsec/collections/search`
 
@@ -1247,13 +1364,33 @@ job
 
 ```
 
-> **Probe failed:** HTTP 404
+**Rows returned:** 5 (total: 6)
+
+**Row keys:**
+```
+description
+local_path
+local_version
+name
+status
+```
+
+**First row sample:**
+```json
+{
+  "name": "crowdsecurity/freebsd",
+  "status": "enabled",
+  "local_version": "0.5",
+  "local_path": "collections/freebsd.yaml",
+  "description": "core freebsd support : syslog+geoip+ssh"
+}
+```
 
 ---
 
 ## 24. crowdsec-decisions
 
-### search — HTTP 404
+### search — HTTP 200
 
 **Endpoint:** `POST /api/crowdsec/decisions/search`
 
@@ -1263,13 +1400,14 @@ job
 
 ```
 
-> **Probe failed:** HTTP 404
+**Rows returned:** 0 (total: 0)
+
 
 ---
 
 ## 25. crowdsec-general
 
-### global — HTTP 404
+### global — HTTP 200
 
 **Endpoint:** `GET /api/crowdsec/general/get`
 
@@ -1279,13 +1417,37 @@ job
 
 ```
 
-> **Probe failed:** HTTP 404
+**Top-level keys:**
+```
+general
+```
+
+**Response sample:**
+```json
+{
+  "general": {
+    "agent_enabled": "1",
+    "lapi_enabled": "1",
+    "firewall_bouncer_enabled": "1",
+    "lapi_manual_configuration": "0",
+    "lapi_listen_address": "127.0.0.1",
+    "lapi_listen_port": "8080",
+    "rules_enabled": "1",
+    "rules_log": "0",
+    "rules_tag": "",
+    "enroll_key": "",
+    "crowdsec_firewall_verbose": "0"
+  }
+}
+```
+
+> Response size: 349 bytes
 
 ---
 
 ## 26. crowdsec-machines
 
-### search — HTTP 404
+### search — HTTP 200
 
 **Endpoint:** `POST /api/crowdsec/machines/search`
 
@@ -1295,13 +1457,37 @@ job
 
 ```
 
-> **Probe failed:** HTTP 404
+**Rows returned:** 1 (total: 1)
+
+**Row keys:**
+```
+created
+ip_address
+last_seen
+name
+os
+validated
+version
+```
+
+**First row sample:**
+```json
+{
+  "name": "localhost",
+  "ip_address": "127.0.0.1",
+  "version": "v1.8.1-909b515-freebsd",
+  "validated": true,
+  "created": "2026-10-04T00:44:27.704552161Z",
+  "last_seen": "2026-10-04T01:12:36.992719292Z",
+  "os": "freebsd/15.1-release-p3"
+}
+```
 
 ---
 
 ## 27. crowdsec-service
 
-### global — HTTP 404
+### global — HTTP 200
 
 **Endpoint:** `GET /api/crowdsec/service/status`
 
@@ -1311,7 +1497,25 @@ job
 
 ```
 
-> **Probe failed:** HTTP 404
+**Top-level keys:**
+```
+status
+widget
+```
+
+**Response sample:**
+```json
+{
+  "status": "running",
+  "widget": {
+    "caption_restart": "Restart",
+    "caption_start": "Start",
+    "caption_stop": "Stop"
+  }
+}
+```
+
+> Response size: 136 bytes
 
 ---
 
@@ -1368,12 +1572,14 @@ job
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"0"` | `string-bool` |
-| `interface` | enum | `enum`: lan, opt1, wan |
+| `interface` | enum | `enum`: opt3, opt1, lan, opt2 |
 | `destination` | [] | `list` |
 | `agent_info` | `"0"` | `string-bool` |
+| `circuit_id` | `""` | `string` |
+| `remote_id` | `""` | `string` |
 | `carp_depend_on` | enum | `enum`: ** |
 
-> 5 fields discovered
+> 7 fields discovered
 
 ### search — HTTP 200
 
@@ -1440,14 +1646,16 @@ dhcrelay
 2
 3
 4
+5
+6
 ```
 
 **Response sample:**
 ```json
 [
   {
-    "mac": "bc:24:11:ed:1e:7f",
-    "ip": "192.168.1.1",
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "10.99.1.1",
     "intf": "vtnet0",
     "expired": false,
     "expires": -1,
@@ -1455,11 +1663,11 @@ dhcrelay
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "OPT1"
+    "intf_description": "LAN_TRUNK"
   },
   {
-    "mac": "bc:24:11:3d:58:c2",
-    "ip": "10.6.239.129",
+    "mac": "bc:24:11:f9:01:02",
+    "ip": "10.6.239.197",
     "intf": "vtnet1",
     "expired": false,
     "expires": -1,
@@ -1467,48 +1675,66 @@ dhcrelay
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "LAN"
+    "intf_description": "OOB"
   },
   {
     "mac": "bc:24:11:4f:61:a7",
     "ip": "10.6.224.1",
     "intf": "vtnet1",
     "expired": false,
-    "expires": 872,
+    "expires": 1199,
     "permanent": false,
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "LAN"
+    "intf_description": "OOB"
   },
   {
     "mac": "d0:7e:28:1a:d8:01",
     "ip": "10.6.224.24",
     "intf": "vtnet1",
     "expired": false,
-    "expires": 272,
+    "expires": 558,
     "permanent": false,
     "type": "ethernet",
     "manufacturer": "Hewlett Packard",
     "hostname": "",
-    "intf_description": "LAN"
+    "intf_description": "OOB"
   },
   {
     "mac": "bc:24:11:cc:3e:51",
     "ip": "10.6.239.120",
     "intf": "vtnet1",
     "expired": false,
-    "expires": 379,
+    "expires": 578,
     "permanent": false,
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "hostname": "",
-    "intf_description": "LAN"
-  }
-]
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "bc:24:11:3d:d5:cc",
+    "ip": "10.99.240.9",
+    "intf": "vtnet4",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "FAB"
+  },
+  {
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "10.99.99.1",
+    "intf": "vlan2999",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
 ```
 
-> Response size: 1392 bytes
+> Response size: 1955 bytes
 
 ---
 
@@ -1534,86 +1760,23 @@ devices
 {
   "devices": [
     {
-      "device": "zroot/ROOT/default",
-      "type": "zfs",
-      "blocks": "21G",
-      "used": "1.1G",
-      "available": "20G",
-      "used_pct": 5,
+      "device": "/dev/ufs/OPNsense_Nano",
+      "type": "ufs",
+      "blocks": "18.7G",
+      "total": "18.7G",
+      "total_bytes": 20122071040,
+      "used": "2.92G",
+      "used_bytes": 3139145728,
+      "available": "14.3G",
+      "available_bytes": 15373160448,
+      "used_pct": 17,
       "mountpoint": "/"
-    },
-    {
-      "device": "/dev/gpt/efiboot0",
-      "type": "msdosfs",
-      "blocks": "256M",
-      "used": "512B",
-      "available": "256M",
-      "used_pct": 0,
-      "mountpoint": "/boot/efi"
-    },
-    {
-      "device": "zroot/home",
-      "type": "zfs",
-      "blocks": "20G",
-      "used": "96K",
-      "available": "20G",
-      "used_pct": 0,
-      "mountpoint": "/home"
-    },
-    {
-      "device": "zroot/usr/src",
-      "type": "zfs",
-      "blocks": "20G",
-      "used": "96K",
-      "available": "20G",
-      "used_pct": 0,
-      "mountpoint": "/usr/src"
-    },
-    {
-      "device": "zroot",
-      "type": "zfs",
-      "blocks": "20G",
-      "used": "96K",
-      "available": "20G",
-      "used_pct": 0,
-      "mountpoint": "/zroot"
-    },
-    {
-      "device": "zroot/tmp",
-      "type": "zfs",
-      "blocks": "20G",
-      "used": "252K",
-      "available": "20G",
-      "used_pct": 0,
-      "mountpoint": "/tmp"
-    },
-    {
-      "device": "zroot/var/log",
-      "type": "zfs",
-      "blocks": "20G",
-      "used": "224K",
-      "available": "20G",
-      "used_pct": 0,
-      "mountpoint": "/var/log"
-    },
-    {
-      "device": "zroot/var/tmp",
-      "type": "zfs",
-      "blocks": "20G",
-      "used": "96K",
-      "available": "20G",
-      "used_pct": 0,
-      "mountpoint": "/var/tmp"
-    },
-    {
-      "device": "zroot/usr/ports",
-      "type": "zfs",
-      "blocks": "20G",
-      "used": "96K",
-      "available": "20G",
+    }
+  ]
+}
 ```
 
-> Response size: 2293 bytes
+> Response size: 348 bytes
 
 ---
 
@@ -1639,28 +1802,20 @@ items
 {
   "items": [
     {
-      "id": "b7cd97a164650b538506fb551a0369e7",
-      "descr": "Block bogon IPv4 networks from WAN"
+      "id": "2907bb72cee7566da8c1b72d71991687",
+      "descr": "CrowdSec (IPv4) in"
     },
     {
-      "id": "f140a48ddade668b9d6f5259669a1d5c",
-      "descr": "Block bogon IPv6 networks from WAN"
+      "id": "4f97b46692e34500b33709f0202458a0",
+      "descr": "CrowdSec (IPv4) out"
     },
     {
-      "id": "3d399f8f89b68d684701badb48eab085",
-      "descr": "Block private networks from WAN"
+      "id": "c1590cc68c2058c7019f5c22982eafcb",
+      "descr": "CrowdSec (IPv6) in"
     },
     {
-      "id": "6b231f0e90865b14cd918a141750d96a",
-      "descr": "Block private networks from WAN"
-    },
-    {
-      "id": "41545e8f-6d72-4abe-b3dd-d480dad1b592",
-      "descr": "Default allow LAN IPv6 to any rule"
-    },
-    {
-      "id": "4104ef71-35de-47cd-a328-b712689f3e5a",
-      "descr": "Default allow LAN to any rule"
+      "id": "459e8c6276fe2babf17b9fa34d4919c4",
+      "descr": "CrowdSec (IPv6) out"
     },
     {
       "id": "02f4bab031b57d1e30553ce08e0ec131",
@@ -1687,22 +1842,6 @@ items
       "descr": "IPv6 RFC4890 requirements (ICMP)"
     },
     {
-      "id": "f994f615e00b8be0042263f86c79913f",
-      "descr": "allow DHCP client on WAN"
-    },
-    {
-      "id": "5cf7ab808da1fcbca1ddb9ba9b46b669",
-      "descr": "allow DHCP client on WAN"
-    },
-    {
-      "id": "c6e8fd0e915a27c129dc70c00a278a98",
-      "descr": "allow dhcpv6 client in WAN"
-    },
-    {
-      "id": "2f2c37025cd02b5cd29fd330f8e48954",
-      "descr": "allow dhcpv6 client out WAN"
-    },
-    {
       "id": "01e83daa25c4483dee217a7ecd7c9a88",
       "descr": "anti-lockout rule"
     },
@@ -1711,14 +1850,38 @@ items
       "descr": "anti-lockout rule"
     },
     {
+      "id": "2ebd8025e9e8bef2e32203666a5cda7c",
+      "descr": "anti-lockout rule"
+    },
+    {
       "id": "b477ac1c8f5237a59ee416b9d819ce58",
       "descr": "block all targeting port 0"
     },
     {
       "id": "b454844853f2346167ad77449b79ad8e",
+      "descr": "block all targeting port 0"
+    },
+    {
+      "id": "fae559338f65e11c53669fc3642c93c2",
+      "descr": "let out anything from firewall host itself"
+    },
+    {
+      "id": "6ebc0d31e63bdb5b77b67f88f9234869",
+      "descr": "let out anything from firewall host itself (force gw)"
+    },
+    {
+      "id": "5b7a1255d836ee6e3f8de1b60daaeeb0",
+      "descr": "sshlockout"
+    },
+    {
+      "id": "27ad7dee30c19305dc0187bf0e87cd4e",
+      "descr": "sshlockout"
+    },
+    {
+      "id": "add09fc915886757c300419fc2ecc1e6",
 ```
 
-> Response size: 2717 bytes
+> Response size: 2111 bytes
 
 ---
 
@@ -1738,28 +1901,23 @@ items
 ```
 0
 1
-2
 ```
 
 **Response sample:**
 ```json
 [
   {
-    "label": "lan",
-    "value": 378
+    "label": "OOB",
+    "value": 2357
   },
   {
-    "label": "wan",
-    "value": 9
-  },
-  {
-    "label": "opt1",
-    "value": 6
+    "label": "LAN_TRUNK",
+    "value": 7
   }
 ]
 ```
 
-> Response size: 138 bytes
+> Response size: 100 bytes
 
 ---
 
@@ -1781,10 +1939,12 @@ enc0
 lo0
 pflog0
 pfsync0
+vlan2999
 vtnet0
 vtnet1
 vtnet2
 vtnet3
+vtnet4
 ```
 
 **Response sample:**
@@ -1811,10 +1971,10 @@ vtnet3
       "linkstate",
       "hwstats"
     ],
-    "macaddr": "bc:24:11:ed:1e:7f",
+    "macaddr": "bc:24:11:1a:cf:f9",
     "ipv4": [
       {
-        "ipaddr": "192.168.1.1",
+        "ipaddr": "10.99.1.1",
         "subnetbits": 24,
         "tunnel": false
       }
@@ -1824,7 +1984,19 @@ vtnet3
         "autoconf": false,
         "deprecated": false,
         "detached": false,
-        "ipaddr": "fe80::be24:11ff:feed:1e7f",
+        "ipaddr": "fd99:1::1",
+        "link-local": false,
+        "pltime": "0",
+        "tentative": false,
+        "tunnel": false,
+        "vltime": "0",
+        "subnetbits": 64
+      },
+      {
+        "autoconf": false,
+        "deprecated": false,
+        "detached": false,
+        "ipaddr": "fe80::be24:11ff:fe1a:cff9",
         "link-local": true,
         "pltime": "0",
         "tentative": false,
@@ -1839,14 +2011,15 @@ vtnet3
     "is_physical": true,
     "device": "vtnet0",
     "mtu": "1500",
-    "macaddr_hw": "bc:24:11:ed:1e:7f",
+    "macaddr_hw": "bc:24:11:1a:cf:f9",
     "media": "10Gbase-T <full-duplex>",
     "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
     "status": "active",
     "nd6": {
       "flags": [
         "performnud",
-        "auto_linklocal"
+        "auto_linklocal",
+        "no_dad"
       ]
     }
   },
@@ -1856,23 +2029,10 @@ vtnet3
       "broadcast",
       "running",
       "simplex",
-      "multicast",
-      "lower_up"
-    ],
-    "capabilities": [
-      "vlan_mtu",
-      "vlan_hwfilter",
-      "linkstate",
-      "netmap",
-      "hwstats"
-    ],
-    "options": [
-      "vlan_mtu",
-      "linkstate",
 (parse error)
 ```
 
-> Response size: 6617 bytes
+> Response size: 8767 bytes
 
 ---
 
@@ -1891,22 +2051,24 @@ vtnet3
 **Top-level keys:**
 ```
 lo0
+vlan2999
 vtnet0
 vtnet1
-vtnet2
+vtnet4
 ```
 
 **Response sample:**
 ```json
 {
-  "vtnet1": "LAN",
+  "vtnet4": "FAB",
+  "vtnet0": "LAN_TRUNK",
   "lo0": "Loopback",
-  "vtnet0": "OPT1",
-  "vtnet2": "WAN"
+  "vtnet1": "OOB",
+  "vlan2999": "SCRATCH"
 }
 ```
 
-> Response size: 82 bytes
+> Response size: 112 bytes
 
 ---
 
@@ -1931,88 +2093,88 @@ statistics
 ```json
 {
   "statistics": {
-    "[OPT1] (vtnet0) / bc:24:11:ed:1e:7f": {
+    "[LAN_TRUNK] (vtnet0) / bc:24:11:1a:cf:f9": {
       "name": "vtnet0",
       "flags": "0x8843",
       "mtu": 1500,
       "network": "<Link#1>",
-      "address": "bc:24:11:ed:1e:7f",
-      "received-packets": 852,
+      "address": "bc:24:11:1a:cf:f9",
+      "received-packets": 4,
       "received-errors": 0,
       "dropped-packets": 0,
-      "received-bytes": 94588,
-      "sent-packets": 7,
+      "received-bytes": 664,
+      "sent-packets": 10,
       "send-errors": 0,
-      "sent-bytes": 738,
+      "sent-bytes": 984,
       "collisions": 0
     },
-    "[OPT1] (vtnet0) / 192.168.1.1": {
+    "[LAN_TRUNK] (vtnet0) / 10.99.1.1": {
       "name": "vtnet0",
       "flags": "0x8843",
-      "network": "192.168.1.0/24",
-      "address": "192.168.1.1",
+      "network": "10.99.1.0/24",
+      "address": "10.99.1.1",
       "received-packets": 0,
       "received-bytes": 0,
       "sent-packets": 0,
       "sent-bytes": 0
     },
-    "[OPT1] (vtnet0) / fe80::be24:11ff:feed:1e7f%vtnet0": {
+    "[LAN_TRUNK] (vtnet0) / fd99:1::1": {
+      "name": "vtnet0",
+      "flags": "0x8843",
+      "network": "fd99:1::/64",
+      "address": "fd99:1::1",
+      "received-packets": 0,
+      "received-bytes": 0,
+      "sent-packets": 0,
+      "sent-bytes": 0
+    },
+    "[LAN_TRUNK] (vtnet0) / fe80::be24:11ff:fe1a:cff9%vtnet0": {
       "name": "vtnet0",
       "flags": "0x8843",
       "network": "fe80::%vtnet0/64",
-      "address": "fe80::be24:11ff:feed:1e7f%vtnet0",
+      "address": "fe80::be24:11ff:fe1a:cff9%vtnet0",
       "received-packets": 0,
       "received-bytes": 0,
-      "sent-packets": 5,
-      "sent-bytes": 540
+      "sent-packets": 4,
+      "sent-bytes": 384
     },
-    "[LAN] (vtnet1) / bc:24:11:3d:58:c2": {
+    "[OOB] (vtnet1) / bc:24:11:f9:01:02": {
       "name": "vtnet1",
       "flags": "0x8843",
       "mtu": 1500,
       "network": "<Link#2>",
-      "address": "bc:24:11:3d:58:c2",
-      "received-packets": 18066,
+      "address": "bc:24:11:f9:01:02",
+      "received-packets": 165353,
       "received-errors": 0,
       "dropped-packets": 0,
-      "received-bytes": 2574863,
-      "sent-packets": 6984,
+      "received-bytes": 217945467,
+      "sent-packets": 173850,
       "send-errors": 0,
-      "sent-bytes": 2724337,
+      "sent-bytes": 25089201,
       "collisions": 0
     },
-    "[LAN] (vtnet1) / fe80::be24:11ff:fe3d:58c2%vtnet1": {
-      "name": "vtnet1",
-      "flags": "0x8843",
-      "network": "fe80::%vtnet1/64",
-      "address": "fe80::be24:11ff:fe3d:58c2%vtnet1",
-      "received-packets": 3,
-      "received-bytes": 216,
-      "sent-packets": 34,
-      "sent-bytes": 2996
-    },
-    "[LAN] (vtnet1) / 10.6.239.129": {
+    "[OOB] (vtnet1) / 10.6.239.197": {
       "name": "vtnet1",
       "flags": "0x8843",
       "network": "10.6.224.0/20",
-      "address": "10.6.239.129",
-      "received-packets": 5204,
-      "received-bytes": 984473,
-      "sent-packets": 6701,
-      "sent-bytes": 2607253
+      "address": "10.6.239.197",
+      "received-packets": 161394,
+      "received-bytes": 215274866,
+      "sent-packets": 173845,
+      "sent-bytes": 22655185
     },
-    "[WAN] (vtnet2) / bc:24:11:da:6b:34": {
+    "[vtnet2] / bc:24:11:fa:96:03": {
       "name": "vtnet2",
-      "flags": "0x8843",
+      "flags": "0x8802",
       "mtu": 1500,
       "network": "<Link#3>",
-      "address": "bc:24:11:da:6b:34",
+      "address": "bc:24:11:fa:96:03",
       "received-packets": 0,
       "received-errors": 0,
 (parse error)
 ```
 
-> Response size: 5349 bytes
+> Response size: 6917 bytes
 
 ---
 
@@ -2045,7 +2207,7 @@ vmstat
           "type": "CAM periph",
           "in-use": 2,
           "memory-use": 384,
-          "requests": 18,
+          "requests": 20,
           "size": [
             16,
             32,
@@ -2056,39 +2218,38 @@ vmstat
         },
         {
           "type": "CAM queue",
-          "in-use": 6,
-          "memory-use": 3120,
-          "requests": 39,
+          "in-use": 14,
+          "memory-use": 7280,
+          "requests": 53,
           "size": [
             16,
             32,
-            64,
             1024
           ]
         },
         {
           "type": "CAM dev queue",
-          "in-use": 3,
-          "memory-use": 192,
-          "requests": 3,
+          "in-use": 7,
+          "memory-use": 448,
+          "requests": 7,
           "size": [
             64
           ]
         },
         {
           "type": "CAM SIM",
-          "in-use": 3,
-          "memory-use": 384,
-          "requests": 3,
+          "in-use": 7,
+          "memory-use": 896,
+          "requests": 7,
           "size": [
             128
           ]
         },
         {
           "type": "CAM XPT",
-          "in-use": 15,
-          "memory-use": 1056,
-          "requests": 28,
+          "in-use": 23,
+          "memory-use": 2080,
+          "requests": 48,
           "size": [
             32,
             128,
@@ -2098,9 +2259,9 @@ vmstat
         },
         {
           "type": "CAM DEV",
-          "in-use": 3,
-          "memory-use": 6144,
-          "requests": 14,
+          "in-use": 7,
+          "memory-use": 14336,
+          "requests": 20,
           "size": [
             2048
           ]
@@ -2109,17 +2270,18 @@ vmstat
           "type": "CAM CCB",
           "in-use": 0,
           "memory-use": 0,
-          "requests": 26,
+          "requests": 48,
           "size": [
             2048
           ]
         },
         {
           "type": "CAM path",
+          "in-use": 7,
 (parse error)
 ```
 
-> Response size: 91141 bytes
+> Response size: 78826 bytes
 
 ---
 
@@ -2141,51 +2303,43 @@ vmstat
 1
 2
 3
-4
 ```
 
 **Response sample:**
 ```json
 [
   {
-    "mac": "bc:24:11:ed:1e:7f",
-    "ip": "fe80::be24:11ff:feed:1e7f%vtnet0",
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fd99:1::1",
     "intf": "vtnet0",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "OPT1"
+    "intf_description": "LAN_TRUNK"
   },
   {
-    "mac": "9c:b6:54:b2:0f:32",
-    "ip": "fe80::9eb6:54ff:feb2:f32%vtnet1",
-    "intf": "vtnet1",
-    "manufacturer": "Hewlett Packard",
-    "intf_description": "LAN"
-  },
-  {
-    "mac": "bc:24:11:3d:58:c2",
-    "ip": "fe80::be24:11ff:fe3d:58c2%vtnet1",
-    "intf": "vtnet1",
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fe80::be24:11ff:fe1a:cff9%vtnet0",
+    "intf": "vtnet0",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "LAN"
+    "intf_description": "LAN_TRUNK"
   },
   {
-    "mac": "bc:24:11:cc:3e:51",
-    "ip": "fe80::be24:11ff:fecc:3e51%vtnet1",
-    "intf": "vtnet1",
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fd99:99::1",
+    "intf": "vlan2999",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "LAN"
+    "intf_description": "SCRATCH"
   },
   {
-    "mac": "bc:24:11:da:6b:34",
-    "ip": "fe80::be24:11ff:feda:6b34%vtnet2",
-    "intf": "vtnet2",
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fe80::be24:11ff:fe1a:cff9%vlan2999",
+    "intf": "vlan2999",
     "manufacturer": "Proxmox Server Solutions GmbH",
-    "intf_description": "WAN"
+    "intf_description": "SCRATCH"
   }
 ]
 ```
 
-> Response size: 949 bytes
+> Response size: 752 bytes
 
 ---
 
@@ -2210,8 +2364,8 @@ netflow
 **Response sample:**
 ```json
 {
-  "netflow": 0,
-  "local": 0
+  "netflow": 1,
+  "local": 1
 }
 ```
 
@@ -2233,17 +2387,19 @@ netflow
 
 **Top-level keys:**
 ```
+collectors
 status
 ```
 
 **Response sample:**
 ```json
 {
-  "status": "inactive"
+  "status": "active",
+  "collectors": "4"
 }
 ```
 
-> Response size: 27 bytes
+> Response size: 46 bytes
 
 ---
 
@@ -2269,87 +2425,87 @@ statistics
 {
   "statistics": {
     "tcp": {
-      "sent-packets": 6043,
-      "sent-data-packets": 3451,
-      "sent-data-bytes": 2352751,
-      "sent-retransmitted-packets": 25,
-      "sent-retransmitted-bytes": 600,
+      "sent-packets": 176938,
+      "sent-data-packets": 20636,
+      "sent-data-bytes": 13689399,
+      "sent-retransmitted-packets": 168,
+      "sent-retransmitted-bytes": 4176,
       "sent-unnecessary-retransmitted-packets": 0,
       "sent-resends-by-mtu-discovery": 0,
-      "sent-ack-only-packets": 2503,
+      "sent-ack-only-packets": 153984,
       "sent-packets-delayed": 0,
       "sent-urg-only-packets": 0,
       "sent-window-probe-packets": 0,
-      "sent-window-update-packets": 1,
-      "sent-control-packets": 63,
-      "received-packets": 4297,
-      "received-ack-packets": 1712,
-      "received-ack-bytes": 2312048,
-      "received-duplicate-acks": 0,
+      "sent-window-update-packets": 145,
+      "sent-control-packets": 2005,
+      "received-packets": 164468,
+      "received-ack-packets": 9660,
+      "received-ack-bytes": 13649206,
+      "received-duplicate-acks": 59,
       "received-udp-tunneled-pkts": 0,
       "received-bad-udp-tunneled-pkts": 0,
       "received-acks-for-data-not-yet-sent": 0,
       "received-acks-for-data-never-been-sent": 0,
       "received-acks-for-data-being-too-old": 0,
-      "received-in-sequence-packets": 2221,
-      "received-in-sequence-bytes": 779407,
-      "received-completely-duplicate-packets": 1,
-      "received-completely-duplicate-bytes": 260,
+      "received-in-sequence-packets": 150437,
+      "received-in-sequence-bytes": 204551506,
+      "received-completely-duplicate-packets": 108,
+      "received-completely-duplicate-bytes": 1316,
       "received-old-duplicate-packets": 0,
       "received-some-duplicate-packets": 0,
       "received-some-duplicate-bytes": 0,
-      "received-out-of-order": 0,
-      "received-out-of-order-bytes": 0,
+      "received-out-of-order": 1042,
+      "received-out-of-order-bytes": 1499306,
       "received-after-window-packets": 0,
       "received-after-window-bytes": 0,
       "received-window-probes": 0,
-      "receive-window-update-packets": 3,
+      "receive-window-update-packets": 16,
       "received-with-dsack-packets": 0,
       "received-with-dsack-bytes": 0,
       "received-with-dsack-bytes-tlp": 0,
-      "received-after-close-packets": 10,
+      "received-after-close-packets": 331,
       "discard-bad-checksum": 0,
       "discard-bad-header-offset": 0,
       "discard-too-short": 0,
-      "discard-reassembly-queue-full": 0,
-      "connection-requests": 19,
-      "connections-accepts": 262,
+      "discard-reassembly-queue-full": 1040,
+      "connection-requests": 360,
+      "connections-accepts": 1076,
       "bad-connection-attempts": 0,
       "listen-queue-overflows": 0,
-      "ignored-in-window-resets": 6,
-      "connections-established": 281,
-      "connections-hostcache-rtt": 266,
-      "connections-hostcache-rttvar": 266,
-      "connections-hostcache-ssthresh": 204,
-      "connections-closed": 768,
-      "connection-drops": 250,
-      "connections-updated-rtt-on-close": 239,
-      "connections-updated-variance-on-close": 239,
-      "connections-updated-ssthresh-on-close": 201,
-      "embryonic-connections-dropped": 0,
-      "segments-updated-rtt": 1712,
-      "segment-update-attempts": 1511,
-      "retransmit-timeouts": 25,
+      "ignored-in-window-resets": 634,
+      "connections-established": 1435,
+      "connections-hostcache-rtt": 1416,
+      "connections-hostcache-rttvar": 1416,
+      "connections-hostcache-ssthresh": 913,
+      "connections-closed": 1490,
+      "connection-drops": 1067,
+      "connections-updated-rtt-on-close": 1260,
+      "connections-updated-variance-on-close": 1260,
+      "connections-updated-ssthresh-on-close": 889,
+      "embryonic-connections-dropped": 1,
+      "segments-updated-rtt": 9660,
+      "segment-update-attempts": 7777,
+      "retransmit-timeouts": 166,
       "connections-dropped-by-retransmit-timeout": 0,
       "persist-timeout": 0,
       "connections-dropped-by-persist-timeout": 0,
       "connections-dropped-by-finwait2-timeout": 0,
-      "keepalive-timeout": 0,
-      "keepalive-probes": 0,
+      "keepalive-timeout": 128,
+      "keepalive-probes": 107,
       "connections-dropped-by-keepalives": 0,
       "connections-dropped-due-to-progress-time": 0,
-      "ack-header-predictions": 426,
-      "data-packet-header-predictions": 1725,
+      "ack-header-predictions": 2367,
+      "data-packet-header-predictions": 144588,
       "syncache": {
-        "entries-added": 262,
+        "entries-added": 1076,
         "retransmitted": 0,
-        "duplicates": 0,
+        "duplicates": 1,
         "dropped": 0,
-        "completed": 262,
+        "completed": 1076,
 (parse error)
 ```
 
-> Response size: 15981 bytes
+> Response size: 15133 bytes
 
 ---
 
@@ -2374,18 +2530,15 @@ memory
 ```json
 {
   "memory": {
-    "total": "4241977344",
-    "total_frmt": "4045",
-    "used": 519452955,
-    "used_frmt": "495",
-    "arc": "207293392",
-    "arc_frmt": "197",
-    "arc_txt": "ARC size 197 MB"
+    "total": "2102853632",
+    "total_frmt": "2005",
+    "used": 708268624,
+    "used_frmt": "675"
   }
 }
 ```
 
-> Response size: 202 bytes
+> Response size: 121 bytes
 
 ---
 
@@ -2418,6 +2571,11 @@ memory
 12
 13
 14
+15
+16
+17
+18
+19
 ```
 
 **Response sample:**
@@ -2428,11 +2586,11 @@ memory
     "destination": "default",
     "gateway": "10.6.224.1",
     "flags": "UGS",
-    "nhop#": "5",
+    "nhop#": "10",
     "mtu": "1500",
     "netif": "vtnet1",
     "expire": "",
-    "intf_description": "LAN",
+    "intf_description": "OOB",
     "id": "default,10.6.224.1"
   },
   {
@@ -2440,71 +2598,72 @@ memory
     "destination": "10.6.224.0/20",
     "gateway": "link#2",
     "flags": "U",
-    "nhop#": "2",
+    "nhop#": "6",
     "mtu": "1500",
     "netif": "vtnet1",
     "expire": "",
-    "intf_description": "LAN",
+    "intf_description": "OOB",
     "id": "10.6.224.0/20,link#2"
   },
   {
     "proto": "ipv4",
-    "destination": "10.6.239.129",
-    "gateway": "link#5",
+    "destination": "10.6.239.197",
+    "gateway": "link#6",
     "flags": "UHS",
-    "nhop#": "4",
-    "mtu": "16384",
-    "netif": "lo0",
-    "expire": "",
-    "intf_description": "Loopback",
-    "id": "10.6.239.129,link#5"
-  },
-  {
-    "proto": "ipv4",
-    "destination": "127.0.0.1",
-    "gateway": "link#5",
-    "flags": "UH",
     "nhop#": "7",
     "mtu": "16384",
     "netif": "lo0",
     "expire": "",
     "intf_description": "Loopback",
-    "id": "127.0.0.1,link#5"
+    "id": "10.6.239.197,link#6"
   },
   {
     "proto": "ipv4",
-    "destination": "192.168.1.0/24",
+    "destination": "10.99.1.0/24",
     "gateway": "link#1",
     "flags": "U",
-    "nhop#": "1",
+    "nhop#": "4",
     "mtu": "1500",
     "netif": "vtnet0",
     "expire": "",
-    "intf_description": "OPT1",
-    "id": "192.168.1.0/24,link#1"
+    "intf_description": "LAN_TRUNK",
+    "id": "10.99.1.0/24,link#1"
   },
   {
     "proto": "ipv4",
-    "destination": "192.168.1.1",
-    "gateway": "link#5",
+    "destination": "10.99.1.1",
+    "gateway": "link#6",
     "flags": "UHS",
-    "nhop#": "3",
+    "nhop#": "5",
     "mtu": "16384",
     "netif": "lo0",
     "expire": "",
     "intf_description": "Loopback",
-    "id": "192.168.1.1,link#5"
+    "id": "10.99.1.1,link#6"
   },
   {
-    "proto": "ipv6",
-    "destination": "::1",
-    "gateway": "link#5",
+    "proto": "ipv4",
+    "destination": "10.99.99.1",
+    "gateway": "link#6",
     "flags": "UHS",
-    "nhop#": "1",
+    "nhop#": "9",
     "mtu": "16384",
+    "netif": "lo0",
+    "expire": "",
+    "intf_description": "Loopback",
+    "id": "10.99.99.1,link#6"
+  },
+  {
+    "proto": "ipv4",
+    "destination": "10.99.240.0/20",
+    "gateway": "link#5",
+    "flags": "U",
+    "nhop#": "1",
+    "mtu": "1500",
+(parse error)
 ```
 
-> Response size: 3888 bytes
+> Response size: 5121 bytes
 
 ---
 
@@ -2530,17 +2689,17 @@ versions
 **Response sample:**
 ```json
 {
-  "name": "OPNsense.internal",
+  "name": "vm-opns-scratch-01.scratch.example.com",
   "versions": [
-    "OPNsense 26.7-amd64",
-    "FreeBSD 15.1-RELEASE-p1",
-    "OpenSSL 3.5.7"
+    "OPNsense 26.7.5-amd64",
+    "FreeBSD 15.1-RELEASE-p3",
+    "OpenSSL 3.5.9"
   ],
   "updates": "Click to check for updates."
 }
 ```
 
-> Response size: 177 bytes
+> Response size: 200 bytes
 
 ---
 
@@ -2593,11 +2752,11 @@ uptime
 **Response sample:**
 ```json
 {
-  "uptime": "02:15:43",
-  "datetime": "Sun Sep 6 13:51:24 UTC 2026",
-  "boottime": "Sun Sep 6 11:35:41 UTC 2026",
-  "config": "Sun Sep 6 11:45:14 UTC 2026",
-  "loadavg": "0.69, 0.39, 0.29"
+  "uptime": "00:30:46",
+  "datetime": "Sun Oct 4 3:13:02 CEST 2026",
+  "boottime": "Sun Oct 4 2:42:16 CEST 2026",
+  "config": "Sun Oct 4 3:00:29 CEST 2026",
+  "loadavg": "0.60, 0.53, 0.42"
 }
 ```
 
@@ -2662,7 +2821,7 @@ total
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `interface` | enum | `enum`: **, lan, opt1, wan |
+| `interface` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `tag` | [] | `list` |
 | `filename` | `""` | `string` |
 | `servername` | `""` | `string` |
@@ -2704,7 +2863,7 @@ total
 |-------|---------|-----------------|
 | `sequence` | `"1"` | `string-bool` |
 | `domain` | `""` | `string` |
-| `ipset` | enum | `enum`: ** |
+| `ipset` | enum | `enum`: **, 879fdf6e-999f-4992-94f8-dbf98c1447b8, d3b381b9-9ce4-4690-84e2-6e4d9f3780c6 |
 | `srcip` | `""` | `string` |
 | `port` | `""` | `string` |
 | `ip` | `""` | `string` |
@@ -2793,7 +2952,7 @@ total
 | `type` | enum | `enum`: *set*, match |
 | `option` | enum | `enum`: **, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255 |
 | `option6` | enum | `enum`: **, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150 |
-| `interface` | enum | `enum`: **, lan, opt1, wan |
+| `interface` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `tag` | [] | `list` |
 | `set_tag` | enum | `enum`: ** |
 | `value` | `""` | `string` |
@@ -2833,12 +2992,12 @@ total
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `interface` | enum | `enum`: **, lan, opt1, wan |
+| `interface` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `set_tag` | enum | `enum`: ** |
 | `start_addr` | `""` | `string` |
 | `end_addr` | `""` | `string` |
 | `subnet_mask` | `""` | `string` |
-| `constructor` | enum | `enum`: **, lan, opt1, wan |
+| `constructor` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `mode` | enum | `enum`: static |
 | `prefix_len` | `""` | `string` |
 | `lease_time` | `""` | `string` |
@@ -2890,7 +3049,7 @@ widget
 **Response sample:**
 ```json
 {
-  "status": "running",
+  "status": "disabled",
   "widget": {
     "caption_restart": "Restart",
     "caption_start": "Start",
@@ -2899,7 +3058,7 @@ widget
 }
 ```
 
-> Response size: 136 bytes
+> Response size: 137 bytes
 
 ---
 
@@ -2924,7 +3083,7 @@ dnsmasq
 ```json
 {
   "dnsmasq": {
-    "enable": "1",
+    "enable": "0",
     "regdhcp": "0",
     "regdhcpstatic": "0",
     "dhcpfirst": "0",
@@ -2934,25 +3093,30 @@ dnsmasq
     "no_resolv": "0",
     "log_queries": "0",
     "no_hosts": "0",
+    "expand_hosts": "0",
     "strictbind": "0",
     "dnssec": "0",
     "regdhcpdomain": "",
     "interface": {
-      "lan": {
-        "value": "LAN",
-        "selected": 1
-      },
-      "opt1": {
-        "value": "OPT1",
+      "opt3": {
+        "value": "FAB",
         "selected": 0
       },
-      "wan": {
-        "value": "WAN",
+      "opt1": {
+        "value": "LAN_TRUNK",
+        "selected": 0
+      },
+      "lan": {
+        "value": "OOB",
+        "selected": 0
+      },
+      "opt2": {
+        "value": "SCRATCH",
         "selected": 0
       }
     },
-    "port": "53053",
-    "dns_port": "53053",
+    "port": "",
+    "dns_port": "53",
     "dns_forward_max": "",
     "cache_size": "",
     "local_ttl": "",
@@ -2978,33 +3142,28 @@ dnsmasq
     "strip_subnet": "0",
     "dhcp": {
       "no_interface": {
-        "lan": {
-          "value": "LAN",
+        "opt3": {
+          "value": "FAB",
           "selected": 0
         },
         "opt1": {
-          "value": "OPT1",
+          "value": "LAN_TRUNK",
           "selected": 0
         },
-        "wan": {
-          "value": "WAN",
+        "lan": {
+          "value": "OOB",
+          "selected": 0
+        },
+        "opt2": {
+          "value": "SCRATCH",
           "selected": 0
         }
       },
       "fqdn": "1",
       "domain": "",
-      "local": "1",
-      "lease_max": "",
-      "authoritative": "0",
-      "default_fw_rules": "1",
-      "reply_delay": "",
-      "enable_ra": "1",
-      "host_ping": "1",
-      "nosync": "0",
-      "log_dhcp": "0",
 ```
 
-> Response size: 1798 bytes
+> Response size: 1996 bytes
 
 ---
 
@@ -3064,7 +3223,7 @@ dnsmasq
 | `sequence` | `"100"` | `int-like string` |
 | `sort_order` | `""` | `string` |
 | `prio_group` | `""` | `string` |
-| `interface` | enum | `enum`: lan, opt1, *wan* |
+| `interface` | enum | `enum`: opt3, opt1, lan, opt2 |
 | `type` | enum | `enum`: *binat*, nat |
 | `source_net` | `""` | `string` |
 | `source_not` | `"0"` | `string-bool` |
@@ -3074,8 +3233,9 @@ dnsmasq
 | `natreflection` | enum | `enum`: **, enable, disable |
 | `categories` | [] | `list` |
 | `description` | `""` | `string` |
+| `audit` | (object) | `object`: {"created":{"username":"","time":"","description":""},"updat |
 
-> 15 fields discovered
+> 16 fields discovered
 
 ### search — HTTP 200
 
@@ -3113,10 +3273,10 @@ dnsmasq
 | `type` | enum | `enum`: host, network, port, url, urltable, urljson, geoip, networkgroup, mac, asn, dynipv6host, authgroup, internal, external |
 | `path_expression` | `""` | `string` |
 | `proto` | enum | `enum`: IPv4, IPv6 |
-| `interface` | enum | `enum`: **, lan, opt1, wan |
+| `interface` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `counters` | `"0"` | `string-bool` |
 | `updatefreq` | `""` | `string` |
-| `content` | enum | `enum`: **, __wan_network, __lan_network, __lo0_network, __opt1_network, bogons, bogonsv6, virusprot, sshlockout |
+| `content` | enum | `enum`: **, crowdsec_blocklists, crowdsec6_blocklists, __lan_network, __opt1_network, __opt2_network, __lo0_network, __opt3_network, bogons, bogonsv6, virusprot, sshlockout |
 | `password` | `""` | `string` |
 | `username` | `""` | `string` |
 | `authtype` | enum | `enum`: **, Basic, Bearer, Header |
@@ -3148,7 +3308,7 @@ dnsmasq
 
 ```
 
-**Rows returned:** 5 (total: 8)
+**Rows returned:** 5 (total: 11)
 
 **Row keys:**
 ```
@@ -3203,9 +3363,9 @@ uuid
   "authtype": "",
   "expire": "",
   "categories": "",
-  "current_items": "1",
+  "current_items": "10",
   "last_updated": "",
-  "eval_nomatch": "70",
+  "eval_nomatch": "0",
   "eval_match": "0",
   "in_block_p": "0",
   "in_block_b": "0",
@@ -3278,7 +3438,7 @@ uuid
 | `sequence` | `"200"` | `int-like string` |
 | `disabled` | `"0"` | `string-bool` |
 | `nordr` | `"0"` | `string-bool` |
-| `interface` | enum | `enum`: lan, opt1, wan |
+| `interface` | enum | `enum`: opt3, opt1, lan, opt2 |
 | `ipprotocol` | enum | `enum`: **, inet, inet6, inet46 |
 | `protocol` | enum | `enum`: **, tcp, udp, tcp/udp, icmp, esp, ah, gre, igmp, pim, ospf, 3pc, a/n, argus, aris, ax.25, bbn-rcc, bna, br-sat-mon, carp, cbt, cftp, chaos, compaq-peer, cphb, cpnx, crtp, crudp, dccp, dcn, ddp, ddx, dgp, divert, dsr, egp, eigrp, emcon, encap, etherip, fc, ggp, gmtp, hip, hmp, i-nlsp, iatp, idpr, idpr-cmtp, idrp, ifmp, igp, il, ipcomp, ipcv, ipencap, ipip, ippc, ipv6, ipv6-icmp, ipx-in-ip, irtp, isis, iso-ip, iso-tp4, kryptolan, l2tp, larp, leaf-1, leaf-2, manet, merit-inp, mfe-nsp, micp, mobile, mpls-in-ip, mtp, mux, narp, netblt, nsfnet-igp, nvp, pfsync, pgm, pipe, pnni, prm, ptp, pup, pvp, qnx, rdp, rohc, rsvp, rsvp-e2e-ignore, rvd, sat-expak, sat-mon, scc-sp, scps, sctp, sdrp, secure-vmtp, shim6, skip, sm, smp, snp, sprite-rpc, sps, srp, st2, stp, sun-nd, swipe, tcf, tlsp, tp++, trunk-1, trunk-2, ttp, udplite, uti, vines, visa, vmtp, wb-expak, wb-mon, wesp, wsn, xnet, xns-idp, xtp |
 | `source` | (object) | `object`: {"network":"","address":"","port":"","not":"0"} |
@@ -3295,9 +3455,9 @@ uuid
 | `nosync` | `"0"` | `string-bool` |
 | `natreflection` | enum | `enum`: **, purenat, disable |
 | `pass` | enum | `enum`: **, pass, rule |
+| `audit` | (object) | `object`: {"created":{"username":"","time":"","description":""},"updat |
 | `associated-rule-id` | `""` | `string` |
-| `created` | (object) | `object`: {"username":"","time":"","description":""} |
-| `updated` | (object) | `object`: {"username":"","time":"","description":""} |
+| `created` | (object) | `object`: {"created":{"username":"","time":"","description":""},"updat |
 
 > 23 fields discovered
 
@@ -3311,61 +3471,81 @@ uuid
 
 ```
 
-**Rows returned:** 2 (total: 0)
+**Rows returned:** 3 (total: 3)
 
 **Row keys:**
 ```
 %interface
+%ipprotocol
 %protocol
 alias_meta_destination.network
 alias_meta_destination.port
+category_colors
 descr
 destination.network
+destination.not
 destination.port
 disabled
 interface
 ipprotocol
 is_automatic
+local-port
+natreflection
 nordr
 prio_group
 protocol
+ref
 sort_order
+source.network
+source.not
+source.port
+target
 uuid
 ```
 
 **First row sample:**
 ```json
 {
-  "uuid": "lockout_1",
+  "uuid": "automatic_pf_1",
   "ipprotocol": "",
+  "%ipprotocol": "*",
   "protocol": "tcp",
   "%protocol": "TCP",
   "disabled": "0",
   "nordr": "1",
   "interface": "lan",
-  "%interface": "LAN",
+  "%interface": "OOB",
+  "source.network": "",
+  "source.port": "",
+  "source.not": "0",
   "destination.network": "lanip",
-  "destination.port": "443",
-  "alias_meta_destination.port": [
-    {
-      "value": "443",
-      "%value": "443",
-      "isAlias": false,
-      "description": ""
-    }
-  ],
+  "destination.port": "80",
+  "destination.not": "0",
+  "target": "",
+  "local-port": "",
+  "natreflection": "",
+  "descr": "Anti-lockout; prevent redirects for protected ports to this interface address",
+  "is_automatic": true,
+  "ref": "system_advanced_firewall.php#noantilockout",
+  "sort_order": "100000.0000001",
+  "prio_group": "100000",
+  "category_colors": [],
   "alias_meta_destination.network": [
     {
       "value": "lanip",
-      "%value": "LAN address",
+      "%value": "OOB address",
       "isAlias": false,
       "description": ""
     }
   ],
-  "descr": "Anti-Lockout Rule",
-  "is_automatic": true,
-  "sort_order": "100000.0000001",
-  "prio_group": "100000"
+  "alias_meta_destination.port": [
+    {
+      "value": "80",
+      "%value": "80",
+      "isAlias": false,
+      "description": ""
+    }
+  ]
 }
 ```
 
@@ -3390,13 +3570,15 @@ uuid
 | `enabled` | `"1"` | `string-bool` |
 | `statetype` | enum | `enum`: *keep*, sloppy, modulate, synproxy, none |
 | `state-policy` | enum | `enum`: **, if-bound, floating |
-| `sequence` | `"111"` | `int-like string` |
+| `sequence` | `"100"` | `int-like string` |
 | `sort_order` | `""` | `string` |
 | `prio_group` | `""` | `string` |
 | `action` | enum | `enum`: *pass*, block, reject |
 | `quick` | `"1"` | `string-bool` |
 | `interfacenot` | `"0"` | `string-bool` |
-| `interface` | enum | `enum`: lan, opt1, wan |
+| `interface` | enum | `enum`: opt3, opt1, lan, opt2 |
+| `received-on-not` | `"0"` | `string-bool` |
+| `received-on` | enum | `enum`: opt3, opt1, lan, opt2 |
 | `direction` | enum | `enum`: *in*, out, any |
 | `ipprotocol` | enum | `enum`: *inet*, inet6, inet46 |
 | `protocol` | enum | `enum`: *any*, TCP, UDP, TCP/UDP, ICMP, ESP, AH, GRE, IGMP, PIM, OSPF, 3PC, A/N, ARGUS, ARIS, AX.25, BBN-RCC, BNA, BR-SAT-MON, CARP, CBT, CFTP, CHAOS, COMPAQ-PEER, CPHB, CPNX, CRTP, CRUDP, DCCP, DCN, DDP, DDX, DGP, DIVERT, DSR, EGP, EIGRP, EMCON, ENCAP, ETHERIP, FC, GGP, GMTP, HIP, HMP, I-NLSP, IATP, IDPR, IDPR-CMTP, IDRP, IFMP, IGP, IL, IPCOMP, IPCV, IPENCAP, IPIP, IPPC, IPV6, IPV6-ICMP, IPX-IN-IP, IRTP, ISIS, ISO-IP, ISO-TP4, KRYPTOLAN, L2TP, LARP, LEAF-1, LEAF-2, MANET, MERIT-INP, MFE-NSP, MICP, MOBILE, MPLS-IN-IP, MTP, MUX, NARP, NETBLT, NSFNET-IGP, NVP, PFSYNC, PGM, PIPE, PNNI, PRM, PTP, PUP, PVP, QNX, RDP, ROHC, RSVP, RSVP-E2E-IGNORE, RVD, SAT-EXPAK, SAT-MON, SCC-SP, SCPS, SCTP, SDRP, SECURE-VMTP, SHIM6, SKIP, SM, SMP, SNP, SPRITE-RPC, SPS, SRP, ST2, STP, SUN-ND, SWIPE, TCF, TLSP, TP++, TRUNK-1, TRUNK-2, TTP, UDPLITE, UTI, VINES, VISA, VMTP, WB-EXPAK, WB-MON, WESP, WSN, XNET, XNS-IDP, XTP |
@@ -3409,8 +3591,8 @@ uuid
 | `destination_not` | `"0"` | `string-bool` |
 | `destination_port` | `""` | `string` |
 | `divert-to` | enum | `enum`: **, 8000 |
-| `gateway` | enum | `enum`: **, LAN_GW, Null4, Null6, WAN_DHCP6 |
-| `replyto` | enum | `enum`: **, LAN_GW, Null4, Null6, WAN_DHCP6 |
+| `gateway` | enum | `enum`: **, Null4, Null6, OOB_GW |
+| `replyto` | enum | `enum`: **, Null4, Null6, OOB_GW |
 | `disablereplyto` | `"0"` | `string-bool` |
 | `log` | `"0"` | `string-bool` |
 | `allowopts` | `"0"` | `string-bool` |
@@ -3426,7 +3608,9 @@ uuid
 | `max` | `""` | `string` |
 | `max-src-conn-rate` | `""` | `string` |
 | `max-src-conn-rates` | `""` | `string` |
-| `overload` | enum | `enum`: **, bogons, bogonsv6, sshlockout, virusprot, __lan_network, __lo0_network, __opt1_network, __wan_network |
+| `max-pkt-rate-number` | `""` | `string` |
+| `max-pkt-rate-seconds` | `""` | `string` |
+| `overload` | enum | `enum`: **, bogons, bogonsv6, 879fdf6e-999f-4992-94f8-dbf98c1447b8, d3b381b9-9ce4-4690-84e2-6e4d9f3780c6, sshlockout, virusprot, __lan_network, __lo0_network, __opt1_network, __opt2_network, __opt3_network |
 | `adaptivestart` | `""` | `string` |
 | `adaptiveend` | `""` | `string` |
 | `prio` | enum | `enum`: **, 1, 0, 2, 3, 4, 5, 6, 7 |
@@ -3443,8 +3627,9 @@ uuid
 | `shaper1` | enum | `enum`: ** |
 | `shaper2` | enum | `enum`: ** |
 | `description` | `""` | `string` |
+| `audit` | (object) | `object`: {"created":{"username":"","time":"","description":""},"updat |
 
-> 56 fields discovered
+> 61 fields discovered
 
 ### search — HTTP 200
 
@@ -3456,7 +3641,7 @@ uuid
 
 ```
 
-**Rows returned:** 5 (total: 25)
+**Rows returned:** 5 (total: 20)
 
 **Row keys:**
 ```
@@ -3537,7 +3722,7 @@ uuid
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `ifname` | `""` | `string` |
-| `members` | enum | `enum`: lan, lo0, opt1, wan |
+| `members` | enum | `enum`: opt3, opt1, lo0, lan, opt2 |
 | `nogroup` | `"0"` | `string-bool` |
 | `sequence` | `"0"` | `string-bool` |
 | `descr` | `""` | `string` |
@@ -3601,14 +3786,15 @@ uuid
 | `sequence` | `"100"` | `int-like string` |
 | `sort_order` | `""` | `string` |
 | `prio_group` | `""` | `string` |
-| `interface` | enum | `enum`: *lan*, opt1, wan |
+| `interface` | enum | `enum`: opt3, opt1, *lan*, opt2 |
 | `source_net` | `""` | `string` |
 | `destination_net` | `""` | `string` |
-| `trackif` | enum | `enum`: **, lan, opt1, wan |
+| `trackif` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `categories` | [] | `list` |
 | `description` | `""` | `string` |
+| `audit` | (object) | `object`: {"created":{"username":"","time":"","description":""},"updat |
 
-> 11 fields discovered
+> 12 fields discovered
 
 ### search — HTTP 200
 
@@ -3647,7 +3833,7 @@ uuid
 | `sequence` | `"100"` | `int-like string` |
 | `sort_order` | `""` | `string` |
 | `prio_group` | `""` | `string` |
-| `interface` | enum | `enum`: *lan*, opt1, wan |
+| `interface` | enum | `enum`: opt3, opt1, lan, opt2 |
 | `ipprotocol` | enum | `enum`: *inet*, inet6 |
 | `protocol` | enum | `enum`: *any*, TCP, UDP, TCP/UDP, ICMP, ESP, AH, GRE, IGMP, PIM, OSPF, 3PC, A/N, ARGUS, ARIS, AX.25, BBN-RCC, BNA, BR-SAT-MON, CARP, CBT, CFTP, CHAOS, COMPAQ-PEER, CPHB, CPNX, CRTP, CRUDP, DCCP, DCN, DDP, DDX, DGP, DIVERT, DSR, EGP, EIGRP, EMCON, ENCAP, ETHERIP, FC, GGP, GMTP, HIP, HMP, I-NLSP, IATP, IDPR, IDPR-CMTP, IDRP, IFMP, IGP, IL, IPCOMP, IPCV, IPENCAP, IPIP, IPPC, IPV6, IPV6-ICMP, IPX-IN-IP, IRTP, ISIS, ISO-IP, ISO-TP4, KRYPTOLAN, L2TP, LARP, LEAF-1, LEAF-2, MANET, MERIT-INP, MFE-NSP, MICP, MOBILE, MPLS-IN-IP, MTP, MUX, NARP, NETBLT, NSFNET-IGP, NVP, PFSYNC, PGM, PIPE, PNNI, PRM, PTP, PUP, PVP, QNX, RDP, ROHC, RSVP, RSVP-E2E-IGNORE, RVD, SAT-EXPAK, SAT-MON, SCC-SP, SCPS, SCTP, SDRP, SECURE-VMTP, SHIM6, SKIP, SM, SMP, SNP, SPRITE-RPC, SPS, SRP, ST2, STP, SUN-ND, SWIPE, TCF, TLSP, TP++, TRUNK-1, TRUNK-2, TTP, UDPLITE, UTI, VINES, VISA, VMTP, WB-EXPAK, WB-MON, WESP, WSN, XNET, XNS-IDP, XTP |
 | `source_net` | `"any"` | `string` |
@@ -3658,14 +3844,18 @@ uuid
 | `destination_port` | `""` | `string` |
 | `target` | `""` | `string` |
 | `target_port` | `""` | `string` |
+| `poolopts` | enum | `enum`: **, round-robin, round-robin sticky-address, random, random sticky-address, source-hash, bitmask |
+| `poolopts_sourcehashkey` | `""` | `string` |
 | `staticnatport` | `"0"` | `string-bool` |
 | `log` | `"0"` | `string-bool` |
 | `categories` | [] | `list` |
 | `tag` | `""` | `string` |
 | `tagged` | `""` | `string` |
+| `endpoint-independent` | `"0"` | `string-bool` |
 | `description` | `""` | `string` |
+| `audit` | (object) | `object`: {"created":{"username":"","time":"","description":""},"updat |
 
-> 23 fields discovered
+> 27 fields discovered
 
 ### search — HTTP 200
 
@@ -3683,66 +3873,38 @@ uuid
 ```
 %interface
 %ipprotocol
-%protocol
-alias_meta_destination_net
 alias_meta_destination_port
 alias_meta_source_net
-alias_meta_target
-categories
 category_colors
 description
-destination_net
-destination_not
 destination_port
 enabled
 interface
 ipprotocol
 is_automatic
-log
-nonat
-nosync
 prio_group
 protocol
 sequence
 sort_order
 source_net
-source_not
-source_port
 staticnatport
-tag
-tagged
-target
-target_port
 uuid
 ```
 
 **First row sample:**
 ```json
 {
-  "uuid": "automatic_isakmp_wan",
+  "uuid": "automatic_isakmp_lan",
   "enabled": "1",
-  "nonat": "0",
-  "nosync": "0",
   "sequence": "1",
-  "interface": "wan",
-  "%interface": "WAN",
+  "interface": "lan",
+  "%interface": "OOB",
   "ipprotocol": "inet",
   "%ipprotocol": "IPv4",
   "protocol": "any",
-  "%protocol": "*",
-  "source_net": "lan,lo0",
-  "source_not": "0",
-  "source_port": "",
-  "destination_net": "any",
-  "destination_not": "0",
+  "source_net": "opt3,opt1,lo0,opt2,127.0.0.0/8",
   "destination_port": "500",
-  "target": "wanip",
-  "target_port": "",
   "staticnatport": "1",
-  "log": "0",
-  "categories": "",
-  "tag": "",
-  "tagged": "",
   "description": "Auto created rule for ISAKMP",
   "is_automatic": true,
   "sort_order": "500000.0000001",
@@ -3750,8 +3912,14 @@ uuid
   "category_colors": [],
   "alias_meta_source_net": [
     {
-      "value": "lan",
-      "%value": "LAN network",
+      "value": "opt3",
+      "%value": "FAB network",
+      "isAlias": false,
+      "description": ""
+    },
+    {
+      "value": "opt1",
+      "%value": "LAN_TRUNK network",
       "isAlias": false,
       "description": ""
     },
@@ -3760,12 +3928,16 @@ uuid
       "%value": "Loopback network",
       "isAlias": false,
       "description": ""
-    }
-  ],
-  "alias_meta_destination_net": [
+    },
     {
-      "value": "any",
-      "%value": "any",
+      "value": "opt2",
+      "%value": "SCRATCH network",
+      "isAlias": false,
+      "description": ""
+    },
+    {
+      "value": "127.0.0.0/8",
+      "%value": "127.0.0.0/8",
       "isAlias": false,
       "description": ""
     }
@@ -3774,14 +3946,6 @@ uuid
     {
       "value": "500",
       "%value": "500",
-      "isAlias": false,
-      "description": ""
-    }
-  ],
-  "alias_meta_target": [
-    {
-      "value": "wanip",
-      "%value": "WAN address",
       "isAlias": false,
       "description": ""
     }
@@ -3814,18 +3978,8 @@ status
 {
   "items": [
     {
-      "name": "LAN_GW",
+      "name": "OOB_GW",
       "address": "10.6.224.1",
-      "status": "none",
-      "loss": "~",
-      "delay": "~",
-      "stddev": "~",
-      "monitor": "~",
-      "status_translated": "Online"
-    },
-    {
-      "name": "WAN_DHCP6",
-      "address": "~",
       "status": "none",
       "loss": "~",
       "delay": "~",
@@ -3838,7 +3992,7 @@ status
 }
 ```
 
-> Response size: 452 bytes
+> Response size: 248 bytes
 
 ---
 
@@ -3996,17 +4150,21 @@ ids
       "divert_listeners": "1",
       "promisc": "0",
       "interfaces": {
-        "lan": {
-          "value": "LAN",
+        "opt3": {
+          "value": "FAB",
           "selected": 0
         },
         "opt1": {
-          "value": "OPT1",
+          "value": "LAN_TRUNK",
           "selected": 0
         },
-        "wan": {
-          "value": "WAN",
-          "selected": 1
+        "lan": {
+          "value": "OOB",
+          "selected": 0
+        },
+        "opt2": {
+          "value": "SCRATCH",
+          "selected": 0
         }
       },
       "homenet": {
@@ -4051,14 +4209,10 @@ ids
           "selected": 0
         },
         "ac-ks": {
-          "value": "Aho-Corasick, \"Ken Steele\" variant",
-          "selected": 0
-        },
-        "hs": {
 (parse error)
 ```
 
-> Response size: 4951 bytes
+> Response size: 5040 bytes
 
 ---
 
@@ -4120,23 +4274,23 @@ ids
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `bridgeif` | `""` | `string` |
-| `members` | enum | `enum`: wan, lan, opt1 |
+| `members` | enum | `enum`: lan, opt1, opt2, opt3 |
 | `linklocal` | `"0"` | `string-bool` |
 | `enablestp` | `"0"` | `string-bool` |
 | `proto` | enum | `enum`: *rstp*, stp |
-| `stp` | enum | `enum`: wan, lan, opt1 |
+| `stp` | enum | `enum`: lan, opt1, opt2, opt3 |
 | `maxage` | `""` | `string` |
 | `fwdelay` | `""` | `string` |
 | `holdcnt` | `""` | `string` |
 | `maxaddr` | `""` | `string` |
 | `timeout` | `""` | `string` |
-| `span` | enum | `enum`: **, wan, lan, opt1 |
-| `edge` | enum | `enum`: wan, lan, opt1 |
-| `autoedge` | enum | `enum`: wan, lan, opt1 |
-| `ptp` | enum | `enum`: wan, lan, opt1 |
-| `autoptp` | enum | `enum`: wan, lan, opt1 |
-| `static` | enum | `enum`: wan, lan, opt1 |
-| `private` | enum | `enum`: wan, lan, opt1 |
+| `span` | enum | `enum`: **, lan, opt1, opt2, opt3 |
+| `edge` | enum | `enum`: lan, opt1, opt2, opt3 |
+| `autoedge` | enum | `enum`: lan, opt1, opt2, opt3 |
+| `ptp` | enum | `enum`: lan, opt1, opt2, opt3 |
+| `autoptp` | enum | `enum`: lan, opt1, opt2, opt3 |
+| `static` | enum | `enum`: lan, opt1, opt2, opt3 |
+| `private` | enum | `enum`: lan, opt1, opt2, opt3 |
 | `descr` | `""` | `string` |
 
 > 19 fields discovered
@@ -4183,8 +4337,9 @@ ids
 | `descr` | `""` | `string` |
 | `link1` | `"0"` | `string-bool` |
 | `link2` | `"0"` | `string-bool` |
+| `noclamp` | `"0"` | `string-bool` |
 
-> 11 fields discovered
+> 12 fields discovered
 
 ### search — HTTP 200
 
@@ -4261,8 +4416,8 @@ ids
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `laggif` | `""` | `string` |
-| `members` | enum | `enum`: vtnet3 |
-| `primary_member` | enum | `enum`: **, vtnet3 |
+| `members` | enum | `enum`: vtnet2, vtnet3 |
+| `primary_member` | enum | `enum`: **, vtnet2, vtnet3 |
 | `proto` | enum | `enum`: none, *lacp*, failover, fec, loadbalance, roundrobin |
 | `lacp_fast_timeout` | `"0"` | `string-bool` |
 | `use_flowid` | enum | `enum`: **, 1, 0 |
@@ -4385,8 +4540,8 @@ total
 **Response sample:**
 ```json
 {
-  "total": 7,
-  "rowCount": 7,
+  "total": 9,
+  "rowCount": 9,
   "current": 1,
   "rows": [
     {
@@ -4410,64 +4565,64 @@ total
         "linkstate",
         "hwstats"
       ],
-      "macaddr": "bc:24:11:ed:1e:7f",
+      "macaddr": "bc:24:11:1a:cf:f9",
       "supported_media": [
         "autoselect"
       ],
       "is_physical": true,
       "device": "vtnet0",
       "mtu": "1500",
-      "macaddr_hw": "bc:24:11:ed:1e:7f",
+      "macaddr_hw": "bc:24:11:1a:cf:f9",
       "media": "10Gbase-T <full-duplex>",
       "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
       "status": "up",
       "nd6": {
         "flags": [
           "performnud",
-          "auto_linklocal"
+          "auto_linklocal",
+          "no_dad"
         ]
       },
       "routes": [
-        "192.168.1.0/24",
+        "10.99.1.0/24",
+        "fd99:1::/64",
         "fe80::%vtnet0/64"
       ],
       "config": {
         "if": "vtnet0",
+        "descr": "LAN_TRUNK",
         "enable": "1",
+        "ipaddr": "10.99.1.1",
+        "subnet": "24",
+        "ipaddrv6": "fd99:1::1",
+        "subnetv6": "64",
         "identifier": "opt1"
       },
       "identifier": "opt1",
-      "description": "OPT1",
+      "description": "LAN_TRUNK",
       "enabled": true,
-      "link_type": "none",
-      "addr4": "192.168.1.1/24",
-      "addr6": "",
+      "link_type": "static",
+      "link_typev6": "static",
+      "addr4": "10.99.1.1/24",
+      "addr6": "fd99:1::1/64",
       "ipv4": [
         {
-          "ipaddr": "192.168.1.1/24"
+          "ipaddr": "10.99.1.1/24"
         }
       ],
       "ipv6": [
         {
-          "ipaddr": "fe80::be24:11ff:feed:1e7f/64"
+          "ipaddr": "fd99:1::1/64"
+        },
+        {
+          "ipaddr": "fe80::be24:11ff:fe1a:cff9/64"
         }
       ],
       "vlan_tag": null,
-      "gateways": []
-    },
-    {
-      "flags": [
-        "up",
-        "broadcast",
-        "running",
-        "simplex",
-        "multicast",
-        "lower_up"
-      ],
 (parse error)
 ```
 
-> Response size: 8415 bytes
+> Response size: 10911 bytes
 
 ---
 
@@ -4517,17 +4672,17 @@ settings
     "dhcp6_ratimeout": "10"
   },
   "duids": {
-    "llt": "00:01:00:01:32:30:2C:16:BC:24:11:CC:3E:51",
+    "llt": "00:01:00:01:32:54:64:45:BC:24:11:CC:3E:51",
     "ll": "00:03:00:01:BC:24:11:CC:3E:51",
-    "uuid": "00:04:95:C3:B5:69:AB:57:67:C1:8A:C7:07:07:7E:E0:61:F0",
-    "en": "00:02:00:00:D2:6D:62:3E:D1:1E:73:11:42:A9",
-    "current": "00:01:00:01:32:30:09:63:BC:24:11:ED:1E:7F",
+    "uuid": "00:04:AF:5A:D4:4B:27:31:DA:EC:33:4C:54:A9:2C:FE:4A:2F",
+    "en": "00:02:00:00:D2:6D:F1:48:C6:5E:64:A4:84:C8",
+    "current": "",
     "default": "XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX"
   }
 }
 ```
 
-> Response size: 921 bytes
+> Response size: 880 bytes
 
 ---
 
@@ -4547,7 +4702,7 @@ settings
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `interface` | enum | `enum`: wan, lan, lo0, opt1 |
+| `interface` | enum | `enum`: lan, opt1, opt2, lo0, opt3 |
 | `mode` | enum | `enum`: *ipalias*, carp, proxyarp |
 | `gateway` | `""` | `string` |
 | `noexpand` | `"0"` | `string-bool` |
@@ -4597,7 +4752,7 @@ settings
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
-| `if` | enum | `enum`: vtnet0, vtnet1, vtnet2, vtnet3 |
+| `if` | enum | `enum`: vtnet0, vtnet1, vtnet2, vtnet3, vtnet4, vlan2999 |
 | `tag` | `""` | `string` |
 | `pcp` | enum | `enum`: 1, *0*, 2, 3, 4, 5, 6, 7 |
 | `proto` | enum | `enum`: **, 802.1q, 802.1ad |
@@ -4616,8 +4771,35 @@ settings
 
 ```
 
-**Rows returned:** 0 (total: 0)
+**Rows returned:** 1 (total: 1)
 
+**Row keys:**
+```
+%if
+%pcp
+descr
+if
+pcp
+proto
+tag
+uuid
+vlanif
+```
+
+**First row sample:**
+```json
+{
+  "uuid": "a12270c0-346c-4ac8-ba9b-fefbd5c1b67f",
+  "if": "vtnet0",
+  "%if": "vtnet0 (bc:24:11:1a:cf:f9) [LAN_TRUNK]",
+  "tag": "2999",
+  "pcp": "1",
+  "%pcp": "Background (1, lowest)",
+  "proto": "",
+  "descr": "SCRATCH",
+  "vlanif": "vlan2999 [SCRATCH]"
+}
+```
 
 ---
 
@@ -4644,7 +4826,7 @@ settings
 | `vxlanremote` | `""` | `string` |
 | `vxlanremoteport` | `""` | `string` |
 | `vxlangroup` | `""` | `string` |
-| `vxlandev` | enum | `enum`: **, lan, opt1, wan |
+| `vxlandev` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 
 > 8 fields discovered
 
@@ -4682,7 +4864,7 @@ settings
 | `enabled` | `"1"` | `string-bool` |
 | `connection` | [] | `list` |
 | `reqid` | `""` | `string` |
-| `esp_proposals` | enum | `enum`: *default*, aes256-sha256-modp2048, aes256-sha512-modp2048, aes128-sha256-modp2048, aes128-sha512-modp2048, aes256-sha256-modp4096, aes256-sha512-modp4096, aes256-sha256-ecp521, aes256-sha512-ecp521, aes256gcm16-modp2048, aes256gcm16-ecp521, aes256gcm16-x25519, aes256gcm16-x448, aes128gcm16-modp2048, aes128gcm16-ecp521, aes128gcm16-x25519, aes128gcm16-x448, aes256gcm16, chacha20poly1305-x25519, chacha20poly1305-x448, chacha20poly1305, aes256-sha1-modp2048, aes192-sha1-modp2048, aes128-sha1-modp2048, aes256-sha1-modp4096, aes256-sha1-ecp521, aes256-sha256-modp1024, aes256-sha512-modp1024, aes256-sha256-modp1536, aes128-sha256-modp1536, aes256gcm16-sha256-modp1536, aes256-sha1, aes256-sha256, null, aes128-sha256-modp3072, aes128-sha256-modp4096, aes128-sha256-modp6144, aes128-sha256-modp8192, aes128-sha256-ecp224, aes128-sha256-ecp256, aes128-sha256-ecp384, aes128-sha256-ecp521, aes128-sha256-ecp224bp, aes128-sha256-ecp256bp, aes128-sha256-ecp384bp, aes128-sha256-ecp512bp, aes128-sha256-x25519, aes128-sha256-x448, aes128-sha384-modp2048, aes128-sha384-modp3072, aes128-sha384-modp4096, aes128-sha384-modp6144, aes128-sha384-modp8192, aes128-sha384-ecp224, aes128-sha384-ecp256, aes128-sha384-ecp384, aes128-sha384-ecp521, aes128-sha384-ecp224bp, aes128-sha384-ecp256bp, aes128-sha384-ecp384bp, aes128-sha384-ecp512bp, aes128-sha384-x25519, aes128-sha384-x448, aes128-sha512-modp3072, aes128-sha512-modp4096, aes128-sha512-modp6144, aes128-sha512-modp8192, aes128-sha512-ecp224, aes128-sha512-ecp256, aes128-sha512-ecp384, aes128-sha512-ecp521, aes128-sha512-ecp224bp, aes128-sha512-ecp256bp, aes128-sha512-ecp384bp, aes128-sha512-ecp512bp, aes128-sha512-x25519, aes128-sha512-x448, aes128-aesxcbc-modp2048, aes128-aesxcbc-modp3072, aes128-aesxcbc-modp4096, aes128-aesxcbc-modp6144, aes128-aesxcbc-modp8192, aes128-aesxcbc-ecp224, aes128-aesxcbc-ecp256, aes128-aesxcbc-ecp384, aes128-aesxcbc-ecp521, aes128-aesxcbc-ecp224bp, aes128-aesxcbc-ecp256bp, aes128-aesxcbc-ecp384bp, aes128-aesxcbc-ecp512bp, aes128-aesxcbc-x25519, aes128-aesxcbc-x448, aes192-sha256-modp2048, aes192-sha256-modp3072, aes192-sha256-modp4096, aes192-sha256-modp6144, aes192-sha256-modp8192, aes192-sha256-ecp224, aes192-sha256-ecp256, aes192-sha256-ecp384, aes192-sha256-ecp521, aes192-sha256-ecp224bp, aes192-sha256-ecp256bp, aes192-sha256-ecp384bp, aes192-sha256-ecp512bp, aes192-sha256-x25519, aes192-sha256-x448, aes192-sha384-modp2048, aes192-sha384-modp3072, aes192-sha384-modp4096, aes192-sha384-modp6144, aes192-sha384-modp8192, aes192-sha384-ecp224, aes192-sha384-ecp256, aes192-sha384-ecp384, aes192-sha384-ecp521, aes192-sha384-ecp224bp, aes192-sha384-ecp256bp, aes192-sha384-ecp384bp, aes192-sha384-ecp512bp, aes192-sha384-x25519, aes192-sha384-x448, aes192-sha512-modp2048, aes192-sha512-modp3072, aes192-sha512-modp4096, aes192-sha512-modp6144, aes192-sha512-modp8192, aes192-sha512-ecp224, aes192-sha512-ecp256, aes192-sha512-ecp384, aes192-sha512-ecp521, aes192-sha512-ecp224bp, aes192-sha512-ecp256bp, aes192-sha512-ecp384bp, aes192-sha512-ecp512bp, aes192-sha512-x25519, aes192-sha512-x448, aes192-aesxcbc-modp2048, aes192-aesxcbc-modp3072, aes192-aesxcbc-modp4096, aes192-aesxcbc-modp6144, aes192-aesxcbc-modp8192, aes192-aesxcbc-ecp224, aes192-aesxcbc-ecp256, aes192-aesxcbc-ecp384, aes192-aesxcbc-ecp521, aes192-aesxcbc-ecp224bp, aes192-aesxcbc-ecp256bp, aes192-aesxcbc-ecp384bp, aes192-aesxcbc-ecp512bp, aes192-aesxcbc-x25519, aes192-aesxcbc-x448, aes256-sha256-modp3072, aes256-sha256-modp6144, aes256-sha256-modp8192, aes256-sha256-ecp224, aes256-sha256-ecp256, aes256-sha256-ecp384, aes256-sha256-ecp224bp, aes256-sha256-ecp256bp, aes256-sha256-ecp384bp, aes256-sha256-ecp512bp, aes256-sha256-x25519, aes256-sha256-x448, aes256-sha384-modp2048, aes256-sha384-modp3072, aes256-sha384-modp4096, aes256-sha384-modp6144, aes256-sha384-modp8192, aes256-sha384-ecp224, aes256-sha384-ecp256, aes256-sha384-ecp384, aes256-sha384-ecp521, aes256-sha384-ecp224bp, aes256-sha384-ecp256bp, aes256-sha384-ecp384bp, aes256-sha384-ecp512bp, aes256-sha384-x25519, aes256-sha384-x448, aes256-sha512-modp3072, aes256-sha512-modp6144, aes256-sha512-modp8192, aes256-sha512-ecp224, aes256-sha512-ecp256, aes256-sha512-ecp384, aes256-sha512-ecp224bp, aes256-sha512-ecp256bp, aes256-sha512-ecp384bp, aes256-sha512-ecp512bp, aes256-sha512-x25519, aes256-sha512-x448, aes256-aesxcbc-modp2048, aes256-aesxcbc-modp3072, aes256-aesxcbc-modp4096, aes256-aesxcbc-modp6144, aes256-aesxcbc-modp8192, aes256-aesxcbc-ecp224, aes256-aesxcbc-ecp256, aes256-aesxcbc-ecp384, aes256-aesxcbc-ecp521, aes256-aesxcbc-ecp224bp, aes256-aesxcbc-ecp256bp, aes256-aesxcbc-ecp384bp, aes256-aesxcbc-ecp512bp, aes256-aesxcbc-x25519, aes256-aesxcbc-x448, aes128gcm16-modp3072, aes128gcm16-modp4096, aes128gcm16-modp6144, aes128gcm16-modp8192, aes128gcm16-ecp224, aes128gcm16-ecp256, aes128gcm16-ecp384, aes128gcm16-ecp224bp, aes128gcm16-ecp256bp, aes128gcm16-ecp384bp, aes128gcm16-ecp512bp, aes192gcm16-modp2048, aes192gcm16-modp3072, aes192gcm16-modp4096, aes192gcm16-modp6144, aes192gcm16-modp8192, aes192gcm16-ecp224, aes192gcm16-ecp256, aes192gcm16-ecp384, aes192gcm16-ecp521, aes192gcm16-ecp224bp, aes192gcm16-ecp256bp, aes192gcm16-ecp384bp, aes192gcm16-ecp512bp, aes192gcm16-x25519, aes192gcm16-x448, aes256gcm16-modp3072, aes256gcm16-modp4096, aes256gcm16-modp6144, aes256gcm16-modp8192, aes256gcm16-ecp224, aes256gcm16-ecp256, aes256gcm16-ecp384, aes256gcm16-ecp224bp, aes256gcm16-ecp256bp, aes256gcm16-ecp384bp, aes256gcm16-ecp512bp, aes128gcm16-sha256-modp2048, aes128gcm16-sha256-modp3072, aes128gcm16-sha256-modp4096, aes128gcm16-sha256-modp6144, aes128gcm16-sha256-modp8192, aes128gcm16-sha256-ecp224, aes128gcm16-sha256-ecp256, aes128gcm16-sha256-ecp384, aes128gcm16-sha256-ecp521, aes128gcm16-sha256-ecp224bp, aes128gcm16-sha256-ecp256bp, aes128gcm16-sha256-ecp384bp, aes128gcm16-sha256-ecp512bp, aes128gcm16-sha256-x25519, aes128gcm16-sha256-x448, aes128gcm16-sha384-modp2048, aes128gcm16-sha384-modp3072, aes128gcm16-sha384-modp4096, aes128gcm16-sha384-modp6144, aes128gcm16-sha384-modp8192, aes128gcm16-sha384-ecp224, aes128gcm16-sha384-ecp256, aes128gcm16-sha384-ecp384, aes128gcm16-sha384-ecp521, aes128gcm16-sha384-ecp224bp, aes128gcm16-sha384-ecp256bp, aes128gcm16-sha384-ecp384bp, aes128gcm16-sha384-ecp512bp, aes128gcm16-sha384-x25519, aes128gcm16-sha384-x448, aes128gcm16-sha512-modp2048, aes128gcm16-sha512-modp3072, aes128gcm16-sha512-modp4096, aes128gcm16-sha512-modp6144, aes128gcm16-sha512-modp8192, aes128gcm16-sha512-ecp224, aes128gcm16-sha512-ecp256, aes128gcm16-sha512-ecp384, aes128gcm16-sha512-ecp521, aes128gcm16-sha512-ecp224bp, aes128gcm16-sha512-ecp256bp, aes128gcm16-sha512-ecp384bp, aes128gcm16-sha512-ecp512bp, aes128gcm16-sha512-x25519, aes128gcm16-sha512-x448, aes128gcm16-aesxcbc-modp2048, aes128gcm16-aesxcbc-modp3072, aes128gcm16-aesxcbc-modp4096, aes128gcm16-aesxcbc-modp6144, aes128gcm16-aesxcbc-modp8192, aes128gcm16-aesxcbc-ecp224, aes128gcm16-aesxcbc-ecp256, aes128gcm16-aesxcbc-ecp384, aes128gcm16-aesxcbc-ecp521, aes128gcm16-aesxcbc-ecp224bp, aes128gcm16-aesxcbc-ecp256bp, aes128gcm16-aesxcbc-ecp384bp, aes128gcm16-aesxcbc-ecp512bp, aes128gcm16-aesxcbc-x25519, aes128gcm16-aesxcbc-x448, aes192gcm16-sha256-modp2048, aes192gcm16-sha256-modp3072, aes192gcm16-sha256-modp4096, aes192gcm16-sha256-modp6144, aes192gcm16-sha256-modp8192, aes192gcm16-sha256-ecp224, aes192gcm16-sha256-ecp256, aes192gcm16-sha256-ecp384, aes192gcm16-sha256-ecp521, aes192gcm16-sha256-ecp224bp, aes192gcm16-sha256-ecp256bp, aes192gcm16-sha256-ecp384bp, aes192gcm16-sha256-ecp512bp, aes192gcm16-sha256-x25519, aes192gcm16-sha256-x448, aes192gcm16-sha384-modp2048, aes192gcm16-sha384-modp3072, aes192gcm16-sha384-modp4096, aes192gcm16-sha384-modp6144, aes192gcm16-sha384-modp8192, aes192gcm16-sha384-ecp224, aes192gcm16-sha384-ecp256, aes192gcm16-sha384-ecp384, aes192gcm16-sha384-ecp521, aes192gcm16-sha384-ecp224bp, aes192gcm16-sha384-ecp256bp, aes192gcm16-sha384-ecp384bp, aes192gcm16-sha384-ecp512bp, aes192gcm16-sha384-x25519, aes192gcm16-sha384-x448, aes192gcm16-sha512-modp2048, aes192gcm16-sha512-modp3072, aes192gcm16-sha512-modp4096, aes192gcm16-sha512-modp6144, aes192gcm16-sha512-modp8192, aes192gcm16-sha512-ecp224, aes192gcm16-sha512-ecp256, aes192gcm16-sha512-ecp384, aes192gcm16-sha512-ecp521, aes192gcm16-sha512-ecp224bp, aes192gcm16-sha512-ecp256bp, aes192gcm16-sha512-ecp384bp, aes192gcm16-sha512-ecp512bp, aes192gcm16-sha512-x25519, aes192gcm16-sha512-x448, aes192gcm16-aesxcbc-modp2048, aes192gcm16-aesxcbc-modp3072, aes192gcm16-aesxcbc-modp4096, aes192gcm16-aesxcbc-modp6144, aes192gcm16-aesxcbc-modp8192, aes192gcm16-aesxcbc-ecp224, aes192gcm16-aesxcbc-ecp256, aes192gcm16-aesxcbc-ecp384, aes192gcm16-aesxcbc-ecp521, aes192gcm16-aesxcbc-ecp224bp, aes192gcm16-aesxcbc-ecp256bp, aes192gcm16-aesxcbc-ecp384bp, aes192gcm16-aesxcbc-ecp512bp, aes192gcm16-aesxcbc-x25519, aes192gcm16-aesxcbc-x448, aes256gcm16-sha256-modp2048, aes256gcm16-sha256-modp3072, aes256gcm16-sha256-modp4096, aes256gcm16-sha256-modp6144, aes256gcm16-sha256-modp8192, aes256gcm16-sha256-ecp224, aes256gcm16-sha256-ecp256, aes256gcm16-sha256-ecp384, aes256gcm16-sha256-ecp521, aes256gcm16-sha256-ecp224bp, aes256gcm16-sha256-ecp256bp, aes256gcm16-sha256-ecp384bp, aes256gcm16-sha256-ecp512bp, aes256gcm16-sha256-x25519, aes256gcm16-sha256-x448, aes256gcm16-sha384-modp2048, aes256gcm16-sha384-modp3072, aes256gcm16-sha384-modp4096, aes256gcm16-sha384-modp6144, aes256gcm16-sha384-modp8192, aes256gcm16-sha384-ecp224, aes256gcm16-sha384-ecp256, aes256gcm16-sha384-ecp384, aes256gcm16-sha384-ecp521, aes256gcm16-sha384-ecp224bp, aes256gcm16-sha384-ecp256bp, aes256gcm16-sha384-ecp384bp, aes256gcm16-sha384-ecp512bp, aes256gcm16-sha384-x25519, aes256gcm16-sha384-x448, aes256gcm16-sha512-modp2048, aes256gcm16-sha512-modp3072, aes256gcm16-sha512-modp4096, aes256gcm16-sha512-modp6144, aes256gcm16-sha512-modp8192, aes256gcm16-sha512-ecp224, aes256gcm16-sha512-ecp256, aes256gcm16-sha512-ecp384, aes256gcm16-sha512-ecp521, aes256gcm16-sha512-ecp224bp, aes256gcm16-sha512-ecp256bp, aes256gcm16-sha512-ecp384bp, aes256gcm16-sha512-ecp512bp, aes256gcm16-sha512-x25519, aes256gcm16-sha512-x448, aes256gcm16-aesxcbc-modp2048, aes256gcm16-aesxcbc-modp3072, aes256gcm16-aesxcbc-modp4096, aes256gcm16-aesxcbc-modp6144, aes256gcm16-aesxcbc-modp8192, aes256gcm16-aesxcbc-ecp224, aes256gcm16-aesxcbc-ecp256, aes256gcm16-aesxcbc-ecp384, aes256gcm16-aesxcbc-ecp521, aes256gcm16-aesxcbc-ecp224bp, aes256gcm16-aesxcbc-ecp256bp, aes256gcm16-aesxcbc-ecp384bp, aes256gcm16-aesxcbc-ecp512bp, aes256gcm16-aesxcbc-x25519, aes256gcm16-aesxcbc-x448 |
+| `esp_proposals` | enum | `enum`: *default*, aes256-sha256-modp2048, aes256-sha512-modp2048, aes128-sha256-modp2048, aes128-sha512-modp2048, aes256-sha256-modp4096, aes256-sha512-modp4096, aes256-sha256-ecp521, aes256-sha512-ecp521, aes256gcm16-modp2048, aes256gcm16-ecp521, aes256gcm16-x25519, aes256gcm16-x448, aes128gcm16-modp2048, aes128gcm16-ecp521, aes128gcm16-x25519, aes128gcm16-x448, aes256gcm16, chacha20poly1305-x25519, chacha20poly1305-x448, chacha20poly1305, aes256-sha1-modp2048, aes192-sha1-modp2048, aes128-sha1-modp2048, aes256-sha1-modp4096, aes256-sha1-ecp521, aes256-sha256-modp1024, aes256-sha512-modp1024, aes256-sha256-modp1536, aes128-sha256-modp1536, aes256gcm16-sha256-modp1536, aes256-sha1, aes256-sha256, null, aes256gcm16-x25519-ke1_mlkem768, aes256gcm16-ecp256-ke1_mlkem768, aes256gcm16-ecp384-ke1_mlkem1024, aes128-sha256-modp3072, aes128-sha256-modp4096, aes128-sha256-modp6144, aes128-sha256-modp8192, aes128-sha256-ecp224, aes128-sha256-ecp256, aes128-sha256-ecp384, aes128-sha256-ecp521, aes128-sha256-ecp224bp, aes128-sha256-ecp256bp, aes128-sha256-ecp384bp, aes128-sha256-ecp512bp, aes128-sha256-x25519, aes128-sha256-x448, aes128-sha384-modp2048, aes128-sha384-modp3072, aes128-sha384-modp4096, aes128-sha384-modp6144, aes128-sha384-modp8192, aes128-sha384-ecp224, aes128-sha384-ecp256, aes128-sha384-ecp384, aes128-sha384-ecp521, aes128-sha384-ecp224bp, aes128-sha384-ecp256bp, aes128-sha384-ecp384bp, aes128-sha384-ecp512bp, aes128-sha384-x25519, aes128-sha384-x448, aes128-sha512-modp3072, aes128-sha512-modp4096, aes128-sha512-modp6144, aes128-sha512-modp8192, aes128-sha512-ecp224, aes128-sha512-ecp256, aes128-sha512-ecp384, aes128-sha512-ecp521, aes128-sha512-ecp224bp, aes128-sha512-ecp256bp, aes128-sha512-ecp384bp, aes128-sha512-ecp512bp, aes128-sha512-x25519, aes128-sha512-x448, aes128-aesxcbc-modp2048, aes128-aesxcbc-modp3072, aes128-aesxcbc-modp4096, aes128-aesxcbc-modp6144, aes128-aesxcbc-modp8192, aes128-aesxcbc-ecp224, aes128-aesxcbc-ecp256, aes128-aesxcbc-ecp384, aes128-aesxcbc-ecp521, aes128-aesxcbc-ecp224bp, aes128-aesxcbc-ecp256bp, aes128-aesxcbc-ecp384bp, aes128-aesxcbc-ecp512bp, aes128-aesxcbc-x25519, aes128-aesxcbc-x448, aes192-sha256-modp2048, aes192-sha256-modp3072, aes192-sha256-modp4096, aes192-sha256-modp6144, aes192-sha256-modp8192, aes192-sha256-ecp224, aes192-sha256-ecp256, aes192-sha256-ecp384, aes192-sha256-ecp521, aes192-sha256-ecp224bp, aes192-sha256-ecp256bp, aes192-sha256-ecp384bp, aes192-sha256-ecp512bp, aes192-sha256-x25519, aes192-sha256-x448, aes192-sha384-modp2048, aes192-sha384-modp3072, aes192-sha384-modp4096, aes192-sha384-modp6144, aes192-sha384-modp8192, aes192-sha384-ecp224, aes192-sha384-ecp256, aes192-sha384-ecp384, aes192-sha384-ecp521, aes192-sha384-ecp224bp, aes192-sha384-ecp256bp, aes192-sha384-ecp384bp, aes192-sha384-ecp512bp, aes192-sha384-x25519, aes192-sha384-x448, aes192-sha512-modp2048, aes192-sha512-modp3072, aes192-sha512-modp4096, aes192-sha512-modp6144, aes192-sha512-modp8192, aes192-sha512-ecp224, aes192-sha512-ecp256, aes192-sha512-ecp384, aes192-sha512-ecp521, aes192-sha512-ecp224bp, aes192-sha512-ecp256bp, aes192-sha512-ecp384bp, aes192-sha512-ecp512bp, aes192-sha512-x25519, aes192-sha512-x448, aes192-aesxcbc-modp2048, aes192-aesxcbc-modp3072, aes192-aesxcbc-modp4096, aes192-aesxcbc-modp6144, aes192-aesxcbc-modp8192, aes192-aesxcbc-ecp224, aes192-aesxcbc-ecp256, aes192-aesxcbc-ecp384, aes192-aesxcbc-ecp521, aes192-aesxcbc-ecp224bp, aes192-aesxcbc-ecp256bp, aes192-aesxcbc-ecp384bp, aes192-aesxcbc-ecp512bp, aes192-aesxcbc-x25519, aes192-aesxcbc-x448, aes256-sha256-modp3072, aes256-sha256-modp6144, aes256-sha256-modp8192, aes256-sha256-ecp224, aes256-sha256-ecp256, aes256-sha256-ecp384, aes256-sha256-ecp224bp, aes256-sha256-ecp256bp, aes256-sha256-ecp384bp, aes256-sha256-ecp512bp, aes256-sha256-x25519, aes256-sha256-x448, aes256-sha384-modp2048, aes256-sha384-modp3072, aes256-sha384-modp4096, aes256-sha384-modp6144, aes256-sha384-modp8192, aes256-sha384-ecp224, aes256-sha384-ecp256, aes256-sha384-ecp384, aes256-sha384-ecp521, aes256-sha384-ecp224bp, aes256-sha384-ecp256bp, aes256-sha384-ecp384bp, aes256-sha384-ecp512bp, aes256-sha384-x25519, aes256-sha384-x448, aes256-sha512-modp3072, aes256-sha512-modp6144, aes256-sha512-modp8192, aes256-sha512-ecp224, aes256-sha512-ecp256, aes256-sha512-ecp384, aes256-sha512-ecp224bp, aes256-sha512-ecp256bp, aes256-sha512-ecp384bp, aes256-sha512-ecp512bp, aes256-sha512-x25519, aes256-sha512-x448, aes256-aesxcbc-modp2048, aes256-aesxcbc-modp3072, aes256-aesxcbc-modp4096, aes256-aesxcbc-modp6144, aes256-aesxcbc-modp8192, aes256-aesxcbc-ecp224, aes256-aesxcbc-ecp256, aes256-aesxcbc-ecp384, aes256-aesxcbc-ecp521, aes256-aesxcbc-ecp224bp, aes256-aesxcbc-ecp256bp, aes256-aesxcbc-ecp384bp, aes256-aesxcbc-ecp512bp, aes256-aesxcbc-x25519, aes256-aesxcbc-x448, aes128gcm16-modp3072, aes128gcm16-modp4096, aes128gcm16-modp6144, aes128gcm16-modp8192, aes128gcm16-ecp224, aes128gcm16-ecp256, aes128gcm16-ecp384, aes128gcm16-ecp224bp, aes128gcm16-ecp256bp, aes128gcm16-ecp384bp, aes128gcm16-ecp512bp, aes192gcm16-modp2048, aes192gcm16-modp3072, aes192gcm16-modp4096, aes192gcm16-modp6144, aes192gcm16-modp8192, aes192gcm16-ecp224, aes192gcm16-ecp256, aes192gcm16-ecp384, aes192gcm16-ecp521, aes192gcm16-ecp224bp, aes192gcm16-ecp256bp, aes192gcm16-ecp384bp, aes192gcm16-ecp512bp, aes192gcm16-x25519, aes192gcm16-x448, aes256gcm16-modp3072, aes256gcm16-modp4096, aes256gcm16-modp6144, aes256gcm16-modp8192, aes256gcm16-ecp224, aes256gcm16-ecp256, aes256gcm16-ecp384, aes256gcm16-ecp224bp, aes256gcm16-ecp256bp, aes256gcm16-ecp384bp, aes256gcm16-ecp512bp, aes128gcm16-sha256-modp2048, aes128gcm16-sha256-modp3072, aes128gcm16-sha256-modp4096, aes128gcm16-sha256-modp6144, aes128gcm16-sha256-modp8192, aes128gcm16-sha256-ecp224, aes128gcm16-sha256-ecp256, aes128gcm16-sha256-ecp384, aes128gcm16-sha256-ecp521, aes128gcm16-sha256-ecp224bp, aes128gcm16-sha256-ecp256bp, aes128gcm16-sha256-ecp384bp, aes128gcm16-sha256-ecp512bp, aes128gcm16-sha256-x25519, aes128gcm16-sha256-x448, aes128gcm16-sha384-modp2048, aes128gcm16-sha384-modp3072, aes128gcm16-sha384-modp4096, aes128gcm16-sha384-modp6144, aes128gcm16-sha384-modp8192, aes128gcm16-sha384-ecp224, aes128gcm16-sha384-ecp256, aes128gcm16-sha384-ecp384, aes128gcm16-sha384-ecp521, aes128gcm16-sha384-ecp224bp, aes128gcm16-sha384-ecp256bp, aes128gcm16-sha384-ecp384bp, aes128gcm16-sha384-ecp512bp, aes128gcm16-sha384-x25519, aes128gcm16-sha384-x448, aes128gcm16-sha512-modp2048, aes128gcm16-sha512-modp3072, aes128gcm16-sha512-modp4096, aes128gcm16-sha512-modp6144, aes128gcm16-sha512-modp8192, aes128gcm16-sha512-ecp224, aes128gcm16-sha512-ecp256, aes128gcm16-sha512-ecp384, aes128gcm16-sha512-ecp521, aes128gcm16-sha512-ecp224bp, aes128gcm16-sha512-ecp256bp, aes128gcm16-sha512-ecp384bp, aes128gcm16-sha512-ecp512bp, aes128gcm16-sha512-x25519, aes128gcm16-sha512-x448, aes128gcm16-aesxcbc-modp2048, aes128gcm16-aesxcbc-modp3072, aes128gcm16-aesxcbc-modp4096, aes128gcm16-aesxcbc-modp6144, aes128gcm16-aesxcbc-modp8192, aes128gcm16-aesxcbc-ecp224, aes128gcm16-aesxcbc-ecp256, aes128gcm16-aesxcbc-ecp384, aes128gcm16-aesxcbc-ecp521, aes128gcm16-aesxcbc-ecp224bp, aes128gcm16-aesxcbc-ecp256bp, aes128gcm16-aesxcbc-ecp384bp, aes128gcm16-aesxcbc-ecp512bp, aes128gcm16-aesxcbc-x25519, aes128gcm16-aesxcbc-x448, aes192gcm16-sha256-modp2048, aes192gcm16-sha256-modp3072, aes192gcm16-sha256-modp4096, aes192gcm16-sha256-modp6144, aes192gcm16-sha256-modp8192, aes192gcm16-sha256-ecp224, aes192gcm16-sha256-ecp256, aes192gcm16-sha256-ecp384, aes192gcm16-sha256-ecp521, aes192gcm16-sha256-ecp224bp, aes192gcm16-sha256-ecp256bp, aes192gcm16-sha256-ecp384bp, aes192gcm16-sha256-ecp512bp, aes192gcm16-sha256-x25519, aes192gcm16-sha256-x448, aes192gcm16-sha384-modp2048, aes192gcm16-sha384-modp3072, aes192gcm16-sha384-modp4096, aes192gcm16-sha384-modp6144, aes192gcm16-sha384-modp8192, aes192gcm16-sha384-ecp224, aes192gcm16-sha384-ecp256, aes192gcm16-sha384-ecp384, aes192gcm16-sha384-ecp521, aes192gcm16-sha384-ecp224bp, aes192gcm16-sha384-ecp256bp, aes192gcm16-sha384-ecp384bp, aes192gcm16-sha384-ecp512bp, aes192gcm16-sha384-x25519, aes192gcm16-sha384-x448, aes192gcm16-sha512-modp2048, aes192gcm16-sha512-modp3072, aes192gcm16-sha512-modp4096, aes192gcm16-sha512-modp6144, aes192gcm16-sha512-modp8192, aes192gcm16-sha512-ecp224, aes192gcm16-sha512-ecp256, aes192gcm16-sha512-ecp384, aes192gcm16-sha512-ecp521, aes192gcm16-sha512-ecp224bp, aes192gcm16-sha512-ecp256bp, aes192gcm16-sha512-ecp384bp, aes192gcm16-sha512-ecp512bp, aes192gcm16-sha512-x25519, aes192gcm16-sha512-x448, aes192gcm16-aesxcbc-modp2048, aes192gcm16-aesxcbc-modp3072, aes192gcm16-aesxcbc-modp4096, aes192gcm16-aesxcbc-modp6144, aes192gcm16-aesxcbc-modp8192, aes192gcm16-aesxcbc-ecp224, aes192gcm16-aesxcbc-ecp256, aes192gcm16-aesxcbc-ecp384, aes192gcm16-aesxcbc-ecp521, aes192gcm16-aesxcbc-ecp224bp, aes192gcm16-aesxcbc-ecp256bp, aes192gcm16-aesxcbc-ecp384bp, aes192gcm16-aesxcbc-ecp512bp, aes192gcm16-aesxcbc-x25519, aes192gcm16-aesxcbc-x448, aes256gcm16-sha256-modp2048, aes256gcm16-sha256-modp3072, aes256gcm16-sha256-modp4096, aes256gcm16-sha256-modp6144, aes256gcm16-sha256-modp8192, aes256gcm16-sha256-ecp224, aes256gcm16-sha256-ecp256, aes256gcm16-sha256-ecp384, aes256gcm16-sha256-ecp521, aes256gcm16-sha256-ecp224bp, aes256gcm16-sha256-ecp256bp, aes256gcm16-sha256-ecp384bp, aes256gcm16-sha256-ecp512bp, aes256gcm16-sha256-x25519, aes256gcm16-sha256-x448, aes256gcm16-sha384-modp2048, aes256gcm16-sha384-modp3072, aes256gcm16-sha384-modp4096, aes256gcm16-sha384-modp6144, aes256gcm16-sha384-modp8192, aes256gcm16-sha384-ecp224, aes256gcm16-sha384-ecp256, aes256gcm16-sha384-ecp384, aes256gcm16-sha384-ecp521, aes256gcm16-sha384-ecp224bp, aes256gcm16-sha384-ecp256bp, aes256gcm16-sha384-ecp384bp, aes256gcm16-sha384-ecp512bp, aes256gcm16-sha384-x25519, aes256gcm16-sha384-x448, aes256gcm16-sha512-modp2048, aes256gcm16-sha512-modp3072, aes256gcm16-sha512-modp4096, aes256gcm16-sha512-modp6144, aes256gcm16-sha512-modp8192, aes256gcm16-sha512-ecp224, aes256gcm16-sha512-ecp256, aes256gcm16-sha512-ecp384, aes256gcm16-sha512-ecp521, aes256gcm16-sha512-ecp224bp, aes256gcm16-sha512-ecp256bp, aes256gcm16-sha512-ecp384bp, aes256gcm16-sha512-ecp512bp, aes256gcm16-sha512-x25519, aes256gcm16-sha512-x448, aes256gcm16-aesxcbc-modp2048, aes256gcm16-aesxcbc-modp3072, aes256gcm16-aesxcbc-modp4096, aes256gcm16-aesxcbc-modp6144, aes256gcm16-aesxcbc-modp8192, aes256gcm16-aesxcbc-ecp224, aes256gcm16-aesxcbc-ecp256, aes256gcm16-aesxcbc-ecp384, aes256gcm16-aesxcbc-ecp521, aes256gcm16-aesxcbc-ecp224bp, aes256gcm16-aesxcbc-ecp256bp, aes256gcm16-aesxcbc-ecp384bp, aes256gcm16-aesxcbc-ecp512bp, aes256gcm16-aesxcbc-x25519, aes256gcm16-aesxcbc-x448 |
 | `sha256_96` | `"0"` | `string-bool` |
 | `start_action` | enum | `enum`: none, trap|start, route, *start*, trap |
 | `close_action` | enum | `enum`: *none*, trap, start |
@@ -4728,7 +4910,7 @@ settings
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
-| `proposals` | enum | `enum`: *default*, aes256-sha256-modp2048, aes256-sha512-modp2048, aes128-sha256-modp2048, aes128-sha512-modp2048, aes256-sha256-modp4096, aes256-sha512-modp4096, aes256-sha256-ecp521, aes256-sha512-ecp521, aes256gcm16-sha256-modp2048, aes256gcm16-sha512-modp2048, aes256gcm16-sha256-ecp521, aes256gcm16-sha512-ecp521, aes256gcm16-sha256-x25519, aes256gcm16-sha512-x25519, aes256gcm16-sha256-x448, aes256gcm16-sha512-x448, aes128gcm16-sha256-modp2048, aes128gcm16-sha512-modp2048, aes128gcm16-sha256-ecp521, aes128gcm16-sha512-ecp521, aes128gcm16-sha256-x25519, aes128gcm16-sha512-x25519, aes128gcm16-sha256-x448, aes128gcm16-sha512-x448, chacha20poly1305-sha256-x25519, chacha20poly1305-sha384-x25519, chacha20poly1305-sha512-x25519, chacha20poly1305-sha256-x448, chacha20poly1305-sha384-x448, chacha20poly1305-sha512-x448, aes256-sha1-modp2048, aes192-sha1-modp2048, aes128-sha1-modp2048, aes256-sha1-modp4096, aes256-sha1-ecp521, aes256-sha256-modp1024, aes256-sha512-modp1024, aes256-sha256-modp1536, aes128-sha256-modp1536, aes256gcm16-sha256-modp1536, aes256-sha1, aes256-sha256, null, aes128-sha256-modp3072, aes128-sha256-modp4096, aes128-sha256-modp6144, aes128-sha256-modp8192, aes128-sha256-ecp224, aes128-sha256-ecp256, aes128-sha256-ecp384, aes128-sha256-ecp521, aes128-sha256-ecp224bp, aes128-sha256-ecp256bp, aes128-sha256-ecp384bp, aes128-sha256-ecp512bp, aes128-sha256-x25519, aes128-sha256-x448, aes128-sha384-modp2048, aes128-sha384-modp3072, aes128-sha384-modp4096, aes128-sha384-modp6144, aes128-sha384-modp8192, aes128-sha384-ecp224, aes128-sha384-ecp256, aes128-sha384-ecp384, aes128-sha384-ecp521, aes128-sha384-ecp224bp, aes128-sha384-ecp256bp, aes128-sha384-ecp384bp, aes128-sha384-ecp512bp, aes128-sha384-x25519, aes128-sha384-x448, aes128-sha512-modp3072, aes128-sha512-modp4096, aes128-sha512-modp6144, aes128-sha512-modp8192, aes128-sha512-ecp224, aes128-sha512-ecp256, aes128-sha512-ecp384, aes128-sha512-ecp521, aes128-sha512-ecp224bp, aes128-sha512-ecp256bp, aes128-sha512-ecp384bp, aes128-sha512-ecp512bp, aes128-sha512-x25519, aes128-sha512-x448, aes128-aesxcbc-modp2048, aes128-aesxcbc-modp3072, aes128-aesxcbc-modp4096, aes128-aesxcbc-modp6144, aes128-aesxcbc-modp8192, aes128-aesxcbc-ecp224, aes128-aesxcbc-ecp256, aes128-aesxcbc-ecp384, aes128-aesxcbc-ecp521, aes128-aesxcbc-ecp224bp, aes128-aesxcbc-ecp256bp, aes128-aesxcbc-ecp384bp, aes128-aesxcbc-ecp512bp, aes128-aesxcbc-x25519, aes128-aesxcbc-x448, aes192-sha256-modp2048, aes192-sha256-modp3072, aes192-sha256-modp4096, aes192-sha256-modp6144, aes192-sha256-modp8192, aes192-sha256-ecp224, aes192-sha256-ecp256, aes192-sha256-ecp384, aes192-sha256-ecp521, aes192-sha256-ecp224bp, aes192-sha256-ecp256bp, aes192-sha256-ecp384bp, aes192-sha256-ecp512bp, aes192-sha256-x25519, aes192-sha256-x448, aes192-sha384-modp2048, aes192-sha384-modp3072, aes192-sha384-modp4096, aes192-sha384-modp6144, aes192-sha384-modp8192, aes192-sha384-ecp224, aes192-sha384-ecp256, aes192-sha384-ecp384, aes192-sha384-ecp521, aes192-sha384-ecp224bp, aes192-sha384-ecp256bp, aes192-sha384-ecp384bp, aes192-sha384-ecp512bp, aes192-sha384-x25519, aes192-sha384-x448, aes192-sha512-modp2048, aes192-sha512-modp3072, aes192-sha512-modp4096, aes192-sha512-modp6144, aes192-sha512-modp8192, aes192-sha512-ecp224, aes192-sha512-ecp256, aes192-sha512-ecp384, aes192-sha512-ecp521, aes192-sha512-ecp224bp, aes192-sha512-ecp256bp, aes192-sha512-ecp384bp, aes192-sha512-ecp512bp, aes192-sha512-x25519, aes192-sha512-x448, aes192-aesxcbc-modp2048, aes192-aesxcbc-modp3072, aes192-aesxcbc-modp4096, aes192-aesxcbc-modp6144, aes192-aesxcbc-modp8192, aes192-aesxcbc-ecp224, aes192-aesxcbc-ecp256, aes192-aesxcbc-ecp384, aes192-aesxcbc-ecp521, aes192-aesxcbc-ecp224bp, aes192-aesxcbc-ecp256bp, aes192-aesxcbc-ecp384bp, aes192-aesxcbc-ecp512bp, aes192-aesxcbc-x25519, aes192-aesxcbc-x448, aes256-sha256-modp3072, aes256-sha256-modp6144, aes256-sha256-modp8192, aes256-sha256-ecp224, aes256-sha256-ecp256, aes256-sha256-ecp384, aes256-sha256-ecp224bp, aes256-sha256-ecp256bp, aes256-sha256-ecp384bp, aes256-sha256-ecp512bp, aes256-sha256-x25519, aes256-sha256-x448, aes256-sha384-modp2048, aes256-sha384-modp3072, aes256-sha384-modp4096, aes256-sha384-modp6144, aes256-sha384-modp8192, aes256-sha384-ecp224, aes256-sha384-ecp256, aes256-sha384-ecp384, aes256-sha384-ecp521, aes256-sha384-ecp224bp, aes256-sha384-ecp256bp, aes256-sha384-ecp384bp, aes256-sha384-ecp512bp, aes256-sha384-x25519, aes256-sha384-x448, aes256-sha512-modp3072, aes256-sha512-modp6144, aes256-sha512-modp8192, aes256-sha512-ecp224, aes256-sha512-ecp256, aes256-sha512-ecp384, aes256-sha512-ecp224bp, aes256-sha512-ecp256bp, aes256-sha512-ecp384bp, aes256-sha512-ecp512bp, aes256-sha512-x25519, aes256-sha512-x448, aes256-aesxcbc-modp2048, aes256-aesxcbc-modp3072, aes256-aesxcbc-modp4096, aes256-aesxcbc-modp6144, aes256-aesxcbc-modp8192, aes256-aesxcbc-ecp224, aes256-aesxcbc-ecp256, aes256-aesxcbc-ecp384, aes256-aesxcbc-ecp521, aes256-aesxcbc-ecp224bp, aes256-aesxcbc-ecp256bp, aes256-aesxcbc-ecp384bp, aes256-aesxcbc-ecp512bp, aes256-aesxcbc-x25519, aes256-aesxcbc-x448, aes128gcm16-sha256-modp3072, aes128gcm16-sha256-modp4096, aes128gcm16-sha256-modp6144, aes128gcm16-sha256-modp8192, aes128gcm16-sha256-ecp224, aes128gcm16-sha256-ecp256, aes128gcm16-sha256-ecp384, aes128gcm16-sha256-ecp224bp, aes128gcm16-sha256-ecp256bp, aes128gcm16-sha256-ecp384bp, aes128gcm16-sha256-ecp512bp, aes128gcm16-sha384-modp2048, aes128gcm16-sha384-modp3072, aes128gcm16-sha384-modp4096, aes128gcm16-sha384-modp6144, aes128gcm16-sha384-modp8192, aes128gcm16-sha384-ecp224, aes128gcm16-sha384-ecp256, aes128gcm16-sha384-ecp384, aes128gcm16-sha384-ecp521, aes128gcm16-sha384-ecp224bp, aes128gcm16-sha384-ecp256bp, aes128gcm16-sha384-ecp384bp, aes128gcm16-sha384-ecp512bp, aes128gcm16-sha384-x25519, aes128gcm16-sha384-x448, aes128gcm16-sha512-modp3072, aes128gcm16-sha512-modp4096, aes128gcm16-sha512-modp6144, aes128gcm16-sha512-modp8192, aes128gcm16-sha512-ecp224, aes128gcm16-sha512-ecp256, aes128gcm16-sha512-ecp384, aes128gcm16-sha512-ecp224bp, aes128gcm16-sha512-ecp256bp, aes128gcm16-sha512-ecp384bp, aes128gcm16-sha512-ecp512bp, aes128gcm16-aesxcbc-modp2048, aes128gcm16-aesxcbc-modp3072, aes128gcm16-aesxcbc-modp4096, aes128gcm16-aesxcbc-modp6144, aes128gcm16-aesxcbc-modp8192, aes128gcm16-aesxcbc-ecp224, aes128gcm16-aesxcbc-ecp256, aes128gcm16-aesxcbc-ecp384, aes128gcm16-aesxcbc-ecp521, aes128gcm16-aesxcbc-ecp224bp, aes128gcm16-aesxcbc-ecp256bp, aes128gcm16-aesxcbc-ecp384bp, aes128gcm16-aesxcbc-ecp512bp, aes128gcm16-aesxcbc-x25519, aes128gcm16-aesxcbc-x448, aes192gcm16-sha256-modp2048, aes192gcm16-sha256-modp3072, aes192gcm16-sha256-modp4096, aes192gcm16-sha256-modp6144, aes192gcm16-sha256-modp8192, aes192gcm16-sha256-ecp224, aes192gcm16-sha256-ecp256, aes192gcm16-sha256-ecp384, aes192gcm16-sha256-ecp521, aes192gcm16-sha256-ecp224bp, aes192gcm16-sha256-ecp256bp, aes192gcm16-sha256-ecp384bp, aes192gcm16-sha256-ecp512bp, aes192gcm16-sha256-x25519, aes192gcm16-sha256-x448, aes192gcm16-sha384-modp2048, aes192gcm16-sha384-modp3072, aes192gcm16-sha384-modp4096, aes192gcm16-sha384-modp6144, aes192gcm16-sha384-modp8192, aes192gcm16-sha384-ecp224, aes192gcm16-sha384-ecp256, aes192gcm16-sha384-ecp384, aes192gcm16-sha384-ecp521, aes192gcm16-sha384-ecp224bp, aes192gcm16-sha384-ecp256bp, aes192gcm16-sha384-ecp384bp, aes192gcm16-sha384-ecp512bp, aes192gcm16-sha384-x25519, aes192gcm16-sha384-x448, aes192gcm16-sha512-modp2048, aes192gcm16-sha512-modp3072, aes192gcm16-sha512-modp4096, aes192gcm16-sha512-modp6144, aes192gcm16-sha512-modp8192, aes192gcm16-sha512-ecp224, aes192gcm16-sha512-ecp256, aes192gcm16-sha512-ecp384, aes192gcm16-sha512-ecp521, aes192gcm16-sha512-ecp224bp, aes192gcm16-sha512-ecp256bp, aes192gcm16-sha512-ecp384bp, aes192gcm16-sha512-ecp512bp, aes192gcm16-sha512-x25519, aes192gcm16-sha512-x448, aes192gcm16-aesxcbc-modp2048, aes192gcm16-aesxcbc-modp3072, aes192gcm16-aesxcbc-modp4096, aes192gcm16-aesxcbc-modp6144, aes192gcm16-aesxcbc-modp8192, aes192gcm16-aesxcbc-ecp224, aes192gcm16-aesxcbc-ecp256, aes192gcm16-aesxcbc-ecp384, aes192gcm16-aesxcbc-ecp521, aes192gcm16-aesxcbc-ecp224bp, aes192gcm16-aesxcbc-ecp256bp, aes192gcm16-aesxcbc-ecp384bp, aes192gcm16-aesxcbc-ecp512bp, aes192gcm16-aesxcbc-x25519, aes192gcm16-aesxcbc-x448, aes256gcm16-sha256-modp3072, aes256gcm16-sha256-modp4096, aes256gcm16-sha256-modp6144, aes256gcm16-sha256-modp8192, aes256gcm16-sha256-ecp224, aes256gcm16-sha256-ecp256, aes256gcm16-sha256-ecp384, aes256gcm16-sha256-ecp224bp, aes256gcm16-sha256-ecp256bp, aes256gcm16-sha256-ecp384bp, aes256gcm16-sha256-ecp512bp, aes256gcm16-sha384-modp2048, aes256gcm16-sha384-modp3072, aes256gcm16-sha384-modp4096, aes256gcm16-sha384-modp6144, aes256gcm16-sha384-modp8192, aes256gcm16-sha384-ecp224, aes256gcm16-sha384-ecp256, aes256gcm16-sha384-ecp384, aes256gcm16-sha384-ecp521, aes256gcm16-sha384-ecp224bp, aes256gcm16-sha384-ecp256bp, aes256gcm16-sha384-ecp384bp, aes256gcm16-sha384-ecp512bp, aes256gcm16-sha384-x25519, aes256gcm16-sha384-x448, aes256gcm16-sha512-modp3072, aes256gcm16-sha512-modp4096, aes256gcm16-sha512-modp6144, aes256gcm16-sha512-modp8192, aes256gcm16-sha512-ecp224, aes256gcm16-sha512-ecp256, aes256gcm16-sha512-ecp384, aes256gcm16-sha512-ecp224bp, aes256gcm16-sha512-ecp256bp, aes256gcm16-sha512-ecp384bp, aes256gcm16-sha512-ecp512bp, aes256gcm16-aesxcbc-modp2048, aes256gcm16-aesxcbc-modp3072, aes256gcm16-aesxcbc-modp4096, aes256gcm16-aesxcbc-modp6144, aes256gcm16-aesxcbc-modp8192, aes256gcm16-aesxcbc-ecp224, aes256gcm16-aesxcbc-ecp256, aes256gcm16-aesxcbc-ecp384, aes256gcm16-aesxcbc-ecp521, aes256gcm16-aesxcbc-ecp224bp, aes256gcm16-aesxcbc-ecp256bp, aes256gcm16-aesxcbc-ecp384bp, aes256gcm16-aesxcbc-ecp512bp, aes256gcm16-aesxcbc-x25519, aes256gcm16-aesxcbc-x448 |
+| `proposals` | enum | `enum`: *default*, aes256-sha256-modp2048, aes256-sha512-modp2048, aes128-sha256-modp2048, aes128-sha512-modp2048, aes256-sha256-modp4096, aes256-sha512-modp4096, aes256-sha256-ecp521, aes256-sha512-ecp521, aes256gcm16-sha256-modp2048, aes256gcm16-sha512-modp2048, aes256gcm16-sha256-ecp521, aes256gcm16-sha512-ecp521, aes256gcm16-sha256-x25519, aes256gcm16-sha512-x25519, aes256gcm16-sha256-x448, aes256gcm16-sha512-x448, aes128gcm16-sha256-modp2048, aes128gcm16-sha512-modp2048, aes128gcm16-sha256-ecp521, aes128gcm16-sha512-ecp521, aes128gcm16-sha256-x25519, aes128gcm16-sha512-x25519, aes128gcm16-sha256-x448, aes128gcm16-sha512-x448, chacha20poly1305-sha256-x25519, chacha20poly1305-sha384-x25519, chacha20poly1305-sha512-x25519, chacha20poly1305-sha256-x448, chacha20poly1305-sha384-x448, chacha20poly1305-sha512-x448, aes256-sha1-modp2048, aes192-sha1-modp2048, aes128-sha1-modp2048, aes256-sha1-modp4096, aes256-sha1-ecp521, aes256-sha256-modp1024, aes256-sha512-modp1024, aes256-sha256-modp1536, aes128-sha256-modp1536, aes256gcm16-sha256-modp1536, aes256-sha1, aes256-sha256, null, aes256gcm16-sha256-x25519-ke1_mlkem768, aes256gcm16-sha256-ecp256-ke1_mlkem768, aes256gcm16-sha384-ecp384-ke1_mlkem1024, aes128-sha256-modp3072, aes128-sha256-modp4096, aes128-sha256-modp6144, aes128-sha256-modp8192, aes128-sha256-ecp224, aes128-sha256-ecp256, aes128-sha256-ecp384, aes128-sha256-ecp521, aes128-sha256-ecp224bp, aes128-sha256-ecp256bp, aes128-sha256-ecp384bp, aes128-sha256-ecp512bp, aes128-sha256-x25519, aes128-sha256-x448, aes128-sha384-modp2048, aes128-sha384-modp3072, aes128-sha384-modp4096, aes128-sha384-modp6144, aes128-sha384-modp8192, aes128-sha384-ecp224, aes128-sha384-ecp256, aes128-sha384-ecp384, aes128-sha384-ecp521, aes128-sha384-ecp224bp, aes128-sha384-ecp256bp, aes128-sha384-ecp384bp, aes128-sha384-ecp512bp, aes128-sha384-x25519, aes128-sha384-x448, aes128-sha512-modp3072, aes128-sha512-modp4096, aes128-sha512-modp6144, aes128-sha512-modp8192, aes128-sha512-ecp224, aes128-sha512-ecp256, aes128-sha512-ecp384, aes128-sha512-ecp521, aes128-sha512-ecp224bp, aes128-sha512-ecp256bp, aes128-sha512-ecp384bp, aes128-sha512-ecp512bp, aes128-sha512-x25519, aes128-sha512-x448, aes128-aesxcbc-modp2048, aes128-aesxcbc-modp3072, aes128-aesxcbc-modp4096, aes128-aesxcbc-modp6144, aes128-aesxcbc-modp8192, aes128-aesxcbc-ecp224, aes128-aesxcbc-ecp256, aes128-aesxcbc-ecp384, aes128-aesxcbc-ecp521, aes128-aesxcbc-ecp224bp, aes128-aesxcbc-ecp256bp, aes128-aesxcbc-ecp384bp, aes128-aesxcbc-ecp512bp, aes128-aesxcbc-x25519, aes128-aesxcbc-x448, aes192-sha256-modp2048, aes192-sha256-modp3072, aes192-sha256-modp4096, aes192-sha256-modp6144, aes192-sha256-modp8192, aes192-sha256-ecp224, aes192-sha256-ecp256, aes192-sha256-ecp384, aes192-sha256-ecp521, aes192-sha256-ecp224bp, aes192-sha256-ecp256bp, aes192-sha256-ecp384bp, aes192-sha256-ecp512bp, aes192-sha256-x25519, aes192-sha256-x448, aes192-sha384-modp2048, aes192-sha384-modp3072, aes192-sha384-modp4096, aes192-sha384-modp6144, aes192-sha384-modp8192, aes192-sha384-ecp224, aes192-sha384-ecp256, aes192-sha384-ecp384, aes192-sha384-ecp521, aes192-sha384-ecp224bp, aes192-sha384-ecp256bp, aes192-sha384-ecp384bp, aes192-sha384-ecp512bp, aes192-sha384-x25519, aes192-sha384-x448, aes192-sha512-modp2048, aes192-sha512-modp3072, aes192-sha512-modp4096, aes192-sha512-modp6144, aes192-sha512-modp8192, aes192-sha512-ecp224, aes192-sha512-ecp256, aes192-sha512-ecp384, aes192-sha512-ecp521, aes192-sha512-ecp224bp, aes192-sha512-ecp256bp, aes192-sha512-ecp384bp, aes192-sha512-ecp512bp, aes192-sha512-x25519, aes192-sha512-x448, aes192-aesxcbc-modp2048, aes192-aesxcbc-modp3072, aes192-aesxcbc-modp4096, aes192-aesxcbc-modp6144, aes192-aesxcbc-modp8192, aes192-aesxcbc-ecp224, aes192-aesxcbc-ecp256, aes192-aesxcbc-ecp384, aes192-aesxcbc-ecp521, aes192-aesxcbc-ecp224bp, aes192-aesxcbc-ecp256bp, aes192-aesxcbc-ecp384bp, aes192-aesxcbc-ecp512bp, aes192-aesxcbc-x25519, aes192-aesxcbc-x448, aes256-sha256-modp3072, aes256-sha256-modp6144, aes256-sha256-modp8192, aes256-sha256-ecp224, aes256-sha256-ecp256, aes256-sha256-ecp384, aes256-sha256-ecp224bp, aes256-sha256-ecp256bp, aes256-sha256-ecp384bp, aes256-sha256-ecp512bp, aes256-sha256-x25519, aes256-sha256-x448, aes256-sha384-modp2048, aes256-sha384-modp3072, aes256-sha384-modp4096, aes256-sha384-modp6144, aes256-sha384-modp8192, aes256-sha384-ecp224, aes256-sha384-ecp256, aes256-sha384-ecp384, aes256-sha384-ecp521, aes256-sha384-ecp224bp, aes256-sha384-ecp256bp, aes256-sha384-ecp384bp, aes256-sha384-ecp512bp, aes256-sha384-x25519, aes256-sha384-x448, aes256-sha512-modp3072, aes256-sha512-modp6144, aes256-sha512-modp8192, aes256-sha512-ecp224, aes256-sha512-ecp256, aes256-sha512-ecp384, aes256-sha512-ecp224bp, aes256-sha512-ecp256bp, aes256-sha512-ecp384bp, aes256-sha512-ecp512bp, aes256-sha512-x25519, aes256-sha512-x448, aes256-aesxcbc-modp2048, aes256-aesxcbc-modp3072, aes256-aesxcbc-modp4096, aes256-aesxcbc-modp6144, aes256-aesxcbc-modp8192, aes256-aesxcbc-ecp224, aes256-aesxcbc-ecp256, aes256-aesxcbc-ecp384, aes256-aesxcbc-ecp521, aes256-aesxcbc-ecp224bp, aes256-aesxcbc-ecp256bp, aes256-aesxcbc-ecp384bp, aes256-aesxcbc-ecp512bp, aes256-aesxcbc-x25519, aes256-aesxcbc-x448, aes128gcm16-sha256-modp3072, aes128gcm16-sha256-modp4096, aes128gcm16-sha256-modp6144, aes128gcm16-sha256-modp8192, aes128gcm16-sha256-ecp224, aes128gcm16-sha256-ecp256, aes128gcm16-sha256-ecp384, aes128gcm16-sha256-ecp224bp, aes128gcm16-sha256-ecp256bp, aes128gcm16-sha256-ecp384bp, aes128gcm16-sha256-ecp512bp, aes128gcm16-sha384-modp2048, aes128gcm16-sha384-modp3072, aes128gcm16-sha384-modp4096, aes128gcm16-sha384-modp6144, aes128gcm16-sha384-modp8192, aes128gcm16-sha384-ecp224, aes128gcm16-sha384-ecp256, aes128gcm16-sha384-ecp384, aes128gcm16-sha384-ecp521, aes128gcm16-sha384-ecp224bp, aes128gcm16-sha384-ecp256bp, aes128gcm16-sha384-ecp384bp, aes128gcm16-sha384-ecp512bp, aes128gcm16-sha384-x25519, aes128gcm16-sha384-x448, aes128gcm16-sha512-modp3072, aes128gcm16-sha512-modp4096, aes128gcm16-sha512-modp6144, aes128gcm16-sha512-modp8192, aes128gcm16-sha512-ecp224, aes128gcm16-sha512-ecp256, aes128gcm16-sha512-ecp384, aes128gcm16-sha512-ecp224bp, aes128gcm16-sha512-ecp256bp, aes128gcm16-sha512-ecp384bp, aes128gcm16-sha512-ecp512bp, aes128gcm16-aesxcbc-modp2048, aes128gcm16-aesxcbc-modp3072, aes128gcm16-aesxcbc-modp4096, aes128gcm16-aesxcbc-modp6144, aes128gcm16-aesxcbc-modp8192, aes128gcm16-aesxcbc-ecp224, aes128gcm16-aesxcbc-ecp256, aes128gcm16-aesxcbc-ecp384, aes128gcm16-aesxcbc-ecp521, aes128gcm16-aesxcbc-ecp224bp, aes128gcm16-aesxcbc-ecp256bp, aes128gcm16-aesxcbc-ecp384bp, aes128gcm16-aesxcbc-ecp512bp, aes128gcm16-aesxcbc-x25519, aes128gcm16-aesxcbc-x448, aes192gcm16-sha256-modp2048, aes192gcm16-sha256-modp3072, aes192gcm16-sha256-modp4096, aes192gcm16-sha256-modp6144, aes192gcm16-sha256-modp8192, aes192gcm16-sha256-ecp224, aes192gcm16-sha256-ecp256, aes192gcm16-sha256-ecp384, aes192gcm16-sha256-ecp521, aes192gcm16-sha256-ecp224bp, aes192gcm16-sha256-ecp256bp, aes192gcm16-sha256-ecp384bp, aes192gcm16-sha256-ecp512bp, aes192gcm16-sha256-x25519, aes192gcm16-sha256-x448, aes192gcm16-sha384-modp2048, aes192gcm16-sha384-modp3072, aes192gcm16-sha384-modp4096, aes192gcm16-sha384-modp6144, aes192gcm16-sha384-modp8192, aes192gcm16-sha384-ecp224, aes192gcm16-sha384-ecp256, aes192gcm16-sha384-ecp384, aes192gcm16-sha384-ecp521, aes192gcm16-sha384-ecp224bp, aes192gcm16-sha384-ecp256bp, aes192gcm16-sha384-ecp384bp, aes192gcm16-sha384-ecp512bp, aes192gcm16-sha384-x25519, aes192gcm16-sha384-x448, aes192gcm16-sha512-modp2048, aes192gcm16-sha512-modp3072, aes192gcm16-sha512-modp4096, aes192gcm16-sha512-modp6144, aes192gcm16-sha512-modp8192, aes192gcm16-sha512-ecp224, aes192gcm16-sha512-ecp256, aes192gcm16-sha512-ecp384, aes192gcm16-sha512-ecp521, aes192gcm16-sha512-ecp224bp, aes192gcm16-sha512-ecp256bp, aes192gcm16-sha512-ecp384bp, aes192gcm16-sha512-ecp512bp, aes192gcm16-sha512-x25519, aes192gcm16-sha512-x448, aes192gcm16-aesxcbc-modp2048, aes192gcm16-aesxcbc-modp3072, aes192gcm16-aesxcbc-modp4096, aes192gcm16-aesxcbc-modp6144, aes192gcm16-aesxcbc-modp8192, aes192gcm16-aesxcbc-ecp224, aes192gcm16-aesxcbc-ecp256, aes192gcm16-aesxcbc-ecp384, aes192gcm16-aesxcbc-ecp521, aes192gcm16-aesxcbc-ecp224bp, aes192gcm16-aesxcbc-ecp256bp, aes192gcm16-aesxcbc-ecp384bp, aes192gcm16-aesxcbc-ecp512bp, aes192gcm16-aesxcbc-x25519, aes192gcm16-aesxcbc-x448, aes256gcm16-sha256-modp3072, aes256gcm16-sha256-modp4096, aes256gcm16-sha256-modp6144, aes256gcm16-sha256-modp8192, aes256gcm16-sha256-ecp224, aes256gcm16-sha256-ecp256, aes256gcm16-sha256-ecp384, aes256gcm16-sha256-ecp224bp, aes256gcm16-sha256-ecp256bp, aes256gcm16-sha256-ecp384bp, aes256gcm16-sha256-ecp512bp, aes256gcm16-sha384-modp2048, aes256gcm16-sha384-modp3072, aes256gcm16-sha384-modp4096, aes256gcm16-sha384-modp6144, aes256gcm16-sha384-modp8192, aes256gcm16-sha384-ecp224, aes256gcm16-sha384-ecp256, aes256gcm16-sha384-ecp384, aes256gcm16-sha384-ecp521, aes256gcm16-sha384-ecp224bp, aes256gcm16-sha384-ecp256bp, aes256gcm16-sha384-ecp384bp, aes256gcm16-sha384-ecp512bp, aes256gcm16-sha384-x25519, aes256gcm16-sha384-x448, aes256gcm16-sha512-modp3072, aes256gcm16-sha512-modp4096, aes256gcm16-sha512-modp6144, aes256gcm16-sha512-modp8192, aes256gcm16-sha512-ecp224, aes256gcm16-sha512-ecp256, aes256gcm16-sha512-ecp384, aes256gcm16-sha512-ecp224bp, aes256gcm16-sha512-ecp256bp, aes256gcm16-sha512-ecp384bp, aes256gcm16-sha512-ecp512bp, aes256gcm16-aesxcbc-modp2048, aes256gcm16-aesxcbc-modp3072, aes256gcm16-aesxcbc-modp4096, aes256gcm16-aesxcbc-modp6144, aes256gcm16-aesxcbc-modp8192, aes256gcm16-aesxcbc-ecp224, aes256gcm16-aesxcbc-ecp256, aes256gcm16-aesxcbc-ecp384, aes256gcm16-aesxcbc-ecp521, aes256gcm16-aesxcbc-ecp224bp, aes256gcm16-aesxcbc-ecp256bp, aes256gcm16-aesxcbc-ecp384bp, aes256gcm16-aesxcbc-ecp512bp, aes256gcm16-aesxcbc-x25519, aes256gcm16-aesxcbc-x448 |
 | `unique` | enum | `enum`: *no*, never, keep, replace |
 | `aggressive` | `"0"` | `string-bool` |
 | `version` | [] | `list` |
@@ -4751,7 +4933,7 @@ settings
 | `local_ts` | `""` | `string` |
 | `remote_ts` | `""` | `string` |
 | `org_uuid` | `null` | `nullable` |
-| `uuid` | `"9fb65ff3-e929-4515-a123-34dfb445f646"` | `string` |
+| `uuid` | `"b3f538ee-5537-47fb-80c7-c0a79c6e976f"` | `string` |
 
 > 25 fields discovered
 
@@ -4860,7 +5042,7 @@ enabled
 | `auth` | enum | `enum`: *psk*, pubkey, eap-tls, eap-mschapv2, xauth-pam, eap-radius |
 | `id` | `""` | `string` |
 | `eap_id` | `""` | `string` |
-| `certs` | enum | `enum`: 6a9d4cdae404a |
+| `certs` | enum | `enum`: 6ac19fa548497 |
 | `pubkeys` | [] | `list` |
 | `description` | `""` | `string` |
 
@@ -4980,8 +5162,8 @@ enabled
 | `auth` | enum | `enum`: *psk*, pubkey, eap-tls, eap-mschapv2, xauth-pam, eap-radius |
 | `id` | `""` | `string` |
 | `eap_id` | `""` | `string` |
-| `groups` | enum | `enum`: 1999 |
-| `certs` | enum | `enum`: 6a9d4cdae404a |
+| `groups` | enum | `enum`: 1999, 2000 |
+| `certs` | enum | `enum`: 6ac19fa548497 |
 | `cacerts` | [] | `list` |
 | `pubkeys` | [] | `list` |
 | `description` | `""` | `string` |
@@ -5069,6 +5251,10 @@ ipsec
         }
       },
       "user_source": {
+        "Authentik LDAP": {
+          "value": "Authentik LDAP",
+          "selected": 0
+        },
         "Local Database": {
           "value": "Local Database",
           "selected": 0
@@ -5081,6 +5267,10 @@ ipsec
         },
         "1999": {
           "value": "admins",
+          "selected": 0
+        },
+        "2000": {
+          "value": "platform-admins",
           "selected": 0
         }
       }
@@ -5128,18 +5318,10 @@ ipsec
             },
             "4": {
               "value": "Also include sensitive material in dumps, e.g. keys",
-              "selected": 0
-            }
-          },
-          "asn": {
-            "-1": {
-              "value": "Absolutely silent",
-              "selected": 0
-            },
 (parse error)
 ```
 
-> Response size: 18320 bytes
+> Response size: 18511 bytes
 
 ---
 
@@ -5213,16 +5395,20 @@ dhcpv4
       "enabled": "0",
       "manual_config": "0",
       "interfaces": {
-        "lan": {
-          "value": "LAN",
+        "opt3": {
+          "value": "FAB",
           "selected": 0
         },
         "opt1": {
-          "value": "OPT1",
+          "value": "LAN_TRUNK",
           "selected": 0
         },
-        "wan": {
-          "value": "WAN",
+        "lan": {
+          "value": "OOB",
+          "selected": 0
+        },
+        "opt2": {
+          "value": "SCRATCH",
           "selected": 0
         }
       },
@@ -5272,13 +5458,13 @@ dhcpv4
       "enabled": "0",
       "this_server_name": "",
       "max_unacked_clients": "2",
-      "%this_server_name": "OPNsense"
+      "%this_server_name": "vm-opns-scratch-01"
     }
   }
 }
 ```
 
-> Response size: 1625 bytes
+> Response size: 1724 bytes
 
 ---
 
@@ -5378,6 +5564,7 @@ dhcpv4
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
+| `subnet_id` | `"1"` | `string-bool` |
 | `subnet` | `""` | `string` |
 | `valid_lifetime` | `""` | `string` |
 | `next_server` | `""` | `string` |
@@ -5387,6 +5574,7 @@ dhcpv4
 | `match-client-id` | `"1"` | `string-bool` |
 | `allocator` | enum | `enum`: **, iterative, random, flq |
 | `pools` | `""` | `string` |
+| `ping_check` | `"0"` | `string-bool` |
 | `ddns_forward_zone` | `""` | `string` |
 | `ddns_reverse_zone` | `""` | `string` |
 | `ddns_qualifying_suffix` | `""` | `string` |
@@ -5401,7 +5589,7 @@ dhcpv4
 | `ddns_conflict_resolution_mode` | enum | `enum`: **, no-check-with-dhcid, check-exists-with-dhcid, no-check-without-dhcid |
 | `description` | `""` | `string` |
 
-> 22 fields discovered
+> 24 fields discovered
 
 ### search — HTTP 200
 
@@ -5443,16 +5631,20 @@ dhcpv6
       "enabled": "0",
       "manual_config": "0",
       "interfaces": {
-        "lan": {
-          "value": "LAN",
+        "opt3": {
+          "value": "FAB",
           "selected": 0
         },
         "opt1": {
-          "value": "OPT1",
+          "value": "LAN_TRUNK",
           "selected": 0
         },
-        "wan": {
-          "value": "WAN",
+        "lan": {
+          "value": "OOB",
+          "selected": 0
+        },
+        "opt2": {
+          "value": "SCRATCH",
           "selected": 0
         }
       },
@@ -5500,13 +5692,13 @@ dhcpv6
       "enabled": "0",
       "this_server_name": "",
       "max_unacked_clients": "2",
-      "%this_server_name": "OPNsense"
+      "%this_server_name": "vm-opns-scratch-01"
     }
   }
 }
 ```
 
-> Response size: 1529 bytes
+> Response size: 1628 bytes
 
 ---
 
@@ -5569,6 +5761,7 @@ dhcpv6
 
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
+| `subnet_id` | `"1"` | `string-bool` |
 | `subnet` | `""` | `string` |
 | `valid_lifetime` | `""` | `string` |
 | `allocator` | enum | `enum`: **, iterative, random, flq |
@@ -5577,7 +5770,7 @@ dhcpv6
 | `option_data` | (object) | `object`: {"dns_servers":{"":{"value":"","selected":1}},"domain_search |
 | `option` | [] | `list` |
 | `pools` | `""` | `string` |
-| `interface` | enum | `enum`: lan, opt1, wan |
+| `interface` | enum | `enum`: opt3, opt1, lan, opt2 |
 | `dynamic_prefix` | `"0"` | `string-bool` |
 | `ddns_forward_zone` | `""` | `string` |
 | `ddns_reverse_zone` | `""` | `string` |
@@ -5593,7 +5786,7 @@ dhcpv6
 | `ddns_conflict_resolution_mode` | enum | `enum`: **, no-check-with-dhcid, check-exists-with-dhcid, no-check-without-dhcid |
 | `description` | `""` | `string` |
 
-> 23 fields discovered
+> 24 fields discovered
 
 ### search — HTTP 200
 
@@ -5680,7 +5873,7 @@ widget
 
 ## 102. lldpd-general
 
-### global — HTTP 404
+### global — HTTP 200
 
 **Endpoint:** `GET /api/lldpd/general/get`
 
@@ -5690,13 +5883,33 @@ widget
 
 ```
 
-> **Probe failed:** HTTP 404
+**Top-level keys:**
+```
+general
+```
+
+**Response sample:**
+```json
+{
+  "general": {
+    "enabled": "0",
+    "cdp": "0",
+    "fdp": "0",
+    "edp": "0",
+    "sonmp": "0",
+    "agentx": "0",
+    "interface": ""
+  }
+}
+```
+
+> Response size: 148 bytes
 
 ---
 
 ## 103. lldpd-service
 
-### global — HTTP 404
+### global — HTTP 200
 
 **Endpoint:** `GET /api/lldpd/service/status`
 
@@ -5706,7 +5919,25 @@ widget
 
 ```
 
-> **Probe failed:** HTTP 404
+**Top-level keys:**
+```
+status
+widget
+```
+
+**Response sample:**
+```json
+{
+  "status": "disabled",
+  "widget": {
+    "caption_restart": "Restart",
+    "caption_start": "Start",
+    "caption_stop": "Stop"
+  }
+}
+```
+
+> Response size: 137 bytes
 
 ---
 
@@ -5763,7 +5994,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "cb52977c-69b4-41f3-832c-2fec26bc6c2c",
+  "uuid": "364ce83a-fac2-4b9a-8dab-6d580602b02d",
   "enabled": "0",
   "recipient": "root@localhost.local",
   "noton": "0",
@@ -5802,11 +6033,11 @@ uuid
 | `timeout` | `"300"` | `int-like string` |
 | `starttimeout` | `"30"` | `int-like string` |
 | `address` | `""` | `string` |
-| `interface` | enum | `enum`: **, lan, opt1 |
+| `interface` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `start` | `""` | `string` |
 | `stop` | `""` | `string` |
-| `tests` | enum | `enum`: 02bf0086-30d0-4069-a1b9-3d6456316b30, 6a22332f-250b-4221-b40f-6b09858c86d9, b5b17fc6-2464-45eb-8c7b-d9dad0019f69, 83bfa0f1-6868-462d-ba09-861e896d1558, 1a56e95f-90c0-42f3-b071-d923834ca4cd, 2fc6d09f-bba0-4449-aa06-bcc1fef913f6, f21e5fac-af6c-4ff2-a907-9dbb71c543c5, 82e7c5e2-4bec-429e-b633-d56780149da8, bbd64222-5484-4381-9a5a-dfe51d210996, 39eff58e-b238-440e-a434-04194feb8a70, 0eb3b13a-4329-47fe-8998-ecfb5256faff |
-| `depends` | enum | `enum`: 7abe9271-c5fc-4ba8-80e4-072b6d5a2da9, b1f8aff7-262b-4fbb-9f8c-50168b557d87, f60e6373-61d7-43e6-baa8-f464fc7375e2, a4c1f24d-60a0-40e2-a725-0a44f5d89dad |
+| `tests` | enum | `enum`: 1e72c2e5-8b6c-410a-9797-7250b423e58f, b79c543a-04d2-4897-a606-4f84716e26a6, e9e6f1e3-ce78-4d75-8081-b01dec46789f, 2bd4c794-fb58-4569-8013-9e1010c20443, be209948-ba74-413b-85ed-3c2bca58bfc3, 803dbe0e-581d-4ad8-acea-80f46ec35649, 5e138702-263c-4a7d-bbc9-610d96f1c556, c0edbc43-17ad-4db1-971c-cead8335562c, b6db889e-9429-4c5d-acf6-1c97eff5acfd, a329fabc-7bd6-49e0-918b-fb4c24ab293b, 6492c0ca-a8fe-473e-9378-c8449cc31f0f |
+| `depends` | enum | `enum`: 98e0cb03-cccb-4b30-8e1b-2fc7b2e008fc, b9fa3071-bd77-4db8-a369-079347d3e83f, 7d358d8f-db1d-4046-af06-9eb5a77656dd, 4f23fe33-f3d5-4cc6-a986-5e45fa2cb428 |
 | `polltime` | `""` | `string` |
 
 > 16 fields discovered
@@ -5849,7 +6080,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "7abe9271-c5fc-4ba8-80e4-072b6d5a2da9",
+  "uuid": "98e0cb03-cccb-4b30-8e1b-2fc7b2e008fc",
   "enabled": "1",
   "name": "$HOST",
   "description": "",
@@ -5864,7 +6095,7 @@ uuid
   "interface": "",
   "start": "",
   "stop": "",
-  "tests": "2fc6d09f-bba0-4449-aa06-bcc1fef913f6,6a22332f-250b-4221-b40f-6b09858c86d9,b5b17fc6-2464-45eb-8c7b-d9dad0019f69,83bfa0f1-6868-462d-ba09-861e896d1558",
+  "tests": "803dbe0e-581d-4ad8-acea-80f46ec35649,b79c543a-04d2-4897-a606-4f84716e26a6,e9e6f1e3-ce78-4d75-8081-b01dec46789f,2bd4c794-fb58-4569-8013-9e1010c20443",
   "%tests": "MemoryUsage, CPUUsage, LoadAvg1, LoadAvg5",
   "depends": "",
   "polltime": ""
@@ -5950,7 +6181,7 @@ monit
       "mmonitRegisterCredentials": "1"
     },
     "alert": {
-      "cb52977c-69b4-41f3-832c-2fec26bc6c2c": {
+      "364ce83a-fac2-4b9a-8dab-6d580602b02d": {
         "enabled": "0",
         "recipient": "root@localhost.local",
         "noton": "0",
@@ -5975,7 +6206,7 @@ monit
 (parse error)
 ```
 
-> Response size: 51949 bytes
+> Response size: 52681 bytes
 
 ---
 
@@ -6063,7 +6294,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "02bf0086-30d0-4069-a1b9-3d6456316b30",
+  "uuid": "1e72c2e5-8b6c-410a-9797-7250b423e58f",
   "name": "ChangedStatus",
   "type": "ProgramStatus",
   "condition": "changed status",
@@ -6162,7 +6393,7 @@ uuid
 | `route` | enum | `enum`: ** |
 | `push_route` | enum | `enum`: ** |
 | `push_excluded_routes` | enum | `enum`: ** |
-| `cert` | enum | `enum`: **, 6a9d4cdae404a |
+| `cert` | enum | `enum`: **, 6ac19fa548497 |
 | `crl` | enum | `enum`: ** |
 | `ca` | enum | `enum`: ** |
 | `cert_depth` | enum | `enum`: **, 1, 2, 3, 4, 5 |
@@ -6173,8 +6404,8 @@ uuid
 | `data-ciphers` | enum | `enum`: AES-128-GCM, AES-192-GCM, AES-256-GCM, CHACHA20-POLY1305, AES-128-CBC, AES-192-CBC, AES-256-CBC, AES-128-CFB, AES-192-CFB, AES-256-CFB, AES-128-CFB1, AES-192-CFB1, AES-256-CFB1, AES-128-CFB8, AES-192-CFB8, AES-256-CFB8, AES-128-OFB, AES-192-OFB, AES-256-OFB |
 | `data-ciphers-fallback` | enum | `enum`: **, AES-128-GCM, AES-192-GCM, AES-256-GCM, CHACHA20-POLY1305, AES-128-CBC, AES-192-CBC, AES-256-CBC, AES-128-CFB, AES-192-CFB, AES-256-CFB, AES-128-CFB1, AES-192-CFB1, AES-256-CFB1, AES-128-CFB8, AES-192-CFB8, AES-256-CFB8, AES-128-OFB, AES-192-OFB, AES-256-OFB |
 | `tls_key` | enum | `enum`: ** |
-| `authmode` | enum | `enum`: Local Database |
-| `local_group` | enum | `enum`: **, 1999 |
+| `authmode` | enum | `enum`: Authentik LDAP, Local Database |
+| `local_group` | enum | `enum`: **, 1999, 2000 |
 | `various_flags` | enum | `enum`: block-ipv6, client-to-client, duplicate-cn, float, passtos, persist-remote-ip, remote-random, route-noexec, route-nopull, explicit-exit-notify, fast-io |
 | `various_push_flags` | enum | `enum`: block-ipv6, block-outside-dns, register-dns, explicit-exit-notify |
 | `push_inactive` | `""` | `string` |
@@ -6309,7 +6540,7 @@ total
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `network` | `""` | `string` |
-| `gateway` | enum | `enum`: LAN_GW, Null4, Null6, WAN_DHCP6 |
+| `gateway` | enum | `enum`: Null4, Null6, OOB_GW |
 | `descr` | `""` | `string` |
 | `enabled` | `"1"` | `string-bool` |
 
@@ -6349,7 +6580,7 @@ total
 | `disabled` | `"0"` | `string-bool` |
 | `name` | `""` | `string` |
 | `descr` | `""` | `string` |
-| `interface` | enum | `enum`: lan, opt1, *wan* |
+| `interface` | enum | `enum`: opt3, opt1, lan, opt2 |
 | `ipprotocol` | enum | `enum`: *inet*, inet6 |
 | `gateway` | `""` | `string` |
 | `defaultgw` | `"0"` | `string-bool` |
@@ -6384,29 +6615,50 @@ total
 
 ```
 
-**Rows returned:** 2 (total: 2)
+**Rows returned:** 1 (total: 1)
 
 **Row keys:**
 ```
+attribute
+current_data_length
+current_interval
+current_latencyhigh
+current_latencylow
+current_loss_interval
+current_losshigh
+current_losslow
+current_time_period
+data_length
 defaultgw
 delay
 descr
 disabled
-dynamic
+fargw
+force_down
 gateway
-gateway_interface
 if
 interface
 interface_descr
+interval
 ipprotocol
 label_class
+latencyhigh
+latencylow
 loss
+loss_interval
+losshigh
+losslow
+monitor
 monitor_disable
+monitor_killstates
+monitor_killstates_priority
 monitor_noroute
 name
+nosync
 priority
 status
 stddev
+time_period
 upstream
 uuid
 virtual
@@ -6416,24 +6668,45 @@ weight
 **First row sample:**
 ```json
 {
+  "disabled": false,
+  "name": "OOB_GW",
+  "descr": "OOB management gateway",
   "interface": "lan",
-  "weight": "1",
   "ipprotocol": "inet",
-  "name": "LAN_GW",
-  "descr": "Interface LAN_GW Gateway",
+  "gateway": "10.6.224.1",
+  "defaultgw": true,
+  "fargw": "0",
   "monitor_disable": "1",
   "monitor_noroute": "0",
-  "gateway_interface": false,
+  "monitor_killstates": "0",
+  "monitor_killstates_priority": "0",
+  "monitor": "",
+  "force_down": "0",
+  "nosync": "0",
+  "priority": "255",
+  "weight": "1",
+  "latencylow": "",
+  "current_latencylow": "200",
+  "latencyhigh": "",
+  "current_latencyhigh": "500",
+  "losslow": "",
+  "current_losslow": "10",
+  "losshigh": "",
+  "current_losshigh": "20",
+  "interval": "",
+  "current_interval": "1",
+  "time_period": "",
+  "current_time_period": "60",
+  "loss_interval": "",
+  "current_loss_interval": "4",
+  "data_length": "",
+  "current_data_length": "1",
+  "uuid": "3578fa8f-f4ab-496a-8776-e9a9d4c726c5",
   "if": "vtnet1",
-  "dynamic": true,
-  "virtual": true,
-  "priority": 254,
-  "gateway": "10.6.224.1",
-  "uuid": "LAN_GW",
-  "disabled": false,
-  "upstream": false,
-  "defaultgw": true,
-  "interface_descr": "LAN",
+  "attribute": 0,
+  "virtual": false,
+  "upstream": true,
+  "interface_descr": "OOB",
   "status": "Online",
   "delay": "~",
   "stddev": "~",
@@ -6465,12 +6738,66 @@ gateways
 ```json
 {
   "gateways": {
-    "gateway_item": []
+    "gateway_item": {
+      "3578fa8f-f4ab-496a-8776-e9a9d4c726c5": {
+        "disabled": "0",
+        "name": "OOB_GW",
+        "descr": "OOB management gateway",
+        "interface": {
+          "opt3": {
+            "value": "FAB",
+            "selected": 0
+          },
+          "opt1": {
+            "value": "LAN_TRUNK",
+            "selected": 0
+          },
+          "lan": {
+            "value": "OOB",
+            "selected": 1
+          },
+          "opt2": {
+            "value": "SCRATCH",
+            "selected": 0
+          }
+        },
+        "ipprotocol": {
+          "inet": {
+            "value": "IPv4",
+            "selected": 1
+          },
+          "inet6": {
+            "value": "IPv6",
+            "selected": 0
+          }
+        },
+        "gateway": "10.6.224.1",
+        "defaultgw": "1",
+        "fargw": "0",
+        "monitor_disable": "1",
+        "monitor_noroute": "0",
+        "monitor_killstates": "0",
+        "monitor_killstates_priority": "0",
+        "monitor": "",
+        "force_down": "0",
+        "nosync": "0",
+        "priority": "255",
+        "weight": "1",
+        "latencylow": "",
+        "latencyhigh": "",
+        "losslow": "",
+        "losshigh": "",
+        "interval": "",
+        "time_period": "",
+        "loss_interval": "",
+        "data_length": ""
+      }
+    }
   }
 }
 ```
 
-> Response size: 47 bytes
+> Response size: 1356 bytes
 
 ---
 
@@ -6492,11 +6819,11 @@ gateways
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
 | `transport` | enum | `enum`: udp4, tcp4, udp6, tcp6, tls4, tls6 |
-| `program` | enum | `enum`: audit, configd.py, dhcrelay, dnsmasq, filterlog, firewall, dpinger, hostwatch, charon, kea-ctrl-agent, kea-dhcp-ddns, kea-dhcp4, kea-dhcp6, kernel, lighttpd, monit, ntp, ntpd, ntpdate, openvpn, pkg, pkg-static, captiveportal, ppp, unbound, bgpd, olsrd, ospfd, routed, zebra, suricata, wireguard, hostapd |
+| `program` | enum | `enum`: acme.sh, acmeclient, audit, configd.py, ddclient, dhcrelay, dnsmasq, filterlog, firewall, dpinger, hostwatch, charon, kea-ctrl-agent, kea-dhcp-ddns, kea-dhcp4, kea-dhcp6, kernel, lighttpd, monit, ntp, ntpd, ntpdate, openvpn, pkg, pkg-static, captiveportal, ppp, unbound, bgpd, olsrd, ospfd, routed, zebra, suricata, wireguard, hostapd |
 | `level` | enum | `enum`: debug, info, notice, warn, err, crit, alert, emerg |
 | `facility` | enum | `enum`: kern, user, mail, daemon, auth, syslog, lpr, news, uucp, cron, authpriv, ftp, ntp, security, console, local0, local1, local2, local3, local4, local5, local6, local7 |
 | `hostname` | `""` | `string` |
-| `certificate` | enum | `enum`: **, 6a9d4cdae404a |
+| `certificate` | enum | `enum`: **, 6ac19fa548497 |
 | `port` | `"514"` | `int-like string` |
 | `rfc5424` | `"0"` | `string-bool` |
 | `description` | `""` | `string` |
@@ -6613,7 +6940,7 @@ syslog
 | `serial` | `""` | `string` |
 | `caref` | enum | `enum`: ** |
 | `action` | enum | `enum`: existing, *internal*, ocsp |
-| `key_type` | enum | `enum`: 512, 1024, *2048*, 3072, 4096, 8192, prime256v1, secp384r1, secp521r1 |
+| `key_type` | enum | `enum`: 512, 1024, *2048*, 3072, 4096, 7680, 8192, prime256v1, secp384r1, secp521r1 |
 | `digest` | enum | `enum`: sha1, sha224, *sha256*, sha384, sha512 |
 | `lifetime` | `"825"` | `int-like string` |
 | `city` | `""` | `string` |
@@ -6671,7 +6998,7 @@ syslog
 | `csr` | `""` | `string` |
 | `prv` | `""` | `string` |
 | `action` | enum | `enum`: *internal*, external, import, sign_csr, import_csr, reissue, manual |
-| `key_type` | enum | `enum`: 512, 1024, *2048*, 3072, 4096, 8192, prime256v1, secp384r1, secp521r1 |
+| `key_type` | enum | `enum`: 512, 1024, *2048*, 3072, 4096, 7680, 8192, prime256v1, secp384r1, secp521r1 |
 | `digest` | enum | `enum`: sha1, sha224, *sha256*, sha384, sha512 |
 | `cert_type` | enum | `enum`: *usr_cert*, server_cert, combined_server_client, v3_ca |
 | `lifetime` | `"397"` | `int-like string` |
@@ -6759,11 +7086,11 @@ valid_to
 **First row sample:**
 ```json
 {
-  "uuid": "2a246b54-98d5-4b9f-af8d-518641245381",
-  "refid": "6a9d4cdae404a",
+  "uuid": "ca9d4bd0-649f-48cc-acb7-9ffdf838f21c",
+  "refid": "6ac19fa548497",
   "descr": "Web GUI TLS certificate",
   "caref": "",
-  "crt": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUhFakNDQlBxZ0F3SUJBZ0lVWEd0TkhkRlRVQzJnSUtiNUFZb2dwTWFDUE5Bd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZWXhHakFZQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVgpNQk1HQTFVRUNBd01XblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyCkJnTlZCQW9NSkU5UVRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWlRBZUZ3MHkKTmpBNU1EWXhNVEl5TUROYUZ3MHlOekV3TURneE1USXlNRE5hTUlHR01Sb3dHQVlEVlFRRERCRlBVRTV6Wlc1egpaUzVwYm5SbGNtNWhiREVMTUFrR0ExVUVCaE1DVGt3eEZUQVRCZ05WQkFnTURGcDFhV1F0U0c5c2JHRnVaREVWCk1CTUdBMVVFQnd3TVRXbGtaR1ZzYUdGeWJtbHpNUzB3S3dZRFZRUUtEQ1JQVUU1elpXNXpaU0J6Wld4bUxYTnAKWjI1bFpDQjNaV0lnWTJWeWRHbG1hV05oZEdVd2dnSWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUNEd0F3Z2dJSwpBb0lDQVFDYWFzdnZvQW52d1FKMnBvWkpWbnV3UjJCUnl3TUdGTjBoZENiaDVELzQwaEZ1TXlDZmhiQzRKS2hnClNaV1Rra3paNTd0WXY5VXowUW80NnZTZ3ptTHlYdzFKV1pkZW8yeGtKaEQzRmNuclJUMnZQWlZBWk04YXdzS3QKdUZoTUFxWjFzYSt0SVZ4d3Fick9LU2FxL2VkblU0RjI0UFQ1MXVYTjFzSVN5NGkvWTRBd24rdWhKUVRTdjBJbworcTJvcjhaVU1QWkMrcTlYSWY2bFFNbkgyak54blZQa0hDYzYvRHd5U01JWHZMci9SZ2x4SUJ4UzJReVdjZnhPClc5cHdPVzlCbHZqOW01Nm9NVDBmNXBxOENLanFobk12ajJ5U3VxQktrRHI1U2NQUmZJaytVQk45MHVTWWVmcXcKblVCVVNUQVg0dm9aZkoxWkV6R2tHZ0EwdmlxODBicVdpdnlWeWRoRHdBRjZKTVk4MmU3eXR4RGtkMlk4Y3FMQQpDT3VzUXRBQklzSVV0aHN2bGVGRm1EYkNsY2Y0K0NsMzRZRHN3UGJoZWtVYXFBUHl3RGlPQUJibWhGaHdBZitYCkdLeFR0SzZQZjhaWmlKTTFNanRxbEJNZGV2MkVoR0U4bDNiTzhETjlOa2JKeEREUFJtT2lXWFNWa05vNk1LdEIKelFEcHd4bjEra1pxTitIQ3l1OERrR2VTTCtJVEhrZmZGS3pWR1d5dkMxZFpoanhoQlMxUzNZUGgxZ0s5MFF6eQpJdHVvRzZUaTZFSHRoRk5ma1VIU0ZlRVlsRWxqZzdRajBHbEpwMmFoaXdaMEZGTUI0WVlKSlNRMzc5M0lmUFZ5CkJNaFo0V0QrUmd0RzFzNllDZG1iS21nODZnYlRSOWtJOGlaVkpXd3E0MFlmZ2xWSW93SURBUUFCbzRJQmREQ0MKQVhBd0NRWURWUjBUQkFJd0FEQVJCZ2xnaGtnQmh2aENBUUVFQkFNQ0JrQXdOQVlKWUlaSUFZYjRRZ0VOQkNjVwpKVTlRVG5ObGJuTmxJRWRsYm1WeVlYUmxaQ0JUWlhKMlpYSWdRMlZ5ZEdsbWFXTmhkR1V3SFFZRFZSME9CQllFCkZGQVlMeElUNHVhTGw2WXRyYUNyQXN2Y0NFeXdNSUd3QmdOVkhTTUVnYWd3Z2FXaGdZeWtnWWt3Z1lZeEdqQVkKQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVk1CTUdBMVVFQ0F3TQpXblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyQmdOVkJBb01KRTlRClRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWllJVVhHdE5IZEZUVUMyZ0lLYjUKQVlvZ3BNYUNQTkF3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQ0FJQ01Bc0dBMVVkRHdRRQpBd0lGb0RBY0JnTlZIUkVFRlRBVGdoRlBVRTV6Wlc1elpTNXBiblJsY201aGJEQU5CZ2txaGtpRzl3MEJBUXNGCkFBT0NBZ0VBTXBia2MrQ2NkOHg2UnlyUHc2eDhHSDNZRDhGdlJlK2FLZmUrcDdaUGdnRjBxMkY1MHYvU2N2VEwKWllBRlpiTXpyWG12NmZxZVBBZXgvMGd3MjZsa1orOE5ncU4vRGxIQkF4ZmJ4UFpESEdQbU16ek44Nk50b0crbQpXdDNRR0JUT0U3UzJwWm9IUEpRM1E4bTJJN0hHNWdPSnJnYk9VcGdOWkdVOVFIUVZGc0RyVGRjc292ajF0MXRBCmNpYllTMDBlUkxVOCtPUU43K3A5N2pVaHd1SWQwbm1KNG55aGJrMi9RUzFFTnpTdzlkNHI4bmVJSFhXMytrUHEKMkg3MXhSTUhyc2ZJWWpoQ3A0RUNTaGEyVDhZOWp4QXFRck9jZUhvL1hSNDIrYWF2NDZ0bjdZL1F4NllXUnhnKwpIamc5NUI3OU5wNFJZYThGVmt6cGd2WmtEU2h6Y0Z4cVBlVFUwYW1xaitJVExGS1NYZjR2M0g3N29FTTJvNUQ4ClVrQWJxUW5sZ2tiN01Qd1p5N3l5V2dqTm9Oa3YvcU1OT1N2YW56bXNNWDhvZ0FpKzM0dUpkbC9Zc2RjU0FsSXQKMUtTNXNnYVhhSlp1SCtROThMTVUwdEtHanROM2psTXFadEtiR3k5OWFBaUt1aWs0QTN5RFZwMGdRY2d4ZlZjLwpOWFNOckxzK2V1OXJxMm13QWxGSlEwRjV3dU92dE1jRUJ2RCtxMFhScEVvOGNJaEpLbjVwaGZid1pRL2dOQzhoCnlnYkgrVVRaU2JaRC9Ia3gxekg4b0NtYmNFb2Nzb1V4TGhRZ1V4cmFpQ2tET0pBR0swL3lxUkF4dWZ1L0RyWUIKR1l6NFVaY2o3VCtYSUhqUzQ3ZzdScWdnT0hGMjQreVIxeFFLRDNTNE1nd25MTlQ2SXFRPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+  "crt": "<SCRUBBED:base64>",
   "csr": "",
   "prv": "<REDACTED:prv>",
   "action": "reissue",
@@ -6784,21 +7111,21 @@ valid_to
   "country": "NL",
   "%country": "Netherlands",
   "email": "",
-  "commonname": "OPNsense.internal",
+  "commonname": "vm-opns-scratch-01.scratch.example.com",
   "ocsp_uri": "",
-  "altnames_dns": "OPNsense.internal",
+  "altnames_dns": "vm-opns-scratch-01.scratch.example.com",
   "altnames_ip": "",
   "altnames_uri": "",
   "altnames_email": "",
-  "crt_payload": "-----BEGIN CERTIFICATE-----\nMIIHEjCCBPqgAwIBAgIUXGtNHdFTUC2gIKb5AYogpMaCPNAwDQYJKoZIhvcNAQEL\nBQAwgYYxGjAYBgNVBAMMEU9QTnNlbnNlLmludGVybmFsMQswCQYDVQQGEwJOTDEV\nMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTAr\nBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBjZXJ0aWZpY2F0ZTAeFw0y\nNjA5MDYxMTIyMDNaFw0yNzEwMDgxMTIyMDNaMIGGMRowGAYDVQQDDBFPUE5zZW5z\nZS5pbnRlcm5hbDELMAkGA1UEBhMCTkwxFTATBgNVBAgMDFp1aWQtSG9sbGFuZDEV\nMBMGA1UEBwwMTWlkZGVsaGFybmlzMS0wKwYDVQQKDCRPUE5zZW5zZSBzZWxmLXNp\nZ25lZCB3ZWIgY2VydGlmaWNhdGUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK\nAoICAQCaasvvoAnvwQJ2poZJVnuwR2BRywMGFN0hdCbh5D/40hFuMyCfhbC4JKhg\nSZWTkkzZ57tYv9Uz0Qo46vSgzmLyXw1JWZdeo2xkJhD3FcnrRT2vPZVAZM8awsKt\nuFhMAqZ1sa+tIVxwqbrOKSaq/ednU4F24PT51uXN1sISy4i/Y4Awn+uhJQTSv0Io\n+q2or8ZUMPZC+q9XIf6lQMnH2jNxnVPkHCc6/DwySMIXvLr/RglxIBxS2QyWcfxO\nW9pwOW9Blvj9m56oMT0f5pq8CKjqhnMvj2ySuqBKkDr5ScPRfIk+UBN90uSYefqw\nnUBUSTAX4voZfJ1ZEzGkGgA0viq80bqWivyVydhDwAF6JMY82e7ytxDkd2Y8cqLA\nCOusQtABIsIUthsvleFFmDbClcf4+Cl34YDswPbhekUaqAPywDiOABbmhFhwAf+X\nGKxTtK6Pf8ZZiJM1MjtqlBMdev2EhGE8l3bO8DN9NkbJxDDPRmOiWXSVkNo6MKtB\nzQDpwxn1+kZqN+HCyu8DkGeSL+ITHkffFKzVGWyvC1dZhjxhBS1S3YPh1gK90Qzy\nItuoG6Ti6EHthFNfkUHSFeEYlEljg7Qj0GlJp2ahiwZ0FFMB4YYJJSQ3793IfPVy\nBMhZ4WD+RgtG1s6YCdmbKmg86gbTR9kI8iZVJWwq40YfglVIowIDAQABo4IBdDCC\nAXAwCQYDVR0TBAIwADARBglghkgBhvhCAQEEBAMCBkAwNAYJYIZIAYb4QgENBCcW\nJU9QTnNlbnNlIEdlbmVyYXRlZCBTZXJ2ZXIgQ2VydGlmaWNhdGUwHQYDVR0OBBYE\nFFAYLxIT4uaLl6YtraCrAsvcCEywMIGwBgNVHSMEgagwgaWhgYykgYkwgYYxGjAY\nBgNVBAMMEU9QTnNlbnNlLmludGVybmFsMQswCQYDVQQGEwJOTDEVMBMGA1UECAwM\nWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTArBgNVBAoMJE9Q\nTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBjZXJ0aWZpY2F0ZYIUXGtNHdFTUC2gIKb5\nAYogpMaCPNAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFCAICMAsGA1UdDwQE\nAwIFoDAcBgNVHREEFTATghFPUE5zZW5zZS5pbnRlcm5hbDANBgkqhkiG9w0BAQsF\nAAOCAgEAMpbkc+Ccd8x6RyrPw6x8GH3YD8FvRe+aKfe+p7ZPggF0q2F50v/ScvTL\nZYAFZbMzrXmv6fqePAex/0gw26lkZ+8NgqN/DlHBAxfbxPZDHGPmMzzN86NtoG+m\nWt3QGBTOE7S2pZoHPJQ3Q8m2I7HG5gOJrgbOUpgNZGU9QHQVFsDrTdcsovj1t1tA\ncibYS00eRLU8+OQN7+p97jUhwuId0nmJ4nyhbk2/QS1ENzSw9d4r8neIHXW3+kPq\n2H71xRMHrsfIYjhCp4ECSha2T8Y9jxAqQrOceHo/XR42+aav46tn7Y/Qx6YWRxg+\nHjg95B79Np4RYa8FVkzpgvZkDShzcFxqPeTU0amqj+ITLFKSXf4v3H77oEM2o5D8\nUkAbqQnlgkb7MPwZy7yyWgjNoNkv/qMNOSvanzmsMX8ogAi+34uJdl/YsdcSAlIt\n1KS5sgaXaJZuH+Q98LMU0tKGjtN3jlMqZtKbGy99aAiKuik4A3yDVp0gQcgxfVc/\nNXSNrLs+eu9rq2mwAlFJQ0F5wuOvtMcEBvD+q0XRpEo8cIhJKn5phfbwZQ/gNC8h\nygbH+UTZSbZD/Hkx1zH8oCmbcEocsoUxLhQgUxraiCkDOJAGK0/yqRAxufu/DrYB\nGYz4UZcj7T+XIHjS47g7RqggOHF24+yR1xQKD3S4MgwnLNT6IqQ=\n-----END CERTIFICATE-----\n",
+  "crt_payload": "-----BEGIN CERTIFICATE-----\nMIIHcjCCBVqgAwIBAgIUaHS4a1uNhp1tH2XY7+gxjLXCLggwDQYJKoZIhvcNAQEL\nBQAwgZ4xMjAwBgNVBAMMKXZtLW9wbnMtc2NyYXRjaC0wMS5zY3JhdGNoLmJ5LXJl\nc2VhcmNoLmJlMQswCQYDVQQGEwJOTDEVMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUw\nEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTArBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2ln\nbmVkIHdlYiBjZXJ0aWZpY2F0ZTAeFw0yNjEwMDQwMDM2NTZaFw0yNzExMDUwMDM2\nNTZaMIGeMTIwMAYDVQQDDCl2bS1vcG5zLXNjcmF0Y2gtMDEuc2NyYXRjaC5ieS1y\nZXNlYXJjaC5iZTELMAkGA1UEBhMCTkwxFTATBgNVBAgMDFp1aWQtSG9sbGFuZDEV\nMBMGA1UEBwwMTWlkZGVsaGFybmlzMS0wKwYDVQQKDCRPUE5zZW5zZSBzZWxmLXNp\nZ25lZCB3ZWIgY2VydGlmaWNhdGUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK\nAoICAQC5srXOwJ3W76oZSdf/fZiDha5Q84DB/R8NITgi4QDAtlbmzjVxe5+u5e74\nET0HHs58Eh1i4BvWpeOIHTc4/PUYbYVhfEMY4DkHPkY3Yiou7pUq1V3P6Nzha+cr\nHerhdq4gNx8cjEm6794Q8oor+aOnGu73wbkQcZD3Hr+83hqpha3+FVfcDQqQZ4SD\nZBi3yiWV3Lr5LA2c03sgBRCY6Iq7CeZAnpN4vkoxkdeAqXZ/J5/RfUXulFtgqIAD\nkB8coLXoh9cEj5hTAdGDwX28EeBROWWTfM4uql6zevPLx6QLNCVRyWYsE9F69Duc\n4h8ZV5XqPKIGcK9xTLHhPlprMmWZUlUiJ8Lf88jzIvR0pgvRCR885x8FVRY9CD44\n33lnAV3srWYI9rHS2fk8wa24oFMm+CbfsAM3igbrf1IteOFC+v7yxD3vMXzfCGzk\nkKYAwb/UXhv90WDeMIoufVFISacMW7QVWtqqfY0Js2tnFoAY1Z6mdmioePL5vVAr\n4gRvBevsz0WDa1xYgFmze4OT56enlBNKqlfMDHUG/lu4eRhz6nAXdey/c0Orxdwn\n18lTt51/7rmqEAUaneBqIbcaOkPY7rBhutWFFJIumCjtWVfwfdUolLRlgtipL5rt\nDbU9xAmKmy8FQQh9Z8ARVx//PQOjNcEK2YBlTscfjgM34Ot6YQIDAQABo4IBpDCC\nAaAwCQYDVR0TBAIwADARBglghkgBhvhCAQEEBAMCBkAwNAYJYIZIAYb4QgENBCcW\nJU9QTnNlbnNlIEdlbmVyYXRlZCBTZXJ2ZXIgQ2VydGlmaWNhdGUwHQYDVR0OBBYE\nFIwp2ftFAUeeMr5MK8w51zgoz8l2MIHIBgNVHSMEgcAwgb2hgaSkgaEwgZ4xMjAw\nBgNVBAMMKXZtLW9wbnMtc2NyYXRjaC0wMS5zY3JhdGNoLmJ5LXJlc2VhcmNoLmJl\nMQswCQYDVQQGEwJOTDEVMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxN\naWRkZWxoYXJuaXMxLTArBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBj\nZXJ0aWZpY2F0ZYIUaHS4a1uNhp1tH2XY7+gxjLXCLggwHQYDVR0lBBYwFAYIKwYB\nBQUHAwEGCCsGAQUFCAICMAsGA1UdDwQEAwIFoDA0BgNVHREELTArgil2bS1vcG5z\nLXNjcmF0Y2gtMDEuc2NyYXRjaC5ieS1yZXNlYXJjaC5iZTANBgkqhkiG9w0BAQsF\nAAOCAgEAHjSy+FrbdFx3x2T0DfdCwjAlJtkdVs6RNuMZwCPGdXSHOTiz2ul4pZg6\n6f22qsEImzw3hfTKVmGfkJqxggXf9KR6+HBYuDOhBgjySPNqEI6BgqZmrv2cVtMe\nHsuxsPSyAgMcy86716KFQ54/I6kuK7w0Yck7YDeWoqES+LC7SDgxkrZm8D6lFPG4\nanYIRXQCoMSfvpE7ma9vqcL0fLHOYg20ffgj3U8V179rr4j6tWNZ8EtcZknY/YS0\nF8ShCpsje9/BrWsr9CelHgA7RP/7zAvDlz+xCrdz8yJ+ZKXDZtNGC4bW14bPrmA3\nJjcXiVTTmrx7xz6Yp/Kifwxi7BFh7k74s24skzxvbEjjnAF/FVJWcEbx0BrOuMfV\njhmoN2e0T3GY2ll3IxYQQLIMnRfRjSr6hEBlpz/X80kP2gB+gGx6aYRToCozXfrW\nk4u1b8OvU2xBMHl6S1hWGH7uCXqc2m+f75kXGKRjWaFTi8LMb5BQEF8Ukw2ALmMl\nYXB4muEEu4dEUpOYy6Pl1+WqMjRjU8S/DZtDQkL5r6Px58IrPxrcnJjgQUihibZ7\nnkAFszSjILC9OTK7c7FaGt5pnMTt+wzKvs/vv/QL6noNsq+GpF3PtsY/LNYdG05D\nT1Xpyi1FTpb+11FjqOTRz0cRfpYPwPdGtzPbM3iNGgMyq6Fmf+Y=\n-----END CERTIFICATE-----\n",
   "csr_payload": "",
   "prv_payload": "<REDACTED:prv_payload>",
   "rfc3280_purpose": "id-kp-serverAuth",
   "in_use": "1",
   "is_user": "0",
-  "name": "/CN=OPNsense.internal/C=NL/ST=Zuid-Holland/L=Middelharnis/O=OPNsense self-signed web certificate",
-  "valid_from": "1788693723",
-  "valid_to": "1822994523"
+  "name": "/CN=vm-opns-scratch-01.scratch.example.com/C=NL/ST=Zuid-Holland/L=Middelharnis/O=OPNsense self-signed web certificate",
+  "valid_from": "1791074216",
+  "valid_to": "1825375016"
 }
 ```
 
@@ -7062,8 +7389,8 @@ trust
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
 | `sequence` | `"1"` | `string-bool` |
-| `interface` | enum | `enum`: lan, lo0, opt1, *wan* |
-| `interface2` | enum | `enum`: **, lan, lo0, opt1, wan |
+| `interface` | enum | `enum`: opt3, opt1, lo0, lan, opt2 |
+| `interface2` | enum | `enum`: **, opt3, opt1, lo0, lan, opt2 |
 | `proto` | enum | `enum`: *ip*, ip4, ip6, udp, tcp, tcp_ack, tcp_ack_not, icmp, ipv6-icmp, igmp, esp, ah, gre |
 | `iplen` | `""` | `string` |
 | `source` | enum | `enum`: *any* |
@@ -7216,96 +7543,17 @@ status
 
 **Top-level keys:**
 ```
-data
 status
 ```
 
 **Response sample:**
 ```json
 {
-  "status": "ok",
-  "data": {
-    "thread0": {
-      "num": {
-        "queries": "6",
-        "queries_ip_ratelimited": "0",
-        "queries_cookie_valid": "0",
-        "queries_cookie_client": "0",
-        "queries_cookie_invalid": "0",
-        "queries_discard_timeout": "2",
-        "queries_replyaddr_limit": "0",
-        "queries_wait_limit": "0",
-        "cachehits": "0",
-        "cachemiss": "6",
-        "prefetch": "0",
-        "queries_timed_out": "0",
-        "expired": "0",
-        "recursivereplies": "4",
-        "dnscrypt": {
-          "crypted": "0",
-          "cert": "0",
-          "cleartext": "0",
-          "malformed": "0"
-        },
-        "dns_error_reports": "0"
-      },
-      "query": {
-        "queue_time_us": {
-          "max": "0"
-        }
-      },
-      "requestlist": {
-        "avg": "0",
-        "max": "0",
-        "overwritten": "0",
-        "exceeded": "0",
-        "current": {
-          "all": "0",
-          "user": "0",
-          "replies": "0"
-        }
-      },
-      "recursion": {
-        "time": {
-          "avg": "0.003603",
-          "median": "0.00341333"
-        }
-      },
-      "tcpusage": "0"
-    },
-    "thread1": {
-      "num": {
-        "queries": "14",
-        "queries_ip_ratelimited": "0",
-        "queries_cookie_valid": "0",
-        "queries_cookie_client": "0",
-        "queries_cookie_invalid": "0",
-        "queries_discard_timeout": "1",
-        "queries_replyaddr_limit": "0",
-        "queries_wait_limit": "0",
-        "cachehits": "0",
-        "cachemiss": "14",
-        "prefetch": "0",
-        "queries_timed_out": "0",
-        "expired": "0",
-        "recursivereplies": "13",
-        "dnscrypt": {
-          "crypted": "0",
-          "cert": "0",
-          "cleartext": "0",
-          "malformed": "0"
-        },
-        "dns_error_reports": "0"
-      },
-      "query": {
-        "queue_time_us": {
-          "max": "0"
-        }
-      },
-(parse error)
+  "status": "failed"
+}
 ```
 
-> Response size: 5803 bytes
+> Response size: 25 bytes
 
 ---
 
@@ -7503,7 +7751,7 @@ widget
 **Response sample:**
 ```json
 {
-  "status": "running",
+  "status": "disabled",
   "widget": {
     "caption_restart": "Restart",
     "caption_start": "Start",
@@ -7512,7 +7760,7 @@ widget
 }
 ```
 
-> Response size: 136 bytes
+> Response size: 137 bytes
 
 ---
 
@@ -7538,20 +7786,24 @@ unbound
 {
   "unbound": {
     "general": {
-      "enabled": "1",
+      "enabled": "0",
       "port": "53",
       "stats": "0",
       "active_interface": {
-        "lan": {
-          "value": "LAN",
+        "opt3": {
+          "value": "FAB",
           "selected": 0
         },
         "opt1": {
-          "value": "OPT1",
+          "value": "LAN_TRUNK",
           "selected": 0
         },
-        "wan": {
-          "value": "WAN",
+        "lan": {
+          "value": "OOB",
+          "selected": 0
+        },
+        "opt2": {
+          "value": "SCRATCH",
           "selected": 0
         }
       },
@@ -7611,14 +7863,10 @@ unbound
         "typetransparent": {
           "value": "typetransparent",
           "selected": 0
-        }
-      },
-      "outgoing_interface": {
-        "lan": {
 (parse error)
 ```
 
-> Response size: 6093 bytes
+> Response size: 6271 bytes
 
 ---
 
@@ -7652,8 +7900,9 @@ unbound
 | `endpoint` | `""` | `string` |
 | `keepalive` | `""` | `string` |
 | `servers` | [] | `list` |
+| `privkey` | `""` | `string` |
 
-> 10 fields discovered
+> 11 fields discovered
 
 ### search — HTTP 200
 
@@ -7735,8 +7984,9 @@ general
 | `interface` | `""` | `string` |
 | `endpoint` | `""` | `string` |
 | `peer_dns` | `""` | `string` |
+| `allowed_ips` | `""` | `string` |
 
-> 19 fields discovered
+> 20 fields discovered
 
 ### search — HTTP 200
 
@@ -7825,26 +8075,11 @@ total
 
 | Status | Count |
 |--------|-------|
-| OK (200) | 196 |
-| Failed | 10 |
+| OK (200) | 206 |
+| Failed | 0 |
 | Total | 206 |
-
-### Failed Endpoints
-
-| Endpoint | HTTP |
-|----------|------|
-| `chrony-general__global` | 404 |
-| `chrony-service__global` | 404 |
-| `crowdsec-bouncers__search` | 404 |
-| `crowdsec-collections__search` | 404 |
-| `crowdsec-decisions__search` | 404 |
-| `crowdsec-general__global` | 404 |
-| `crowdsec-machines__search` | 404 |
-| `crowdsec-service__global` | 404 |
-| `lldpd-general__global` | 404 |
-| `lldpd-service__global` | 404 |
 
 ---
 
-> Generated: 2026-09-06T13:51:35Z | OPNsense `26.7`
+> Generated: 2026-10-04T01:13:19Z | OPNsense `26.7.5`
 > Script: `tools/opnsense/scripts/build-api-schema-audit.sh`

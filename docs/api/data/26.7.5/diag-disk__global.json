@@ -1,0 +1,17 @@
+{
+  "devices": [
+    {
+      "device": "/dev/ufs/OPNsense_Nano",
+      "type": "ufs",
+      "blocks": "18.7G",
+      "total": "18.7G",
+      "total_bytes": 20122071040,
+      "used": "2.92G",
+      "used_bytes": 3139145728,
+      "available": "14.3G",
+      "available_bytes": 15373160448,
+      "used_pct": 17,
+      "mountpoint": "/"
+    }
+  ]
+}

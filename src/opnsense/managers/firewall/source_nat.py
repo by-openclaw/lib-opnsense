@@ -98,6 +98,21 @@ class FwSourceNatManager(BaseManager):
         "staticnatport": {"type": "bool_str"},
         "target_port": {"type": "str"},
         "categories": {"type": "str"},
+        # 26.7.5: address pool options and endpoint-independent mapping
+        "endpoint-independent": {"type": "bool_str"},
+        "poolopts": {
+            "type": "enum",
+            "values": [
+                "",
+                "bitmask",
+                "random",
+                "random sticky-address",
+                "round-robin",
+                "round-robin sticky-address",
+                "source-hash",
+            ],
+        },
+        "poolopts_sourcehashkey": {"type": "str", "max_length": 255},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

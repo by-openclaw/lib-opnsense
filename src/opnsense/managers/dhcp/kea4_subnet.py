@@ -102,6 +102,9 @@ class Kea4SubnetManager(BaseManager):
                 "boot_file_name": {"type": "str"},
             },
         },
+        # 26.7.5: per-subnet ping check and the explicit Kea subnet id
+        "ping_check": {"type": "bool_str"},
+        "subnet_id": {"type": "str", "max_length": 10},
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

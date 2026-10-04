@@ -1,0 +1,86 @@
+[
+  {
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "10.99.1.1",
+    "intf": "vtnet0",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "LAN_TRUNK"
+  },
+  {
+    "mac": "bc:24:11:f9:01:02",
+    "ip": "10.6.239.197",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "bc:24:11:4f:61:a7",
+    "ip": "10.6.224.1",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 1199,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "d0:7e:28:1a:d8:01",
+    "ip": "10.6.224.24",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 558,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Hewlett Packard",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "bc:24:11:cc:3e:51",
+    "ip": "10.6.239.120",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 578,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "bc:24:11:3d:d5:cc",
+    "ip": "10.99.240.9",
+    "intf": "vtnet4",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "FAB"
+  },
+  {
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "10.99.99.1",
+    "intf": "vlan2999",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "vlan",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "SCRATCH"
+  }
+]

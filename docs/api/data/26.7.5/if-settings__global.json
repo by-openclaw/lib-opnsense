@@ -1,0 +1,34 @@
+{
+  "settings": {
+    "disablechecksumoffloading": "1",
+    "disablesegmentationoffloading": "1",
+    "disablelargereceiveoffloading": "1",
+    "disablevlanhwfilter": [
+      {
+        "value": "Enable VLAN Hardware Filtering",
+        "selected": 0
+      },
+      {
+        "value": "Disable VLAN Hardware Filtering",
+        "selected": 0
+      },
+      {
+        "value": "Leave default",
+        "selected": 1
+      }
+    ],
+    "disableipv6": "0",
+    "dhcp6_norelease": "0",
+    "dhcp6_debug": "0",
+    "dhcp6_duid": "",
+    "dhcp6_ratimeout": "10"
+  },
+  "duids": {
+    "llt": "00:01:00:01:32:54:64:45:BC:24:11:CC:3E:51",
+    "ll": "00:03:00:01:BC:24:11:CC:3E:51",
+    "uuid": "00:04:AF:5A:D4:4B:27:31:DA:EC:33:4C:54:A9:2C:FE:4A:2F",
+    "en": "00:02:00:00:D2:6D:F1:48:C6:5E:64:A4:84:C8",
+    "current": "",
+    "default": "XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX"
+  }
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fd99:1::1",
+    "intf": "vtnet0",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "LAN_TRUNK"
+  },
+  {
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fe80::be24:11ff:fe1a:cff9%vtnet0",
+    "intf": "vtnet0",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "LAN_TRUNK"
+  },
+  {
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fd99:99::1",
+    "intf": "vlan2999",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "SCRATCH"
+  },
+  {
+    "mac": "bc:24:11:1a:cf:f9",
+    "ip": "fe80::be24:11ff:fe1a:cff9%vlan2999",
+    "intf": "vlan2999",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "intf_description": "SCRATCH"
+  }
+]

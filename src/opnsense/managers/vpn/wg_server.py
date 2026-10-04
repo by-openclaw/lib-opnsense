@@ -90,6 +90,7 @@ class WgServerManager(BaseManager):
         "peers": {"type": "str"},
         "instance": {"type": "str"},
         "debug": {"type": "bool_str"},
+        "allowed_ips": {"type": "str"},  # 26.7.5
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

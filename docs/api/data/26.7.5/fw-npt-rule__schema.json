@@ -1,0 +1,68 @@
+{
+  "rule": {
+    "enabled": "1",
+    "log": "0",
+    "sequence": "100",
+    "sort_order": "",
+    "prio_group": "",
+    "interface": {
+      "opt3": {
+        "value": "FAB",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "LAN_TRUNK",
+        "selected": 0
+      },
+      "lan": {
+        "value": "OOB",
+        "selected": 1
+      },
+      "opt2": {
+        "value": "SCRATCH",
+        "selected": 0
+      }
+    },
+    "source_net": "",
+    "destination_net": "",
+    "trackif": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "opt3": {
+        "value": "FAB",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "LAN_TRUNK",
+        "selected": 0
+      },
+      "lan": {
+        "value": "OOB",
+        "selected": 0
+      },
+      "opt2": {
+        "value": "SCRATCH",
+        "selected": 0
+      }
+    },
+    "categories": [],
+    "description": "",
+    "audit": {
+      "created": {
+        "username": "",
+        "time": "",
+        "description": ""
+      },
+      "updated": {
+        "username": "",
+        "time": "",
+        "description": ""
+      },
+      "userdata": {
+        "note": ""
+      }
+    }
+  }
+}

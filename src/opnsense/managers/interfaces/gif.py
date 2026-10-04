@@ -73,6 +73,7 @@ class IfGifManager(BaseManager):
         "tunnel-local-addr": {"type": "str", "required": True},
         "tunnel-remote-addr": {"type": "str", "required": True},
         "descr": {"type": "str", "max_length": 255},
+        "noclamp": {"type": "bool_str"},  # 26.7.5
     }
 
     def __init__(self, client: OpnsenseClient) -> None:

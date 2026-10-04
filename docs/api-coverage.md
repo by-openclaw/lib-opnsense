@@ -331,7 +331,8 @@ WebGUI cert (no browser warning, auto-renew). Verified live against
 | diag-memory | `DiagMemoryManager` | `GET /api/diagnostics/system/memory` | `ABSENT` |
 | diag-ndp | `DiagNdpManager` | `GET /api/diagnostics/interface/get_ndp` | `ABSENT` |
 | diag-netflow-enabled | `DiagNetflowManager` | `GET /api/diagnostics/netflow/is_enabled` | `ABSENT` |
-| diag-netflow-status | `NetflowServiceManager` | `diagnostics/netflow/{status,reconfigure}` — status `active`→`running`; only `ensure('reconfigured')` is meaningful (the exporter config is seed-owned) | `INTEGRATION_TEST_PASSED` |
+| diag-netflow-config | `NetflowSettingsManager` | `diagnostics/netflow/{getconfig,setconfig}` + `reconfigure` — singleton, nested `capture` / `collect` document; multi-selects compared as sets (26.7.5: `setconfig` saves, so the capture config no longer has to live in the seed) | `INTEGRATION_TEST_PASSED` |
+| diag-netflow-status | `NetflowServiceManager` | `diagnostics/netflow/{status,reconfigure}` — status `active`→`running`; only `ensure('reconfigured')` is meaningful (settings: `NetflowSettingsManager`) | `INTEGRATION_TEST_PASSED` |
 | diag-proto | `DiagProtoManager` | `GET /api/diagnostics/interface/get_protocol_statistics` | `ABSENT` |
 | diag-resources | `DiagResourcesManager` | `GET /api/diagnostics/system/system_resources` | `ABSENT` |
 | diag-routes | `DiagRoutesManager` | `GET /api/diagnostics/interface/get_routes` | `ABSENT` |
