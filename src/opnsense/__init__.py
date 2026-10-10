@@ -7,7 +7,7 @@ Async/await Python client for OPNsense firewall management.
 Provides typed managers with ensure() idempotency for all API domains.
 """
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 from opnsense.client import OpnsenseClient
 from opnsense.exceptions import (
