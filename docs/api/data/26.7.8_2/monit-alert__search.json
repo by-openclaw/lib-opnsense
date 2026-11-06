@@ -1,0 +1,17 @@
+{
+  "rows": [
+    {
+      "uuid": "97bc9ee7-1f0a-44c5-b942-fc74f596213e",
+      "enabled": "0",
+      "recipient": "root@localhost.local",
+      "noton": "0",
+      "events": "",
+      "format": "",
+      "reminder": "",
+      "description": ""
+    }
+  ],
+  "rowCount": 1,
+  "total": 1,
+  "current": 1
+}

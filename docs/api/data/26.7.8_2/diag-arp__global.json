@@ -1,0 +1,74 @@
+[
+  {
+    "mac": "bc:24:11:40:b9:72",
+    "ip": "10.99.1.1",
+    "intf": "vtnet0",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "LAN_TRUNK"
+  },
+  {
+    "mac": "bc:24:11:6d:71:57",
+    "ip": "10.6.239.197",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "bc:24:11:cc:3e:51",
+    "ip": "10.6.239.106",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 1083,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "bc:24:11:4f:61:a7",
+    "ip": "10.6.224.1",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 1193,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
+    "mac": "bc:24:11:03:3c:71",
+    "ip": "10.99.240.9",
+    "intf": "vtnet4",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "FAB"
+  },
+  {
+    "mac": "bc:24:11:40:b9:72",
+    "ip": "10.99.99.1",
+    "intf": "vlan2999",
+    "expired": false,
+    "expires": -1,
+    "permanent": true,
+    "type": "vlan",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "SCRATCH"
+  }
+]

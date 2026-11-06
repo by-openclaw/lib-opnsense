@@ -1,0 +1,21 @@
+{
+  "route": {
+    "network": "",
+    "gateway": {
+      "Null4": {
+        "value": "Null4 - 127.0.0.1",
+        "selected": 0
+      },
+      "Null6": {
+        "value": "Null6 - ::1",
+        "selected": 0
+      },
+      "OOB_GW": {
+        "value": "OOB_GW - 10.6.224.1",
+        "selected": 0
+      }
+    },
+    "descr": "",
+    "enabled": "1"
+  }
+}

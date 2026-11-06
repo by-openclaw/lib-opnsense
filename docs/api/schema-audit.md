@@ -11,12 +11,12 @@
 
 | Property | Value |
 |----------|-------|
-| **OPNsense Version** | `26.7.5` |
+| **OPNsense Version** | `26.7.8_2` |
 | **Product** | OPNsense (amd64) |
-| **Probe timestamp** | 2026-10-04T01:11:09Z |
-| **Audit generated** | 2026-10-04T01:13:19Z |
+| **Probe timestamp** | 2026-11-06T18:38:14Z |
+| **Audit generated** | 2026-11-06T18:40:13Z |
 | **Endpoints probed** | 206 |
-| **Source JSONs** | `docs/api/data/26.7.5/` |
+| **Source JSONs** | `docs/api/data/26.7.8_2/` |
 
 ## API Type Conventions
 
@@ -97,7 +97,7 @@ uuid
   "priv": "page-all",
   "%priv": "All pages",
   "member": "0,2001,2002,2003",
-  "%member": "root, local-admin, svc-ansible-prod, oob-admin",
+  "%member": "root, example, svc-ansible-prod, oob-admin",
   "source_networks": ""
 }
 ```
@@ -127,7 +127,7 @@ priv
   "priv": {
     "users": {
       "c3a1b2d4-9e8f-4a6b-8c7d-5e4f3a2b1c0d": {
-        "value": "local-admin",
+        "value": "example",
         "selected": 0
       },
       "a4f1c2e3-5b6d-4e7f-8a9b-0c1d2e3f4a5b": {
@@ -148,7 +148,7 @@ priv
         "value": "admins",
         "selected": 0
       },
-      "1d27914d-81c5-4130-ac47-909665601c63": {
+      "638e6b44-9621-4308-9b00-00370376fff0": {
         "value": "platform-admins",
         "selected": 0
       }
@@ -157,7 +157,7 @@ priv
 }
 ```
 
-> Response size: 723 bytes
+> Response size: 719 bytes
 
 ---
 
@@ -417,7 +417,7 @@ product_version
 ```json
 {
   "product_id": "opnsense",
-  "product_version": "26.7.5",
+  "product_version": "26.7.8_2",
   "package": [
     {
       "name": "abseil",
@@ -466,9 +466,9 @@ product_version
     },
     {
       "name": "amazon-ssm-agent",
-      "version": "3.3.4177.0_6",
+      "version": "3.3.4177.0_8",
       "comment": "Amazon Simple Systems Manager Agent",
-      "flatsize": "123MiB",
+      "flatsize": "125MiB",
       "locked": "N/A",
       "automatic": "N/A",
       "license": "APACHE20",
@@ -483,7 +483,7 @@ product_version
       "name": "ap24-mod_auth_openidc",
       "version": "2.4.20.3",
       "comment": "OpenID Connect Relying Party and OAuth 2.0 Resource Server for Apache",
-      "flatsize": "764KiB",
+      "flatsize": "761KiB",
       "locked": "N/A",
       "automatic": "N/A",
       "license": "APACHE20",
@@ -498,7 +498,7 @@ product_version
 (parse error)
 ```
 
-> Response size: 470487 bytes
+> Response size: 466390 bytes
 
 ---
 
@@ -578,13 +578,13 @@ upgrade_sets
   "connection": "ok",
   "downgrade_packages": [],
   "download_size": "",
-  "last_check": "Sun Oct  4 02:43:24 CEST 2026",
+  "last_check": "Fri Nov  6 19:34:47 CET 2026",
   "needs_reboot": "0",
   "new_packages": [],
-  "os_version": "FreeBSD 15.1-RELEASE-p3",
+  "os_version": "FreeBSD 15.1-RELEASE-p6",
   "product_id": "opnsense",
   "product_target": "opnsense",
-  "product_version": "26.7.5",
+  "product_version": "26.7.8_2",
   "product_abi": "26.7",
   "reinstall_packages": [],
   "remove_packages": [],
@@ -597,20 +597,20 @@ upgrade_sets
   "product": {
     "CORE_ABI": "26.7",
     "CORE_ARCH": "amd64",
-    "CORE_COMMIT": "26.7.5 0 791286d4d",
+    "CORE_COMMIT": "26.7.8 2 874c32d7e",
     "CORE_CONFLICTS": "os-firewall os-firewall-devel os-wireguard os-wireguard-devel os-wireguard-go os-wireguard-go-devel",
     "CORE_COPYRIGHT_HOLDER": "Deciso B.V.",
     "CORE_COPYRIGHT_WWW": "https://www.deciso.com/",
     "CORE_COPYRIGHT_YEARS": "2014-2026",
     "CORE_GID": "789",
     "CORE_GROUP": "wwwonly",
-    "CORE_HASH": "791286d4d",
+    "CORE_HASH": "874c32d7e",
     "CORE_MAINTAINER": "project@opnsense.org",
     "CORE_NAME": "opnsense",
     "CORE_NEXT": "27.1",
     "CORE_NICKNAME": "Xenial Xenops",
     "CORE_PACKAGESITE": "https://pkg.opnsense.org",
-    "CORE_PKGVERSION": "26.7.5",
+    "CORE_PKGVERSION": "26.7.8_2",
     "CORE_PRODUCT": "OPNsense",
     "CORE_PYTHON_DOT": "3.13",
     "CORE_SERIES": "26.7",
@@ -618,7 +618,7 @@ upgrade_sets
     "CORE_SYSLOGNG": "4.12",
     "CORE_UID": "789",
     "CORE_USER": "wwwonly",
-    "CORE_VERSION": "26.7.5",
+    "CORE_VERSION": "26.7.8",
     "CORE_WWW": "https://opnsense.org/",
     "product_abi": "26.7",
     "product_arch": "amd64",
@@ -627,13 +627,13 @@ upgrade_sets
       "connection": "ok",
       "downgrade_packages": [],
       "download_size": "",
-      "last_check": "Sun Oct  4 02:43:24 CEST 2026",
+      "last_check": "Fri Nov  6 19:34:47 CET 2026",
       "needs_reboot": "0",
       "new_packages": [],
-      "os_version": "FreeBSD 15.1-RELEASE-p3",
+      "os_version": "FreeBSD 15.1-RELEASE-p6",
       "product_id": "opnsense",
       "product_target": "opnsense",
-      "product_version": "26.7.5",
+      "product_version": "26.7.8_2",
       "product_abi": "26.7",
       "reinstall_packages": [],
       "remove_packages": [],
@@ -649,13 +649,13 @@ upgrade_sets
     "product_copyright_url": "https://www.deciso.com/",
     "product_copyright_years": "2014-2026",
     "product_email": "project@opnsense.org",
-    "product_hash": "791286d4d",
+    "product_hash": "874c32d7e",
     "product_id": "opnsense",
-    "product_latest": "26.7.5",
+    "product_latest": "26.7.8",
     "product_license": [],
 ```
 
-> Response size: 3225 bytes
+> Response size: 3230 bytes
 
 ---
 
@@ -787,8 +787,8 @@ total
 **Response sample:**
 ```json
 {
-  "total": 15,
-  "rowCount": 15,
+  "total": 13,
+  "rowCount": 13,
   "current": 1,
   "rows": [
     {
@@ -818,13 +818,6 @@ total
       "running": 0,
       "description": "ddclient",
       "name": "ddclient"
-    },
-    {
-      "id": "flowd_aggregate",
-      "locked": 0,
-      "running": 1,
-      "description": "Insight Aggregator",
-      "name": "flowd_aggregate"
     },
     {
       "id": "hostwatch",
@@ -866,9 +859,16 @@ total
       "locked": 1,
       "running": 1,
       "description": "System routing",
+      "name": "routing"
+    },
+    {
+      "id": "sysctl",
+      "locked": 1,
+      "running": 1,
+      "description": "System tunables",
 ```
 
-> Response size: 2113 bytes
+> Response size: 1806 bytes
 
 ---
 
@@ -884,8 +884,17 @@ total
 
 ```
 
-**Rows returned:** 0 (total: 0)
+**Rows returned:** 2 (total: 2)
 
+**Row keys:**
+```
+(parse error)
+```
+
+**First row sample:**
+```json
+null
+```
 
 ---
 
@@ -1208,7 +1217,7 @@ widget
 | `idletimeout` | `"0"` | `string-bool` |
 | `hardtimeout` | `"0"` | `string-bool` |
 | `concurrentlogins` | `"1"` | `string-bool` |
-| `certificate` | enum | `enum`: **, 6ac19fa548497 |
+| `certificate` | enum | `enum`: **, 6aee1be3a0e41 |
 | `servername` | `""` | `string` |
 | `allowedAddresses` | enum | `enum`: ** |
 | `allowedMACAddresses` | enum | `enum`: ** |
@@ -1339,14 +1348,14 @@ version
 **First row sample:**
 ```json
 {
-  "name": "cs-firewall-bouncer-1791074669",
+  "name": "cs-firewall-bouncer-1793990147",
   "type": "crowdsec-firewall-bouncer",
-  "version": "v0.0.38-freebsd-20bd97a",
-  "created": "2026-10-04T00:44:29.448518754Z",
+  "version": "v0.0.38_2-freebsd-20bd97a",
+  "created": "2026-11-06T18:35:47.649024906Z",
   "valid": true,
   "ip_address": "127.0.0.1",
-  "last_seen": "2026-10-04T01:13:09.555759352Z",
-  "os": "freebsd/15.1-release-p3"
+  "last_seen": "2026-11-06T18:40:07.745690354Z",
+  "os": "?"
 }
 ```
 
@@ -1475,11 +1484,11 @@ version
 {
   "name": "localhost",
   "ip_address": "127.0.0.1",
-  "version": "v1.8.1-909b515-freebsd",
+  "version": "v1.8.1_2-909b515",
   "validated": true,
-  "created": "2026-10-04T00:44:27.704552161Z",
-  "last_seen": "2026-10-04T01:12:36.992719292Z",
-  "os": "freebsd/15.1-release-p3"
+  "created": "2026-11-06T18:35:45.90724419Z",
+  "last_seen": "2026-11-06T18:40:03.291795132Z",
+  "os": "freebsd/15.1-release-p6"
 }
 ```
 
@@ -1647,14 +1656,13 @@ dhcrelay
 3
 4
 5
-6
 ```
 
 **Response sample:**
 ```json
 [
   {
-    "mac": "bc:24:11:1a:cf:f9",
+    "mac": "bc:24:11:40:b9:72",
     "ip": "10.99.1.1",
     "intf": "vtnet0",
     "expired": false,
@@ -1666,7 +1674,7 @@ dhcrelay
     "intf_description": "LAN_TRUNK"
   },
   {
-    "mac": "bc:24:11:f9:01:02",
+    "mac": "bc:24:11:6d:71:57",
     "ip": "10.6.239.197",
     "intf": "vtnet1",
     "expired": false,
@@ -1678,11 +1686,23 @@ dhcrelay
     "intf_description": "OOB"
   },
   {
+    "mac": "bc:24:11:cc:3e:51",
+    "ip": "10.6.239.106",
+    "intf": "vtnet1",
+    "expired": false,
+    "expires": 1083,
+    "permanent": false,
+    "type": "ethernet",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "OOB"
+  },
+  {
     "mac": "bc:24:11:4f:61:a7",
     "ip": "10.6.224.1",
     "intf": "vtnet1",
     "expired": false,
-    "expires": 1199,
+    "expires": 1193,
     "permanent": false,
     "type": "ethernet",
     "manufacturer": "Proxmox Server Solutions GmbH",
@@ -1690,31 +1710,7 @@ dhcrelay
     "intf_description": "OOB"
   },
   {
-    "mac": "d0:7e:28:1a:d8:01",
-    "ip": "10.6.224.24",
-    "intf": "vtnet1",
-    "expired": false,
-    "expires": 558,
-    "permanent": false,
-    "type": "ethernet",
-    "manufacturer": "Hewlett Packard",
-    "hostname": "",
-    "intf_description": "OOB"
-  },
-  {
-    "mac": "bc:24:11:cc:3e:51",
-    "ip": "10.6.239.120",
-    "intf": "vtnet1",
-    "expired": false,
-    "expires": 578,
-    "permanent": false,
-    "type": "ethernet",
-    "manufacturer": "Proxmox Server Solutions GmbH",
-    "hostname": "",
-    "intf_description": "OOB"
-  },
-  {
-    "mac": "bc:24:11:3d:d5:cc",
+    "mac": "bc:24:11:03:3c:71",
     "ip": "10.99.240.9",
     "intf": "vtnet4",
     "expired": false,
@@ -1726,15 +1722,21 @@ dhcrelay
     "intf_description": "FAB"
   },
   {
-    "mac": "bc:24:11:1a:cf:f9",
+    "mac": "bc:24:11:40:b9:72",
     "ip": "10.99.99.1",
     "intf": "vlan2999",
     "expired": false,
     "expires": -1,
     "permanent": true,
+    "type": "vlan",
+    "manufacturer": "Proxmox Server Solutions GmbH",
+    "hostname": "",
+    "intf_description": "SCRATCH"
+  }
+]
 ```
 
-> Response size: 1955 bytes
+> Response size: 1689 bytes
 
 ---
 
@@ -1766,9 +1768,9 @@ devices
       "total": "18.7G",
       "total_bytes": 20122071040,
       "used": "2.92G",
-      "used_bytes": 3139145728,
+      "used_bytes": 3139596288,
       "available": "14.3G",
-      "available_bytes": 15373160448,
+      "available_bytes": 15372709888,
       "used_pct": 17,
       "mountpoint": "/"
     }
@@ -1908,11 +1910,11 @@ items
 [
   {
     "label": "OOB",
-    "value": 2357
+    "value": 1256
   },
   {
     "label": "LAN_TRUNK",
-    "value": 7
+    "value": 2
   }
 ]
 ```
@@ -1971,7 +1973,7 @@ vtnet4
       "linkstate",
       "hwstats"
     ],
-    "macaddr": "bc:24:11:1a:cf:f9",
+    "macaddr": "bc:24:11:40:b9:72",
     "ipv4": [
       {
         "ipaddr": "10.99.1.1",
@@ -1996,7 +1998,7 @@ vtnet4
         "autoconf": false,
         "deprecated": false,
         "detached": false,
-        "ipaddr": "fe80::be24:11ff:fe1a:cff9",
+        "ipaddr": "fe80::be24:11ff:fe40:b972",
         "link-local": true,
         "pltime": "0",
         "tentative": false,
@@ -2011,7 +2013,7 @@ vtnet4
     "is_physical": true,
     "device": "vtnet0",
     "mtu": "1500",
-    "macaddr_hw": "bc:24:11:1a:cf:f9",
+    "macaddr_hw": "bc:24:11:40:b9:72",
     "media": "10Gbase-T <full-duplex>",
     "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
     "status": "active",
@@ -2093,19 +2095,19 @@ statistics
 ```json
 {
   "statistics": {
-    "[LAN_TRUNK] (vtnet0) / bc:24:11:1a:cf:f9": {
+    "[LAN_TRUNK] (vtnet0) / bc:24:11:40:b9:72": {
       "name": "vtnet0",
       "flags": "0x8843",
       "mtu": 1500,
       "network": "<Link#1>",
-      "address": "bc:24:11:1a:cf:f9",
-      "received-packets": 4,
+      "address": "bc:24:11:40:b9:72",
+      "received-packets": 0,
       "received-errors": 0,
       "dropped-packets": 0,
-      "received-bytes": 664,
-      "sent-packets": 10,
+      "received-bytes": 0,
+      "sent-packets": 6,
       "send-errors": 0,
-      "sent-bytes": 984,
+      "sent-bytes": 696,
       "collisions": 0
     },
     "[LAN_TRUNK] (vtnet0) / 10.99.1.1": {
@@ -2128,29 +2130,29 @@ statistics
       "sent-packets": 0,
       "sent-bytes": 0
     },
-    "[LAN_TRUNK] (vtnet0) / fe80::be24:11ff:fe1a:cff9%vtnet0": {
+    "[LAN_TRUNK] (vtnet0) / fe80::be24:11ff:fe40:b972%vtnet0": {
       "name": "vtnet0",
       "flags": "0x8843",
       "network": "fe80::%vtnet0/64",
-      "address": "fe80::be24:11ff:fe1a:cff9%vtnet0",
+      "address": "fe80::be24:11ff:fe40:b972%vtnet0",
       "received-packets": 0,
       "received-bytes": 0,
-      "sent-packets": 4,
-      "sent-bytes": 384
+      "sent-packets": 2,
+      "sent-bytes": 272
     },
-    "[OOB] (vtnet1) / bc:24:11:f9:01:02": {
+    "[OOB] (vtnet1) / bc:24:11:6d:71:57": {
       "name": "vtnet1",
       "flags": "0x8843",
       "mtu": 1500,
       "network": "<Link#2>",
-      "address": "bc:24:11:f9:01:02",
-      "received-packets": 165353,
+      "address": "bc:24:11:6d:71:57",
+      "received-packets": 152659,
       "received-errors": 0,
       "dropped-packets": 0,
-      "received-bytes": 217945467,
-      "sent-packets": 173850,
+      "received-bytes": 215782513,
+      "sent-packets": 159453,
       "send-errors": 0,
-      "sent-bytes": 25089201,
+      "sent-bytes": 17973755,
       "collisions": 0
     },
     "[OOB] (vtnet1) / 10.6.239.197": {
@@ -2158,23 +2160,23 @@ statistics
       "flags": "0x8843",
       "network": "10.6.224.0/20",
       "address": "10.6.239.197",
-      "received-packets": 161394,
-      "received-bytes": 215274866,
-      "sent-packets": 173845,
-      "sent-bytes": 22655185
+      "received-packets": 151290,
+      "received-bytes": 213557042,
+      "sent-packets": 159448,
+      "sent-bytes": 15741297
     },
-    "[vtnet2] / bc:24:11:fa:96:03": {
+    "[vtnet2] / bc:24:11:17:fc:a6": {
       "name": "vtnet2",
       "flags": "0x8802",
       "mtu": 1500,
       "network": "<Link#3>",
-      "address": "bc:24:11:fa:96:03",
+      "address": "bc:24:11:17:fc:a6",
       "received-packets": 0,
       "received-errors": 0,
 (parse error)
 ```
 
-> Response size: 6917 bytes
+> Response size: 6902 bytes
 
 ---
 
@@ -2281,7 +2283,7 @@ vmstat
 (parse error)
 ```
 
-> Response size: 78826 bytes
+> Response size: 75181 bytes
 
 ---
 
@@ -2309,29 +2311,29 @@ vmstat
 ```json
 [
   {
-    "mac": "bc:24:11:1a:cf:f9",
+    "mac": "bc:24:11:40:b9:72",
     "ip": "fd99:1::1",
     "intf": "vtnet0",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "intf_description": "LAN_TRUNK"
   },
   {
-    "mac": "bc:24:11:1a:cf:f9",
-    "ip": "fe80::be24:11ff:fe1a:cff9%vtnet0",
+    "mac": "bc:24:11:40:b9:72",
+    "ip": "fe80::be24:11ff:fe40:b972%vtnet0",
     "intf": "vtnet0",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "intf_description": "LAN_TRUNK"
   },
   {
-    "mac": "bc:24:11:1a:cf:f9",
+    "mac": "bc:24:11:40:b9:72",
     "ip": "fd99:99::1",
     "intf": "vlan2999",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "intf_description": "SCRATCH"
   },
   {
-    "mac": "bc:24:11:1a:cf:f9",
-    "ip": "fe80::be24:11ff:fe1a:cff9%vlan2999",
+    "mac": "bc:24:11:40:b9:72",
+    "ip": "fe80::be24:11ff:fe40:b972%vlan2999",
     "intf": "vlan2999",
     "manufacturer": "Proxmox Server Solutions GmbH",
     "intf_description": "SCRATCH"
@@ -2364,8 +2366,8 @@ netflow
 **Response sample:**
 ```json
 {
-  "netflow": 1,
-  "local": 1
+  "netflow": 0,
+  "local": 0
 }
 ```
 
@@ -2387,19 +2389,17 @@ netflow
 
 **Top-level keys:**
 ```
-collectors
 status
 ```
 
 **Response sample:**
 ```json
 {
-  "status": "active",
-  "collectors": "4"
+  "status": "inactive"
 }
 ```
 
-> Response size: 46 bytes
+> Response size: 27 bytes
 
 ---
 
@@ -2425,87 +2425,87 @@ statistics
 {
   "statistics": {
     "tcp": {
-      "sent-packets": 176938,
-      "sent-data-packets": 20636,
-      "sent-data-bytes": 13689399,
-      "sent-retransmitted-packets": 168,
-      "sent-retransmitted-bytes": 4176,
+      "sent-packets": 159490,
+      "sent-data-packets": 12044,
+      "sent-data-bytes": 7480384,
+      "sent-retransmitted-packets": 13,
+      "sent-retransmitted-bytes": 312,
       "sent-unnecessary-retransmitted-packets": 0,
       "sent-resends-by-mtu-discovery": 0,
-      "sent-ack-only-packets": 153984,
+      "sent-ack-only-packets": 146578,
       "sent-packets-delayed": 0,
       "sent-urg-only-packets": 0,
       "sent-window-probe-packets": 0,
-      "sent-window-update-packets": 145,
-      "sent-control-packets": 2005,
-      "received-packets": 164468,
-      "received-ack-packets": 9660,
-      "received-ack-bytes": 13649206,
-      "received-duplicate-acks": 59,
+      "sent-window-update-packets": 132,
+      "sent-control-packets": 723,
+      "received-packets": 151314,
+      "received-ack-packets": 5240,
+      "received-ack-bytes": 7471422,
+      "received-duplicate-acks": 5,
       "received-udp-tunneled-pkts": 0,
       "received-bad-udp-tunneled-pkts": 0,
       "received-acks-for-data-not-yet-sent": 0,
       "received-acks-for-data-never-been-sent": 0,
       "received-acks-for-data-being-too-old": 0,
-      "received-in-sequence-packets": 150437,
-      "received-in-sequence-bytes": 204551506,
-      "received-completely-duplicate-packets": 108,
-      "received-completely-duplicate-bytes": 1316,
+      "received-in-sequence-packets": 146281,
+      "received-in-sequence-bytes": 205602054,
+      "received-completely-duplicate-packets": 17,
+      "received-completely-duplicate-bytes": 0,
       "received-old-duplicate-packets": 0,
       "received-some-duplicate-packets": 0,
       "received-some-duplicate-bytes": 0,
-      "received-out-of-order": 1042,
-      "received-out-of-order-bytes": 1499306,
+      "received-out-of-order": 6,
+      "received-out-of-order-bytes": 8672,
       "received-after-window-packets": 0,
       "received-after-window-bytes": 0,
       "received-window-probes": 0,
-      "receive-window-update-packets": 16,
+      "receive-window-update-packets": 7,
       "received-with-dsack-packets": 0,
       "received-with-dsack-bytes": 0,
       "received-with-dsack-bytes-tlp": 0,
-      "received-after-close-packets": 331,
+      "received-after-close-packets": 151,
       "discard-bad-checksum": 0,
       "discard-bad-header-offset": 0,
       "discard-too-short": 0,
-      "discard-reassembly-queue-full": 1040,
-      "connection-requests": 360,
-      "connections-accepts": 1076,
+      "discard-reassembly-queue-full": 0,
+      "connection-requests": 175,
+      "connections-accepts": 229,
       "bad-connection-attempts": 0,
       "listen-queue-overflows": 0,
-      "ignored-in-window-resets": 634,
-      "connections-established": 1435,
-      "connections-hostcache-rtt": 1416,
-      "connections-hostcache-rttvar": 1416,
-      "connections-hostcache-ssthresh": 913,
-      "connections-closed": 1490,
-      "connection-drops": 1067,
-      "connections-updated-rtt-on-close": 1260,
-      "connections-updated-variance-on-close": 1260,
-      "connections-updated-ssthresh-on-close": 889,
-      "embryonic-connections-dropped": 1,
-      "segments-updated-rtt": 9660,
-      "segment-update-attempts": 7777,
-      "retransmit-timeouts": 166,
+      "ignored-in-window-resets": 207,
+      "connections-established": 402,
+      "connections-hostcache-rtt": 382,
+      "connections-hostcache-rttvar": 382,
+      "connections-hostcache-ssthresh": 223,
+      "connections-closed": 437,
+      "connection-drops": 225,
+      "connections-updated-rtt-on-close": 395,
+      "connections-updated-variance-on-close": 395,
+      "connections-updated-ssthresh-on-close": 217,
+      "embryonic-connections-dropped": 2,
+      "segments-updated-rtt": 5240,
+      "segment-update-attempts": 3725,
+      "retransmit-timeouts": 13,
       "connections-dropped-by-retransmit-timeout": 0,
       "persist-timeout": 0,
       "connections-dropped-by-persist-timeout": 0,
       "connections-dropped-by-finwait2-timeout": 0,
-      "keepalive-timeout": 128,
-      "keepalive-probes": 107,
+      "keepalive-timeout": 35,
+      "keepalive-probes": 19,
       "connections-dropped-by-keepalives": 0,
       "connections-dropped-due-to-progress-time": 0,
-      "ack-header-predictions": 2367,
-      "data-packet-header-predictions": 144588,
+      "ack-header-predictions": 2010,
+      "data-packet-header-predictions": 143926,
       "syncache": {
-        "entries-added": 1076,
+        "entries-added": 229,
         "retransmitted": 0,
-        "duplicates": 1,
+        "duplicates": 0,
         "dropped": 0,
-        "completed": 1076,
+        "completed": 229,
 (parse error)
 ```
 
-> Response size: 15133 bytes
+> Response size: 14615 bytes
 
 ---
 
@@ -2532,8 +2532,8 @@ memory
   "memory": {
     "total": "2102853632",
     "total_frmt": "2005",
-    "used": 708268624,
-    "used_frmt": "675"
+    "used": 581623345,
+    "used_frmt": "554"
   }
 }
 ```
@@ -2576,6 +2576,7 @@ memory
 17
 18
 19
+20
 ```
 
 **Response sample:**
@@ -2591,7 +2592,7 @@ memory
     "netif": "vtnet1",
     "expire": "",
     "intf_description": "OOB",
-    "id": "default,10.6.224.1"
+    "id": "ipv4,default,10.6.224.1"
   },
   {
     "proto": "ipv4",
@@ -2603,7 +2604,7 @@ memory
     "netif": "vtnet1",
     "expire": "",
     "intf_description": "OOB",
-    "id": "10.6.224.0/20,link#2"
+    "id": "ipv4,10.6.224.0/20,link#2"
   },
   {
     "proto": "ipv4",
@@ -2615,7 +2616,7 @@ memory
     "netif": "lo0",
     "expire": "",
     "intf_description": "Loopback",
-    "id": "10.6.239.197,link#6"
+    "id": "ipv4,10.6.239.197,link#6"
   },
   {
     "proto": "ipv4",
@@ -2627,7 +2628,7 @@ memory
     "netif": "vtnet0",
     "expire": "",
     "intf_description": "LAN_TRUNK",
-    "id": "10.99.1.0/24,link#1"
+    "id": "ipv4,10.99.1.0/24,link#1"
   },
   {
     "proto": "ipv4",
@@ -2639,7 +2640,19 @@ memory
     "netif": "lo0",
     "expire": "",
     "intf_description": "Loopback",
-    "id": "10.99.1.1,link#6"
+    "id": "ipv4,10.99.1.1,link#6"
+  },
+  {
+    "proto": "ipv4",
+    "destination": "10.99.99.0/24",
+    "gateway": "link#10",
+    "flags": "U",
+    "nhop#": "1",
+    "mtu": "1500",
+    "netif": "vlan2999",
+    "expire": "",
+    "intf_description": "SCRATCH",
+    "id": "ipv4,10.99.99.0/24,link#10"
   },
   {
     "proto": "ipv4",
@@ -2648,22 +2661,10 @@ memory
     "flags": "UHS",
     "nhop#": "9",
     "mtu": "16384",
-    "netif": "lo0",
-    "expire": "",
-    "intf_description": "Loopback",
-    "id": "10.99.99.1,link#6"
-  },
-  {
-    "proto": "ipv4",
-    "destination": "10.99.240.0/20",
-    "gateway": "link#5",
-    "flags": "U",
-    "nhop#": "1",
-    "mtu": "1500",
 (parse error)
 ```
 
-> Response size: 5121 bytes
+> Response size: 5485 bytes
 
 ---
 
@@ -2691,15 +2692,15 @@ versions
 {
   "name": "vm-opns-scratch-01.scratch.example.com",
   "versions": [
-    "OPNsense 26.7.5-amd64",
-    "FreeBSD 15.1-RELEASE-p3",
+    "OPNsense 26.7.8_2-amd64",
+    "FreeBSD 15.1-RELEASE-p6",
     "OpenSSL 3.5.9"
   ],
   "updates": "Click to check for updates."
 }
 ```
 
-> Response size: 200 bytes
+> Response size: 202 bytes
 
 ---
 
@@ -2752,11 +2753,11 @@ uptime
 **Response sample:**
 ```json
 {
-  "uptime": "00:30:46",
-  "datetime": "Sun Oct 4 3:13:02 CEST 2026",
-  "boottime": "Sun Oct 4 2:42:16 CEST 2026",
-  "config": "Sun Oct 4 3:00:29 CEST 2026",
-  "loadavg": "0.60, 0.53, 0.42"
+  "uptime": "00:06:11",
+  "datetime": "Fri Nov 6 19:39:57 CET 2026",
+  "boottime": "Fri Nov 6 19:33:46 CET 2026",
+  "config": "Fri Nov 6 19:36:45 CET 2026",
+  "loadavg": "0.45, 0.39, 0.20"
 }
 ```
 
@@ -2863,7 +2864,7 @@ total
 |-------|---------|-----------------|
 | `sequence` | `"1"` | `string-bool` |
 | `domain` | `""` | `string` |
-| `ipset` | enum | `enum`: **, 879fdf6e-999f-4992-94f8-dbf98c1447b8, d3b381b9-9ce4-4690-84e2-6e4d9f3780c6 |
+| `ipset` | enum | `enum`: **, c4bf0106-5c3c-4d42-bb3b-4a6cd831f2f6, fe64bc5b-1f83-40d9-8e9f-94965ec16185 |
 | `srcip` | `""` | `string` |
 | `port` | `""` | `string` |
 | `ip` | `""` | `string` |
@@ -3610,7 +3611,7 @@ uuid
 | `max-src-conn-rates` | `""` | `string` |
 | `max-pkt-rate-number` | `""` | `string` |
 | `max-pkt-rate-seconds` | `""` | `string` |
-| `overload` | enum | `enum`: **, bogons, bogonsv6, 879fdf6e-999f-4992-94f8-dbf98c1447b8, d3b381b9-9ce4-4690-84e2-6e4d9f3780c6, sshlockout, virusprot, __lan_network, __lo0_network, __opt1_network, __opt2_network, __opt3_network |
+| `overload` | enum | `enum`: **, bogons, bogonsv6, c4bf0106-5c3c-4d42-bb3b-4a6cd831f2f6, fe64bc5b-1f83-40d9-8e9f-94965ec16185, sshlockout, virusprot, __lan_network, __lo0_network, __opt1_network, __opt2_network, __opt3_network |
 | `adaptivestart` | `""` | `string` |
 | `adaptiveend` | `""` | `string` |
 | `prio` | enum | `enum`: **, 1, 0, 2, 3, 4, 5, 6, 7 |
@@ -4565,14 +4566,14 @@ total
         "linkstate",
         "hwstats"
       ],
-      "macaddr": "bc:24:11:1a:cf:f9",
+      "macaddr": "bc:24:11:40:b9:72",
       "supported_media": [
         "autoselect"
       ],
       "is_physical": true,
       "device": "vtnet0",
       "mtu": "1500",
-      "macaddr_hw": "bc:24:11:1a:cf:f9",
+      "macaddr_hw": "bc:24:11:40:b9:72",
       "media": "10Gbase-T <full-duplex>",
       "media_raw": "Ethernet autoselect (10Gbase-T <full-duplex>)",
       "status": "up",
@@ -4615,14 +4616,14 @@ total
           "ipaddr": "fd99:1::1/64"
         },
         {
-          "ipaddr": "fe80::be24:11ff:fe1a:cff9/64"
+          "ipaddr": "fe80::be24:11ff:fe40:b972/64"
         }
       ],
       "vlan_tag": null,
 (parse error)
 ```
 
-> Response size: 10911 bytes
+> Response size: 10936 bytes
 
 ---
 
@@ -4672,10 +4673,10 @@ settings
     "dhcp6_ratimeout": "10"
   },
   "duids": {
-    "llt": "00:01:00:01:32:54:64:45:BC:24:11:CC:3E:51",
+    "llt": "00:01:00:01:32:80:DB:2C:BC:24:11:CC:3E:51",
     "ll": "00:03:00:01:BC:24:11:CC:3E:51",
-    "uuid": "00:04:AF:5A:D4:4B:27:31:DA:EC:33:4C:54:A9:2C:FE:4A:2F",
-    "en": "00:02:00:00:D2:6D:F1:48:C6:5E:64:A4:84:C8",
+    "uuid": "00:04:2B:4F:33:33:A0:C3:6F:42:3B:FF:78:D6:C5:22:A0:83",
+    "en": "00:02:00:00:D2:6D:DB:59:F6:16:68:1D:CB:13",
     "current": "",
     "default": "XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX"
   }
@@ -4789,9 +4790,9 @@ vlanif
 **First row sample:**
 ```json
 {
-  "uuid": "a12270c0-346c-4ac8-ba9b-fefbd5c1b67f",
+  "uuid": "329cadea-5aa6-452b-9dda-f8a3cc0af9e5",
   "if": "vtnet0",
-  "%if": "vtnet0 (bc:24:11:1a:cf:f9) [LAN_TRUNK]",
+  "%if": "vtnet0 (bc:24:11:40:b9:72) [LAN_TRUNK]",
   "tag": "2999",
   "pcp": "1",
   "%pcp": "Background (1, lowest)",
@@ -4874,9 +4875,10 @@ vlanif
 | `local_ts` | enum | `enum`: ** |
 | `remote_ts` | enum | `enum`: ** |
 | `rekey_time` | `"3600"` | `int-like string` |
+| `replay_window` | `""` | `string` |
 | `description` | `""` | `string` |
 
-> 14 fields discovered
+> 15 fields discovered
 
 ### search — HTTP 200
 
@@ -4933,7 +4935,7 @@ vlanif
 | `local_ts` | `""` | `string` |
 | `remote_ts` | `""` | `string` |
 | `org_uuid` | `null` | `nullable` |
-| `uuid` | `"b3f538ee-5537-47fb-80c7-c0a79c6e976f"` | `string` |
+| `uuid` | `"c26fe31c-c195-4e05-8abc-19e0677529d5"` | `string` |
 
 > 25 fields discovered
 
@@ -5042,7 +5044,7 @@ enabled
 | `auth` | enum | `enum`: *psk*, pubkey, eap-tls, eap-mschapv2, xauth-pam, eap-radius |
 | `id` | `""` | `string` |
 | `eap_id` | `""` | `string` |
-| `certs` | enum | `enum`: 6ac19fa548497 |
+| `certs` | enum | `enum`: 6aee1be3a0e41 |
 | `pubkeys` | [] | `list` |
 | `description` | `""` | `string` |
 
@@ -5163,7 +5165,7 @@ enabled
 | `id` | `""` | `string` |
 | `eap_id` | `""` | `string` |
 | `groups` | enum | `enum`: 1999, 2000 |
-| `certs` | enum | `enum`: 6ac19fa548497 |
+| `certs` | enum | `enum`: 6aee1be3a0e41 |
 | `cacerts` | [] | `list` |
 | `pubkeys` | [] | `list` |
 | `description` | `""` | `string` |
@@ -5291,6 +5293,7 @@ ipsec
       "retransmit_jitter": "",
       "retransmit_limit": "",
       "reqid_base": "",
+      "retry_initiate_interval": "30",
       "syslog": {
         "daemon": {
           "ike_name": "1",
@@ -5317,11 +5320,10 @@ ipsec
               "selected": 0
             },
             "4": {
-              "value": "Also include sensitive material in dumps, e.g. keys",
 (parse error)
 ```
 
-> Response size: 18511 bytes
+> Response size: 18550 bytes
 
 ---
 
@@ -5994,7 +5996,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "364ce83a-fac2-4b9a-8dab-6d580602b02d",
+  "uuid": "97bc9ee7-1f0a-44c5-b942-fc74f596213e",
   "enabled": "0",
   "recipient": "root@localhost.local",
   "noton": "0",
@@ -6036,8 +6038,8 @@ uuid
 | `interface` | enum | `enum`: **, opt3, opt1, lan, opt2 |
 | `start` | `""` | `string` |
 | `stop` | `""` | `string` |
-| `tests` | enum | `enum`: 1e72c2e5-8b6c-410a-9797-7250b423e58f, b79c543a-04d2-4897-a606-4f84716e26a6, e9e6f1e3-ce78-4d75-8081-b01dec46789f, 2bd4c794-fb58-4569-8013-9e1010c20443, be209948-ba74-413b-85ed-3c2bca58bfc3, 803dbe0e-581d-4ad8-acea-80f46ec35649, 5e138702-263c-4a7d-bbc9-610d96f1c556, c0edbc43-17ad-4db1-971c-cead8335562c, b6db889e-9429-4c5d-acf6-1c97eff5acfd, a329fabc-7bd6-49e0-918b-fb4c24ab293b, 6492c0ca-a8fe-473e-9378-c8449cc31f0f |
-| `depends` | enum | `enum`: 98e0cb03-cccb-4b30-8e1b-2fc7b2e008fc, b9fa3071-bd77-4db8-a369-079347d3e83f, 7d358d8f-db1d-4046-af06-9eb5a77656dd, 4f23fe33-f3d5-4cc6-a986-5e45fa2cb428 |
+| `tests` | enum | `enum`: 949b255e-7a9e-47c0-baa4-8f27fc6aba33, 8f899891-ec73-46d4-99b1-47427bc94d97, aa58d067-e199-40ae-80f7-2e76a010a0fe, d3688c58-2202-488d-b699-06067990789f, 8c90d270-8882-40d1-930f-d40cd3376d28, 8bf525f2-8b16-4cc4-a383-494b73921c28, 4ea86065-7cb4-451b-b66a-969adfe2eb15, 9ceaf238-6f8d-428a-84fe-946a22424a51, 733b3e39-9ccf-427b-9314-ba5f716a9ac0, 5de177a5-37ae-4375-addc-c43949f0bdb0, e48b92d9-b18e-4594-aef7-8037c8078700 |
+| `depends` | enum | `enum`: bd934019-5446-4b29-a6ef-3b53fd07d5fd, 0713fa6d-7b6d-4213-9224-69a1150cfad9, 72d4bd8c-feee-4655-9295-b9612e46549c, 17988da5-0faa-463f-8ee0-6ffc59198bc0 |
 | `polltime` | `""` | `string` |
 
 > 16 fields discovered
@@ -6080,7 +6082,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "98e0cb03-cccb-4b30-8e1b-2fc7b2e008fc",
+  "uuid": "bd934019-5446-4b29-a6ef-3b53fd07d5fd",
   "enabled": "1",
   "name": "$HOST",
   "description": "",
@@ -6095,7 +6097,7 @@ uuid
   "interface": "",
   "start": "",
   "stop": "",
-  "tests": "803dbe0e-581d-4ad8-acea-80f46ec35649,b79c543a-04d2-4897-a606-4f84716e26a6,e9e6f1e3-ce78-4d75-8081-b01dec46789f,2bd4c794-fb58-4569-8013-9e1010c20443",
+  "tests": "8bf525f2-8b16-4cc4-a383-494b73921c28,8f899891-ec73-46d4-99b1-47427bc94d97,aa58d067-e199-40ae-80f7-2e76a010a0fe,d3688c58-2202-488d-b699-06067990789f",
   "%tests": "MemoryUsage, CPUUsage, LoadAvg1, LoadAvg5",
   "depends": "",
   "polltime": ""
@@ -6181,7 +6183,7 @@ monit
       "mmonitRegisterCredentials": "1"
     },
     "alert": {
-      "364ce83a-fac2-4b9a-8dab-6d580602b02d": {
+      "97bc9ee7-1f0a-44c5-b942-fc74f596213e": {
         "enabled": "0",
         "recipient": "root@localhost.local",
         "noton": "0",
@@ -6294,7 +6296,7 @@ uuid
 **First row sample:**
 ```json
 {
-  "uuid": "1e72c2e5-8b6c-410a-9797-7250b423e58f",
+  "uuid": "949b255e-7a9e-47c0-baa4-8f27fc6aba33",
   "name": "ChangedStatus",
   "type": "ProgramStatus",
   "condition": "changed status",
@@ -6393,7 +6395,7 @@ uuid
 | `route` | enum | `enum`: ** |
 | `push_route` | enum | `enum`: ** |
 | `push_excluded_routes` | enum | `enum`: ** |
-| `cert` | enum | `enum`: **, 6ac19fa548497 |
+| `cert` | enum | `enum`: **, 6aee1be3a0e41 |
 | `crl` | enum | `enum`: ** |
 | `ca` | enum | `enum`: ** |
 | `cert_depth` | enum | `enum`: **, 1, 2, 3, 4, 5 |
@@ -6701,7 +6703,7 @@ weight
   "current_loss_interval": "4",
   "data_length": "",
   "current_data_length": "1",
-  "uuid": "3578fa8f-f4ab-496a-8776-e9a9d4c726c5",
+  "uuid": "e72596d2-51a1-4aa6-a0a3-09e77c1499da",
   "if": "vtnet1",
   "attribute": 0,
   "virtual": false,
@@ -6739,7 +6741,7 @@ gateways
 {
   "gateways": {
     "gateway_item": {
-      "3578fa8f-f4ab-496a-8776-e9a9d4c726c5": {
+      "e72596d2-51a1-4aa6-a0a3-09e77c1499da": {
         "disabled": "0",
         "name": "OOB_GW",
         "descr": "OOB management gateway",
@@ -6823,7 +6825,7 @@ gateways
 | `level` | enum | `enum`: debug, info, notice, warn, err, crit, alert, emerg |
 | `facility` | enum | `enum`: kern, user, mail, daemon, auth, syslog, lpr, news, uucp, cron, authpriv, ftp, ntp, security, console, local0, local1, local2, local3, local4, local5, local6, local7 |
 | `hostname` | `""` | `string` |
-| `certificate` | enum | `enum`: **, 6ac19fa548497 |
+| `certificate` | enum | `enum`: **, 6aee1be3a0e41 |
 | `port` | `"514"` | `int-like string` |
 | `rfc5424` | `"0"` | `string-bool` |
 | `description` | `""` | `string` |
@@ -7086,8 +7088,8 @@ valid_to
 **First row sample:**
 ```json
 {
-  "uuid": "ca9d4bd0-649f-48cc-acb7-9ffdf838f21c",
-  "refid": "6ac19fa548497",
+  "uuid": "674cb7af-be97-489f-b383-dc4ca2a674f5",
+  "refid": "6aee1be3a0e41",
   "descr": "Web GUI TLS certificate",
   "caref": "",
   "crt": "<SCRUBBED:base64>",
@@ -7117,15 +7119,15 @@ valid_to
   "altnames_ip": "",
   "altnames_uri": "",
   "altnames_email": "",
-  "crt_payload": "-----BEGIN CERTIFICATE-----\nMIIHcjCCBVqgAwIBAgIUaHS4a1uNhp1tH2XY7+gxjLXCLggwDQYJKoZIhvcNAQEL\nBQAwgZ4xMjAwBgNVBAMMKXZtLW9wbnMtc2NyYXRjaC0wMS5zY3JhdGNoLmJ5LXJl\nc2VhcmNoLmJlMQswCQYDVQQGEwJOTDEVMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUw\nEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTArBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2ln\nbmVkIHdlYiBjZXJ0aWZpY2F0ZTAeFw0yNjEwMDQwMDM2NTZaFw0yNzExMDUwMDM2\nNTZaMIGeMTIwMAYDVQQDDCl2bS1vcG5zLXNjcmF0Y2gtMDEuc2NyYXRjaC5ieS1y\nZXNlYXJjaC5iZTELMAkGA1UEBhMCTkwxFTATBgNVBAgMDFp1aWQtSG9sbGFuZDEV\nMBMGA1UEBwwMTWlkZGVsaGFybmlzMS0wKwYDVQQKDCRPUE5zZW5zZSBzZWxmLXNp\nZ25lZCB3ZWIgY2VydGlmaWNhdGUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK\nAoICAQC5srXOwJ3W76oZSdf/fZiDha5Q84DB/R8NITgi4QDAtlbmzjVxe5+u5e74\nET0HHs58Eh1i4BvWpeOIHTc4/PUYbYVhfEMY4DkHPkY3Yiou7pUq1V3P6Nzha+cr\nHerhdq4gNx8cjEm6794Q8oor+aOnGu73wbkQcZD3Hr+83hqpha3+FVfcDQqQZ4SD\nZBi3yiWV3Lr5LA2c03sgBRCY6Iq7CeZAnpN4vkoxkdeAqXZ/J5/RfUXulFtgqIAD\nkB8coLXoh9cEj5hTAdGDwX28EeBROWWTfM4uql6zevPLx6QLNCVRyWYsE9F69Duc\n4h8ZV5XqPKIGcK9xTLHhPlprMmWZUlUiJ8Lf88jzIvR0pgvRCR885x8FVRY9CD44\n33lnAV3srWYI9rHS2fk8wa24oFMm+CbfsAM3igbrf1IteOFC+v7yxD3vMXzfCGzk\nkKYAwb/UXhv90WDeMIoufVFISacMW7QVWtqqfY0Js2tnFoAY1Z6mdmioePL5vVAr\n4gRvBevsz0WDa1xYgFmze4OT56enlBNKqlfMDHUG/lu4eRhz6nAXdey/c0Orxdwn\n18lTt51/7rmqEAUaneBqIbcaOkPY7rBhutWFFJIumCjtWVfwfdUolLRlgtipL5rt\nDbU9xAmKmy8FQQh9Z8ARVx//PQOjNcEK2YBlTscfjgM34Ot6YQIDAQABo4IBpDCC\nAaAwCQYDVR0TBAIwADARBglghkgBhvhCAQEEBAMCBkAwNAYJYIZIAYb4QgENBCcW\nJU9QTnNlbnNlIEdlbmVyYXRlZCBTZXJ2ZXIgQ2VydGlmaWNhdGUwHQYDVR0OBBYE\nFIwp2ftFAUeeMr5MK8w51zgoz8l2MIHIBgNVHSMEgcAwgb2hgaSkgaEwgZ4xMjAw\nBgNVBAMMKXZtLW9wbnMtc2NyYXRjaC0wMS5zY3JhdGNoLmJ5LXJlc2VhcmNoLmJl\nMQswCQYDVQQGEwJOTDEVMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxN\naWRkZWxoYXJuaXMxLTArBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBj\nZXJ0aWZpY2F0ZYIUaHS4a1uNhp1tH2XY7+gxjLXCLggwHQYDVR0lBBYwFAYIKwYB\nBQUHAwEGCCsGAQUFCAICMAsGA1UdDwQEAwIFoDA0BgNVHREELTArgil2bS1vcG5z\nLXNjcmF0Y2gtMDEuc2NyYXRjaC5ieS1yZXNlYXJjaC5iZTANBgkqhkiG9w0BAQsF\nAAOCAgEAHjSy+FrbdFx3x2T0DfdCwjAlJtkdVs6RNuMZwCPGdXSHOTiz2ul4pZg6\n6f22qsEImzw3hfTKVmGfkJqxggXf9KR6+HBYuDOhBgjySPNqEI6BgqZmrv2cVtMe\nHsuxsPSyAgMcy86716KFQ54/I6kuK7w0Yck7YDeWoqES+LC7SDgxkrZm8D6lFPG4\nanYIRXQCoMSfvpE7ma9vqcL0fLHOYg20ffgj3U8V179rr4j6tWNZ8EtcZknY/YS0\nF8ShCpsje9/BrWsr9CelHgA7RP/7zAvDlz+xCrdz8yJ+ZKXDZtNGC4bW14bPrmA3\nJjcXiVTTmrx7xz6Yp/Kifwxi7BFh7k74s24skzxvbEjjnAF/FVJWcEbx0BrOuMfV\njhmoN2e0T3GY2ll3IxYQQLIMnRfRjSr6hEBlpz/X80kP2gB+gGx6aYRToCozXfrW\nk4u1b8OvU2xBMHl6S1hWGH7uCXqc2m+f75kXGKRjWaFTi8LMb5BQEF8Ukw2ALmMl\nYXB4muEEu4dEUpOYy6Pl1+WqMjRjU8S/DZtDQkL5r6Px58IrPxrcnJjgQUihibZ7\nnkAFszSjILC9OTK7c7FaGt5pnMTt+wzKvs/vv/QL6noNsq+GpF3PtsY/LNYdG05D\nT1Xpyi1FTpb+11FjqOTRz0cRfpYPwPdGtzPbM3iNGgMyq6Fmf+Y=\n-----END CERTIFICATE-----\n",
+  "crt_payload": "-----BEGIN CERTIFICATE-----\nMIIHcjCCBVqgAwIBAgIUHyUBAsQnnknkhRoioKKJVRDwVf4wDQYJKoZIhvcNAQEL\nBQAwgZ4xMjAwBgNVBAMMKXZtLW9wbnMtc2NyYXRjaC0wMS5zY3JhdGNoLmJ5LXJl\nc2VhcmNoLmJlMQswCQYDVQQGEwJOTDEVMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUw\nEwYDVQQHDAxNaWRkZWxoYXJuaXMxLTArBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2ln\nbmVkIHdlYiBjZXJ0aWZpY2F0ZTAeFw0yNjExMDYxODI2NDRaFw0yNzEyMDgxODI2\nNDRaMIGeMTIwMAYDVQQDDCl2bS1vcG5zLXNjcmF0Y2gtMDEuc2NyYXRjaC5ieS1y\nZXNlYXJjaC5iZTELMAkGA1UEBhMCTkwxFTATBgNVBAgMDFp1aWQtSG9sbGFuZDEV\nMBMGA1UEBwwMTWlkZGVsaGFybmlzMS0wKwYDVQQKDCRPUE5zZW5zZSBzZWxmLXNp\nZ25lZCB3ZWIgY2VydGlmaWNhdGUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK\nAoICAQDeYi+O5LsoZK1A0MPC3dGifFNsKctqCidyVJfDyT1tkLm1tEGfB5/+7Zxv\nez0cs5QPwf6J2lqSIw2IycrDeVzlcyPEWgnF/Vi53960OQWqqmJKkmIFoTX1vEwI\nb0qQbQ1WO+PvdzQASyzNdeF9z2K21xC9lrn7lwfX3jIfk38KNGyshWqJjL5HaEUC\n856P8OziCwjy3gLbZ3j+AZlucCSGbWDPdvOPjOHPycTr9gr7pcYy/quogR/pjTZi\n4TlgkKn6XORTTZOAvdNnObK5uf9Jpj9i+52H0RPWHE+rQb6UuXpqEybMXw1l7TyG\nh5QW7mxRVVQ48IEVCxeQZ+4oDHch7ERSSqCfpN/54bbxedIH72yxMIx4xi5qrLfa\nf0BCMtAAELSpFNUAWF31NsxsBPYQgAIYxOzsiS2oOdy9m9k7y1EnG5Ub6AekGREO\nCrkZhJRaUMQOanvmvHKnd7XYMijl4qiDXCstLdSn3BnkDSohpvAaZNm9lS/4pEHB\n9UY4zlRRYSSJl6VaF+GexigXNfk14kYL2qrRbMaywfuaBIdmbMK/ovJhRPxHVbC0\nqFMkD8mw3nYiiY0cq9l4MDbiIPaiIUoIGSk8OYELyPVUTOAm+eJJ8UfEbk9e/OS7\nt6HHjmHghjpAPCbjD4G7W1ioc2eMUWHvT0eFJ1Jlv58UrYJzkwIDAQABo4IBpDCC\nAaAwCQYDVR0TBAIwADARBglghkgBhvhCAQEEBAMCBkAwNAYJYIZIAYb4QgENBCcW\nJU9QTnNlbnNlIEdlbmVyYXRlZCBTZXJ2ZXIgQ2VydGlmaWNhdGUwHQYDVR0OBBYE\nFO7BoZ07uH9avKjSH/SfnXxqioP1MIHIBgNVHSMEgcAwgb2hgaSkgaEwgZ4xMjAw\nBgNVBAMMKXZtLW9wbnMtc2NyYXRjaC0wMS5zY3JhdGNoLmJ5LXJlc2VhcmNoLmJl\nMQswCQYDVQQGEwJOTDEVMBMGA1UECAwMWnVpZC1Ib2xsYW5kMRUwEwYDVQQHDAxN\naWRkZWxoYXJuaXMxLTArBgNVBAoMJE9QTnNlbnNlIHNlbGYtc2lnbmVkIHdlYiBj\nZXJ0aWZpY2F0ZYIUHyUBAsQnnknkhRoioKKJVRDwVf4wHQYDVR0lBBYwFAYIKwYB\nBQUHAwEGCCsGAQUFCAICMAsGA1UdDwQEAwIFoDA0BgNVHREELTArgil2bS1vcG5z\nLXNjcmF0Y2gtMDEuc2NyYXRjaC5ieS1yZXNlYXJjaC5iZTANBgkqhkiG9w0BAQsF\nAAOCAgEA08aEQcL0vSpK4cTL6VIO5J0SSDoXO0n1Ua8NA+20KtTOwnhgnpgtE10v\nE6kSFh7d2mZFwqItXJEAtewzmK6MGJfkNOuOay93/qD/WWunNNSlSUOubkLYSkK1\nTtdL0+YoWHuFPWNeOc6FhQlHbS9shGLExrAe5k4gBMlq9zD1mHaIPaOLZS7rnGVX\nS2HUyEPR3272cfcQsCIARdn5QFXii5V7h7jQT43JnF73abBJLVlCRBRN2KRlu/Wo\n4w1xMYX5dG6jPmrVpOHCo4VrAq1y5TfESbo+YeslwXWOF8zHP7sWv7YVktu9INHA\nOeGQA1+aSjpW+YXDse1uUbsIdXPX6ifDQhWslsWR6IWbVQT8PY8Smtn8DHMm65DA\nleCjjq6ZydkYt0DrihthHGUvHS3VXEyeKqwByg7BndMcymwJsMf66yYBhE4VcUpp\njmJzUJ4+uprn/LgkZtsNhp3DpPjzi9yc4RkGRvyQxwSRHAqKZBm1+7F5ioFvkbE/\nwR3ZAqhbEQe4PXFGFPi0L+EENM/n/+DYATS/w9zN7BOgSD1TNxen26vNGZhiUOVx\nwUU8oF/3TUARTiwBLOKaXcpjDABuT+uJ0i37qjRD/C6qq+Lu+PAdp93vrJ33Gsus\n6VAd9XIkAIWZiBaSoO9UmZTbRJMbsqQKDs2Gcf3a70lOpIgQUvg=\n-----END CERTIFICATE-----\n",
   "csr_payload": "",
   "prv_payload": "<REDACTED:prv_payload>",
   "rfc3280_purpose": "id-kp-serverAuth",
   "in_use": "1",
   "is_user": "0",
   "name": "/CN=vm-opns-scratch-01.scratch.example.com/C=NL/ST=Zuid-Holland/L=Middelharnis/O=OPNsense self-signed web certificate",
-  "valid_from": "1791074216",
-  "valid_to": "1825375016"
+  "valid_from": "1793989604",
+  "valid_to": "1828290404"
 }
 ```
 
@@ -7574,7 +7576,7 @@ status
 | Field | Default | Type (inferred) |
 |-------|---------|-----------------|
 | `enabled` | `"1"` | `string-bool` |
-| `type` | enum | `enum`: atf, ag, el, ep, sb, yy, hgz001, hgz002, hgz003, hgz005, hgz007, oisd0, oisd1, oisd2, hgz011, hgz009, hgz010, hgz014, hgz015, hgz016, hgz017, hgz018, hgz019, hgz022, hgz004, hgz006, hgz008, hgz012, hgz013, hgz020, hgz021 |
+| `type` | enum | `enum`: ag, el, ep, sb, yy, hgz001, hgz002, hgz003, hgz005, hgz007, oisd0, oisd1, oisd2, hgz011, hgz009, hgz010, hgz014, hgz015, hgz016, hgz017, hgz018, hgz019, hgz022, hgz004, hgz006, hgz008, hgz012, hgz013, hgz020, hgz021 |
 | `lists` | enum | `enum`: ** |
 | `allowlists` | enum | `enum`: ** |
 | `blocklists` | enum | `enum`: ** |
@@ -8081,5 +8083,5 @@ total
 
 ---
 
-> Generated: 2026-10-04T01:13:19Z | OPNsense `26.7.5`
+> Generated: 2026-11-06T18:40:13Z | OPNsense `26.7.8_2`
 > Script: `tools/opnsense/scripts/build-api-schema-audit.sh`

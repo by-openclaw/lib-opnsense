@@ -1,0 +1,8 @@
+{
+  "items": {
+    "this": {
+      "description": "This Firewall",
+      "dirname": "/conf/backup"
+    }
+  }
+}

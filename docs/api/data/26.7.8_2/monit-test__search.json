@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "uuid": "949b255e-7a9e-47c0-baa4-8f27fc6aba33",
+      "name": "ChangedStatus",
+      "type": "ProgramStatus",
+      "condition": "changed status",
+      "action": "alert",
+      "%action": "Alert",
+      "path": ""
+    },
+    {
+      "uuid": "8f899891-ec73-46d4-99b1-47427bc94d97",
+      "name": "CPUUsage",
+      "type": "SystemResource",
+      "condition": "cpu usage is greater than 75%",
+      "action": "alert",
+      "%action": "Alert",
+      "path": ""
+    },
+    {
+      "uuid": "aa58d067-e199-40ae-80f7-2e76a010a0fe",
+      "name": "LoadAvg1",
+      "type": "SystemResource",
+      "condition": "loadavg (1min) is greater than 4",
+      "action": "alert",
+      "%action": "Alert",
+      "path": ""
+    },
+    {
+      "uuid": "d3688c58-2202-488d-b699-06067990789f",
+      "name": "LoadAvg5",
+      "type": "SystemResource",
+      "condition": "loadavg (5min) is greater than 3",
+      "action": "alert",
+      "%action": "Alert",
+      "path": ""
+    },
+    {
+      "uuid": "8c90d270-8882-40d1-930f-d40cd3376d28",
+      "name": "LoadAvg15",
+      "type": "SystemResource",
+      "condition": "loadavg (15min) is greater than 2",
+      "action": "alert",
+      "%action": "Alert",
+      "path": ""
+    }
+  ],
+  "rowCount": 5,
+  "total": 11,
+  "current": 1
+}

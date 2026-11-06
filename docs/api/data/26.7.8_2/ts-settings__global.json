@@ -1,0 +1,13 @@
+{
+  "ts": {
+    "pipes": {
+      "pipe": []
+    },
+    "queues": {
+      "queue": []
+    },
+    "rules": {
+      "rule": []
+    }
+  }
+}
