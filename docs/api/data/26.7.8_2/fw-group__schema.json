@@ -1,0 +1,30 @@
+{
+  "group": {
+    "ifname": "",
+    "members": {
+      "opt3": {
+        "value": "FAB",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "LAN_TRUNK",
+        "selected": 0
+      },
+      "lo0": {
+        "value": "Loopback",
+        "selected": 0
+      },
+      "lan": {
+        "value": "OOB",
+        "selected": 0
+      },
+      "opt2": {
+        "value": "SCRATCH",
+        "selected": 0
+      }
+    },
+    "nogroup": "0",
+    "sequence": "0",
+    "descr": ""
+  }
+}

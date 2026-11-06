@@ -1,0 +1,140 @@
+{
+  "service": {
+    "enabled": "0",
+    "name": "",
+    "description": "",
+    "type": {
+      "process": {
+        "value": "Process",
+        "selected": 0
+      },
+      "file": {
+        "value": "File",
+        "selected": 0
+      },
+      "fifo": {
+        "value": "Fifo",
+        "selected": 0
+      },
+      "filesystem": {
+        "value": "Filesystem",
+        "selected": 0
+      },
+      "directory": {
+        "value": "Directory",
+        "selected": 0
+      },
+      "host": {
+        "value": "Remote Host",
+        "selected": 0
+      },
+      "system": {
+        "value": "System",
+        "selected": 0
+      },
+      "custom": {
+        "value": "Custom",
+        "selected": 0
+      },
+      "network": {
+        "value": "Network",
+        "selected": 0
+      }
+    },
+    "pidfile": "",
+    "match": "",
+    "path": "",
+    "timeout": "300",
+    "starttimeout": "30",
+    "address": "",
+    "interface": {
+      "": {
+        "value": "None",
+        "selected": 1
+      },
+      "opt3": {
+        "value": "FAB",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "LAN_TRUNK",
+        "selected": 0
+      },
+      "lan": {
+        "value": "OOB",
+        "selected": 0
+      },
+      "opt2": {
+        "value": "SCRATCH",
+        "selected": 0
+      }
+    },
+    "start": "",
+    "stop": "",
+    "tests": {
+      "949b255e-7a9e-47c0-baa4-8f27fc6aba33": {
+        "value": "ChangedStatus",
+        "selected": 0
+      },
+      "8f899891-ec73-46d4-99b1-47427bc94d97": {
+        "value": "CPUUsage",
+        "selected": 0
+      },
+      "aa58d067-e199-40ae-80f7-2e76a010a0fe": {
+        "value": "LoadAvg1",
+        "selected": 0
+      },
+      "d3688c58-2202-488d-b699-06067990789f": {
+        "value": "LoadAvg5",
+        "selected": 0
+      },
+      "8c90d270-8882-40d1-930f-d40cd3376d28": {
+        "value": "LoadAvg15",
+        "selected": 0
+      },
+      "8bf525f2-8b16-4cc4-a383-494b73921c28": {
+        "value": "MemoryUsage",
+        "selected": 0
+      },
+      "4ea86065-7cb4-451b-b66a-969adfe2eb15": {
+        "value": "NetworkLink",
+        "selected": 0
+      },
+      "9ceaf238-6f8d-428a-84fe-946a22424a51": {
+        "value": "NetworkSaturation",
+        "selected": 0
+      },
+      "733b3e39-9ccf-427b-9314-ba5f716a9ac0": {
+        "value": "NonZeroStatus",
+        "selected": 0
+      },
+      "5de177a5-37ae-4375-addc-c43949f0bdb0": {
+        "value": "Ping",
+        "selected": 0
+      },
+      "e48b92d9-b18e-4594-aef7-8037c8078700": {
+        "value": "SpaceUsage",
+        "selected": 0
+      }
+    },
+    "depends": {
+      "bd934019-5446-4b29-a6ef-3b53fd07d5fd": {
+        "value": "$HOST",
+        "selected": 0
+      },
+      "0713fa6d-7b6d-4213-9224-69a1150cfad9": {
+        "value": "carp_status_change",
+        "selected": 0
+      },
+      "72d4bd8c-feee-4655-9295-b9612e46549c": {
+        "value": "gateway_alert",
+        "selected": 0
+      },
+      "17988da5-0faa-463f-8ee0-6ffc59198bc0": {
+        "value": "RootFs",
+        "selected": 0
+      }
+    },
+    "polltime": ""
+  }
+}

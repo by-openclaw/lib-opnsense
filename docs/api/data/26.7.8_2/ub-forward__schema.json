@@ -1,0 +1,22 @@
+{
+  "dot": {
+    "enabled": "1",
+    "type": {
+      "dot": {
+        "value": "DNS over TLS",
+        "selected": 1
+      },
+      "forward": {
+        "value": "Forward",
+        "selected": 0
+      }
+    },
+    "domain": "",
+    "server": "",
+    "port": "",
+    "verify": "",
+    "forward_tcp_upstream": "0",
+    "forward_first": "0",
+    "description": ""
+  }
+}

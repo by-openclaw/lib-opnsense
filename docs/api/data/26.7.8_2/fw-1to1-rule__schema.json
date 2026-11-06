@@ -1,0 +1,73 @@
+{
+  "rule": {
+    "enabled": "1",
+    "log": "0",
+    "sequence": "100",
+    "sort_order": "",
+    "prio_group": "",
+    "interface": {
+      "opt3": {
+        "value": "FAB",
+        "selected": 0
+      },
+      "opt1": {
+        "value": "LAN_TRUNK",
+        "selected": 0
+      },
+      "lan": {
+        "value": "OOB",
+        "selected": 0
+      },
+      "opt2": {
+        "value": "SCRATCH",
+        "selected": 0
+      }
+    },
+    "type": {
+      "binat": {
+        "value": "BINAT",
+        "selected": 1
+      },
+      "nat": {
+        "value": "NAT",
+        "selected": 0
+      }
+    },
+    "source_net": "",
+    "source_not": "0",
+    "destination_net": "any",
+    "destination_not": "0",
+    "external": "",
+    "natreflection": {
+      "": {
+        "value": "Default",
+        "selected": 1
+      },
+      "enable": {
+        "value": "Enable",
+        "selected": 0
+      },
+      "disable": {
+        "value": "Disable",
+        "selected": 0
+      }
+    },
+    "categories": [],
+    "description": "",
+    "audit": {
+      "created": {
+        "username": "",
+        "time": "",
+        "description": ""
+      },
+      "updated": {
+        "username": "",
+        "time": "",
+        "description": ""
+      },
+      "userdata": {
+        "note": ""
+      }
+    }
+  }
+}

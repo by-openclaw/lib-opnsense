@@ -1,0 +1,18 @@
+{
+  "preSharedKey": {
+    "ident": "",
+    "remote_ident": "",
+    "keyType": {
+      "PSK": {
+        "value": "PSK",
+        "selected": 1
+      },
+      "EAP": {
+        "value": "EAP",
+        "selected": 0
+      }
+    },
+    "Key": "",
+    "description": ""
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "items": [
+    {
+      "name": "OOB_GW",
+      "address": "10.6.224.1",
+      "status": "none",
+      "loss": "~",
+      "delay": "~",
+      "stddev": "~",
+      "monitor": "~",
+      "status_translated": "Online"
+    }
+  ],
+  "status": "ok"
+}

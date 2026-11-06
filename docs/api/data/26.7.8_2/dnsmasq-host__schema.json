@@ -1,0 +1,42 @@
+{
+  "host": {
+    "host": "",
+    "domain": "",
+    "local": "0",
+    "ip": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "cnames": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "client_id": "",
+    "hwaddr": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    },
+    "lease_time": "",
+    "ignore": "0",
+    "set_tag": {
+      "": {
+        "value": "None",
+        "selected": 1
+      }
+    },
+    "descr": "",
+    "comments": "",
+    "aliases": {
+      "": {
+        "value": "",
+        "selected": 1
+      }
+    }
+  }
+}

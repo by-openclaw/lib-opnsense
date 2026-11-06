@@ -1,0 +1,7 @@
+{
+  "vtnet4": "FAB",
+  "vtnet0": "LAN_TRUNK",
+  "lo0": "Loopback",
+  "vtnet1": "OOB",
+  "vlan2999": "SCRATCH"
+}

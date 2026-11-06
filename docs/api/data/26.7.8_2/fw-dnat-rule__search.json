@@ -1,0 +1,133 @@
+{
+  "total": 3,
+  "rowCount": 3,
+  "current": 1,
+  "rows": [
+    {
+      "uuid": "automatic_pf_1",
+      "ipprotocol": "",
+      "%ipprotocol": "*",
+      "protocol": "tcp",
+      "%protocol": "TCP",
+      "disabled": "0",
+      "nordr": "1",
+      "interface": "lan",
+      "%interface": "OOB",
+      "source.network": "",
+      "source.port": "",
+      "source.not": "0",
+      "destination.network": "lanip",
+      "destination.port": "80",
+      "destination.not": "0",
+      "target": "",
+      "local-port": "",
+      "natreflection": "",
+      "descr": "Anti-lockout; prevent redirects for protected ports to this interface address",
+      "is_automatic": true,
+      "ref": "system_advanced_firewall.php#noantilockout",
+      "sort_order": "100000.0000001",
+      "prio_group": "100000",
+      "category_colors": [],
+      "alias_meta_destination.network": [
+        {
+          "value": "lanip",
+          "%value": "OOB address",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination.port": [
+        {
+          "value": "80",
+          "%value": "80",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "uuid": "automatic_pf_2",
+      "ipprotocol": "",
+      "%ipprotocol": "*",
+      "protocol": "tcp",
+      "%protocol": "TCP",
+      "disabled": "0",
+      "nordr": "1",
+      "interface": "lan",
+      "%interface": "OOB",
+      "source.network": "",
+      "source.port": "",
+      "source.not": "0",
+      "destination.network": "lanip",
+      "destination.port": "443",
+      "destination.not": "0",
+      "target": "",
+      "local-port": "",
+      "natreflection": "",
+      "descr": "Anti-lockout; prevent redirects for protected ports to this interface address",
+      "is_automatic": true,
+      "ref": "system_advanced_firewall.php#noantilockout",
+      "sort_order": "100000.0000002",
+      "prio_group": "100000",
+      "category_colors": [],
+      "alias_meta_destination.network": [
+        {
+          "value": "lanip",
+          "%value": "OOB address",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination.port": [
+        {
+          "value": "443",
+          "%value": "443",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "uuid": "automatic_pf_3",
+      "ipprotocol": "",
+      "%ipprotocol": "*",
+      "protocol": "tcp",
+      "%protocol": "TCP",
+      "disabled": "0",
+      "nordr": "1",
+      "interface": "lan",
+      "%interface": "OOB",
+      "source.network": "",
+      "source.port": "",
+      "source.not": "0",
+      "destination.network": "lanip",
+      "destination.port": "22222",
+      "destination.not": "0",
+      "target": "",
+      "local-port": "",
+      "natreflection": "",
+      "descr": "Anti-lockout; prevent redirects for protected ports to this interface address",
+      "is_automatic": true,
+      "ref": "system_advanced_firewall.php#noantilockout",
+      "sort_order": "100000.0000003",
+      "prio_group": "100000",
+      "category_colors": [],
+      "alias_meta_destination.network": [
+        {
+          "value": "lanip",
+          "%value": "OOB address",
+          "isAlias": false,
+          "description": ""
+        }
+      ],
+      "alias_meta_destination.port": [
+        {
+          "value": "22222",
+          "%value": "22222",
+          "isAlias": false,
+          "description": ""
+        }
+      ]
+    }
+  ]
+}
