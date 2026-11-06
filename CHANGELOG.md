@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.1](https://github.com/by-openclaw/lib-opnsense/compare/v1.4.0...v1.4.1) (2026-11-06)
+
+
+### Documentation
+
+* **26.7.8_2:** API schema probe — one change from 26.7.5 ([183e92c](https://github.com/by-openclaw/lib-opnsense/commit/183e92c2db967196e5ba0ddb9c3b012da7ebc7fa))
+* **26.7.8_2:** firmware pass from 26.7.5 — one optional IPsec field, nothing to port ([37c540d](https://github.com/by-openclaw/lib-opnsense/commit/37c540d9c12486b77618919ca7eadf701f8318b2))
+* **26.7.8_2:** the delta from 26.7.5 — one optional IPsec field, nothing to port ([8bb40d6](https://github.com/by-openclaw/lib-opnsense/commit/8bb40d6cc440012957f1da9017b673848a6a372d))
+
 ## [1.4.0](https://github.com/by-openclaw/lib-opnsense/compare/v1.3.0...v1.4.0) (2026-10-04)
 
 
